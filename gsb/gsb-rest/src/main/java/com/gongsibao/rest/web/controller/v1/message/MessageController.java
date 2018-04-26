@@ -101,12 +101,31 @@ public class MessageController extends BaseController{
             data.setMsg("mobile 为空！");
             return data;
         }
-        if (StringUtils.isBlank(originalId(request))) {
+        accountService.pushOrderStateMsg(mobile,orderPorudctId);
+        data.setCode(200);
+        data.setMsg("发送成功");
+        return data;
+    }
+
+
+    @RequestMapping(value = "/saveOrderMsg", method = RequestMethod.GET)
+    public ResponseData saveOrderMsg(
+            HttpServletRequest request,
+            @RequestParam("mobile") String mobile,
+            @RequestParam("orderPorudctId") Integer orderPorudctId
+    ) {
+        ResponseData data = new ResponseData();
+        if (null == orderPorudctId) {
             data.setCode(500);
-            data.setMsg("originalId 为空！");
+            data.setMsg("orderId 为空！");
             return data;
         }
-        accountService.pushOrderStateMsg(originalId(request),mobile,orderPorudctId);
+        if (StringUtils.isBlank(mobile)) {
+            data.setCode(500);
+            data.setMsg("mobile 为空！");
+            return data;
+        }
+        accountService.saveOrderMsg(mobile,orderPorudctId);
         data.setCode(200);
         data.setMsg("发送成功");
         return data;

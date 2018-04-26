@@ -149,8 +149,13 @@ public class AccountService implements IAccountService {
      * @date 2018/4/18 17:25
      */
     @Override
-    public void pushOrderStateMsg(String originalId, String mobile, Integer orderPorudctId) {
-        accountWeiXinService.pushOrderStateMsg(originalId, mobile, orderPorudctId);
+    public void pushOrderStateMsg( String mobile, Integer orderPorudctId) {
+        accountWeiXinService.pushOrderStateMsg( mobile, orderPorudctId);
+    }
+
+    @Override
+    public void saveOrderMsg(String mobile, Integer orderPorudctId) {
+        accountWeiXinService.saveOrderMsg( mobile, orderPorudctId);
     }
 
     @Override

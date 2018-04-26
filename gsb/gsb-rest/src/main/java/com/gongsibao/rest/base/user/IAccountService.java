@@ -31,7 +31,9 @@ public interface IAccountService {
 
     void updateTicket(Integer id,String ticket);
 
-    void pushOrderStateMsg(String originalId,String mobile, Integer orderPorudctId);
+    void pushOrderStateMsg(String mobile, Integer orderPorudctId);
+
+    void saveOrderMsg(String mobile, Integer orderPorudctId);
 
     void buySuccessSendMsg(Integer accountId,String moeny,String productName,String first,String url);
 

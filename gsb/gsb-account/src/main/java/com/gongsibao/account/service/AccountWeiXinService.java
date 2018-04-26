@@ -5,6 +5,8 @@ import com.gongsibao.account.base.IAccountWeiXinService;
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.acount.AccountWeiXin;
 import com.gongsibao.entity.acount.AccountWxMsg;
+import com.gongsibao.utils.DateUtils;
+import com.gongsibao.utils.SecurityUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
@@ -23,6 +25,8 @@ import org.netsharp.wx.pa.base.IPublicAccountService;
 import org.netsharp.wx.pa.entity.Fans;
 import org.netsharp.wx.pa.entity.PublicAccount;
 
+import java.io.UnsupportedEncodingException;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -300,6 +304,17 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
                     data.getKeynotes().put("remark", new KeyNote(""));
                     data.setRemark(new KeyNote(""));
                 }
+            } else if (tmpId.getEmpId().equals(AccountWxMsg.ORDER_SUCCESS.getEmpId())) {
+                data.getFirst().setValue(first);
+                data.getKeynotes().put("keyword1", new KeyNote(keyword1));
+                data.getKeynotes().put("keyword2", new KeyNote(keyword2));
+                data.getKeynotes().put("keyword3", new KeyNote(date));
+                if (StringUtils.isNotEmpty(remark)) {
+                    data.getKeynotes().put("remark", new KeyNote(remark));
+                } else {
+                    data.getKeynotes().put("remark", new KeyNote(""));
+                    data.setRemark(new KeyNote(""));
+                }
             }
         }
         //拼接消息内容
@@ -337,7 +352,75 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
             request.setTemplate_id_short(shortTmpId);
         }
         AddTemplateResponse response = request.getResponse();
-        System.out.println(response.getTemplate_id());
         return response.getTemplate_id();
     }
+
+    @Override
+    public void pushOrderStateMsg(String mobile, Integer orderPorudctId) {
+        //取用户信息
+        Account account=accountService.byMobile(mobile);
+        //取微信用户openid
+        Fans accountWeiXin = this.queryFansByUserId(account.getId());
+        if(null!=accountWeiXin){
+            PublicAccount publicAccount=queryByFansId(accountWeiXin);
+            this.pushOrderStateMsg(publicAccount.getOriginalId(),mobile,orderPorudctId);
+        }
+    }
+
+
+    @Override
+    public void saveOrderMsg(String mobile, Integer orderPorudctId) {
+        //取用户信息
+        Account account=accountService.byMobile(mobile);
+        //取微信用户openid
+        Fans accountWeiXin = this.queryFansByUserId(account.getId());
+        if(null!=accountWeiXin){
+            PublicAccount publicAccount=queryByFansId(accountWeiXin);
+            this.saveOrderMsg(publicAccount.getOriginalId(),mobile,orderPorudctId);
+        }
+    }
+
+    /**
+     * @Description:TODO 根据粉丝id 获取公众号id
+     * @param  accountWeiXin
+     * @return org.netsharp.wx.pa.entity.PublicAccount
+     * @author hbpeng <hbpeng@gongsibao.com>
+     * @date 2018/4/26 16:01
+     */
+    private PublicAccount queryByFansId(Fans accountWeiXin){
+
+        IPublicAccountService publicAccountService = ServiceFactory.create(IPublicAccountService.class);
+        //取公众号配置
+        PublicAccount weixinConfig = publicAccountService.byId(accountWeiXin.getPublicAccountId());
+        return weixinConfig;
+    }
+
+    private void saveOrderMsg(String originalId, String mobile, Integer pkid) {
+        String sql = "select * from so_order  where pkid=? ";
+        QueryParameters qps = new QueryParameters();
+        qps.add("@pkid", pkid, Types.INTEGER);
+        ResultSet rs = this.pm.executeReader(sql, qps);
+        String proName = null;
+        String orderNo = null;
+        Integer payablePrice=null;
+        String addTime=null;
+        try {
+            if (rs.next()) {
+                proName = rs.getString("prod_name");
+                orderNo = rs.getString("no");
+                payablePrice = rs.getInt("payable_price");
+                addTime= DateUtils.getDateStr(rs.getDate("add_time")) ;
+            }
+            if (null != proName && null != orderNo) {
+                //取用户信息
+                Account account = accountService.byMobile(mobile);
+                this.pushTextMsgByOriginalId(originalId, account.getId(), "您的订单已创建成功,产品[" + proName + "]", orderNo, String.valueOf(payablePrice), addTime, "/index.html#/orderDetails/" + SecurityUtils.rc4Encrypt(pkid), null, AccountWxMsg.ORDER_SUCCESS);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 }
