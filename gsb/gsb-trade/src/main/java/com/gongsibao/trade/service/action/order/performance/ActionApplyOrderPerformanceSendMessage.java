@@ -51,7 +51,7 @@ public class ActionApplyOrderPerformanceSendMessage  implements IAction{
 		for (String tel:
 				tels) {
 			if (!StringManager.isNullOrEmpty(tel)){
-				String content = String.format("【订单业绩待审核提醒】您好，【业务员%s】提交1个订单业绩申请待您审核，订单编号为【%s】，请及时审核", UserHelper.getEmployeeName(soOrder.getOwnerId()), soOrder.getNo());
+				String content = String.format("【订单业绩待审核提醒】您好，【%s】提交1个订单业绩申请待您审核，订单编号为【%s】，请及时审核",UserHelper.getEmployeeName(soOrder.getOwnerId()),soOrder.getNo());
 				SmsHelper.send(tel, content);//电话和内容
 			}
 

@@ -1,6 +1,8 @@
 package com.gongsibao.trade.service.action.order.performance.pay;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
@@ -23,12 +25,9 @@ public class ActionApplyPayPerformanceAudit implements IAction {
 		List<NDepPay> depPayList = (List<NDepPay>) ctx.getItem();
 		AbstractAuditLogService auditLogHandler = AuditFactory.getAudit(PayPerformanceAudit.class);
 		List<AuditLog> auditLogList = auditLogHandler.execute(depPayList.get(0).getOrderId ());//插入的是订单id
-		
-		/****
-		 * 
-		 * 
-		 * 
-		 * 
-		 */
+
+		Map<String, Object> statusMap = new HashMap();
+		statusMap.put ("audits", auditLogList);
+		ctx.setStatus (statusMap);
 	}
 }
