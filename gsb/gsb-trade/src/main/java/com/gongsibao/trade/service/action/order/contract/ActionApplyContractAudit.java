@@ -1,6 +1,7 @@
 package com.gongsibao.trade.service.action.order.contract;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +25,7 @@ public class ActionApplyContractAudit implements IAction {
 		// 合同
 		Contract contract = (Contract) ctx.getItem();
 		Integer userId = SessionManager.getUserId();
-		Map<String, Object> status = ctx.getStatus();
+
 		// 合同审核
 		AbstractAuditLogService auditLogService = AuditFactory.getAudit(ContractAudit.class);
 		List<AuditLog> auditLogList = auditLogService.execute(contract.getId());
@@ -36,8 +37,10 @@ public class ActionApplyContractAudit implements IAction {
 				audiUserIdList.add(auditLog.getCreatorId());
 			}
 		}
-		// 需要发通知的人员id
-		status.put("audiUserIdList", audiUserIdList);
+		// 推送消息
+		Map<String, Object> statusMap = new HashMap();
+		statusMap.put ("audits", auditLogList);
+		ctx.setStatus (statusMap);
 
 	}
 }
