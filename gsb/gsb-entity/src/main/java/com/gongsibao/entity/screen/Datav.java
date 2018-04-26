@@ -1,10 +1,9 @@
 package com.gongsibao.entity.screen;
 
-import com.gongsibao.entity.BaseEntity;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
-import java.util.Date;
+import com.gongsibao.entity.BaseEntity;
 
 @Table(name = "screen_datav", header = "大屏数据")
 public class Datav extends BaseEntity {
@@ -19,10 +18,7 @@ public class Datav extends BaseEntity {
 
     @Column(name="content",header="json内容")
     private String content;
-
-    @Column(name="upd_time",header="修改时间")
-    private Date updTime;
-
+    
     public Integer getScreenId() {
         return screenId;
     }
@@ -45,13 +41,5 @@ public class Datav extends BaseEntity {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public Date getUpdTime() {
-        return updTime;
-    }
-
-    public void setUpdTime(Date updTime) {
-        this.updTime = updTime;
     }
 }
