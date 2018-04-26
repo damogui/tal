@@ -409,7 +409,7 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
                 proName = rs.getString("prod_name");
                 orderNo = rs.getString("no");
                 payablePrice = rs.getInt("payable_price");
-                addTime= DateUtils.getDateStr(rs.getDate("add_time")) ;
+                addTime= DateUtils.getDateStr(rs.getTimestamp("add_time")) ;
             }
             if (null != proName && null != orderNo) {
                 //取用户信息
