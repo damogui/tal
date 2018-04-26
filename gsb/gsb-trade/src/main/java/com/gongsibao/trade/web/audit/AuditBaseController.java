@@ -10,7 +10,7 @@ import org.netsharp.core.Oql;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.trade.base.INOrderCarryoverService;
-import com.gongsibao.trade.base.ISoOrderService;
+import com.gongsibao.u8.base.ISoOrderService;
 import org.netsharp.organization.entity.Employee;
 
 public abstract class AuditBaseController {

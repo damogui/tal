@@ -15,7 +15,7 @@ import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.supplier.base.ISupplierService;
 import com.gongsibao.trade.base.IContractService;
 import com.gongsibao.trade.web.SalesmanAllOrderListPart;
-import com.gongsibao.trade.base.ISoOrderService;
+import com.gongsibao.u8.base.ISoOrderService;
 
 /**
  * @ClassName: AllOrderListPart

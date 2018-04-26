@@ -5,7 +5,7 @@ import org.netsharp.panda.commerce.ListPart;
 
 import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.dic.PayReceiptStatus;
-import com.gongsibao.trade.base.IPayService;
+import com.gongsibao.u8.base.IPayService;
 
 public class PayReceiptCheckDTOController extends ListPart {
 

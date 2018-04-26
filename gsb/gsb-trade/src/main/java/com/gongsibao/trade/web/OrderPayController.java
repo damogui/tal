@@ -22,7 +22,7 @@ import com.gongsibao.entity.u8.U8Bank;
 import com.gongsibao.trade.base.IOrderPayMapService;
 import com.gongsibao.trade.base.IPayService;
 import com.gongsibao.u8.base.ISetOfBooksService;
-import com.gongsibao.trade.base.ISoOrderService;
+import com.gongsibao.u8.base.ISoOrderService;
 import com.gongsibao.u8.base.IU8BankService;
 
 public class OrderPayController {

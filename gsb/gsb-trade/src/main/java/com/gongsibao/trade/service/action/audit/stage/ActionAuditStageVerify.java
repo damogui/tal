@@ -16,7 +16,7 @@ import com.gongsibao.entity.bd.dic.AuditLogStatusType;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.IAuditService;
-import com.gongsibao.trade.base.ISoOrderService;
+import com.gongsibao.u8.base.ISoOrderService;
 
 public class ActionAuditStageVerify implements IAction{
 

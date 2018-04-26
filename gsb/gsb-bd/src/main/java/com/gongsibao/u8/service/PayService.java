@@ -1,10 +1,10 @@
-package com.gongsibao.trade.service;
+package com.gongsibao.u8.service;
 
 import java.sql.Types;
 
 import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.entity.trade.dic.PayOfflineInstallmentType;
-import com.gongsibao.trade.base.IOrderPayMapService;
+import com.gongsibao.u8.base.IOrderPayMapService;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
@@ -13,7 +13,7 @@ import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.dic.PayReceiptStatus;
-import com.gongsibao.trade.base.IPayService;
+import com.gongsibao.u8.base.IPayService;
 
 @Service
 public class PayService extends PersistableService<Pay> implements IPayService {

@@ -25,7 +25,7 @@ import com.gongsibao.product.base.IProductService;
 import com.gongsibao.trade.base.IOrderProdOrganizationMapService;
 import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IOrderProdUserMapService;
-import com.gongsibao.trade.base.ISoOrderService;
+import com.gongsibao.u8.base.ISoOrderService;
 import com.gongsibao.utils.NumberUtils;
 
 /**

@@ -6,7 +6,7 @@ import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.InvoiceContentType;
 import com.gongsibao.entity.trade.dic.InvoiceType;
 import com.gongsibao.trade.base.IOrderInvoiceMapService;
-import com.gongsibao.trade.base.ISoOrderService;
+import com.gongsibao.u8.base.ISoOrderService;
 import com.gongsibao.utils.NumberUtils;
 import com.gongsibao.utils.RegexUtils;
 import org.apache.commons.collections.CollectionUtils;

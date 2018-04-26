@@ -1,4 +1,4 @@
-package com.gongsibao.cms.base;
+package com.gongsibao.dingtalkrobot.base;
 
 import com.gongsibao.entity.crm.NCustomer;
 import org.netsharp.base.IPersistableService;

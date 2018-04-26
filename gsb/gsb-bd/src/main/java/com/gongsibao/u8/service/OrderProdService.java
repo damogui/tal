@@ -1,7 +1,7 @@
-package com.gongsibao.trade.service;
+package com.gongsibao.u8.service;
 
 import com.gongsibao.entity.trade.OrderProd;
-import com.gongsibao.trade.base.IOrderProdService;
+import com.gongsibao.u8.base.IOrderProdService;
 import org.netsharp.communication.Service;
 import org.netsharp.service.PersistableService;
 

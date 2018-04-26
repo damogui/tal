@@ -7,7 +7,7 @@ import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.IOrderService;
-import com.gongsibao.trade.base.ISoOrderService;
+import com.gongsibao.u8.base.ISoOrderService;
 
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;

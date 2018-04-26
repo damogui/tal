@@ -11,7 +11,7 @@ import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.OrderType;
 import com.gongsibao.trade.base.ICompanyIntentionService;
 import com.gongsibao.trade.base.ICustomerCompanyMapService;
-import com.gongsibao.trade.base.ISoOrderService;
+import com.gongsibao.u8.base.ISoOrderService;
 import com.gongsibao.utils.NumberUtils;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;

@@ -6,7 +6,7 @@ import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.ContractType;
 import com.gongsibao.entity.trade.dic.CustomerType;
 import com.gongsibao.trade.base.IContractService;
-import com.gongsibao.trade.base.ISoOrderService;
+import com.gongsibao.u8.base.ISoOrderService;
 import com.gongsibao.utils.NumberUtils;
 import com.gongsibao.utils.RegexUtils;
 import org.netsharp.action.ActionContext;

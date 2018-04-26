@@ -23,7 +23,7 @@ import org.netsharp.panda.commerce.FormPart;
 import com.gongsibao.entity.trade.Invoice;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.IInvoiceService;
-import com.gongsibao.trade.base.ISoOrderService;
+import com.gongsibao.u8.base.ISoOrderService;
 
 public class InvoiceFormPart extends FormPart {
 

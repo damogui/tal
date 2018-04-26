@@ -1,4 +1,4 @@
-package com.gongsibao.trade.service;
+package com.gongsibao.u8.service;
 
 import java.sql.Types;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.OrderManualVoucherStatus;
 import com.gongsibao.supplier.base.ISalesmanService;
-import com.gongsibao.trade.base.ISoOrderService;
+import com.gongsibao.u8.base.ISoOrderService;
 import com.gongsibao.utils.NumberUtils;
 
 @Service

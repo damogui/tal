@@ -7,7 +7,7 @@ import org.netsharp.panda.commerce.ListPart;
 
 import com.gongsibao.entity.trade.SoOrderVoucherFollow;
 import com.gongsibao.entity.trade.dic.OrderManualVoucherStatus;
-import com.gongsibao.trade.base.ISoOrderService;
+import com.gongsibao.u8.base.ISoOrderService;
 import com.gongsibao.u8.base.ISoOrderVoucherFollowService;
 
 public class ManualVoucherOrderDTOController extends ListPart {

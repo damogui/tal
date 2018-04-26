@@ -10,7 +10,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import com.gongsibao.bd.base.IAuditLogService;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.dto.SoOrderDTO;
-import com.gongsibao.trade.base.ISoOrderService;
+import com.gongsibao.u8.base.ISoOrderService;
 
 public class ResourceTest extends ResourceCreationBase {
 

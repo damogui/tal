@@ -1,7 +1,7 @@
-package com.gongsibao.trade.service;
+package com.gongsibao.u8.service;
 
 import com.gongsibao.entity.trade.OrderPayMap;
-import com.gongsibao.trade.base.IOrderPayMapService;
+import com.gongsibao.u8.base.IOrderPayMapService;
 import org.netsharp.communication.Service;
 import org.netsharp.core.Oql;
 import org.netsharp.service.PersistableService;
