@@ -9,4 +9,7 @@ import java.util.Map;
 public interface ICustomerService extends IPersistableService<NCustomer> {
 
     Map<Integer, NCustomer> findMapByAccountIds(List<Integer> accountIdList);
+
+    NCustomer getByAccount(Integer accountId);
+
 }

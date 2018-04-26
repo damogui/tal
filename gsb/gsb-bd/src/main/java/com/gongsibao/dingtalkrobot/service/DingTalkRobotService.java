@@ -5,6 +5,9 @@ import com.gongsibao.dingtalkrobot.base.ICustomerService;
 import com.gongsibao.dingtalkrobot.base.IDingTalkRobotService;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.NCustomer;
+import com.gongsibao.entity.supplier.Salesman;
+import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.entity.supplier.dict.SupplierType;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.OrderProdUserMap;
 import com.gongsibao.entity.trade.SoOrder;
@@ -13,6 +16,8 @@ import com.gongsibao.redis.base.IRedisAliyunService;
 import com.gongsibao.redis.dto.ConstantCache;
 import com.gongsibao.screen.base.IScreenDatavService;
 import com.gongsibao.stat.dto.StatBillboard;
+import com.gongsibao.supplier.base.ISalesmanService;
+import com.gongsibao.supplier.base.ISupplierService;
 import com.gongsibao.u8.base.IOrderProdService;
 import com.gongsibao.u8.base.ISoOrderProdUserMapService;
 import com.gongsibao.u8.base.ISoOrderService;
@@ -29,6 +34,9 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.organization.base.IEmployeeService;
+import org.netsharp.organization.entity.Employee;
+import org.netsharp.util.StringManager;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -53,6 +61,12 @@ public class DingTalkRobotService implements IDingTalkRobotService {
     private ICustomerService crmCustomerService = ServiceFactory.create(ICustomerService.class);
 
     private IRedisAliyunService redisAliyunService = ServiceFactory.create(IRedisAliyunService.class);
+
+    private ISupplierService supplierService = ServiceFactory.create(ISupplierService.class);
+
+    private ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
+
+    private IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
 
     private String ADVERTISEMENT = "http://gsb-public.oss-cn-beijing.aliyuncs.com/99a787bf6f235a37cb0fe8730e6954d1.png";
 
@@ -419,36 +433,78 @@ public class DingTalkRobotService implements IDingTalkRobotService {
      */
     private int autoPostMsgInGroupCallSomeone(Map<String, Object> condition) {
         String token = MapUtils.getString(condition, "token", null);
+        String ywyMobile = null;
+        String atMobile = null;
+        Set<String> ywyNames = new HashSet<>();
         if (StringUtils.isBlank(token)) {
             return -2;
         }
-
         Integer orderId = MapUtils.getInteger(condition, "orderId", 0);
-
         SoOrder soOrder = soOrderService.getByOrderId(orderId);
         if (soOrder == null) return -3;
-
+        Employee salesman = employeeService.byId(soOrder.getOwnerId());
+        if (salesman == null || salesman.getDisabled()) {
+            return -6;
+        }
+        //订单服务商
+        Supplier supplier = supplierService.getById(NumberUtils.toInt(soOrder.getSupplierId()));
+        if (supplier == null) {
+            return -11;//服务商存在
+        }
+        if (!supplier.getType().equals(SupplierType.SELFSUPPORT)) {
+            return -12;//非自营的不播报
+        }
+        Employee boss = supplier.getAdmin();
+        if (boss == null || boss.getDisabled()) {
+            return -13;//服务商大领导不存在
+        }
         //屏蔽曹玉玺
         if (soOrder.getAccountId() == 95608) return -10;
-
         if (orderId == 0) return -2;
-
-        List<OrderProd> prodList = soOrderProdService.findOrderProdByOrderIds(Arrays.asList(orderId));
-
+        List<OrderProd> prodList = soOrderProdService.getByOrderId(orderId);
         if (CollectionUtils.isEmpty(prodList)) {
             return -1;
         }
+        String prodName = getProductName(prodList);
+        if (StringManager.isNullOrEmpty(prodName)) {
+            return -5;
+        }
+        if (StringUtils.isBlank(ywyMobile)) {
+            ywyMobile = "\"" + salesman.getMobile() + "\",\"" + boss.getMobile() + "\"";
+            atMobile = "@" + salesman.getMobile() + "@" + boss.getMobile();
+            ywyNames.add(salesman.getName());
+            ywyNames.add(boss.getName());
+        } else {
+            if (atMobile.indexOf(salesman.getMobile()) == -1) {
+                ywyMobile += "," + "\"" + salesman.getMobile() + "\"";
+                atMobile += "@" + salesman.getMobile();
+                ywyNames.add(salesman.getName());
+            }
+            if (atMobile.indexOf(salesman.getMobile()) == -1) {
+                ywyMobile += "," + "\"" + salesman.getMobile() + "\",\"" + boss.getMobile() + "\"";
+                atMobile += "@" + salesman.getMobile() + "@" + boss.getMobile();
+                ywyNames.add(salesman.getName());
+                ywyNames.add(boss.getName());
+            }
+        }
+        if (StringManager.isNullOrEmpty(ywyMobile)) {
+            return -6;
+        }
+        if (StringManager.isNullOrEmpty(atMobile)) {
+            return -14;
+        }
+        //region 老代码
+        //List<Dict> orgList = bdDictService.byType(493);
+        //Map<Integer, String> officeMap = new HashMap<>();
 
-        Map<Integer, String> officeMap = new HashMap<>();
-        List<Dict> orgList = bdDictService.byType(493);
-
-        for (Dict item : orgList) {
+        /*for (Dict item : orgList) {
             if (item.getId() > 49300 && item.getId() < 49316) {   //分公司office统计只取这个区间的id
                 officeMap.put(item.getId(), item.getName());
             }
-        }
+        }*/
 
-        Map<Integer, NCustomer> crmCustomerMap = crmCustomerService.findMapByAccountIds(Arrays.asList(soOrder.getAccountId()));
+
+        /*Map<Integer, NCustomer> crmCustomerMap = crmCustomerService.findMapByAccountIds(Arrays.asList(soOrder.getAccountId()));
 
         List<User> ucUserList = ucUserService.findByRole("YWY", 1);
         if (CollectionUtils.isEmpty(ucUserList)) {
@@ -465,15 +521,12 @@ public class DingTalkRobotService implements IDingTalkRobotService {
         List<Integer> prodIds = new ArrayList<>();
         for (OrderProd item : prodList) {
             prodIds.add(item.getId());
-        }
+        }*/
 
-        Map<Integer, List<OrderProdUserMap>> prodUserMap = soOrderProdUserMapService.findYWYByOrderProdIds(prodIds);
+        //Map<Integer, List<OrderProdUserMap>> prodUserMap = soOrderProdUserMapService.findYWYByOrderProdIds(prodIds);
 
-        String msg = null;
-        String ywyMobile = null;
-        String atMobile = null;
-        Set<String> ywyNames = new HashSet<>();
-        for (OrderProd item : prodList) {
+
+        /*for (OrderProd item : prodList) {
             List<OrderProdUserMap> prodUserMaps = (ArrayList) MapUtils.getObject(prodUserMap, item.getId(), new ArrayList<>());
             if (CollectionUtils.isEmpty(prodUserMaps)) continue;
 
@@ -515,18 +568,17 @@ public class DingTalkRobotService implements IDingTalkRobotService {
                     ywyNames.add(bossUser.getName());
                 }
             }
-        }
+        }*/
 
-        if (StringUtils.isBlank(msg)) {
+        /*if (StringUtils.isBlank(msg)) {
             return -5;
-        }
+        }*/
 
-        if (StringUtils.isBlank(ywyMobile)) {
+        /*if (StringUtils.isBlank(ywyMobile)) {
             return -6;
-        }
-
-        NCustomer crm = (NCustomer) MapUtils.getObject(crmCustomerMap, soOrder.getAccountId(), null);
-
+        }*/
+        //endregion
+        NCustomer crm = crmCustomerService.getByAccount(soOrder.getAccountId());
         String customerName;
         if (crm == null) {
             customerName = "******";
@@ -534,38 +586,40 @@ public class DingTalkRobotService implements IDingTalkRobotService {
             if (StringUtils.isNotBlank(crm.getRealName())) {
                 Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$");
                 Matcher m = p.matcher(crm.getRealName());
-
                 if (m.matches()) {
                     customerName = crm.getRealName().substring(0, 5) + "******";
                 } else {
                     customerName = crm.getRealName();
                 }
-
             } else if (StringUtils.isNotBlank(crm.getMobile())) {
                 customerName = crm.getMobile().substring(0, 5) + "******";
             } else {
                 customerName = "vip客户";
             }
         }
-
-        String combinationStr = "客户 **" + customerName + "** 已经下单! 下单内容为：" + msg + ", 请及时跟进";
-
+        String combinationStr = "客户 **" + customerName + "** 已经下单! 下单内容为：" + prodName + ", 请及时跟进";
         String textMsg = "{ \"msgtype\": \"markdown\", \"markdown\": {\"title\": \"新单通知\",\"text\": \" **新单通知** " + atMobile + "\\n > " + combinationStr + "\\n > ###### " + DateUtils.dateStr(new Date(), "yyyy-MM-dd HH:mm:ss") + " 发布 [公司宝](http://www.gongsibao.com/) \\n \"}, \"at\": {\"atMobiles\":[" + ywyMobile + "],\"isAtAll\":false}}";
-
         postToRobot(textMsg, token);
-
-        String readMsg = "新单通知：" + StringUtils.join(ywyNames, ",") + "，您的客户" + customerName + "已经下单! 下单内容为：" + msg + ", 请及时跟进";
-
-
+        String readMsg = "新单通知：" + StringUtils.join(ywyNames, ",") + "，您的客户" + customerName + "已经下单! 下单内容为：" + prodName + ", 请及时跟进";
         try {
             boolean bool = redisAliyunService.put("new_order_" + orderId, readMsg, ConstantCache.TIME_ONE_DAY);
             //log.info("******************************** robot new_order=" + orderId + ", redis put=" + bool + ", reaadMsg=" + readMsg );
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         //log.info("******************************** robot new_order=" + orderId + ", reaadMsg=" + readMsg);
         return 0;
+    }
+
+    private String getProductName(List<OrderProd> prodList) {
+        String prodName = "";
+        for (OrderProd orderProd : prodList) {
+            prodName += orderProd.getProduct() + ",";
+        }
+        if (prodName.endsWith(",")) {
+            prodName = StringManager.substring(prodName, 0, prodName.length() - 1);
+        }
+        return prodName;
     }
 
     //markdown格式
