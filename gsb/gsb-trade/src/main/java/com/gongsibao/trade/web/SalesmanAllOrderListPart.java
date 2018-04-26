@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.lang.model.element.VariableElement;
-
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.trade.base.ICompanyIntentionService;
 import org.netsharp.communication.ServiceFactory;

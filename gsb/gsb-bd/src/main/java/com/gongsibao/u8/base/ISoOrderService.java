@@ -53,4 +53,6 @@ public interface ISoOrderService extends IPersistableService<SoOrder> {
 //    /*是否可以订单业绩type=0   是否可以创建回款业绩  type=1*/
 //    Integer checkCanOrderPer(Integer orderId,Integer type);
 
+    List<SoOrder> findByPayTime(String beginTime,String endTime);
+
 }

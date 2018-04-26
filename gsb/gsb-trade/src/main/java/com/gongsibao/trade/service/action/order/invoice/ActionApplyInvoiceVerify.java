@@ -1,12 +1,10 @@
 package com.gongsibao.trade.service.action.order.invoice;
 
-import com.gongsibao.entity.trade.Contract;
 import com.gongsibao.entity.trade.OrderInvoiceMap;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.InvoiceContentType;
 import com.gongsibao.entity.trade.dic.InvoiceType;
-import com.gongsibao.trade.base.IInvoiceService;
 import com.gongsibao.trade.base.IOrderInvoiceMapService;
 import com.gongsibao.u8.base.ISoOrderService;
 import com.gongsibao.utils.NumberUtils;

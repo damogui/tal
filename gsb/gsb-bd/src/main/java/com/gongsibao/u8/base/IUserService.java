@@ -9,5 +9,9 @@ import com.gongsibao.entity.uc.User;
 
 public interface IUserService extends IPersistableService<User> {
 
-   Map<Integer, String> getOperatorByOrderIds(List<Integer> orderIdList);
+    Map<Integer, String> getOperatorByOrderIds(List<Integer> orderIdList);
+
+    List<User> findByRole(String code, Integer isInner);
+
+    Map<Integer, User> findMapByIds(List<Integer> userIds);
 }

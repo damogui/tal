@@ -1,5 +1,7 @@
 package com.gongsibao.utils;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -192,6 +194,42 @@ public class DateUtils {
 		sunday.setFirstDayOfWeek(FIRST_DAY_OF_WEEK);
 		sunday.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
 		return sunday.getTime();
+	}
+
+	/**
+	 * 转换日期格式字符串
+	 *
+	 * @param obj
+	 * @param pattern
+	 * @return
+	 */
+	public static String dateStr(Object obj, String pattern) {
+		if (null == obj) {
+			return "";
+		}
+		DateFormat df = new SimpleDateFormat(pattern);
+		return df.format(obj);
+	}
+
+	/**
+	 * 字符串转换成java.util.Date (yyyy-MM-dd HH:mm:ss)
+	 *
+	 * @param str (yyyy-MM-dd HH:mm:ss)
+	 * @return
+	 */
+	public static Date strToDateTime(String str) {
+		if (RegexUtils.isNotDate(str)) {
+			throw new RuntimeException("str is not datetime");
+		}
+		Date date = null;
+		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
+			date = sdf.parse(str);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		return date;
 	}
 
 	/**

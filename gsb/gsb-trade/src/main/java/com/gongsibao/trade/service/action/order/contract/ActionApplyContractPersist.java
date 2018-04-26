@@ -2,9 +2,7 @@ package com.gongsibao.trade.service.action.order.contract;
 
 import com.gongsibao.bd.base.IFileService;
 import com.gongsibao.entity.bd.File;
-import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.trade.Contract;
-import com.gongsibao.entity.trade.Invoice;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
@@ -14,9 +12,7 @@ import com.gongsibao.u8.base.ISoOrderService;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
-import org.netsharp.base.IPersistableService;
 import org.netsharp.communication.ServiceFactory;
-import org.netsharp.util.ReflectManager;
 
 /**
  * Created by zhangchao on 2018/3/21.

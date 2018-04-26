@@ -1,7 +1,6 @@
 package com.gongsibao.trade.service.action.order.contract;
 
 import com.gongsibao.entity.trade.Contract;
-import com.gongsibao.entity.trade.Invoice;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.ContractType;

@@ -44,4 +44,14 @@ public class UserService extends PersistableService<User> implements IUserServic
 
 		return resMap;
 	}
+
+	@Override
+	public List<User> findByRole(String code, Integer isInner) {
+		return null;
+	}
+
+	@Override
+	public Map<Integer, User> findMapByIds(List<Integer> userIds) {
+		return null;
+	}
 }
