@@ -379,7 +379,7 @@ div.h10{
 
 .combobox-item-selected {
     background-color: #428bca;
-    color: #fff;
+    color: #fff !important;
 }
 .switchbutton-on {
     background: #1f7bb6;
