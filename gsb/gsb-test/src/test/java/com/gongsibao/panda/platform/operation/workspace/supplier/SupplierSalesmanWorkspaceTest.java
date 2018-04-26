@@ -1,5 +1,6 @@
 package com.gongsibao.panda.platform.operation.workspace.supplier;
 
+import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.panda.dic.OpenMode;
 
@@ -29,5 +30,10 @@ public class SupplierSalesmanWorkspaceTest  extends SysSalesmanWorkspaceTest {
         productDetailResourceNodeCode = "GSB_Operation_Supplier_SALESMAN_Product";
         
         roleDetailResourceNodeCode = "GSB_Operation_Supplier_SALESMAN_ADDROLE";
+    }
+    
+    @Test
+    public void createRowToolbar() {
+    	
     }
 }
