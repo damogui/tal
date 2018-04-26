@@ -49,11 +49,6 @@ public class ActionAuditPerformanceSendMessage implements IAction {
 
             return;
         }
-
-        AbstractAuditLogService service = AuditFactory.getAudit(OrderPerformanceAudit.class);//获取要通知的电话
-        List<String> tels = service.getAuditPassTel();
-
-
         switch (state.getValue()) {
             case 0://驳回审核
                 if (soOrder.getOwner() != null) {
