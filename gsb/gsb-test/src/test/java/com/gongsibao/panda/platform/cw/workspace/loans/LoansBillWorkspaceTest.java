@@ -258,7 +258,6 @@ public class LoansBillWorkspaceTest extends WorkspaceCreationBase {
 
 		}
 		workspace.getParts().add(part);
-
 	}
 
     
