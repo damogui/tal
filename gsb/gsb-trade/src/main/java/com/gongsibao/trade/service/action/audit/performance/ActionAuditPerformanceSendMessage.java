@@ -53,9 +53,9 @@ public class ActionAuditPerformanceSendMessage implements IAction {
             case 0://驳回审核
                 if (soOrder.getOwner() != null) {
 
-                    String content = String.format("【订单业绩审核提醒】您好，您有1个订单提交的订单业绩申请审核不通过，订单编号为【%s】，原因为【%S】,请知悉", soOrder.getOwner() == null ? "" : soOrder.getOwner().getName(), soOrder.getNo());
+                    String content = String.format("【订单业绩审核提醒】您好，您有1个订单提交的订单业绩申请审核不通过，订单编号为【%s】，原因为【%S】,请知悉", soOrder.getNo(),remark);
                     SmsHelper.send(soOrder.getOwner().getMobile(), content);//订单业务员
-                    sendAuditFail(soOrder.getId(), soOrder.getNo(), remark);//业绩相关业务员
+                    sendAuditFail(soOrder.getOwner().getName(),soOrder.getId(), soOrder.getNo(), remark);//业绩相关业务员
                 }
                 break;
             case 1://通过审核
@@ -63,7 +63,7 @@ public class ActionAuditPerformanceSendMessage implements IAction {
                     //通过审核
                     String content = String.format("【订单业绩审核提醒】您好，您有1个订单提交的订单业绩申请已审核通过，订单编号为【%s】，请知悉", soOrder.getNo());
                     SmsHelper.send(soOrder.getOwner().getMobile(), content);//订单业务员
-                    sendAuditPass(soOrder.getId(), soOrder.getNo());//业绩相关业务员
+                    sendAuditPass(soOrder.getOwner().getName(),soOrder.getId(), soOrder.getNo());//业绩相关业务员
                 } else {
                     //通知下一级
                     List<Integer> userIds = AuditHelper.getNextLevelUserIds(soOrder.getId(), auditLog.getType().getValue(), auditLog.getLevel() + 1);//获取下一级要通知的人 fromId
@@ -86,13 +86,13 @@ public class ActionAuditPerformanceSendMessage implements IAction {
     }
 
     /*审核通过*/
-    private void sendAuditPass(Integer id, String no) {
+    private void sendAuditPass(String owerName,Integer id, String no) {
 
 
         List<NDepReceivable> ndeps = ndepService.getNDepsByOrderId(id);
         for (NDepReceivable item : ndeps
                 ) {
-            String content = String.format("【订单业绩审核提醒】您好，您有1个订单提交的订单业绩申请已审核通过，订单编号为【%s】，请知悉", no);
+            String content = String.format("【订单业绩审核提醒】您好，【%s】分配给您的订单业绩，审核已通过，订单编号为【%S】，请知悉",owerName, no);
             SmsHelper.send(UserHelper.getEmployeTelById(item.getSalesmanId()), content);//电话和内容
 
         }
@@ -101,12 +101,12 @@ public class ActionAuditPerformanceSendMessage implements IAction {
     /*审核失败*/
     INDepReceivableService ndepService = ServiceFactory.create(INDepReceivableService.class);
 
-    private void sendAuditFail(Integer id, String orderNo, String remark) {
+    private void sendAuditFail(String owerName,Integer id, String orderNo, String remark) {
 
         List<NDepReceivable> ndeps = ndepService.getNDepsByOrderId(id);
         for (NDepReceivable item : ndeps
                 ) {
-            String content = String.format("【订单业绩审核提醒】您好，【业务员】分配给您的订单业绩，审核未通过，订单编号为【%S】，原因为【%S】,请知悉", orderNo, remark);
+            String content = String.format("【订单业绩审核提醒】您好，【%S】分配给您的订单业绩，审核未通过，订单编号为【%S】，原因为【%S】,请知悉", owerName,orderNo, remark);
             SmsHelper.send(UserHelper.getEmployeTelById(item.getSalesmanId()), content);//电话和内容
 
         }
