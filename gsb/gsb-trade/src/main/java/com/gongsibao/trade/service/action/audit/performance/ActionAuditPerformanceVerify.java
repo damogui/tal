@@ -58,7 +58,7 @@ public class ActionAuditPerformanceVerify implements IAction {
         }
         StringBuilder sb = new StringBuilder();
         sb.append("SoOrder.*,");
-        sb.append("SoOrder.owner.name");
+        sb.append("SoOrder.owner");
 
         SoOrder soOrder = orderService.getSoOrderById (auditLog.getFormId (),sb.toString());//订单
         if (soOrder == null) {
