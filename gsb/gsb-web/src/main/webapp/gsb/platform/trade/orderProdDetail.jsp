@@ -115,6 +115,10 @@
 		.file_panel #notUploadCount{
 			color:red;
 		}
+		
+		.moxie-shim{
+			left:290px !important;
+		}
 	</style>
 	<script src='/package/easyui/jquery.min.js'></script>
 	<script src='/package/layer/layer.js'></script>

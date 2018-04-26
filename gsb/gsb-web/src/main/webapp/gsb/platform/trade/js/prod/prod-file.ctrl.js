@@ -123,6 +123,7 @@ com.gongsibao.trade.web.FileCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
 				    		}else{
 
 				    			$('#other_file_row').hide();
+				    			$('#other_file_name').val('');
 				    		}
 				    	}
 				    });
