@@ -4,11 +4,13 @@ import com.gongsibao.account.base.IAccountService;
 import com.gongsibao.entity.acount.Account;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.NetsharpException;
+import org.netsharp.wx.mp.api.accesstoken.PaConfiguration;
 import org.netsharp.wx.mp.message.RequestMessage;
 import org.netsharp.wx.mp.message.ResponseMessage;
 import org.netsharp.wx.mp.message.request.event.EventRequest;
 import org.netsharp.wx.pa.IWeixinResponsor;
 import org.netsharp.wx.pa.base.IFansService;
+import org.netsharp.wx.pa.base.IPublicAccountService;
 import org.netsharp.wx.pa.entity.Fans;
 import org.netsharp.wx.pa.entity.PublicAccount;
 import org.netsharp.wx.pa.response.PublicAccountManager;
@@ -47,7 +49,8 @@ public class WxUnSubscribeResponse implements IWeixinResponsor {
      * @throws NetsharpException
      */
     public final ResponseMessage response(RequestMessage request) throws NetsharpException {
-        PublicAccount publicAccount = PublicAccountManager.getInstance().get(request.getToUserName()).getAccount();
+        IPublicAccountService publicAccountService=ServiceFactory.create(IPublicAccountService.class);
+        PublicAccount publicAccount = publicAccountService.byOriginalId(request.getToUserName());
         service.unsubscribe(request.getFromUserName(), publicAccount);
         Fans fans=service.byOpenId(request.getFromUserName());{
             if(null!=fans.getUserId()){
