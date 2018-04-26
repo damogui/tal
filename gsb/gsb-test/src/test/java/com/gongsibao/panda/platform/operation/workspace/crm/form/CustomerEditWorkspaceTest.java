@@ -321,6 +321,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 		ResourceNode node = this.resourceService.byCode(foolowDetailResourceNodeCode);
 		PDatagrid datagrid = new PDatagrid(node, "跟进日志");
 		{
+			datagrid.setNowrap(false);
 			datagrid.setShowCheckbox(false);
 			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
 			addColumn(datagrid, "creator", "创建人", ControlTypes.DATETIME_BOX, 100);
@@ -386,6 +387,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 		PDatagrid datagrid = new PDatagrid(node, "操作日志");
 		{
 			datagrid.setShowCheckbox(false);
+			datagrid.setNowrap(false);
 			// 子页面枚举显示需要格式化一下
 			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
 			addColumn(datagrid, "creator", "创建人", ControlTypes.DATETIME_BOX, 100);
@@ -415,6 +417,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 		{
 			part.setName("客户信息");
 			part.setDockStyle(DockType.TOP);
+			part.setStyle("height:320px;");
 		}
 	}
 

@@ -88,7 +88,11 @@ public class ProductPriceService implements IProductPriceService {
         // 默认取组织机构汉唐的
         int organizationId = 4;
         if (!organizationIds.contains(organizationId)) {
-            organizationId = organizationIds.iterator().next(); // 取第一个
+            if (organizationIds.contains(63)) {
+                organizationId = 63;
+            } else {
+                organizationId = organizationIds.iterator().next(); // 取第一个
+            }
         }
 
         // 封装DTO对象

@@ -87,6 +87,7 @@ public class SoOrder extends BaseEntity {
 
     @Column(name = "pay_time", header = "支付时间(完全通过审核)")
     private Date payTime;
+    
     @Column(name = "fist_pay_time", header = "首款审核日期")
     private Date fistPayTime;//默认为null有回款通过的时候更新时间
 
@@ -190,7 +191,7 @@ public class SoOrder extends BaseEntity {
     // 1053 驳回审核
     // 1054 审核通过
     @Column(name = "installment_audit_status_id", header = "分期支付审核状态：type=105")
-    private AuditStatusType installmentAuditStatusId = AuditStatusType.Dsh;
+    private AuditStatusType installmentAuditStatusId = AuditStatusType.wu;
 
 	/*
 	 * @Reference(foreignKey = "installmentAuditStatusId", header = "多次支付状态")
@@ -551,6 +552,10 @@ public class SoOrder extends BaseEntity {
     }
 
     public Integer getCompanyId() {
+        if (companyId==null){//防止报错
+            companyId=0;
+
+        }
         return companyId;
     }
 
@@ -885,6 +890,10 @@ public class SoOrder extends BaseEntity {
     }
 
 	public Integer getCarryIntoAmount() {
+        if (carryIntoAmount==null){
+            return 0;
+        }
+
 		return carryIntoAmount;
 	}
 

@@ -126,6 +126,8 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
         }
 
         addColumn(datagrid, "isLeader", "主管", ControlTypes.BOOLCOMBO_BOX, 80);
+        addColumn(datagrid, "isNotify", "接收消息", ControlTypes.BOOLCOMBO_BOX, 80);
+        
         addColumn(datagrid, "dayMax", "日分配上限", ControlTypes.TEXT_BOX, 80);
         addColumn(datagrid, "weekMax", "周分配上限", ControlTypes.TEXT_BOX, 80);
         addColumn(datagrid, "xabMax", "XAB类上限", ControlTypes.TEXT_BOX, 80);
@@ -147,7 +149,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
         addQueryItem(queryProject, "employee.mobile", "手机号", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "employee.loginName", "帐号", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "creator", "创建人", ControlTypes.TEXT_BOX);
-
+        addQueryItem(queryProject, "disabled", "停用状态", ControlTypes.BOOLCOMBO_BOX);
         return queryProject;
     }
 
@@ -184,9 +186,11 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
         addFormField(form, "receiving", "自动接受商机", groupName, ControlTypes.SWITCH_BUTTON, false, false);
 
         addFormField(form, "isLeader", "主管", groupName, ControlTypes.SWITCH_BUTTON, false, false);
-
+        
+        addFormField(form, "isNotify", "接收消息", groupName, ControlTypes.SWITCH_BUTTON, false, false);
+        
         addFormField(form, "disabled", "停用", groupName, ControlTypes.SWITCH_BUTTON, false, true);
-
+        
         groupName = "设置密码";
         formField = addFormField(form, "newPassword", "设置密码", groupName, ControlTypes.PASSWORDTEXT_BOX, false, false);
         {

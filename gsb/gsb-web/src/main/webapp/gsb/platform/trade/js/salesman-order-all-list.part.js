@@ -19,6 +19,99 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         this.addContractUrl = '/panda/trade/order/contract/form';//创建合同
         this.addInvoiceUrl = '/panda/trade/order/invoice/form';//创建发票 
     },
+    onload:function(){
+    	
+		this.bindKeyupEvent();
+    	this.setState();
+		this.setStyle();
+    },
+    getSupplierType:function(){
+    	
+    	return PandaHelper.Storage.byKey('SupplierType');//此值会在登录时存在sessionStorage中
+    },
+    //以下控制操作按钮状态，代理服务商不可使用，隐藏
+    getaddOrderReceivedState:function(){
+    	
+		var supplierType= this.getSupplierType();
+		if(supplierType == 2){
+			
+			return UiElementState.Hide;
+		}
+    	return UiElementState.Empty;
+    },
+//    getaddReceivedState:function(){
+//    	
+//    	var supplierType= this.getSupplierType();
+//		if(supplierType == 2){
+//			
+//			return UiElementState.Hide;
+//		}
+//    	return UiElementState.Empty;
+//    },
+    getaddPayPerformanceState:function(){
+    	
+    	var supplierType= this.getSupplierType();
+		if(supplierType == 2){
+			
+			return UiElementState.Hide;
+		}
+    	return UiElementState.Empty;
+    },
+//    getaddCarryoverState:function(){
+//    	
+//    	var supplierType= this.getSupplierType();
+//		if(supplierType == 2){
+//			
+//			return UiElementState.Hide;
+//		}
+//    	return UiElementState.Empty;
+//    },
+    getaddContractState:function(){
+    	
+    	var supplierType= this.getSupplierType();
+		if(supplierType == 2){
+			
+			return UiElementState.Hide;
+		}
+    	return UiElementState.Empty;
+    },
+//    getaddRefundState:function(){
+//    	
+//    	var supplierType= this.getSupplierType();
+//		if(supplierType == 2){
+//			
+//			return UiElementState.Hide;
+//		}
+//    	return UiElementState.Empty;
+//    },
+//    getaddStagingState:function(){
+//    	
+//    	var supplierType= this.getSupplierType();
+//		if(supplierType == 2){
+//			
+//			return UiElementState.Hide;
+//		}
+//    	return UiElementState.Empty;
+//    },
+    getaddInvoiceState:function(){
+    	
+    	var supplierType= this.getSupplierType();
+		if(supplierType == 2){
+			
+			return UiElementState.Hide;
+		}
+    	return UiElementState.Empty;
+    },
+    getbatchOrderTranState:function(){
+    	
+    	var supplierType= this.getSupplierType();
+		if(supplierType == 2){
+			
+			return UiElementState.Hide;
+		}
+    	return UiElementState.Empty;
+    },
+
     addPayPerformance: function () {
 
         var me = this;
@@ -378,7 +471,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         var serviceLocator = new org.netsharp.core.JServiceLocator();
         var url = this.addContractUrl + '?fk=orderId:' + row.id + "&isAdd=1";
         //增加订单是否创建合同
-        serviceLocator.invoke("com.gongsibao.trade.web.OrderAllListPart", "checkContract", [row.id], function (data) {
+        serviceLocator.invoke("com.gongsibao.trade.web.platform.AllOrderListPart", "checkContract", [row.id], function (data) {
             if (data == -1) {
                 IMessageBox.info('该订单已经创建合同，禁止提交合同');
                 return;
@@ -572,11 +665,32 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             var ctrl = workspace.parts.byIndex(0).key;
             return '<sapn>' + PandaHelper.dimString(value) + '</span><i class="fa fa-eye" onclick="' + ctrl + '.showPlaintext(\'' + row.customerId + '\',\'' + value + '\',\'' + typeName + '\',this);"></i>';
         }
-    }, showPlaintext: function (customerId, value, typeName, obj) {
+    },
+    showPlaintext: function (customerId, value, typeName, obj) {
         $(obj).parent().text(value);
         //var serviceLocator = new org.netsharp.core.JServiceLocator();
         //serviceLocator.invoke(this.context.service, "recordLookLog",[customerId,typeName]);
-    }
+    },
+    orderDel: function (id) {//删除
+        var rows = this.getSelections();
+        if (id == null && rows.length != 1) {
+            IMessageBox.info('请先选择一条订单数据');
+            return false;
+        }
+        this.invokeService("orderDel", [id], function (data) {
+            if(data=="1"){
+
+                IMessageBox.toast('删除成功');
+                realodCurrentPage("datagridsoOrderList");
+            }else{
+
+                layer.msg(data);
+            }
+
+        });
+
+
+    },
 
 });
 

@@ -25,7 +25,7 @@ public class ContractAudit extends AbstractAuditLogService {
         //Platform_Finance_HTCGZY 合同采购专员、Platform_Law_FWZY 法务_法务专员
         Integer level = getCurrentLevel();
         level++;
-        //财务_收退款专员
+        //合同采购专员审核
         List<Integer> stkzyIds = salesmanService.getEmployeeIdListByRoleCodes(Arrays.asList("Platform_Finance_HTCGZY"));
         for (Integer stkzyId : stkzyIds) {
             auditLogList.add(addAuditLog(formId, "合同采购专员审核", stkzyId, level));
@@ -51,5 +51,20 @@ public class ContractAudit extends AbstractAuditLogService {
     @Override
     protected String setActionPath() {
         return "gsb/crm/audit/contract";
+    }
+
+    @Override
+    public List<String> getAuditPassTel() {
+        return null;
+    }
+
+    @Override
+    public List<String> getAuditFailTel() {
+        return null;
+    }
+
+    @Override
+    public List<String> getAuditWaitTel(int level) {
+        return null;
     }
 }

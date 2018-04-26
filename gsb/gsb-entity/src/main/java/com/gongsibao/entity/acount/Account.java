@@ -1,6 +1,5 @@
 package com.gongsibao.entity.acount;
 
-import org.apache.commons.lang.StringUtils;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
@@ -64,12 +63,30 @@ public class Account extends BaseEntity {
     @Column(name = "openid", header = "openid")
     private String openid;
 
+    @Column(name = "is_weixin", header = "是否关注微信")
+    private String isWeiXin;
+
+    @Column(name = "fans_id", header = "粉丝id")
+    private Integer fansId;
+
     //-------------------非入库字段-----------------------
     @Exclusive
     @Column(name = "customer_name", header = "取'crm_customer'客户名称")
     private String customerName;
+    
+    @Exclusive
+    @Column(name = "customer_id", header = "取'crm_customer'客户Id")
+    private Integer customerId;
+    
+    public Integer getCustomerId() {
+		return customerId;
+	}
 
-    public String getName() {
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
+	}
+
+	public String getName() {
         return name;
     }
 
@@ -203,5 +220,21 @@ public class Account extends BaseEntity {
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
+    }
+
+    public String getIsWeiXin() {
+        return isWeiXin;
+    }
+
+    public void setIsWeiXin(String isWeiXin) {
+        this.isWeiXin = isWeiXin;
+    }
+
+    public Integer getFansId() {
+        return fansId;
+    }
+
+    public void setFansId(Integer fansId) {
+        this.fansId = fansId;
     }
 }

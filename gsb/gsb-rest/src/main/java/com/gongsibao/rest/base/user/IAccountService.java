@@ -2,6 +2,7 @@ package com.gongsibao.rest.base.user;
 
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.trade.OrderPayMap;
+import com.gongsibao.rest.web.dto.user.AccountValidateDTO;
 import org.jdom.JDOMException;
 import org.netsharp.wx.pa.entity.PublicAccount;
 
@@ -30,7 +31,9 @@ public interface IAccountService {
 
     void updateTicket(Integer id,String ticket);
 
-    void pushOrderStateMsg(String originalId,String mobile, Integer orderPorudctId);
+    void pushOrderStateMsg(String mobile, Integer orderPorudctId);
+
+    void saveOrderMsg(String mobile, Integer orderPorudctId);
 
     void buySuccessSendMsg(Integer accountId,String moeny,String productName,String first,String url);
 
@@ -38,9 +41,13 @@ public interface IAccountService {
 
     Account queryByOpenId(String openId);
 
-    Integer getWxPayH5Param(String ipAddress,String oid,String openId, String orderNoStr, Integer totalFee, String body, Integer userChannel, SortedMap<Object, Object> resMap);
+    Integer getWxPayH5Param(String ipAddress,String oid,String openId, String orderNoStr, Integer totalFee, String body, Integer userChannel, SortedMap<String, String> resMap) throws Exception;
 
     String wxpay(String ipAddress,PublicAccount account, String out_trade_no, Integer order_price, String body, Integer clientType, String openId, Integer userChannel) throws JDOMException, IOException;
 
     List<OrderPayMap> pageByProperties(Integer orderId, Integer payId);
+
+    boolean matchOpenIdOid(String openId, Integer accountId);
+
+    AccountValidateDTO validAccountByOpenId(String openId);
 }

@@ -30,6 +30,7 @@ public class AuditSalesmanOrderInvoiceFormWorkspaceTest extends SalesmanOrderInv
         urlForm = "/trade/audit/invoice/form";
         resourceNodeCode = "GSB_Trade_Audit_Form_Invoice";
         invoiceFileToolbarPath = "";
+        isAdd = false;
     }
 
     @Override

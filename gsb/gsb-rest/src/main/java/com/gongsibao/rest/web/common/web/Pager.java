@@ -4,16 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 public class Pager<T> implements java.io.Serializable {
-
     private static final long serialVersionUID = 700423043052499540L;
     private int totalRows;// 总行数
     private int pageSize;// 每页显示的行数
     private int currentPage;// 当前页号
     private int totalPages;// 总页数
     private int startRow;// 当前页在数据库中的起始行
-    private List<T> list = new ArrayList();
+    private List<T> list = new ArrayList<>();
     private Map<Object, Object> extend = new HashMap<>();
 
     public Pager() {
@@ -34,7 +32,7 @@ public class Pager<T> implements java.io.Serializable {
      */
     @SuppressWarnings({ "unchecked" })
     public Pager(int totalRows, int currentPage, int pageSize) {
-        this(totalRows,currentPage,pageSize,new ArrayList());
+        this(totalRows,currentPage,pageSize,new ArrayList<>());
     }
 
     public Pager(int totalRows, int currentPage, int pageSize,List<T> list) {

@@ -56,14 +56,14 @@ public class ExpenseService extends PersistableService<Expense> implements IExpe
 	}
 
 	@Override
-	public Expense getBillByFormId(Integer formId) {
+	public Expense getBillByFormId(Integer formId ,Boolean isSubset) {
 		Oql oql = new Oql();
 		oql.setType(Expense.class);
 		oql.setSelects("expense.*,expense.setOfBooks.name,expense.expenseEmployee.name");
 		oql.setFilter("id=?");
 		oql.getParameters().add("id", formId, Types.INTEGER);
 		Expense entity = this.queryFirst(oql);
-		if(entity != null){
+		if(entity != null && isSubset){
 			entity.setCostDetailItem(costDetailService.getCostDetailItem(formId, FinanceDict.FormType.BXD.getValue()));
 			//附件信息
 			entity.setFiles(fileService.getByTabNameFormId("cw_expense", formId));

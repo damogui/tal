@@ -33,7 +33,7 @@
 	}
 	UserInfoResponse userInfoResponse = userInfoRequest.getResponse();
 	String wxUserId = userInfoResponse.getUserId();
-	
+	wxUserId = "13301503086";
 	IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
 	Oql oql = new Oql();
 	{
@@ -58,6 +58,7 @@
 		
 		HttpContext.setCurrent(ctx);
 		LoginController loginController = new LoginController();
+		
 		LoginResultDTO result = loginController.login(employee.getLoginName(), employee.getPwd());
 		Cookie cookie = new Cookie("QY_WX_EMPLOYEEID", employee.getId().toString());
 		url = toUrl+"?employeeId="+employee.getId();

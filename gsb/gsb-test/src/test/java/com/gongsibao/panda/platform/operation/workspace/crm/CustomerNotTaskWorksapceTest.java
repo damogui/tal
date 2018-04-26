@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.netsharp.core.MtableManager;
 
 import com.gongsibao.crm.web.NCustomerAllListPart;
+import com.gongsibao.crm.web.platform.PlatformCustomerAllListPart;
 import com.gongsibao.entity.crm.NCustomer;
 
 public class CustomerNotTaskWorksapceTest extends CustomerALLWorkspaceTest{
@@ -26,7 +27,7 @@ public class CustomerNotTaskWorksapceTest extends CustomerALLWorkspaceTest{
 		listFilter = "id not in (SELECT customer_id from n_crm_customer_task GROUP BY customer_id)"; 
 		
 		listPartJsController = NCustomerAllListPart.class.getName();
-		listPartServiceController = NCustomerAllListPart.class.getName();
+		listPartServiceController = PlatformCustomerAllListPart.class.getName();
 	}
 	
 	@Test

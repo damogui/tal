@@ -42,9 +42,9 @@ public class AuditBillFormController {
 	public <T> T getBillByFormId(Integer formId, Integer formType) {
 		T t = null;
 		if(formType == FinanceDict.FormType.JKD.getValue()){ //借款单
-			t = (T)loanService.getBillByFormId(formId);
+			t = (T)loanService.getBillByFormId(formId,true);
 		} else if(formType == FinanceDict.FormType.BXD.getValue()){ //报销单
-			t = (T)expenseService.getBillByFormId(formId);
+			t = (T)expenseService.getBillByFormId(formId,true);
 		}else if (formType == FinanceDict.FormType.FKD.getValue()){ //付款单
 			t = (T)paymentService.getBillByFormId(formId);
 		}else if(formType == FinanceDict.FormType.DBD.getValue()){ //调拨单

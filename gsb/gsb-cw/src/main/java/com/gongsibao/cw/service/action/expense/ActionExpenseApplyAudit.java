@@ -9,6 +9,7 @@ import org.netsharp.authorization.UserPermissionManager;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
 import org.netsharp.organization.entity.Employee;
+import org.netsharp.organization.entity.Organization;
 import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.wx.ea.base.IEaMessageService;
 
@@ -35,25 +36,43 @@ public class ActionExpenseApplyAudit  implements IAction{
 			 List<Employee> leaderList  = this.getEmployeeList(up.getEmployee().getDepartmentId());
 			 if(leaderList != null && leaderList.size() >0){
 				 for(Employee employee : leaderList){
-					 //保存创建人上级主管审核信息
-				   	 AuditRecord au = new AuditRecord();
-				   	 au.toNew();
-				   	 au.setAuditUserId(employee.getId());    //获取上级主管id
-				   	 au.setFormType(FinanceDict.FormType.BXD);
-				   	 au.setFormId(expense.getId());
-				   	 au.setStatus(FinanceDict.AuditDetailStatus.WAIT); //待审核
-					 au.setApplyDepartmentId(up.getEmployee().getDepartmentId());
-				   	 au.setApplyUserId(SessionManager.getUserId());
-				   	 auditRecordService.save(au);
-				   	 
-				   	 String  content = "【财务报销】"+expense.getCreator()+"提交了报销申请，单据编号："+expense.getCode()+" 请您尽快处理。";
-				   	 eMessageService.send(FinanceDict.WX_MSG_CODE, content, employee.getMobile());
+					 saveAudit(expense,up,employee);
 				 }
 			 }else{
-				 throw new BusinessException("您当前的组织机构错误，请联系管理员。");
+				 //主岗位
+				 Organization org = up.getEmployee().getPost();
+				 if(org != null && org.getPositionId().intValue() == 4 ){
+					 throw new BusinessException("您当前的组织机构错误，请联系管理员。");
+				 }else{
+					 Employee financeEmployee = employeeService.getEmployeeByFinanceLeader(FinanceDict.WX_MSG_CODE);
+					 saveAudit(expense,up,financeEmployee);
+				 }
 			 }
 		 }
 		
+	}
+	
+	
+	/**
+	 * 保存审批信息
+	 * @param loan
+	 * @param up
+	 * @param employee
+	 */
+	private void saveAudit (Expense expense,UserPermission up,Employee employee){
+		 //保存创建人上级主管审核信息
+	   	 AuditRecord au = new AuditRecord();
+	   	 au.toNew();
+	   	 au.setAuditUserId(employee.getId());    //获取上级主管id
+	   	 au.setFormType(FinanceDict.FormType.BXD);
+	   	 au.setFormId(expense.getId());
+	   	 au.setStatus(FinanceDict.AuditDetailStatus.WAIT); //待审核
+		 au.setApplyDepartmentId(up.getEmployee().getDepartmentId());
+	   	 au.setApplyUserId(SessionManager.getUserId());
+	   	 auditRecordService.save(au);
+	   	 
+	   	 String  content = "【财务报销】"+expense.getCreator()+"提交了报销申请，单据编号："+expense.getCode()+" 请您尽快处理。";
+	   	 eMessageService.send(FinanceDict.WX_MSG_CODE, content, employee.getLoginName());
 	}
 	/**
 	 * 获取所有上级主管

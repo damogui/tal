@@ -4,12 +4,11 @@ package com.gongsibao.rest.service.dict;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.rest.base.dict.IDictService;
 import com.gongsibao.rest.web.dto.dict.CityDTO;
+import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -37,11 +36,55 @@ public class DictService implements IDictService {
                     proIds.add(0);
                     return convertDto(dictService.byTypeParentId(101, proIds));
                 }
+                return new ArrayList<>();
             case 3:
                 return convertDto(dictService.byTypeParentId(101, null));
             default:
                 return new ArrayList<>();
         }
+    }
+
+    @Override
+    public Map<Integer, String> queryDictNames(int type, Collection<Integer> ids) {
+        Map<Integer, String> result = new HashMap<>();
+        if (CollectionUtils.isEmpty(ids) || type < 0) {
+            return result;
+        }
+        List<Dict> list = dictService.byType(type);
+        if (CollectionUtils.isEmpty(list)) {
+            return result;
+        }
+        Map<Integer, Dict> dictMap = new HashMap<>();
+        list.stream().forEach(dict -> {
+            dictMap.put(dict.getId(),dict);
+        });
+
+        int pid = 0;
+        String name = null;
+        Dict dict = null;
+        List<Integer> daludiqu = Arrays.asList(101900000, 101900100, 101900101);
+        for (Integer id : ids) {
+            if (daludiqu.contains(id)) {
+                name = "大陆地区";
+            } else {
+                dict = dictMap.get(id);
+                if (dict == null) {
+                    continue;
+                }
+                pid = dict.getParentId();
+                name = dict.getName();
+                while (pid > 0) {
+                    dict = dictMap.get(pid);
+                    if (dict == null) {
+                        break;
+                    }
+                    pid = dict.getParentId();
+                    name = dict.getName() + "-" + name;
+                }
+            }
+            result.put(id, name);
+        }
+        return result;
     }
 
     private List<CityDTO> convertDto(List<Dict> dicts){

@@ -1,5 +1,8 @@
 package com.gongsibao.entity.supplier;
 
+import java.util.List;
+
+import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.CatEntity;
 
@@ -11,4 +14,17 @@ public class SupplierCategory extends CatEntity{
 	 */   
 	private static final long serialVersionUID = 5425316668163544708L;
 
+
+	@Subs(foreignKey = "categoryId", header = "服务商分类", subType = SupplierCategoryOwnerMap.class)
+	private List<SupplierCategoryOwnerMap> ownerMaps;
+
+
+	public List<SupplierCategoryOwnerMap> getOwnerMaps() {
+		return ownerMaps;
+	}
+
+
+	public void setOwnerMaps(List<SupplierCategoryOwnerMap> ownerMaps) {
+		this.ownerMaps = ownerMaps;
+	}
 }

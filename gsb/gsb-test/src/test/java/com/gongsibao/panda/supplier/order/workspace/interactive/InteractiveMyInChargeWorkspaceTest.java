@@ -25,128 +25,131 @@ import com.gongsibao.trade.web.interactive.MyInChargeListPart;
 
 public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
 
-	protected Boolean isSingleSelect = true;
+    protected Boolean isSingleSelect = true;
 
-	@Before
-	public void setup() {
-		super.setup();
-		entity = OrderProd.class;
-		urlList = "/crm/order/interactive/myincharge/list";
-		listPartName = formPartName = "我负责的订单";
-		meta = MtableManager.getMtable(entity);
-		listToolbarPath = "/crm/order/myincharge/list";
-		resourceNodeCode = "Gsb_Supplier_Order_Interactive_My_In_Charge";
-		listPartImportJs = "/gsb/platform/trade/js/prod/interactive-myincharge-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
-		listPartServiceController = MyInChargeListPart.class.getName();
-		listPartJsController = MyInChargeListPart.class.getName();
-		listFilter = "OrderProd.pkid IN(SELECT distinct order_prod_id FROM so_order_prod_user_map WHERE type_id=" + OrderProdUserMapType.Czy.getValue() + " AND user_id = '{userId}')";
-	}
+    @Before
+    public void setup() {
+        super.setup();
+        entity = OrderProd.class;
+        urlList = "/crm/order/interactive/myincharge/list";
+        listPartName = formPartName = "我负责的订单";
+        meta = MtableManager.getMtable(entity);
+        listToolbarPath = "/crm/order/myincharge/list";
+        resourceNodeCode = "Gsb_Supplier_Order_Interactive_My_In_Charge";
+        listPartImportJs = "/gsb/platform/trade/js/prod/interactive-myincharge-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
+        listPartServiceController = MyInChargeListPart.class.getName();
+        listPartJsController = MyInChargeListPart.class.getName();
+        listFilter = "OrderProd.pkid IN(SELECT distinct order_prod_id FROM so_order_prod_user_map WHERE type_id=" + OrderProdUserMapType.Czy.getValue() + " AND user_id = '{userId}')";
+    }
 
-	@Test
-	public void createListToolbar() {
+    @Test
+    public void createListToolbar() {
 
-		ResourceNode node = resourceService.byCode(resourceNodeCode);
-		OperationType ot1 = operationTypeService.byCode(OperationTypes.view);
-		PToolbar toolbar = new PToolbar();
-		{
-			toolbar.toNew();
-			toolbar.setPath(listToolbarPath);
-			toolbar.setName("我负责的订单操作");
-			toolbar.setResourceNode(node);
-			toolbar.setToolbarType(ToolbarType.BASE);
-		}
+        ResourceNode node = resourceService.byCode(resourceNodeCode);
+        OperationType ot1 = operationTypeService.byCode(OperationTypes.view);
+        PToolbar toolbar = new PToolbar();
+        {
+            toolbar.toNew();
+            toolbar.setPath(listToolbarPath);
+            toolbar.setName("我负责的订单操作");
+            toolbar.setResourceNode(node);
+            toolbar.setToolbarType(ToolbarType.BASE);
+        }
 
-		PToolbarItem item = new PToolbarItem();
-		{
-			item.toNew();
-			item.setCode("addFollowUp");
-			item.setIcon(PToolbarHelper.iconAdd);
-			item.setName("跟进");
-			item.setOperationType(ot1);
-			item.setSeq(3);
-			item.setCommand("{controller}.addFollowUp();");
-			toolbar.getItems().add(item);
-		}
+        PToolbarItem item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("addFollowUp");
+            item.setIcon(PToolbarHelper.iconAdd);
+            item.setName("跟进");
+            item.setOperationType(ot1);
+            item.setSeq(3);
+            item.setCommand("{controller}.addFollowUp();");
+            toolbar.getItems().add(item);
+        }
 
-		toolbarService.save(toolbar);
-	}
+        toolbarService.save(toolbar);
+    }
 
-	@Override
-	protected PDatagrid createDatagrid(ResourceNode node) {
+    @Override
+    protected PDatagrid createDatagrid(ResourceNode node) {
 
-		PDatagrid datagrid = super.createDatagrid(node);
-		{
-			datagrid.setName("我负责的订单");
-			datagrid.setToolbar("panda/datagrid/row/edit");
-			datagrid.setAutoQuery(false);
-			if (!isSingleSelect) {
-				datagrid.setShowCheckbox(true);
-				datagrid.setSingleSelect(false);
-			}
-		}
-		PDatagridColumn column = null;
-		addColumn(datagrid, "no", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-		column = addColumn(datagrid, "orderId", "订单id", ControlTypes.OPERATION_COLUMN, 100, true);
-		{
-			column.setVisible(false);
-		}
-		addColumn(datagrid, "productName", "产品名称", ControlTypes.TEXT_BOX, 180);
-		addColumn(datagrid, "cityName", "产品地区", ControlTypes.TEXT_BOX, 220);
-		addColumn(datagrid, "processStatus.name", "办理状态", ControlTypes.TEXT_BOX, 150);
-		addColumn(datagrid, "soOrder.refundStatus", "退款状态", ControlTypes.ENUM_BOX, 80);
-		addColumn(datagrid, "isUrgent", "是否加急", ControlTypes.BOOLCOMBO_BOX, 80);
-		addColumn(datagrid, "id", "订单明细号", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "soOrder.no", "订单号", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "soOrder.customer.realName", "联系人", ControlTypes.TEXT_BOX, 100);
-		column = addColumn(datagrid, "soOrder.accountMobile", "联系人电话", ControlTypes.TEXT_BOX, 100);
-		{
-			column.setFormatter(" var ctrl=workspace.parts.byIndex(0).key; return eval(ctrl+'.contactFormatter(value,row,index,\\'手机号\\')');");
-		}
-		addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "operator", "操作员", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "soOrder.companyIntention.companyName", "明细订单公司", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "companyIntention.companyName", "订单关联公司", ControlTypes.TEXT_BOX, 100);
-		column = addColumn(datagrid, "soOrder.createTime", "下单日期", ControlTypes.DATETIME_BOX, 100);{
-			
-			column.setOrderbyMode(OrderbyMode.DESC);
-		}
-		addColumn(datagrid, "allocationOperatorDate", "分配日期", ControlTypes.DATETIME_BOX, 100);
-		addColumn(datagrid, "surplusDays", "剩余天数", ControlTypes.DECIMAL_BOX, 80);
-		addColumn(datagrid, "handleName", "办理名称", ControlTypes.TEXT_BOX, 100);
+        PDatagrid datagrid = super.createDatagrid(node);
+        {
+            datagrid.setName("我负责的订单");
+            datagrid.setToolbar("panda/datagrid/row/edit");
+            datagrid.setAutoQuery(false);
+            if (!isSingleSelect) {
+                datagrid.setShowCheckbox(true);
+                datagrid.setSingleSelect(false);
+            }
+        }
+        PDatagridColumn column = null;
+        addColumn(datagrid, "no", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+        column = addColumn(datagrid, "orderId", "订单id", ControlTypes.OPERATION_COLUMN, 100, true);
+        {
+            column.setVisible(false);
+        }
+        addColumn(datagrid, "productName", "产品名称", ControlTypes.TEXT_BOX, 180);
+        addColumn(datagrid, "cityName", "产品地区", ControlTypes.TEXT_BOX, 220);
+        addColumn(datagrid, "processStatus.name", "办理状态", ControlTypes.TEXT_BOX, 150);
+        addColumn(datagrid, "soOrder.refundStatus", "退款状态", ControlTypes.ENUM_BOX, 80);
+        addColumn(datagrid, "isUrgent", "是否加急", ControlTypes.BOOLCOMBO_BOX, 80);
+        addColumn(datagrid, "id", "订单明细号", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "soOrder.no", "订单号", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "soOrder.payablePrice", "订单金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn(datagrid, "soOrder.balance", "订单余额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn(datagrid, "soOrder.customer.realName", "联系人", ControlTypes.TEXT_BOX, 100);
+        column = addColumn(datagrid, "soOrder.accountMobile", "联系人电话", ControlTypes.TEXT_BOX, 100);
+        {
+            column.setFormatter(" var ctrl=workspace.parts.byIndex(0).key; return eval(ctrl+'.contactFormatter(value,row,index,\\'手机号\\')');");
+        }
+        addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "operator", "操作员", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "soOrder.companyIntention.companyName", "订单关联公司", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "companyIntention.companyName", "明细订单公司", ControlTypes.TEXT_BOX, 100);
+        column = addColumn(datagrid, "soOrder.createTime", "下单日期", ControlTypes.DATETIME_BOX, 100);
+        {
 
-		return datagrid;
-	}
+            column.setOrderbyMode(OrderbyMode.DESC);
+        }
+        addColumn(datagrid, "allocationOperatorDate", "分配日期", ControlTypes.DATETIME_BOX, 100);
+        addColumn(datagrid, "surplusDays", "剩余天数", ControlTypes.DECIMAL_BOX, 80);
+        addColumn(datagrid, "handleName", "办理名称", ControlTypes.TEXT_BOX, 100);
 
-	@Override
-	protected PQueryProject createQueryProject(ResourceNode node) {
+        return datagrid;
+    }
 
-		PQueryProject queryProject = super.createQueryProject(node);
-		queryProject.toNew();
-		PQueryItem item = null;
-		queryProject.setColumnCount(3);
+    @Override
+    protected PQueryProject createQueryProject(ResourceNode node) {
 
-		item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
-		{
-			item.setTooltip("订单编号、订单明细号、联系人姓名、联系人电话、关联企业");
-			item.setWidth(350);
-		}
-		addQueryItem(queryProject, "productName", "产品名称", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "handleName", "办理名称", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "owner.name", "业务员", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "operator", "操作员", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "cityName", "产品地区", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "processStatus.name", "办理状态", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "soOrder.createTime", "下单日期", ControlTypes.DATE_BOX);
-		addQueryItem(queryProject, "soOrder.processStatus", "订单总体进度", ControlTypes.ENUM_BOX);
-		item = addQueryItem(queryProject, "inChargeStatus", "负责状态", ControlTypes.ENUM_BOX);
-		item.setAppconfigCondition(OrderProdUserMapStatus.class.getName());
+        PQueryProject queryProject = super.createQueryProject(node);
+        queryProject.toNew();
+        PQueryItem item = null;
+        queryProject.setColumnCount(3);
 
-		return queryProject;
-	}
+        item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
+        {
+            item.setTooltip("订单编号、订单明细号、联系人姓名、联系人电话、关联企业");
+            item.setWidth(350);
+        }
+        addQueryItem(queryProject, "productName", "产品名称", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "handleName", "办理名称", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "owner.name", "业务员", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "operator", "操作员", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "cityName", "产品地区", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "processStatus.name", "办理状态", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "soOrder.createTime", "下单日期", ControlTypes.DATE_BOX);
+        addQueryItem(queryProject, "soOrder.processStatus", "订单总体进度", ControlTypes.ENUM_BOX);
+        item = addQueryItem(queryProject, "inChargeStatus", "负责状态", ControlTypes.ENUM_BOX);
+        item.setAppconfigCondition(OrderProdUserMapStatus.class.getName());
 
-	@Override
-	protected void doOperation() {
-		ResourceNode node = this.getResourceNode();
-		operationService.addOperation(node, OperationTypes.view);
-	}
+        return queryProject;
+    }
+
+    @Override
+    protected void doOperation() {
+        ResourceNode node = this.getResourceNode();
+        operationService.addOperation(node, OperationTypes.view);
+    }
 }

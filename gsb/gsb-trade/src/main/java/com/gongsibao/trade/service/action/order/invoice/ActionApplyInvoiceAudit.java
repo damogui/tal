@@ -1,6 +1,7 @@
 package com.gongsibao.trade.service.action.order.invoice;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +20,6 @@ public class ActionApplyInvoiceAudit  implements IAction{
 	@Override
 	public void execute(ActionContext ctx) {
 		Invoice invoice = (Invoice) ctx.getItem();
-		Map<String, Object> paraMap = ctx.getStatus();
 		Integer userId = SessionManager.getUserId();
 
 		//发票审核
@@ -34,7 +34,9 @@ public class ActionApplyInvoiceAudit  implements IAction{
 				audiUserIdList.add(auditLog.getCreatorId());
 			}
 		}
-		//需要发通知的人员id
-		paraMap.put("audiUserIdList",audiUserIdList);
+		// 推送消息
+		Map<String, Object> statusMap = new HashMap();
+		statusMap.put ("audits", auditLogList);
+		ctx.setStatus (statusMap);
 	}
 }

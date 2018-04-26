@@ -5,6 +5,7 @@ package com.gongsibao.rest.web.common.exception;
  * @Description: TODO 常规业务异常
  * @date 2018/4/16 15:51
  */
+@SuppressWarnings("serial")
 public class BaseException extends RuntimeException{
 
     public BaseException(){

@@ -40,7 +40,7 @@ public class AllBillsListPart extends ListPart{
 	public JSONObject createVoucher(Integer formId, Integer formType){
 		JSONObject result = null;
 		if(formType == FinanceDict.FormType.JKD.getValue()){ //借款单
-			Loan loan = loanService.getBillByFormId(formId);
+			Loan loan = loanService.getBillByFormId(formId,true);
 			JSONObject jsonObject = loanVoucher(loan);
 			System.out.println("凭证请求参数："+jsonObject.toString());
 			result = HttpClientUtil.doPost(FinanceDict.U8_VOUCHER_, jsonObject);

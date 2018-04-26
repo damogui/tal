@@ -403,6 +403,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
         PDatagridColumn column = null;
         PDatagrid datagrid = new PDatagrid(node, "商标选项");
         {
+            addColumn(datagrid, "proxyCode", "代理号", ControlTypes.TEXT_BOX, 180);
             addColumn(datagrid, "nclOne.code", "编码", ControlTypes.TEXT_BOX, 100);
             addColumn(datagrid, "memo", "商标说明", ControlTypes.TEXT_BOX, 150);
             column = addColumn(datagrid, "selectedTwoStr", "商标小类", ControlTypes.TEXTAREA, 400);{
@@ -511,6 +512,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
                 // column.setFormatter("return '<a
                 // href=\"url\">name</a>'.replace('name',row.name).replace('url',row.fileUrl)");
             }
+            addColumn(datagrid, "tradeMark.proxyCode", "代理号", ControlTypes.TEXT_BOX, 180);
             column = addColumn(datagrid, "shareGroup", "共享组", ControlTypes.ENUM_BOX, 150);{
             	 String formatter = EnumUtil.getColumnFormatter(ShareGroup.class);
                  column.setFormatter(formatter);
@@ -599,6 +601,11 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
             {
                 // column.setFormatter("return '<a
                 // href=\"url\">name</a>'.replace('name',row.name).replace('url',row.fileUrl)");
+            }
+            addColumn(datagrid, "tradeMark.proxyCode", "代理号", ControlTypes.TEXT_BOX, 180);
+            column = addColumn(datagrid, "shareGroup", "共享组", ControlTypes.ENUM_BOX, 150);{
+            String formatter = EnumUtil.getColumnFormatter(ShareGroup.class);
+            column.setFormatter(formatter);
             }
             column = addColumn(datagrid, "needed", "是否需要上传", ControlTypes.TEXT_BOX, 150);
             {

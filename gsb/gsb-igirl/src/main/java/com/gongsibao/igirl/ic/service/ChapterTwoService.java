@@ -5,14 +5,11 @@ import com.gongsibao.entity.igirl.ic.baseinfo.ChapterOne;
 import com.gongsibao.entity.igirl.ic.baseinfo.ChapterTwo;
 import com.gongsibao.igirl.ic.base.IChapterOneService;
 import com.gongsibao.igirl.ic.base.IChapterTwoService;
-import javafx.scene.control.Alert;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.BusinessException;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
 
-import javax.swing.*;
 import java.sql.Types;
 
 /**
@@ -44,8 +41,8 @@ public class ChapterTwoService extends GsbPersistableService<ChapterTwo> impleme
                 oql.getParameters().add("id",id, Types.INTEGER);
             }
             ChapterOne one =oneService.queryFirst(oql);
-            if(one!=null && one.getCode()!=null) {
-                entity.setArea(one.getCode());
+            if(one!=null && one.getName()!=null) {
+                entity.setArea(one.getName());
             }
             else
             {
@@ -64,8 +61,8 @@ public class ChapterTwoService extends GsbPersistableService<ChapterTwo> impleme
                 oql.getParameters().add("id",id, Types.INTEGER);
             }
             ChapterOne one =oneService.queryFirst(oql);
-            if(one!=null && one.getCode()!=null) {
-                entity.setArea(one.getCode());
+            if(one!=null && one.getName()!=null) {
+                entity.setArea(one.getName());
             }
             else
             {

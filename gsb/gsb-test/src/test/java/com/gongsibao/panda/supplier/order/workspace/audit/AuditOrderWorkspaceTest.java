@@ -83,7 +83,7 @@ public class AuditOrderWorkspaceTest  extends WorkspaceCreationBase {
         	column.setOrderbyMode(OrderbyMode.DESC);
         }
         addColumn(datagrid, "soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
-        
+        addColumn (datagrid, "remark", "说明", ControlTypes.TEXT_BOX, 100);
         return datagrid;
     }
     

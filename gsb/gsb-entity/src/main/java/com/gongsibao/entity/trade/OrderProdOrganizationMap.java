@@ -1,6 +1,7 @@
 package com.gongsibao.entity.trade;
 
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 
@@ -16,6 +17,14 @@ public class OrderProdOrganizationMap extends BaseEntity {
     private static final long serialVersionUID = 69923830325841766L;
     @Column(name = "order_prod_id", header = "产品订单序号")
     private Integer orderProdId;
+
+    @Exclusive
+    @Column(name = "operator", header = "明细订单对应的操作员名称")
+    private String operator;
+
+    @Exclusive
+    @Column(name = "supplierName", header = "明细订单对应供应商名称")
+    private String supplierName;
 
     @Reference(foreignKey = "orderProdId", header = "组织序号", primaryKey = "pkid")
     private OrderProd orderProd;
@@ -91,4 +100,19 @@ public class OrderProdOrganizationMap extends BaseEntity {
         this.supplier = supplier;
     }
 
+    public String getOperator() {
+        return operator;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator;
+    }
+
+    public String getSupplierName() {
+        return supplierName;
+    }
+
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
+    }
 }

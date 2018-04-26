@@ -1,15 +1,16 @@
 package com.gongsibao.trade.service;
 
 import com.gongsibao.bd.base.IPreferentialCodeService;
+import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.trade.*;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
-import com.gongsibao.trade.base.IInvoiceService;
-import com.gongsibao.trade.base.IOrderInvoiceMapService;
-import com.gongsibao.trade.base.IOrderService;
+import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
+import com.gongsibao.trade.base.*;
 import com.gongsibao.trade.service.action.order.utils.AuditHelper;
 import com.gongsibao.trade.web.dto.OrderPayDTO;
+import org.apache.commons.lang3.ObjectUtils;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
@@ -28,6 +29,7 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderService extends PersistableService<SoOrder> implements IOrderService {
@@ -35,6 +37,10 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
     IPreferentialCodeService preferentialCodeService = ServiceFactory.create(IPreferentialCodeService.class);
     IInvoiceService invoiceService = ServiceFactory.create(IInvoiceService.class);
     IOrderInvoiceMapService orderInvoiceMapService = ServiceFactory.create(IOrderInvoiceMapService.class);
+    IOrderProdService orderProdService = ServiceFactory.create(IOrderProdService.class);
+    IOrderDiscountService orderDiscountService = ServiceFactory.create(IOrderDiscountService.class);
+    IOrderService tradeOrderService = ServiceFactory.create(IOrderService.class);
+    IPersister<AuditLog> auditLogService = PersisterFactory.create();//审核
 
     public OrderService() {
         super();
@@ -454,16 +460,16 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
         Oql oql = new Oql();
         oql.setType(this.type);
         oql.setSelects("*");
-        sql.append(" account_id = ? and change_price_audit_status_id not in (1051,1052,1053) ");
+        sql.append(" SoOrder.accountId = ? and SoOrder.changePriceAuditStatus not in (1051,1052,1053) ");
         if (status == 1) {//未付款
-            sql.append(" and so_order.pay_status_id in (3011, 3012) AND so_order.process_status_id <> 3023 ");
+            sql.append(" and SoOrder.payStatus in (3011, 3012) AND SoOrder.processStatus <> 3023 ");
         } else if (status == 2) {//办理中3022
-            sql.append(" and so_order.process_status_id = 3022 AND so_order.pay_status_id = 3013 ");
+            sql.append(" and SoOrder.processStatus = 3022 AND SoOrder.payStatus = 3013 ");
         } else if (status == 3) {//办理完成
-            sql.append(" and so_order.process_status_id = 3024 AND so_order.pay_status_id = 3013 ");
+            sql.append(" and SoOrder.processStatus = 3024 and SoOrder.payStatus = 3013 ");
         }
         oql.setFilter(sql.toString());
-        oql.getParameters().add("account_id", accountId, Types.INTEGER);
+        oql.getParameters().add("accountId", accountId, Types.INTEGER);
         return this.pm.queryCount(oql);
     }
 
@@ -473,19 +479,19 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
         StringBuffer sql = new StringBuffer("");
         Oql oql = new Oql();
         oql.setType(this.type);
-        oql.setSelects("SoOrder.*,products.*");
-        sql.append(" account_id = ? and change_price_audit_status_id not in (1051,1052,1053) ");
+        oql.setSelects("SoOrder.*,SoOrder.products.*");
+        sql.append(" SoOrder.accountId = ? and SoOrder.changePriceAuditStatus not in (1051,1052,1053) ");
         if (status == 1) {//未付款
-            sql.append(" and so_order.pay_status_id in (3011, 3012) and so_order.process_status_id <> 3023 ");
+            sql.append(" and SoOrder.payStatus in (3011, 3012) and SoOrder.processStatus <> 3023 ");
         } else if (status == 2) {//办理中3022
-            sql.append(" and so_order.process_status_id = 3022 and so_order.pay_status_id = 3013 ");
+            sql.append(" and SoOrder.processStatus = 3022 and SoOrder.payStatus = 3013 ");
         } else if (status == 3) {//办理完成
-            sql.append(" and so_order.process_status_id = 3024 and so_order.pay_status_id = 3013 ");
+            sql.append(" and SoOrder.processStatus = 3024 and SoOrder.payStatus = 3013 ");
         }
         oql.setFilter(sql.toString());
-        oql.setOrderby(" add_time desc ");
+        //oql.setOrderby(" createTime DESC ");
         oql.setPaging(new Paging(currentPage, pageSize));
-        oql.getParameters().add("account_id", accountId, Types.INTEGER);
+        oql.getParameters().add("accountId", accountId, Types.INTEGER);
         return this.pm.queryList(oql);
     }
 
@@ -493,15 +499,118 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
     public int updateOrderStatus(Integer accountId, Integer orderId, Integer status) {
         String sql = "update so_order set so_order.process_status_id = ? where pkid = ? and account_id = ? ";
         QueryParameters queryParameters = new QueryParameters();
-        queryParameters.add("process_status_id",status,Types.INTEGER);
-        queryParameters.add("pkid",orderId,Types.INTEGER);
-        queryParameters.add("account_id",accountId,Types.INTEGER);
+        queryParameters.add("process_status_id", status, Types.INTEGER);
+        queryParameters.add("pkid", orderId, Types.INTEGER);
+        queryParameters.add("account_id", accountId, Types.INTEGER);
         return this.pm.executeNonQuery(sql, queryParameters);
     }
 
     @Override
+    public int updateCancelOrder(Integer accountId, Integer orderId) {
+        int effectNum = updateOrderStatus(accountId, orderId, OrderProcessStatusType.Yqx.getValue());
+        if (effectNum > 0) {
+            List<OrderProd> orderProds = orderProdService.byOrderId(orderId);
+            if (orderProds != null) {
+                List<Integer> orderProdIds = orderProds.stream().map(OrderProd::getId).collect(Collectors.toList());
+                orderProdService.removeCompanyQualifyByOrderProdIds(orderProdIds);
+                List<OrderDiscount> orderDiscounts = orderDiscountService.queryByOrderId(orderId);
+                if (orderDiscounts != null) {
+                    final int[] amount = {0};
+                    orderDiscounts.stream().forEach(orderDiscount -> {
+                        amount[0] += ObjectUtils.defaultIfNull(orderDiscount.getAmount(), 0);
+                        // 优惠券使用记录，更新为用户取消
+                        orderDiscountService.updateNo(orderDiscount.getId(), orderDiscount.getNo().concat("-用户取消"));
+                        // 优惠券使用状态还原
+                        preferentialCodeService.updateUseRevert(orderDiscount.getPreferentialId(), orderDiscount
+                                .getNo());
+                    });
+                    // 复原订单价格
+                    tradeOrderService.updatePayablePriceRevert(orderId, amount[0]);
+                }
+            }
+        }
+        return effectNum;
+    }
+
+    @Override
     public int updatePayablePriceRevert(int pkid, int price) {
-        String sql = String.format("UPDATE so_order SET payable_price = payable_price + %s WHERE pkid = %s ",price,pkid);
+        String sql = String.format("UPDATE so_order SET payable_price = payable_price + %s WHERE pkid = %s ", price, pkid);
         return this.pm.executeNonQuery(sql, null);
+    }
+
+    @Override
+    public String orderDel(Integer orderId) {
+        //进行删除
+        //判断能不能进行删除
+        Integer num = checkOrderCanDel(orderId);
+        if (num > 0) {
+
+            return "改价订单、有回款、订单业绩、回款业绩、结转审核的不能删除";
+        } else {
+            //进行删除
+            String sql = " UPDATE  so_order  SET  is_delete=1 WHERE pkid=? ";
+
+            QueryParameters qps = new QueryParameters();
+            qps.add("@pkid", orderId, Types.INTEGER);
+            num = auditLogService.executeNonQuery(sql, qps);
+            if (num > 0) {
+                return "1";
+
+            } else {
+                return "删除失败";
+
+            }
+
+
+        }
+
+    }
+
+    /*根据订单id获取订单编号*/
+    @Override
+    public String getOrderNoById(Integer id) {
+
+
+        String sql = "SELECT  NO   FROM   so_order WHERE  pkid=?";
+        QueryParameters qps = new QueryParameters();
+        qps.add("@pkid", id, Types.INTEGER);
+        Object obj= this.pm.executeScalar(sql, qps);
+        if (obj==null){
+
+            return  "";
+        }else{
+            return obj.toString();
+        }
+    }
+
+    /*校验是不是可以删除*/
+    private Integer checkOrderCanDel(Integer orderId) {
+
+        String sql = "SELECT  COUNT(1) FROM  bd_audit_log WHERE  form_id=?  AND  type_id IN (1042,1045,1050,1051)";
+        QueryParameters qps = new QueryParameters();
+        qps.add("@form_id", orderId, Types.INTEGER);
+        int numAudit = auditLogService.executeInt(sql, qps);
+        if (numAudit > 0) {
+            return numAudit;
+        } else {
+            //结转中的订单不能删除
+            String sql2 = "SELECT  COUNT(1) FROM so_order_carryover WHERE  form_order_id=? OR to_order_id=?";
+            QueryParameters qps2 = new QueryParameters();
+            qps2.add("@form_order_id", orderId, Types.INTEGER);
+            qps2.add("@to_order_id", orderId, Types.INTEGER);
+            int num = auditLogService.executeInt(sql2, qps2);
+            if (num == 0) {
+                //结转中的订单不能删除
+                String sql3 = "SELECT   COUNT(1)   FROM so_order_pay_map WHERE  order_id=?";
+                QueryParameters qps3 = new QueryParameters();
+                qps3.add("@order_id", orderId, Types.INTEGER);
+                num = auditLogService.executeInt(sql3, qps3);
+            }
+
+            return num;
+
+        }
+
+
     }
 }

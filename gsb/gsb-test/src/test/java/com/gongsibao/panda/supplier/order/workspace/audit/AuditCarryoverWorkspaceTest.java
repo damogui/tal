@@ -76,7 +76,7 @@ public class AuditCarryoverWorkspaceTest extends WorkspaceCreationBase{
         	column.setOrderbyMode (OrderbyMode.DESC);
         }
         addColumn(datagrid, "carryover.creator", "结转创建人", ControlTypes.TEXT_BOX, 100);
-
+        addColumn (datagrid, "remark", "说明", ControlTypes.TEXT_BOX, 100);
         return datagrid;
     }
 

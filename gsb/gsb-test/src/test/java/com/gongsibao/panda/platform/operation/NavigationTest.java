@@ -62,16 +62,14 @@ public class NavigationTest extends NavigationBase {
             createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Supplier_Category", "服务商分类", "/operation/supplier/category/list", 3);
             createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Supplier", "服务商列表", "/operation/supplier/list", 4);
         }
-        createPTreeNode(tree, null, null, "GSB_CRM_Manager", "客户管理（旧）", "", 4);
-        {
-            createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_All_" + Customer.class.getSimpleName(), "全部客户", "/crm/customer/all/list", 1);
-            createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_My_" + Customer.class.getSimpleName(), "我的客户", "/crm/customer/my/list", 2);
-            createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_" + CompanyIntention.class.getSimpleName(), "企业信息库", "/crm/company/list", 3);
-            createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_Pool_" + Customer.class.getSimpleName(), "客户池", "/crm/customer/pool/list", 4);
-            createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_Operation_" + Customer.class.getSimpleName(), "客户操作", "/crm/customer/operation/list", 5);
-            createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_" + CustomerServiceConfig.class.getSimpleName(), "客服配置", "/crm/customer/service/config/list", 6);
-            createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_" + CustomerOrder.class.getSimpleName(), "订单列表", "/crm/customer/order/list", 7);
-        }
+//        createPTreeNode(tree, null, null, "GSB_CRM_Manager", "客户管理（旧）", "", 4);
+//        {
+//            createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_All_" + Customer.class.getSimpleName(), "全部客户", "/crm/customer/all/list", 1);
+//            createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_My_" + Customer.class.getSimpleName(), "我的客户", "/crm/customer/my/list", 2);
+//            createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_Pool_" + Customer.class.getSimpleName(), "客户池", "/crm/customer/pool/list", 4);
+//            createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_Operation_" + Customer.class.getSimpleName(), "客户操作", "/crm/customer/operation/list", 5);
+//            createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_" + CustomerOrder.class.getSimpleName(), "订单列表", "/crm/customer/order/list", 7);
+//        }
         createPTreeNode(tree, null, null, "Operation_CRM", "客户管理", "", 5);
         {
             createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_Add", "新增客户", "/crm/platform/customer/add", 1);
@@ -90,6 +88,10 @@ public class NavigationTest extends NavigationBase {
             createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Anomaly_Detection", "抽查异常", "/operation/customer/task/anomalydetection/list", 10);
 
             createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_OpenSea", "公海", "/operation/task/opensea/list", 11);
+
+            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Follow", "跟进列表", "/operation/customer/task/follow/list", 12);
+            createPTreeNode(tree, "Operation_CRM", null, "CRM_CompanyIntention", "企业信息库", "/crm/company/list", 13);
+            createPTreeNode(tree, "Operation_CRM", null, "CRM_CustomerServiceConfig", "客服配置", "/crm/customer/service/config/list", 14);
         }
 
         createPTreeNode(tree, null, null, "Operation_IGIRL", "智能商标", "", 6);

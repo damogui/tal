@@ -11,8 +11,10 @@ com.gongsibao.igirl.ic.web.ChapterTwoPart = org.netsharp.panda.commerce.FormPart
         var myreg =/^1[34578]\d{9}$/;
         if (!myreg.test(val1)) {
             IMessageBox.error("手机号码格式错误");
+            //将内容清空并定位鼠标焦点
+            $("#tel").val("").focus();
 
-            return false;
+            //return false;
         }
     },
 
@@ -22,8 +24,19 @@ com.gongsibao.igirl.ic.web.ChapterTwoPart = org.netsharp.panda.commerce.FormPart
         var myreg =/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
         if (!myreg.test(val1)) {
             IMessageBox.error("邮箱格式错误");
-            return false;
+            $("#email").val("").focus();
         }
     },
 
+
+    MobileVerify: function (artificialPersionMobile) {
+    var val1=$(artificialPersionMobile).val();
+    var myreg =/^1[34578]\d{9}$/;
+    if (!myreg.test(val1)) {
+        IMessageBox.error("手机号码格式错误");
+        $("#artificialPersionMobile").val("").focus();
+
+        //return false;
+    }
+},
 });

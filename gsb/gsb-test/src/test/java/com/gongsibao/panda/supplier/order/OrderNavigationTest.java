@@ -43,25 +43,7 @@ public class OrderNavigationTest extends NavigationBase {
         String nodeIcon = "fa fa-circle-o";
         createPTreeNode(tree, null, "fa fa-file-text-o", "Gsb_Supplier_Order", "订单管理", "", 9);
         {
-            createPTreeNode(tree, "Gsb_Supplier_Order", null, "Gsb_Supplier_Order_Salesman", "我的订单", "", 1);
-            {
-                createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_Add", "创建订单", "/crm/order/salesman/add", 1);
-                createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_All", "全部订单", "/crm/order/salesman/all/list", 2);
-                createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_Performance", "订单业绩", "/crm/order/salesman/performance/list", 3);
-                createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_Pay", "我的回款", "/crm/order/salesman/pay/list", 4);
-                createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_Received", "我的回款业绩", "/crm/order/salesman/received/list", 4);
-                createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_Refund", "我的退款", "/crm/order/salesman/refund/list", 5);
-                createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_Staging", "我的分期", "/crm/order/salesman/staging/list", 6);
-                createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_Carryover", "我的结转", "/crm/order/salesman/carryover/list", 7);
-                createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_Contract", "合同管理", "/crm/order/salesman/contract/list", 8);
-                createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_Invoice", "发票管理", "/crm/order/salesman/invoice/list", 9);
-                createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_OrderProd", "订单明细", "/crm/order/salesman/detail/list", 10);
-//				createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", null, "Gsb_Supplier_Order_Salesman_Day_Report", "日统计", "/crm/order/salesman/day/report", 10);
-//				createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", null, "Gsb_Supplier_Order_Salesman_Week_Report", "周统计", "/crm/order/salesman/week/report", 11);
-//				createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", null, "Gsb_Supplier_Order_Salesman_Month_Report", "月统计", "/crm/order/salesman/month/report", 12);
-            }
-
-            createPTreeNode(tree, "Gsb_Supplier_Order", null, "Gsb_Supplier_Order_Department", "部门订单", "", 2);
+            createPTreeNode(tree, "Gsb_Supplier_Order", null, "Gsb_Supplier_Order_Department", "部门订单", "", 1);
             {
                 createPTreeNode(tree, "Gsb_Supplier_Order_Department", nodeIcon, "Gsb_Supplier_Order_Department_All", "全部订单", "/crm/order/department/all/list", 1);
                 createPTreeNode(tree, "Gsb_Supplier_Order_Department", nodeIcon, "Gsb_Supplier_Order_Department_Performance", "订单业绩", "/crm/order/department/performance/list", 2);
@@ -80,7 +62,7 @@ public class OrderNavigationTest extends NavigationBase {
 //				createPTreeNode(tree, "Gsb_Supplier_Order_Department", null, "Gsb_Supplier_Order_Department_Month_Report", "月统计", "/crm/order/department/month/report", 7);
             }
 
-            createPTreeNode(tree, "Gsb_Supplier_Order", null, "Gsb_Supplier_Order_Audit", "订单审核", "", 3);
+            createPTreeNode(tree, "Gsb_Supplier_Order", null, "Gsb_Supplier_Order_Audit", "订单审核", "", 2);
             {
 
 
@@ -99,7 +81,7 @@ public class OrderNavigationTest extends NavigationBase {
                 createPTreeNode(tree, "Gsb_Supplier_Order_Audit", nodeIcon, "Gsb_Supplier_Order_Audit_Invoice", "发票审核", "/crm/order/audit/invoice/list", 10);
             }
 
-            createPTreeNode(tree, "Gsb_Supplier_Order", null, "Gsb_Supplier_Settle_My", "结算管理", "", 4);
+            createPTreeNode(tree, "Gsb_Supplier_Order", null, "Gsb_Supplier_Settle_My", "结算管理", "", 3);
             {
                 createPTreeNode(tree, "Gsb_Supplier_Settle_My", null, "Gsb_Supplier_My_Unsettle", "待结算订单", "/supplier/settle/unSettle/list", 1);
                 createPTreeNode(tree, "Gsb_Supplier_Settle_My", null, "Gsb_Supplier_MySettled", "我的结算单", "/supplier/settle/settleOrder/myList", 2);
@@ -112,6 +94,26 @@ public class OrderNavigationTest extends NavigationBase {
                 createPTreeNode(tree, "Gsb_Supplier_Order_Interactive", null, "Gsb_Supplier_Order_Interactive_Operation_Pool", "订单操作池", "/crm/order/interactive/operation/pool/list", 2);
 
             }
+            createPTreeNode(tree, "Gsb_Supplier_Order", null, "Gsb_Supplier_Order_Salesman", "我的订单", "", 5);
+            {
+//                createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_Add", "创建订单", "/crm/order/salesman/add", 1);
+                createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_All", "全部订单", "/crm/order/salesman/all/list", 2);
+                createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_OrderProd", "我的明细订单", "/crm/order/salesman/detail/list", 3);
+                createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_Performance", "订单业绩", "/crm/order/salesman/performance/list", 3);
+                createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_Pay", "我的回款", "/crm/order/salesman/pay/list", 4);
+                createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_Received", "我的回款业绩", "/crm/order/salesman/received/list", 5);
+                createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_Refund", "我的退款", "/crm/order/salesman/refund/list", 6);
+                createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_Staging", "我的分期", "/crm/order/salesman/staging/list", 7);
+                createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_Carryover", "我的结转", "/crm/order/salesman/carryover/list", 8);
+                createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_Contract", "合同管理", "/crm/order/salesman/contract/list", 9);
+                createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_Invoice", "发票管理", "/crm/order/salesman/invoice/list", 10);
+                createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_Del", "无效订单", "/crm/order/salesman/del/list", 11);
+                
+//				createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", null, "Gsb_Supplier_Order_Salesman_Day_Report", "日统计", "/crm/order/salesman/day/report", 10);
+//				createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", null, "Gsb_Supplier_Order_Salesman_Week_Report", "周统计", "/crm/order/salesman/week/report", 11);
+//				createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", null, "Gsb_Supplier_Order_Salesman_Month_Report", "月统计", "/crm/order/salesman/month/report", 12);
+            }
+
 
         }
     }

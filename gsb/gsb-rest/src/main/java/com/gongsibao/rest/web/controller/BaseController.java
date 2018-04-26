@@ -2,8 +2,12 @@ package com.gongsibao.rest.web.controller;
 
 import com.gongsibao.account.base.IAccountWeiXinService;
 import com.gongsibao.entity.acount.Account;
+import com.gongsibao.rest.base.user.IAccountService;
+import com.gongsibao.rest.service.user.AccountService;
 import com.gongsibao.rest.web.common.util.Assert;
+import com.gongsibao.rest.web.common.util.StringUtils;
 import org.netsharp.communication.ServiceFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,13 +18,14 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class BaseController {
 
-    protected final static IAccountWeiXinService $accountWeiXinService = ServiceFactory.create(IAccountWeiXinService.class);
+    @Autowired
+    IAccountService $accountService;
 
     protected String openId(HttpServletRequest request){
-        return request.getHeader(UserHeaders.openId);
+        return StringUtils.trimToEmpty(request.getHeader(UserHeaders.openId));
     }
     protected String originalId(HttpServletRequest request){
-        return request.getHeader(UserHeaders.originalId);
+        return StringUtils.trimToEmpty(request.getHeader(UserHeaders.originalId));
     }
 
     protected Account accountByOpenId(HttpServletRequest request){
@@ -33,7 +38,7 @@ public class BaseController {
 
     protected Account accountByOpenId(String openId){
         Assert.hasText(openId,"尚未登录!");
-        Account account = $accountWeiXinService.queryByOpenId(openId);
+        Account account = $accountService.login(openId);
         Assert.notNull(account,"账号尚未绑定!");
         return account;
     }

@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import com.gongsibao.entity.supplier.Salesman;
+import com.gongsibao.supplier.base.ISalesmanService;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
@@ -91,6 +93,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
     ICompanyIntentionService companyIntentionService = ServiceFactory.create(ICompanyIntentionService.class);
 
     IDictService dictService = ServiceFactory.create(IDictService.class);
+    ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
 
     private static TradeMarkCaseAttachmentBuiler tradeMarkCaseAttachmentBuiler = new TradeMarkCaseAttachmentBuiler();
 	// 附件营业执照商标ID赋值为-1，因为多个商标共享
@@ -220,7 +223,12 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 					
 				}
 				if(departmentId!=null && departmentId!=-1) {
-					tm.setDepartmentId(departmentId);
+//					tm.setDepartmentId(departmentId);
+					if(departmentId.equals(entity.getDepartmentId())) {
+						tm.setDepartmentId(departmentId);
+					}else {
+						tm.setDepartmentId(entity.getDepartmentId());
+					}
 				}
 				if (tm.getEntityState() != EntityState.Deleted) {
 					tmp+=tm.getNclOne().getCode()+" ";
@@ -469,6 +477,16 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
         if (tradeMarkCase!=null){
             tradeMarkCase.setOwnerId(ownerId);
             Employee employee = employeeService.byId(ownerId);
+
+			Integer employeeId =  employee.getId();
+			Oql oql1 = new Oql();
+			oql1.setSelects("Salesman.*");
+			oql1.setType(Salesman.class);
+			oql1.setFilter("employee_id=?");
+			oql1.getParameters().add("employee_id",employeeId,Types.INTEGER);
+
+			Salesman sman =salesmanService.queryFirst(oql1);
+			tradeMarkCase.setDepartmentId(sman.getDepartmentId());
             tradeMarkCase.setOwnerName(employee.getName());
             tradeMarkCase.toPersist();
             tradeMarkCase = super.save(tradeMarkCase);

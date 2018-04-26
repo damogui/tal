@@ -9,7 +9,7 @@ import com.gongsibao.cw.service.action.audit.ActionAuditRecordLog;
 import com.gongsibao.cw.service.action.audit.ActionAuditRecordPersist;
 import com.gongsibao.cw.service.action.audit.ActionAuditRecordSendMessage;
 import com.gongsibao.cw.service.action.audit.ActionAuditRecordVerify;
-import com.gongsibao.panda.supplier.crm.action.BaseActionTest;
+import com.gongsibao.panda.action.BaseActionTest;
 
 
 public class AuditRecordActionTest  extends BaseActionTest{

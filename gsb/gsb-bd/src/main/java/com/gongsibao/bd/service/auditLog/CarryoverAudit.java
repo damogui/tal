@@ -32,17 +32,7 @@ public class CarryoverAudit extends AbstractAuditLogService {
         }
         return auditLogList;
     }
-
-    @Override
-    protected AuditLog getDirectLeaderAudit(Integer formId, Integer addUserId) {
-        return null;
-    }
-
-    @Override
-    protected AuditLog getSuperiorLeaderAudit(Integer formId, Integer addUserId) {
-        return null;
-    }
-
+    
     @Override
     protected AuditLogType setAuditLogType() {
         return AuditLogType.Jzsh;
@@ -51,5 +41,20 @@ public class CarryoverAudit extends AbstractAuditLogService {
     @Override
     protected String setActionPath() {
         return "gsb/crm/audit/carryover";
+    }
+
+    @Override
+    public List<String> getAuditPassTel() {
+        return null;
+    }
+
+    @Override
+    public List<String> getAuditFailTel() {
+        return null;
+    }
+
+    @Override
+    public List<String> getAuditWaitTel(int level) {
+        return null;
     }
 }

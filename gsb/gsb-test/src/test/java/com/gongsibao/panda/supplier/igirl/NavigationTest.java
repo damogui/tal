@@ -4,6 +4,7 @@ import com.gongsibao.entity.igirl.ic.baseinfo.AreaOne;
 import com.gongsibao.entity.igirl.ic.baseinfo.AreaTwo;
 import com.gongsibao.entity.igirl.ic.baseinfo.*;
 import com.gongsibao.entity.igirl.ic.ex.IcExRegisterCase;
+import com.gongsibao.entity.igirl.ic.ex.baseinfo.IcExLog;
 import com.gongsibao.entity.igirl.tm.ChangeTradeMark;
 import com.gongsibao.entity.igirl.tm.DownloadAttachment;
 import com.gongsibao.entity.igirl.tm.HelpBook;
@@ -139,6 +140,8 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, "GSB_IC_AI", null, "GSB_IGIRL_IC_STATE", "工商状态", "",3);
 			{
 				createPTreeNode(tree, "GSB_IGIRL_IC_STATE", null, "IGRIL_IC_STATE_" + IcExRegisterCase.class.getSimpleName(), "工商状态", "/igirl/ic/IcExRegisterCase/all/list", 1);
+				createPTreeNode(tree, "GSB_IGIRL_IC_STATE", null, "IGRIL_IC_STATE_" + IcExLog.class.getSimpleName(), "更新日志", "/igirl/ic/IcExLog/all/list", 2);
+
 			}
 
 		}

@@ -7,8 +7,8 @@ import java.io.Serializable;
  * @Description: TODO 用户收货地址Request
  * @date 2018/4/19 13:51
  */
+@SuppressWarnings("serial")
 public class DeliverAddressRequest implements Serializable{
-
     private String address;
     private Integer cityId;
     private String contacts;

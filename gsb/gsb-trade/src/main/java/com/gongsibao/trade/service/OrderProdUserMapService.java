@@ -50,10 +50,13 @@ public class OrderProdUserMapService extends PersistableService<OrderProdUserMap
         Map<Integer, String> resMap = new HashMap<Integer, String>();
         String idString = StringManager.join(",", pkidList);
         StringBuffer sql = new StringBuffer("SELECT opum.order_prod_id 'orderProdId',em.name 'realName' FROM so_order_prod_user_map opum ");
-        sql.append("JOIN sys_permission_employee em ON em.id = opum.user_id ");
-        sql.append(" WHERE opum.type_id=" + OrderProdUserMapType.getItem(typeId).getValue()
-                + " AND opum.status_id=" + OrderProdUserMapStatus.getItem(statusId).getValue()
-                + " AND opum.order_prod_id IN(" + idString + ") ");
+        sql.append("JOIN sp_salesman sa ON sa.employee_id = opum.user_id ");
+        sql.append("JOIN sys_permission_employee em ON em.id = sa.employee_id ");
+        sql.append(" WHERE opum.type_id = " + OrderProdUserMapType.getItem(typeId).getValue() + " ");
+        if (statusId > 0) {
+            sql.append(" AND opum.status_id = " + OrderProdUserMapStatus.getItem(statusId).getValue() + " ");
+        }
+        sql.append(" AND opum.order_prod_id IN(" + idString + ") ");
         DataTable executeTable = this.pm.executeTable(sql.toString(), null);
         for (Row row : executeTable) {
             Integer orderProdId = row.getInteger("orderProdId");
@@ -72,7 +75,6 @@ public class OrderProdUserMapService extends PersistableService<OrderProdUserMap
                 resMap.put(id, name);
             }
         }
-
         return resMap;
     }
 
@@ -151,7 +153,7 @@ public class OrderProdUserMapService extends PersistableService<OrderProdUserMap
             oql.setSelects("*");
             oql.setFilter("orderProdId = ? and type=?");
             oql.getParameters().add("orderProdId", orderProdId, Types.INTEGER);
-            oql.getParameters().add("type", type, Types.INTEGER);
+            oql.getParameters().add("type", type.getValue(), Types.INTEGER);
         }
         return this.pm.queryList(oql);
     }

@@ -14,6 +14,7 @@ import java.util.*;
 /**
  * WEB工具类，主要是读写Cookie和Web request、response对象一些常用操作
  */
+@SuppressWarnings({"rawtypes", "unchecked", "serial","cast"})
 public abstract class WebUtils {
 
     public static final String JSON_SUFFIX = ".json";

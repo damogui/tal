@@ -38,7 +38,7 @@ public class Contract extends BaseEntity {
     private Date sginingTime;
 
     @Column(name = "sgining_company_id", header = "签单公司，type=316，3161汉唐信通（北京）咨询股份有限公司、3162汉唐信通（北京）科技有限公司")
-    private SginingCompanyType sginingCompanyId = SginingCompanyType.CONSULT;
+    private SginingCompanyType sginingCompanyId = SginingCompanyType.SGINING_COMPANY_1;
 
     @Column(name = "is_urgeney", header = "是否加急")
     private Boolean urgeney;

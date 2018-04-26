@@ -84,7 +84,7 @@ com.gongsibao.crm.web.SalesmanNCustomerTaskDetailPart = com.gongsibao.crm.web.NC
   		  fixed: false,
   		  maxmin: true,
   		  shadeClose:true,
-  		  area: ['90%','90%'],
+  		  area: ['98%','98%'],
   		  content: url,
           success: function(layero, index){
         	  

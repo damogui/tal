@@ -62,5 +62,20 @@ public class SettleAudit extends AbstractAuditLogService {
     protected String setActionPath() {
         return "gsb/platform/audit/settle";
     }
+
+    @Override
+    public List<String> getAuditPassTel() {
+        return null;
+    }
+
+    @Override
+    public List<String> getAuditFailTel() {
+        return null;
+    }
+
+    @Override
+    public List<String> getAuditWaitTel(int level) {
+        return null;
+    }
 //    gsb/supplier/audit/settle
 }

@@ -12,8 +12,6 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.File;
-import com.gongsibao.entity.supplier.Supplier;
-import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.OfflineWayType;
 import com.gongsibao.entity.trade.dic.PayForOrderCountType;
@@ -111,22 +109,22 @@ public class Pay extends BaseEntity {
 	@Exclusive
 	@Column(header = "订单编号拼接")
 	private String orderIds = "";// 拼接订单Id
-	
+
 	@Exclusive
 	private String productName = "";
-	
+
 	@Exclusive
-	@Subs(subType = OrderPayMap.class, foreignKey = "payId", header = "支付明细")
+	@Subs(subType = OrderPayMap.class, foreignKey = "payId", header = "支付明细", primaryKey = "pkid")
 	private List<OrderPayMap> orderPayMaps = new ArrayList<>();
-	
-    @Column(name = "supplier_id", header = "服务商Id")
-    private Integer supplierId;
 
-    @Column(name = "department_id", header = "部门Id")
-    private Integer departmentId;
+	@Column(name = "supplier_id", header = "服务商Id")
+	private Integer supplierId;
 
-    @Column(name = "owner_id", header = "业务员Id")
-    private Integer ownerId;
+	@Column(name = "department_id", header = "部门Id")
+	private Integer departmentId;
+
+	@Column(name = "owner_id", header = "业务员Id")
+	private Integer ownerId;
 
 	/* new end */
 
@@ -290,8 +288,6 @@ public class Pay extends BaseEntity {
 		this.files = files;
 	}
 
-
-
 	public Integer getSetOfBooksId() {
 		return setOfBooksId;
 	}
@@ -348,13 +344,13 @@ public class Pay extends BaseEntity {
 		this.orderPayMaps = orderPayMaps;
 	}
 
-    public Date getPayAuditPassTime() {
-        return payAuditPassTime;
-    }
+	public Date getPayAuditPassTime() {
+		return payAuditPassTime;
+	}
 
-    public void setPayAuditPassTime(Date payAuditPassTime) {
-        this.payAuditPassTime = payAuditPassTime;
-    }
+	public void setPayAuditPassTime(Date payAuditPassTime) {
+		this.payAuditPassTime = payAuditPassTime;
+	}
 
 	public String getProductName() {
 		return productName;

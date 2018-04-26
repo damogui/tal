@@ -2,7 +2,7 @@ package com.gongsibao.panda.supplier.order.workspace.salesman;
 
 import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.trade.web.AuditPayListPart;
-import com.gongsibao.trade.web.SalesmanOrderPayController;
+import com.gongsibao.trade.web.SalesmanOrderPayListPart;
 import com.gongsibao.trade.web.SalesmanOrderReceivedListPart;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,8 +36,8 @@ public class SalesmanOrderPayWorkspaceTest  extends WorkspaceCreationBase {
         resourceNodeCode = "Gsb_Supplier_Order_Salesman_Pay";
         listToolbarPath = "crm/salesman/pay/edit";
         listPartImportJs = "/gsb/platform/trade/js/salesman-order-pay-list.part.js";
-        listPartJsController = SalesmanOrderPayController.class.getName ();
-        listPartServiceController = SalesmanOrderPayController.class.getName ();
+        listPartJsController = SalesmanOrderPayListPart.class.getName ();
+        listPartServiceController = SalesmanOrderPayListPart.class.getName ();
         //listFilter = "salesman_id = '{userId}'";
         listToolbarPath="";
         listFilter = " (pkid IN (SELECT pay_id FROM so_order_pay_map WHERE order_id IN (SELECT pkid FROM so_order WHERE owner_id = '{userId}' ORDER BY pkid DESC)) OR add_user_id = '{userId}' )";
@@ -77,6 +77,7 @@ public class SalesmanOrderPayWorkspaceTest  extends WorkspaceCreationBase {
         {
             datagrid.setName ("我的回款");
             datagrid.setToolbar (listrowToolbarPath);
+            datagrid.setNowrap(false);
             datagrid.setAutoQuery (true);
             datagrid.setShowCheckbox (true);
             datagrid.setSingleSelect (false);
@@ -84,7 +85,7 @@ public class SalesmanOrderPayWorkspaceTest  extends WorkspaceCreationBase {
         PDatagridColumn column = null;
         addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 60, true);
         // addColumn (datagrid, "u8Bank.name", "姓名", ControlTypes.TEXT_BOX, 100);
-        column = addColumn (datagrid, "orderIds", "订单编号", ControlTypes.TEXT_BOX, 120);//需要拼接
+        column = addColumn (datagrid, "orderNo", "订单编号", ControlTypes.TEXT_BOX, 180);//需要拼接
         {
             // column.setFormatter("return controllerpayList.orderNameFormatter(value,row,index);");
 

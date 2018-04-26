@@ -3,7 +3,7 @@ org.netsharp.core.FeedbackCtrl = System.Object.Extends({
 	ctor: function() {
 		this.jServiceLocator = null;
 		this.service = "org.netsharp.scrum.web.SupportFormPart";
-		this.filePath = null;
+		this.filePathList = new System.Dictionary();
 	},
 	invokeService : function(month, pars, callback) {
 		
@@ -17,21 +17,32 @@ org.netsharp.core.FeedbackCtrl = System.Object.Extends({
 		
 		var me = this;
 		var upload = new org.netsharp.controls.OSSUpload();
+		upload.multi_selection = true;
 		upload.getButtonId = function(){
 			
 			return "button_upload";
 		},
-		upload.preview = function(path,file){
+		upload.fileUploaded = function(up, file, info){
 			
-			if(System.isnull(path)){
-				
-				return;
-			}
-			me.filePath = path;
-			var file = '<a target="_blank" href="'+path+'">'+file.name+'</a><i title="删除" onclick="$(\'#files\').empty();ctrl.filePath = null;" class="fa fa-remove"></i>';
-			$("#files").html(file);
+			var path = up.getOption().url+'/'+ up.getOption().multipart_params.key;
+			var attachment = new Object();
+			attachment.entityState = EntityState.New;
+			attachment.path = path;
+			attachment.alias = file.name;
+			attachment.tableName = 'scrum_support';
+			attachment.entityId = 'org.netsharp.scrum.entity.Support';
+			me.filePathList.add(path,attachment);
+			var fileHtml = '<a target="_blank" href="'+path+'">'+file.name+'</a><i title="删除" onclick="ctrl.removeFile(\''+path+'\',this);" class="fa fa-remove"></i>';
+			var html = $("#files").html()+fileHtml;
+			$("#files").html(html);
 		}
 		upload.init();
+	},
+	removeFile:function(path,dom){
+		
+		this.filePathList.remove(path);
+		$(dom).prev().remove();
+		$(dom).remove();
 	},
 	save:function(){
 		
@@ -67,12 +78,22 @@ org.netsharp.core.FeedbackCtrl = System.Object.Extends({
 			support.name = name;
 			support.content = content;
 			support.type = 5;
-			support.ownerId = 1660;//系统升级后要重新设置值
-			support.owner = {id:1660,name:'韩伟'};
-			support.senderId = 1703;
-			support.sender = {id:1703,name:'徐芳波'};
+			support.ownerId = 3621;//系统升级后要重新设置值
+			support.owner = {id:3621,name:'尹耀奎'};
+			support.senderId = 3510;
+			support.sender = {id:3510,name:'徐芳波'};
 			support.estimateHours=0;
-			support.filePath = me.filePath;
+			
+			var attachments = [];
+			for(var i=0;i<me.filePathList.getLength();i++){
+				
+				var obj = me.filePathList.byIndex(i);
+				if(obj){
+
+					attachments.push(obj.value);
+				}
+			}
+			support.attachments = attachments;
 			me.doSave(support);
 		});
 	},

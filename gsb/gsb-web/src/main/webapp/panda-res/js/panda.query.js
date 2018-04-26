@@ -546,9 +546,9 @@ org.netsharp.controls.NumberBoxQueryItem = org.netsharp.controls.Control.Extends
     },
     get: function () {
 
-        var propertyValue = $("#" + this.propertyName).val();
-        var propertyName = $("#" + this.propertyName).attr("propertyName");
-        var interval = $('#' + this.propertyName).attr('interval');
+        var propertyValue = $("#" +  this.uiElement.id).numberbox('getValue');
+        var propertyName = $("#" +  this.uiElement.id).attr("propertyName");
+        var interval = $('#' +  this.uiElement.id).attr('interval');
 
         if (System.isnull(propertyValue)) 
         {
@@ -559,7 +559,7 @@ org.netsharp.controls.NumberBoxQueryItem = org.netsharp.controls.Control.Extends
         qp.DbType = "String";
         qp.Value = propertyValue;
 
-        if (this.propertyName.indexOf("Start_") == 0) {
+        if (this.uiElement.id.indexOf("Start_") == 0) {
         	
         	if(interval){
         		
@@ -597,7 +597,7 @@ org.netsharp.controls.NumberBoxQueryItem = org.netsharp.controls.Control.Extends
       	   var endCtrlId = '#End_' + this.propertyName;
       	   if($(endCtrlId).length>0){
 
-          	   var value2 =  $().numberbox('getValue');
+          	   var value2 =  $(endCtrlId).numberbox('getValue');
           	   if(!System.isnull(value2)){
           		   
           		  qp.value2 = value2;
@@ -611,7 +611,7 @@ org.netsharp.controls.NumberBoxQueryItem = org.netsharp.controls.Control.Extends
       return qp;
     },
 	clear: function() {
-		$('#' + this.propertyName).numberbox('setValue','');
+		$('#' + this.uiElement.id).numberbox('setValue','');
 	}
 });
 

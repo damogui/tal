@@ -1,6 +1,7 @@
 package com.gongsibao.supplier.service;
 
 import java.sql.Types;
+import java.util.List;
 
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
@@ -56,4 +57,5 @@ public class SupplierCategoryService extends PersistableService<SupplierCategory
 
 		return this.queryCount(oql) > 0;
 	}
+
 }

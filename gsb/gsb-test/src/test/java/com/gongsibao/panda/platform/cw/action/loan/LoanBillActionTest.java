@@ -9,7 +9,7 @@ import com.gongsibao.cw.service.action.loan.ActionLoanApplyLog;
 import com.gongsibao.cw.service.action.loan.ActionLoanApplyPersist;
 import com.gongsibao.cw.service.action.loan.ActionLoanApplySendMessage;
 import com.gongsibao.cw.service.action.loan.ActionLoanApplyVerify;
-import com.gongsibao.panda.supplier.crm.action.BaseActionTest;
+import com.gongsibao.panda.action.BaseActionTest;
 
 
 public class LoanBillActionTest  extends BaseActionTest{

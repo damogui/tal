@@ -3,6 +3,7 @@ package com.gongsibao.panda.supplier.order.workspace.audit;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.Pay;
+import com.gongsibao.entity.u8.SetOfBooks;
 import com.gongsibao.trade.web.AuditPayListPart;
 import org.junit.Before;
 import org.junit.Test;
@@ -106,7 +107,7 @@ public class AuditPayWorkspaceTest  extends WorkspaceCreationBase {
         addColumn (datagrid, "pay.setOfBooks.name", "付款账套", ControlTypes.TEXT_BOX, 200);
         addColumn (datagrid, "pay.productName", "产品名称", ControlTypes.TEXT_BOX, 150);
         
-        addColumn (datagrid, "pay.setOfBooks.name", "付款方式", ControlTypes.ENUM_BOX, 100);
+        addColumn (datagrid, "pay.u8Bank.name", "付款方式", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "pay.amount", "付款金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn (datagrid, "status", "审核状态", ControlTypes.ENUM_BOX, 100);
         addColumn (datagrid, "pay.confirmTime", "回款日期", ControlTypes.DATE_BOX, 100);
@@ -120,7 +121,7 @@ public class AuditPayWorkspaceTest  extends WorkspaceCreationBase {
 
 
         }
-
+        addColumn (datagrid, "remark", "说明", ControlTypes.TEXT_BOX, 100);
 
         return datagrid;
     }
@@ -144,7 +145,8 @@ public class AuditPayWorkspaceTest  extends WorkspaceCreationBase {
         addQueryItem (queryProject, "pay.payForOrderCount", "是否一笔多单", ControlTypes.ENUM_BOX);
 //        addQueryItem (queryProject, "pay.payWayType", "是否在线支付", ControlTypes.ENUM_BOX);
 
-        addQueryItem (queryProject, "pay.setOfBooks.name", "付款账套", ControlTypes.TEXT_BOX);
+       // addQueryItem (queryProject, "pay.setOfBooks.name", "付款账套", ControlTypes.TEXT_BOX);
+        addRefrenceQueryItem(queryProject, "pay.setOfBooks.name", "付款账套", SetOfBooks.class.getSimpleName());
         addQueryItem (queryProject, "creator", "回款业绩创建人", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "createTime", "回款业绩创建时间", ControlTypes.DATE_BOX);
 

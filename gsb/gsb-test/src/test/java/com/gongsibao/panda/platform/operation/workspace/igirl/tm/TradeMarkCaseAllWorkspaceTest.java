@@ -367,6 +367,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		PDatagridColumn column = null;
 		PDatagrid datagrid = new PDatagrid(node, "商标选项");
 		{
+			addColumn(datagrid, "proxyCode", "代理号", ControlTypes.TEXT_BOX, 180);
 			addColumn(datagrid, "nclOne.code", "编码", ControlTypes.TEXT_BOX, 100);
 		  addColumn(datagrid, "memo", "商标说明", ControlTypes.TEXT_BOX, 150);
 			addColumn(datagrid, "selectedTwoStr", "商标小类", ControlTypes.TEXTAREA, 400);
@@ -444,91 +445,96 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		}
 
 	}
+    private void createUploadAttamentDetailPart(PWorkspace workspace) {
 
-	private void createUploadAttamentDetailPart(PWorkspace workspace) {
+        ResourceNode node = this.resourceService.byCode("Operation_IGIRL_UPLOAD_UploadAttachment");
+        PDatagridColumn column = null;
+        PDatagrid datagrid = new PDatagrid(node, "上传盖章附件");
+        {
+            datagrid.setShowCheckbox(true);
+            datagrid.setSingleSelect(true);
 
-		ResourceNode node = this.resourceService.byCode("Operation_IGIRL_UPLOAD_UploadAttachment");
-		PDatagridColumn column = null;
-		PDatagrid datagrid = new PDatagrid(node, "上传盖章附件");
-		{
-			datagrid.setShowCheckbox(true);
-			datagrid.setSingleSelect(true);
+            column = addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 150);
+            {
+                // column.setFormatter("return '<a
+                // href=\"url\">name</a>'.replace('name',row.name).replace('url',row.fileUrl)");
+            }
+            addColumn(datagrid, "tradeMark.proxyCode", "代理号", ControlTypes.TEXT_BOX, 180);
+            column = addColumn(datagrid, "shareGroup", "共享组", ControlTypes.ENUM_BOX, 150);{
+            String formatter = EnumUtil.getColumnFormatter(ShareGroup.class);
+            column.setFormatter(formatter);
+        }
+            column = addColumn(datagrid, "needed", "是否需要上传", ControlTypes.TEXT_BOX, 150);
+            {
+                column.setFormatter("if( row.needed==1  ){ return '需要上传' } else{ return '无需上传' }");
+            }
+            column = addColumn(datagrid, "attachmentCat", "附件类别", ControlTypes.TEXT_BOX, 100);
+            {
+                String formatter = EnumUtil.getColumnFormatter(AttachmentCat.class);
+                column.setFormatter(formatter);
+            }
+            column = addColumn(datagrid, "fileType", "文件类型", ControlTypes.TEXT_BOX, 150);
+            {
+                String formatter = EnumUtil.getColumnFormatter(FileType.class);
+                column.setFormatter(formatter);
+            }
+            column = addColumn(datagrid, "toFileType", "目标文件类型", ControlTypes.TEXT_BOX, 150);
+            {
+                String formatter = EnumUtil.getColumnFormatter(FileType.class);
+                column.setFormatter(formatter);
+            }
+            addColumn(datagrid, "minPx", "最小像素数", ControlTypes.TEXT_BOX, 100);
+            addColumn(datagrid, "maxPx", "最大像素数", ControlTypes.TEXT_BOX, 100);
+            addColumn(datagrid, "minBytes", "最小文件大小（KB）", ControlTypes.TEXT_BOX, 150);
+            addColumn(datagrid, "maxBytes", "最大文件大小（KB）", ControlTypes.TEXT_BOX, 150);
+            column = addColumn(datagrid, "fileUrl", "状态", ControlTypes.TEXT_BOX, 150);
+            {
+                column.setFormatter("if( row.fileUrl=='' || row.fileUrl==null ){ return '待上传' } else{ return '已上传' }");
+            }
 
-			column = addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 150);
-			{
-				// column.setFormatter("return '<a
-				// href=\"url\">name</a>'.replace('name',row.name).replace('url',row.fileUrl)");
-			}
-			column = addColumn(datagrid, "needed", "是否需要上传", ControlTypes.TEXT_BOX, 150);
-			{
-				column.setFormatter("if( row.needed==1  ){ return '需要上传' } else{ return '无需上传' }");
-			}
-			column = addColumn(datagrid, "attachmentCat", "附件类别", ControlTypes.TEXT_BOX, 100);
-			{
-				String formatter = EnumUtil.getColumnFormatter(AttachmentCat.class);
-				column.setFormatter(formatter);
-			}
-			column = addColumn(datagrid, "fileType", "文件类型", ControlTypes.TEXT_BOX, 150);
-			{
-				String formatter = EnumUtil.getColumnFormatter(FileType.class);
-				column.setFormatter(formatter);
-			}
-			column = addColumn(datagrid, "toFileType", "目标文件类型", ControlTypes.TEXT_BOX, 150);
-			{
-				String formatter = EnumUtil.getColumnFormatter(FileType.class);
-				column.setFormatter(formatter);
-			}
-			addColumn(datagrid, "minPx", "最小像素数", ControlTypes.TEXT_BOX, 100);
-			addColumn(datagrid, "maxPx", "最大像素数", ControlTypes.TEXT_BOX, 100);
-			addColumn(datagrid, "minBytes", "最小文件大小（KB）", ControlTypes.TEXT_BOX, 150);
-			addColumn(datagrid, "maxBytes", "最大文件大小（KB）", ControlTypes.TEXT_BOX, 150);
-			column = addColumn(datagrid, "fileUrl", "状态", ControlTypes.TEXT_BOX, 150);
-			{
-				column.setFormatter("if( row.fileUrl=='' || row.fileUrl==null ){ return '待上传' } else{ return '已上传' }");
-			}
-			
-	
-		}
-		PForm form = new PForm();
-		{
-			form.toNew();
-			form.setResourceNode(node);
-			form.setColumnCount(2);
-			form.setName("上传盖章附件");
-			String groupName = null;
-			PFormField formField = null;
-			addFormField(form, "shareGroup", "共享组", groupName, ControlTypes.ENUM_BOX, true, false);
-			addFormField(form, "attachmentCat", "附件类别", groupName, ControlTypes.ENUM_BOX, true, false);
-			addFormField(form, "fileType", "文件类型", groupName, ControlTypes.ENUM_BOX, true, false);
-			addFormField(form, "toFileType", "目标文件类型", groupName, ControlTypes.ENUM_BOX, true, false);
-			addFormField(form, "name", "附件名称", groupName, ControlTypes.TEXT_BOX, true, false);
-			addFormField(form, "needed", "是否需上传", groupName, ControlTypes.SWITCH_BUTTON, true, false);
-			addFormField(form, "fileUrl", "上传", groupName, ControlTypes.OSS_UPLOAD, false, false);
 
-		}
+        }
+        PForm form = new PForm();
+        {
+            form.toNew();
+            form.setResourceNode(node);
+            form.setColumnCount(2);
+            form.setName("上传盖章附件");
+            String groupName = null;
+            PFormField formField = null;
+            addFormField(form, "shareGroup", "共享组", groupName, ControlTypes.ENUM_BOX, true, false);
+            addFormField(form, "attachmentCat", "附件类别", groupName, ControlTypes.ENUM_BOX, true, false);
+            addFormField(form, "fileType", "文件类型", groupName, ControlTypes.ENUM_BOX, true, false);
+            addFormField(form, "toFileType", "目标文件类型", groupName, ControlTypes.ENUM_BOX, true, false);
+            addFormField(form, "name", "附件名称", groupName, ControlTypes.TEXT_BOX, true, false);
+            addFormField(form, "needed", "是否需上传", groupName, ControlTypes.SWITCH_BUTTON, true, false);
+            addFormField(form, "fileUrl", "上传", groupName, ControlTypes.OSS_UPLOAD, false, false);
 
-		PPart part = new PPart();
-		{
-			part.toNew();
-			part.setName("上传盖章附件");
-			part.setCode("uploadAttachments");
-			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
-			part.setRelationRole("uploadAttachments");
-			part.setResourceNode(node);
-			part.setPartTypeId(PartType.DETAIL_PART.getId());
-			part.setDatagrid(datagrid);
-			part.setDockStyle(DockType.DOCUMENTHOST);
-			part.setToolbar(uploadloadToolbarPath);
-			part.setJsController("com.gongsibao.igirl.tm.web.UploadAttachmentDetailPart");
-			part.setServiceController(UploadAttachmentDetailPart.class.getName());
-			part.setWindowWidth(800);
-			part.setWindowHeight(600);
-			part.setForm(form);
+        }
 
-		}
-		workspace.getParts().add(part);
+        PPart part = new PPart();
+        {
+            part.toNew();
+            part.setName("上传盖章附件");
+            part.setCode("uploadAttachments");
+            part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
+            part.setRelationRole("uploadAttachments");
+            part.setResourceNode(node);
+            part.setPartTypeId(PartType.DETAIL_PART.getId());
+            part.setDatagrid(datagrid);
+            part.setDockStyle(DockType.DOCUMENTHOST);
+            part.setToolbar(uploadloadToolbarPath);
+            part.setJsController("com.gongsibao.igirl.tm.web.UploadAttachmentDetailPart");
+            part.setServiceController(UploadAttachmentDetailPart.class.getName());
+            part.setWindowWidth(800);
+            part.setWindowHeight(600);
+            part.setForm(form);
 
-	}
+        }
+        workspace.getParts().add(part);
+
+    }
+
 
 	private void createDownloadAttamentDetailPart(PWorkspace workspace) {
 
@@ -544,6 +550,11 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 				// column.setFormatter("return '<a
 				// href=\"url\">name</a>'.replace('name',row.name).replace('url',row.fileUrl)");
 			}
+            addColumn(datagrid, "tradeMark.proxyCode", "代理号", ControlTypes.TEXT_BOX, 180);
+            column = addColumn(datagrid, "shareGroup", "共享组", ControlTypes.ENUM_BOX, 150);{
+            String formatter = EnumUtil.getColumnFormatter(ShareGroup.class);
+            column.setFormatter(formatter);
+            }
 			column = addColumn(datagrid, "attachmentCat", "附件类别", ControlTypes.TEXT_BOX, 100);
 			{
 				String formatter = EnumUtil.getColumnFormatter(AttachmentCat.class);

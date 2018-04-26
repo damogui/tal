@@ -29,6 +29,8 @@ public class ActionSaveOrderPersist implements IAction {
 
 		SoOrder soOrder = (SoOrder) ctx.getItem();
 
+		soOrder.setCustomerName(soOrder.getAccountName());
+		
 		@SuppressWarnings("unchecked")
 		IPersistableService<SoOrder> service = (IPersistableService<SoOrder>) ReflectManager.newInstance(OrderService.class.getSuperclass());
 		soOrder = service.save(soOrder);

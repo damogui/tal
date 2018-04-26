@@ -8,11 +8,9 @@ import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
-import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.controls.PropertyQueryDictComboBox;
 import com.gongsibao.entity.trade.SoOrder;
 
 /**   
@@ -36,7 +34,7 @@ public class MyOrderWorkspaceTest  extends WorkspaceCreationBase{
 		//查询用---自定义控件
 		listPartImportJs = "/gsb/panda-extend/gsb.custom.query.controls.js";
 		//当前登录人的userId=3590;
-		listFilter = "accountId='{userId}'";
+		//listFilter = "accountId='{userId}'";
 	}
 
 	@Override

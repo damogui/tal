@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.gongsibao.utils.NumberUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.AdvancedListPart;
@@ -36,9 +37,9 @@ public class MyInChargeListPart extends AdvancedListPart {
             filters.add("channel_order_no = '" + keyword + "'");
             filters.add("account_name like '%" + keyword + "%'");
             filters.add("account_mobile = '" + keyword + "'");
-            filters.add("company_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )");
-
-            return "((OrderProd.pkid = '" + keyword + "') or order_id in ( select pkid from so_order where " + StringManager.join(" or ", filters) + "))";
+            String compamyWhere = "company_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )";
+            filters.add(compamyWhere);
+            return "((OrderProd.pkid = '" + keyword + "' or OrderProd." + compamyWhere + " ) or order_id in ( select pkid from so_order where " + StringManager.join(" or ", filters) + "))";
         }
         //操作员
         if (parameter.getKey().equals("operator")) {
@@ -75,6 +76,7 @@ public class MyInChargeListPart extends AdvancedListPart {
         sqlSb.append("orderProd.soOrder.customer.{pkid,realName},");
         sqlSb.append("orderProd.soOrder.companyIntention.{pkid,name,full_name,company_name}");
         oql.setSelects(sqlSb.toString());
+        oql.setOrderby("pkid DESC");
         List<OrderProd> resList = (List<OrderProd>) super.doQuery(oql);
         List<Integer> orderProdIdList = getOrderProdIdList(resList);
         //设置是否加急
@@ -97,6 +99,10 @@ public class MyInChargeListPart extends AdvancedListPart {
             ob2.get(i).put("isUrgent", orderProd.getUrgent());
             ob2.get(i).put("operator", orderProd.getOperator());
             ob2.get(i).put("surplusDays", orderProd.getSurplusDays());
+            //订单余额：paidPrice+carryIntoAmount-refundPrice-carryAmount
+            Integer balance = NumberUtils.toInt(orderProd.getSoOrder().getPaidPrice()) + NumberUtils.toInt(orderProd.getSoOrder().getCarryIntoAmount()) -
+                    NumberUtils.toInt(orderProd.getSoOrder().getRefundPrice()) - NumberUtils.toInt(orderProd.getSoOrder().getCarryAmount());
+            ob2.get(i).put("soOrder_balance", balance);
             ob2.get(i).put("allocationOperatorDate", orderProd.getAllocationOperatorDate());
         }
         return json;
@@ -107,6 +113,8 @@ public class MyInChargeListPart extends AdvancedListPart {
         orderProdTraceService.addFollowUp(orderProdId, followContent);
     }
 
+
+    //region 私有方法
     private List<Integer> getOrderProdIdList(List<OrderProd> resList) {
         List<Integer> orderProdIdList = new ArrayList<>();
         for (OrderProd orderProd : resList) {
@@ -146,5 +154,6 @@ public class MyInChargeListPart extends AdvancedListPart {
             orderProd.setAllocationOperatorDate(allocationDate.get(orderProd.getId()));
         }
     }
+    //endregion
 
 }

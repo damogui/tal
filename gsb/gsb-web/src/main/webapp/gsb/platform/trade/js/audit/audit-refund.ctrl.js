@@ -72,16 +72,32 @@ com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.
     			data:data,
     		    columns:[[
     		        {field:'orderProd_productName',title:'产品名称',width:150,formatter: function(value,row,index){
-    		        	return row.orderProd.productName;
+    		        	
+    		        	if(row.orderProd){
+
+        		        	return row.orderProd.productName;
+    		        	}
     		        }},
     		        {field:'orderProd.cityName',title:'产品地区',width:150,formatter: function(value,row,index){
-    		        	return row.orderProd.cityName;
+    		        	
+    		        	if(row.orderProd){
+
+        		        	return row.orderProd.cityName;
+    		        	}
     		        }}, 
     		        {field:'orderProd_priceOriginal',title:'原价',width:100,align:'right',formatter:function(value,row,index){
-    		        	return (row.orderProd.priceOriginal/100).toFixed(2);
+    		        	
+    		        	if(row.orderProd){
+
+        		        	return (row.orderProd.priceOriginal/100).toFixed(2);
+    		        	}
     		        }},
     		        {field:'orderProd_price',title:'售价',width:100,align:'right',formatter:function(value,row,index){
-    		        	return (row.orderProd.price/100).toFixed(2);
+    		        	
+    		        	if(row.orderProd){
+
+        		        	return (row.orderProd.price/100).toFixed(2);
+    		        	}
     		        }},
     		        {field:'amount',title:'退款金额',width:100,align:'right',editor:{type:'numberbox',options:{precision:0,height:31,min:1,required:true}},formatter:function(value,row,index){
     		        	
@@ -98,7 +114,7 @@ com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.
     	        		return '-';
     		        }},
     		        {field:'orderProd_owner_name',title:'业务员',width:80,align:'center',formatter:function(value,row,index){
-    	        		if(row.orderProd.owner){
+    	        		if(row.orderProd && row.orderProd.owner){
     	        			return row.orderProd.owner.name;
     	        		}else {
     	        			return '-';

@@ -1,6 +1,8 @@
 package com.gongsibao.trade.service.action.order.stage;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
@@ -28,6 +30,10 @@ public class ActionApplyStageAudit implements IAction{
 		AbstractAuditLogService auditLogService = AuditFactory.getAudit(StageAudit.class);
 		//后期发送通知用
 		List<AuditLog> auditLogList = auditLogService.execute(order.getId());
+		// 推送消息
+		Map<String, Object> statusMap = new HashMap();
+		statusMap.put ("audits", auditLogList);
+		ctx.setStatus (statusMap);
 	}
 
 }

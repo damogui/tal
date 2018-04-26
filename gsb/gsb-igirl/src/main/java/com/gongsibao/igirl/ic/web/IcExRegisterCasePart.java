@@ -1,18 +1,55 @@
 package com.gongsibao.igirl.ic.web;
 
 import com.gongsibao.entity.igirl.ic.ex.IcExRegisterCase;
+import com.gongsibao.entity.igirl.tm.TradeMarkCase;
 import com.gongsibao.entity.igirl.tm.TransferTradeMark;
+import com.gongsibao.igirl.ic.base.IcExRegisterService;
 import com.gongsibao.igirl.ic.service.RegisterCaseService;
+import com.gongsibao.utils.SupplierSessionManager;
+import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.EntityState;
+import org.netsharp.entity.IPersistable;
 import org.netsharp.panda.commerce.FormPart;
+import org.netsharp.panda.core.HttpContext;
+import org.netsharp.util.DateManage;
+
+import java.util.Date;
 
 public class IcExRegisterCasePart extends FormPart {
-    RegisterCaseService registerCaseService = new RegisterCaseService();
+    IcExRegisterService service = ServiceFactory.create(IcExRegisterService.class);
 
-    /*public IcExRegisterCase updateOwner(Integer ttmId, Integer ownerId){
-       return registerCaseService
-    }*/
+    /*通过公司名查找公司名称是否存在*/
+    public Integer findCom(String approvalName){
+        Integer result=0;
+        IcExRegisterCase icCase= service.findCom(approvalName);
+        if(icCase!=null){
+            result = 1;
+        }
+        return result;
+    }
 
-    /*public Integer updateState(String id, Integer state){
+    /*保存二维码方法通过手机号*/
+    @Override
+    public IPersistable save(IPersistable entity) {
+        IcExRegisterCase icCase = (IcExRegisterCase) entity;
+        if (icCase.getEntityState() == EntityState.New) {
+            String urlstr = this.fetchQrCodeUrl(icCase.getCustomerMobile());
+            icCase.setTokenImgUrl(urlstr);
+        }
+        return super.save(icCase);
+    }
 
-    }*/
+    /*设置二维码url*/
+    public String fetchQrCodeUrl(String casecode) {
+        String url = HttpContext.getCurrent().getRequest().getRequestURL().replace("panda/rest/service", "");
+        return service.fetchQrCodeUrl(url, casecode);
+    }
+
+    /*通过电话号获取姓名*/
+
+    public String findMobile(String customerMobile){
+        String customerName= service.findMoblie(customerMobile);
+        return customerName;
+    }
+
 }

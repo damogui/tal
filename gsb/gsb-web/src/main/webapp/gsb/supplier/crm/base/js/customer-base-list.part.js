@@ -37,7 +37,7 @@ com.gongsibao.crm.web.BaseCustomerListPart = org.netsharp.panda.commerce.ListPar
   		  fixed: false,
   		  maxmin: true,
   		  shadeClose:true,
-  		  area: ['90%','90%'],
+  		  area: ['98%','98%'],
   		  content: url,
   		  cancel: function(){ 
 
@@ -46,8 +46,9 @@ com.gongsibao.crm.web.BaseCustomerListPart = org.netsharp.panda.commerce.ListPar
 	},
 	openMember : function(customerId,isSendSms){
 
+		var msg = isSendSms==true?"确定要开通会员吗？该操作会向客户发送短信":"确定要静默开通会员吗？该操作<span style='color:red;'>不会向客户发送短信</span>，客户将无法直接获取自己的账号密码";
 		var me = this;
-		IMessageBox.confirm("您确定要开通会员吗？",function(r){
+		IMessageBox.confirm(msg,function(r){
 			
 			if(r===true){
 

@@ -1,6 +1,8 @@
 package com.gongsibao.trade.service.action.order.save;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
@@ -30,7 +32,11 @@ public class ActionSaveOrderChangePriceAudit implements IAction{
 		if (soOrder.getIsChangePrice()) {
 			AbstractAuditLogService auditLogService = AuditFactory.getAudit(ChangeOrderPriceAudit.class);
 			//后期发送通知用
-			List<AuditLog> auditLogList = auditLogService.execute(soOrder.getId());
+			List<AuditLog> auditLogList = auditLogService.execute(soOrder.getId());//改价
+			// 推送消息
+			Map<String, Object> statusMap = new HashMap();
+			statusMap.put ("audits", auditLogList);
+			ctx.setStatus (statusMap);
 		}
 	}
 

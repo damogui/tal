@@ -1,32 +1,39 @@
 package com.gongsibao.bd.service.auditLog;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
-import com.gongsibao.entity.bd.dic.AuditLogStatusType;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.organization.base.IEmployeeService;
 import org.netsharp.organization.base.IOrganizationService;
+import org.netsharp.organization.entity.Employee;
 import org.netsharp.persistence.session.SessionManager;
 
 import com.gongsibao.bd.base.IAuditLogService;
 import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.bd.dic.AuditLogStatusType;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.supplier.Salesman;
+import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.entity.supplier.SupplierCategoryOwnerMap;
 import com.gongsibao.entity.supplier.dict.SupplierType;
 import com.gongsibao.supplier.base.ISalesmanService;
+import com.gongsibao.supplier.base.ISupplierCategoryOwnerMapService;
+import com.gongsibao.supplier.base.ISupplierService;
 import com.gongsibao.utils.SalesmanOrganization;
 import com.gongsibao.utils.SupplierSessionManager;
+
 
 public abstract class AbstractAuditLogService<T> {
     IOrganizationService organizationService = ServiceFactory.create(IOrganizationService.class);
     IAuditLogService logService = ServiceFactory.create(IAuditLogService.class);
     ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
-
+    ISupplierCategoryOwnerMapService supplierCateService = ServiceFactory.create(ISupplierCategoryOwnerMapService.class);
+    ISupplierService supplierService = ServiceFactory.create(ISupplierService.class);
+    IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
     private Integer currentLevel;
 
     /**
@@ -206,13 +213,31 @@ public abstract class AbstractAuditLogService<T> {
         //1.判断当前提交审核的业务员 是否属于平台
         Salesman salesmanEntity = salesmanService.byEmployeeId(addUserId);
         if (salesmanEntity != null && salesmanEntity.getType().equals(SupplierType.PLATFORM)) {
-            //2.获取平台运营领导,并且没有离职的？
+            //2.平台服务商属于哪个分类
+            List<Integer> yysIdList = new ArrayList<Integer>();
+            Supplier supplierEntity = (Supplier) supplierService.byId(salesmanEntity.getSupplierId());
+            if (supplierEntity != null) {
+                List<SupplierCategoryOwnerMap> cateList = supplierCateService.getListByCategoryId(supplierEntity.getCategoryId());
+                for (SupplierCategoryOwnerMap item : cateList) {
+                    //3.判断运营专员(只取sys_permission_employee中专员)是否离职
+                    Employee employee = employeeService.byId(item.getOwnerId());
+                    if (employee != null && !employee.getDisabled()) {
+                        yysIdList.add(item.getOwnerId());
+                    }
+                }
+            }
+            //4.添加相应分类的运营专员审核
+            Integer level = getCurrentLevel() + 1;
+            for (Integer item : yysIdList) {
+                auditLogList.add(addAuditLog(formId, "运营专员审核", item, level));
+            } 
+           /* //4.获取相应分类的平台服务商领导,并且没有离职
             ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
             List<Integer> yyIds = salesmanService.getEmployeeIdListByRoleCodes(Arrays.asList("Platform_Operation_Leader"));
             Integer level = getCurrentLevel() + 1;
             for (Integer item : yyIds) {
                 auditLogList.add(addAuditLog(formId, "运营审核", item, level));
-            }
+            }*/
         }
 
         return auditLogList;
@@ -279,5 +304,12 @@ public abstract class AbstractAuditLogService<T> {
     public void setCurrentLevel(Integer currentLevel) {
         this.currentLevel = currentLevel;
     }
+
+    /*审核通过的电话号码*/
+    public abstract List<String> getAuditPassTel();
+    /*审核失败的电话号码*/
+    public abstract List<String> getAuditFailTel();
+    /*审核待审核的电话号码*/
+    public abstract List<String> getAuditWaitTel(int level);
 
 }

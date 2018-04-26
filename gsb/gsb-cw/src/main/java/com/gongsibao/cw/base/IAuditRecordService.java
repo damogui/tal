@@ -52,4 +52,13 @@ public interface IAuditRecordService extends IPersistableService<AuditRecord>{
 	* @throws
 	 */
 	public void saveFinance(AuditRecord auditRecord);
+	/**
+	 * 查询待审核记录
+	 * @param formId
+	 * @param formType
+	 * @param auditUserId
+	 * @param status
+	 * @return
+	 */
+	public AuditRecord getAuditRecordByParam(Integer formId,Integer formType,Integer auditUserId,Integer status);
 }

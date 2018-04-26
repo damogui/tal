@@ -3,6 +3,7 @@ package com.gongsibao.rest.web.common.util;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+@SuppressWarnings({"rawtypes", "unchecked", "serial"})
 public class PayCommonUtil {
 
     /**
@@ -10,12 +11,13 @@ public class PayCommonUtil {
      *
      * @return boolean
      */
+    @SuppressWarnings("unchecked")
     public static boolean isTenpaySign(String characterEncoding, SortedMap<Object, Object> packageParams, String key) {
         StringBuffer sb = new StringBuffer();
-        Set es = packageParams.entrySet();
-        Iterator it = es.iterator();
+        Set<Map.Entry<Object, Object>> es = packageParams.entrySet();
+        Iterator<Map.Entry<Object, Object>> it = es.iterator();
         while (it.hasNext()) {
-            Map.Entry entry = (Map.Entry) it.next();
+            Map.Entry  entry = (Map.Entry) it.next();
             String k = (String) entry.getKey();
             String v = (String) entry.getValue();
             if (!"sign".equals(k) && null != v && !"".equals(v)) {
@@ -43,20 +45,22 @@ public class PayCommonUtil {
      * @Description：sign签名
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public static String createSign(String characterEncoding, SortedMap<Object, Object> packageParams, String key) {
-        StringBuffer sb = new StringBuffer();
-        Set es = packageParams.entrySet();
-        Iterator it = es.iterator();
-        while (it.hasNext()) {
-            Map.Entry entry = (Map.Entry) it.next();
-            String k = (String) entry.getKey();
-            String v = (String) entry.getValue();
-            if (null != v && !"".equals(v) && !"sign".equals(k) && !"key".equals(k)) {
-                sb.append(k + "=" + v + "&");
-            }
+    public static String createSign(String characterEncoding, SortedMap<String, String> packageParams, String key) {
+        Set<String> keySet = packageParams.keySet();
+        String[] str = new String[packageParams.size()];
+        StringBuilder tmp = new StringBuilder();
+        // 进行字典排序
+        str = keySet.toArray(str);
+        Arrays.sort(str);
+        for (int i = 0; i < str.length; i++) {
+            String t = str[i] + "=" + packageParams.get(str[i]) + "&";
+            tmp.append(t);
         }
-        sb.append("key=" + key);
-        String sign = MD5Util.MD5Encode(sb.toString(), characterEncoding).toUpperCase();
+        if (null != key) {
+            tmp.append("key=" + key);
+        }
+        System.out.println("tmp:"+tmp.toString());
+        String sign = MD5Util.MD5Encode(tmp.toString(), characterEncoding).toUpperCase();
         return sign;
     }
 
@@ -69,7 +73,7 @@ public class PayCommonUtil {
      * @Description：将请求参数转换为xml格式的string
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public static String getRequestXml(SortedMap<Object, Object> parameters) {
+    public static String getRequestXml(SortedMap<String, String> parameters) {
         StringBuffer sb = new StringBuffer();
         sb.append("<xml>");
         Set es = parameters.entrySet();
@@ -78,7 +82,7 @@ public class PayCommonUtil {
             Map.Entry entry = (Map.Entry) it.next();
             String k = (String) entry.getKey();
             String v = (String) entry.getValue();
-            if ("attach".equalsIgnoreCase(k) || "detail".equalsIgnoreCase(k)) {
+            if ("attach".equalsIgnoreCase(k) || "body".equalsIgnoreCase(k) || "sign".equalsIgnoreCase(k)) {
                 sb.append("<" + k + ">" + "<![CDATA[" + v + "]]></" + k + ">");
             } else {
                 sb.append("<" + k + ">" + v + "</" + k + ">");

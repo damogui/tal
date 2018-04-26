@@ -9,7 +9,7 @@ import com.gongsibao.cw.service.action.expense.ActionExpenseApplyLog;
 import com.gongsibao.cw.service.action.expense.ActionExpenseApplyPersist;
 import com.gongsibao.cw.service.action.expense.ActionExpenseApplySendMessage;
 import com.gongsibao.cw.service.action.expense.ActionExpenseApplyVerify;
-import com.gongsibao.panda.supplier.crm.action.BaseActionTest;
+import com.gongsibao.panda.action.BaseActionTest;
 
 public class ExpenseBillActionTest  extends BaseActionTest{
 

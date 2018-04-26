@@ -11,8 +11,8 @@ import java.io.Serializable;
  * @Description: TODO （沿用之前的类）
  * @date 2018/4/17 16:27
  */
+@SuppressWarnings("serial")
 public abstract class PkId implements Serializable{
-    private static final long serialVersionUID = 7447938651449258944L;
     protected String pkidStr;
     protected Integer pkid;
 

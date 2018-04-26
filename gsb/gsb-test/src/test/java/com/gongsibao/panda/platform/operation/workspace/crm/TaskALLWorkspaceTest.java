@@ -11,6 +11,7 @@ import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.crm.web.TaskAllListPart;
+import com.gongsibao.crm.web.platform.PlatformTaskAllListPart;
 
 public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 
@@ -23,7 +24,7 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 		listPartName = formPartName = "全部商机";
 		resourceNodeCode = "Operation_CRM_Task_ALL";
 		listPartJsController = TaskAllListPart.class.getName();
-		listPartServiceController = TaskAllListPart.class.getName();
+		listPartServiceController = PlatformTaskAllListPart.class.getName();
 		listPartImportJs = "/gsb/supplier/crm/base/js/task-base-list.part.js|/gsb/platform/operation/crm/js/task-all-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
 		listToolbarPath = "task/all/list";
 		listFilter = null;
@@ -84,7 +85,7 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 		addColumn(datagrid, "allocationState", "分配状态", ControlTypes.ENUM_BOX, 100, false);
 		addColumn(datagrid, "owner.name", "业务员", ControlTypes.ENUM_BOX, 100, false);
 		addColumn(datagrid, "name", "商机名称", ControlTypes.TEXT_BOX, 250, false);
-		addColumn(datagrid, "customer.company.companyName", "关联公司", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "customer.companyName", "关联公司", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "customerId", "客户ID", ControlTypes.TEXT_BOX, 60, false);
 		addColumn(datagrid, "customer.realName", "客户名称", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "allocationDispositon", "自营/平台", ControlTypes.ENUM_BOX, 100, false);
@@ -144,8 +145,12 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 		addColumn(datagrid, "source.name", "商机来源", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "lastContent", "最后跟进内容", ControlTypes.TEXT_BOX, 300, false);
 		addColumn(datagrid, "lastFollowTime", "最后跟进时间", ControlTypes.DATETIME_BOX, 130, false);
-
-		// 未跟进天数
+		//未跟进天数:最近跟进时间距离当天的天数
+		column = addColumn(datagrid, "unFollowDays", "未跟进天数", ControlTypes.TEXT_BOX, 130, false);{
+			column.setNotPersist(true);
+			column.setFormatter(" var ctrl=workspace.parts.byIndex(0).key; return eval(ctrl+'.unFollowDaysFormatter(value,row,index)');");
+		}
+		
 		// 费用部门
 		addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130, false);

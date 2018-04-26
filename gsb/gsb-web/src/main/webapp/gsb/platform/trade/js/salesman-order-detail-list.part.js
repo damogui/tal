@@ -28,13 +28,16 @@ com.gongsibao.trade.web.SalesmanOrderDetailListPart = org.netsharp.panda.commerc
     		if(data == 2){
     			me.isHandle(id,productId,orderId,operateCompaneName,companyId);
     		}else if(data == 0){
-    			IMessageBox.info('请付全款或者申请分期，才能开始操作！');
+    			layer.msg("请付全款或者申请分期，才能开始操作！");
                 return false;
     		}else if(data == 1){
-    			IMessageBox.info('订单余额大于一期款时，才能开始操作！');
+    			layer.msg("订单余额大于一期款时，才能开始操作！");
+                return false;
+    		}else if(data == 3){
+    			layer.msg("订单分期审核中，审核通过，才能开始操作！");
                 return false;
     		}else{
-    			IMessageBox.info('请核实订单信息！');
+    			layer.msg("请核实订单信息！");
                 return false;
     		}
         });

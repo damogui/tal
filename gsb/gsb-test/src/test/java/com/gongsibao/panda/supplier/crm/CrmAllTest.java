@@ -4,12 +4,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import com.gongsibao.panda.platform.operation.workspace.crm.old.CompanyIntentionWorkspaceTest;
-import com.gongsibao.panda.platform.operation.workspace.crm.old.CustomerAllWorkspaceTest;
-import com.gongsibao.panda.platform.operation.workspace.crm.old.CustomerMyOrderWorkspaceTest;
-import com.gongsibao.panda.platform.operation.workspace.crm.old.CustomerOrderWorkspaceTest;
-import com.gongsibao.panda.platform.operation.workspace.crm.old.CustomerServiceConfigWorkspaceTest;
-import com.gongsibao.panda.supplier.crm.action.ActionAllTest;
 import com.gongsibao.panda.supplier.crm.reference.CityReferenceTest;
 import com.gongsibao.panda.supplier.crm.reference.CompanyIntentionReferenceTest;
 import com.gongsibao.panda.supplier.crm.reference.CustomerRefereneTest;
@@ -24,6 +18,7 @@ import com.gongsibao.panda.supplier.crm.workspace.department.DepartmentDefeatedW
 import com.gongsibao.panda.supplier.crm.workspace.department.DepartmentFollowIngWorkspaceTest;
 import com.gongsibao.panda.supplier.crm.workspace.department.DepartmentHighSeasWorkspaceTest;
 import com.gongsibao.panda.supplier.crm.workspace.department.DepartmentSignWorkspaceTest;
+import com.gongsibao.panda.supplier.crm.workspace.department.DepartmentTaskFollowWorkspaceTest;
 import com.gongsibao.panda.supplier.crm.workspace.department.DepartmentTimeOutWorkspaceTest;
 import com.gongsibao.panda.supplier.crm.workspace.department.DepartmentUnFoolowWorkspaceTest;
 import com.gongsibao.panda.supplier.crm.workspace.department.DepartmentUnStartWorkspaceTest;
@@ -42,6 +37,7 @@ import com.gongsibao.panda.supplier.crm.workspace.salesman.SalesmanCheckAbnormal
 import com.gongsibao.panda.supplier.crm.workspace.salesman.SalesmanDefeatedWorkspaceTest;
 import com.gongsibao.panda.supplier.crm.workspace.salesman.SalesmanFollowIngWorkspaceTest;
 import com.gongsibao.panda.supplier.crm.workspace.salesman.SalesmanSignWorkspaceTest;
+import com.gongsibao.panda.supplier.crm.workspace.salesman.SalesmanTaskFollowWorkspaceTest;
 import com.gongsibao.panda.supplier.crm.workspace.salesman.SalesmanTimeOutWorkspaceTest;
 import com.gongsibao.panda.supplier.crm.workspace.salesman.SalesmanUnFoolowWorkspaceTest;
 import com.gongsibao.panda.supplier.crm.workspace.salesman.SalesmanUnStartWorkspaceTest;
@@ -63,11 +59,6 @@ import com.gongsibao.panda.supplier.crm.workspace.salesman.form.SalesmanTaskFoll
 		SupplierDepartmentRefereneTest.class,
 		EmployeeRefereneTest.class,
 
-		CustomerAllWorkspaceTest.class,
-		CustomerMyOrderWorkspaceTest.class,
-		CompanyIntentionWorkspaceTest.class,
-		CustomerServiceConfigWorkspaceTest.class,
-		CustomerOrderWorkspaceTest.class,
 
 		// 业务员
 		SalesmanCustomerAddWorkspaceTest.class, 
@@ -86,7 +77,8 @@ import com.gongsibao.panda.supplier.crm.workspace.salesman.form.SalesmanTaskFoll
 		SalesmanCheckAbnormalWorkspaceTest.class,
 		SalesmanTimeOutWorkspaceTest.class,
 		SalesmanVerifyCustomerWorkspaceTest.class,
-
+		DepartmentTaskFollowWorkspaceTest.class,
+		
 		// 部门
 		DepartmentCustomerAddWorkspaceTest.class, 
 		DepartmentCustomerEditWorkspaceTest.class, 
@@ -110,9 +102,8 @@ import com.gongsibao.panda.supplier.crm.workspace.salesman.form.SalesmanTaskFoll
 		/* CustomerServiceStatisticalWorkspaceTest.class, */
 		FollowStatisticalWorkspaceTest.class, 
 		FunnelStatisticalWorkspaceTest.class,
+		SalesmanTaskFollowWorkspaceTest.class,
 
-		// Action
-		ActionAllTest.class,
 
 		CrmNavigationTest.class })
 public class CrmAllTest {

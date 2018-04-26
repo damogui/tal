@@ -15,6 +15,7 @@ import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.rest.base.bd.ICouponService;
 import com.gongsibao.rest.base.order.IOrderService;
+import com.gongsibao.rest.web.common.util.NumberUtils;
 import com.gongsibao.rest.web.dto.coupon.CouponUseDTO;
 import com.gongsibao.rest.web.dto.coupon.CouponValidateDTO;
 import com.gongsibao.rest.web.dto.user.PreferentialCodeDTO;
@@ -36,6 +37,7 @@ import java.util.*;
  * @date $ $
  */
 @Service
+@SuppressWarnings({"rawtypes", "unchecked", "serial"})
 public class CouponService implements ICouponService {
 
     // 优惠券码服务
@@ -207,19 +209,19 @@ public class CouponService implements ICouponService {
     }
 
     @Override
-    public Double couponPrice(Double price, Preferential coupon) {
+    public Integer couponPrice(Integer price, Preferential coupon) {
         if (null == coupon) {
-            return 0d;
+            return 0;
         }
 
         Integer category = coupon.getCategory();
         if (category == 0) {
             // 代金券
-            return Double.valueOf(coupon.getPreferentialAmount());
+            return coupon.getPreferentialAmount();
         } else {
             // 折扣率
             double discount = AmountUtils.sub(1, AmountUtils.div(coupon.getDiscount(), 10, 2));
-            return AmountUtils.div(AmountUtils.sub(price, discount), 1, 2);
+            return NumberUtils.doubleRoundInt(AmountUtils.div(AmountUtils.sub(price, discount), 1, 2));
         }
     }
 
@@ -272,7 +274,12 @@ public class CouponService implements ICouponService {
 
             BeanUtils.copyProperties(preferentialCode, dto,"isEnabled");
             BeanUtils.copyProperties(preferential, dto,"isEnabled");
+
+            dto.setIsEnabled(preferentialCode.getIsEnabled());
+            dto.setCouponIsEnabled(preferential.getIsEnabled());
+
             dto.setAmountlimit(preferential.getAmountLimit());
+            dto.setStatus(preferentialCode.getStatus());
             avaliableList.add(dto);
         }
 
