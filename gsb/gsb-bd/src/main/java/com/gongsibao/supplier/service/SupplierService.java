@@ -201,7 +201,7 @@ public class SupplierService extends PersistableService<Supplier> implements ISu
         Oql oql = new Oql();
         {
             oql.setType(this.type);
-            oql.setSelects("Supplier.*,Supplier.admin");
+            oql.setSelects("*");
             oql.setFilter("id = ?");
             oql.getParameters().add("id", id, Types.INTEGER);
         }

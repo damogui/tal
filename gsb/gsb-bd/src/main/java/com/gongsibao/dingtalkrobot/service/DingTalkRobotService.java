@@ -454,7 +454,7 @@ public class DingTalkRobotService implements IDingTalkRobotService {
         if (!supplier.getType().equals(SupplierType.SELFSUPPORT)) {
             return -12;//非自营的不播报
         }
-        Employee boss = supplier.getAdmin();
+        Employee boss = employeeService.byPhone(supplier.getMobilePhone());
         if (boss == null || boss.getDisabled()) {
             return -13;//服务商大领导不存在
         }
