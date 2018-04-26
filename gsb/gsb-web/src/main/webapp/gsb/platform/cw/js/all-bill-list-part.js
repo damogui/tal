@@ -5,6 +5,31 @@ com.gongsibao.cw.web.AllBillsListPart = org.netsharp.panda.commerce.ListPart.Ext
 	   this.base();
 	   this.pritBillUrl = "/nav/gsb/platform/cw/print_bill_template";
 	},
+	query : function() {
+
+		this.queryModel.collectControl();
+		var qpc = this.queryModel.getQueryParameters();
+		var queryParams= this.queryModel.getFilterParameters();
+		var filters = [];
+		if(qpc === false){
+			return;
+		}
+		for ( var i = 0; i < qpc.length; i++) {
+			var filter  = qpc[i].Filter;
+			if(filter.indexOf("amount>=")!= -1){
+				var startAmount = qpc[i].Value*100;
+				filters.push("amount>="+startAmount);
+			}else if(filter.indexOf("amount<=")!= -1){
+				var endAmount = qpc[i].Value*100 ;
+				filters.push("amount<="+endAmount);
+			}else{
+				filters.push(qpc[i].Filter);
+			}
+		}
+		var filter = filters.join(" AND ");
+		this.doQuery(filter,queryParams);
+		this.logQuery(filter);
+	},
     operationFormatter:function (value,row,index){ //操作格式化
     	var formId = row.formId;
     	var formType = row.formTypeValue;

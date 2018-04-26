@@ -8,7 +8,6 @@ import org.netsharp.core.DataTable;
 import org.netsharp.core.IRow;
 import org.netsharp.core.Oql;
 import org.netsharp.core.Paging;
-import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.service.PersistableService;
 
 import com.gongsibao.cw.base.IAllBillsDTOService;
@@ -68,19 +67,21 @@ public class AllBillsDTOService extends PersistableService<BillAuditDTO>  implem
 		StringBuffer sql = new StringBuffer();
 
 		if (type == 0) {
-			sql.append("SELECT t.id AS formId, t.formType AS formType, t.code AS code, t.amount AS amount, ");
+			sql.append("SELECT t.id AS formId,t.set_of_books_id AS setOfBooksId, t.formType AS formType, t.code AS code, t.amount AS amount, ");
 			sql.append("t.creator AS creator, t.create_time AS createTime, t.memoto AS memoto,t.status AS status ");
 		} else {
 			sql.append("SELECT COUNT(t.id) 'rcount' ");
 		}
 		sql.append("FROM (");
-		sql.append("SELECT id, 3 AS formType, code, amount, creator , create_time, memoto, status FROM cw_loan ");
-		sql.append("UNION SELECT id, 4 AS formType, code, amount, creator , create_time, memoto, status FROM cw_expense ");
-		sql.append("UNION SELECT id, 5 AS formType, code, amount, creator , create_time, memoto, status FROM cw_payment ) AS t ");
+		sql.append("SELECT id, 3 AS formType,set_of_books_id, code, amount, creator , create_time, memoto, status FROM cw_loan ");
+		sql.append("UNION SELECT id, 4 AS formType,set_of_books_id, code, amount, creator , create_time, memoto, status FROM cw_expense ");
+		sql.append("UNION SELECT id, 5 AS formType,set_of_books_id, code, amount, creator , create_time, memoto, status FROM cw_payment ) AS t ");
 		sql.append("WHERE  1 = 1 ");
 		
 		//拼接前台传入参数
 		if(strWhere != null && !"".equals(strWhere) ){
+			//属性和数据库字段转换
+			strWhere = strWhere.replace("setOfBooksId", "t.set_of_books_id");
 			sql.append("AND   " + strWhere);
 		}
 		// 分页时，不用排序分组
