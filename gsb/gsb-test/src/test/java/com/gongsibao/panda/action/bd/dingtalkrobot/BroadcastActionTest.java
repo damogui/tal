@@ -13,7 +13,7 @@ public class BroadcastActionTest extends BaseActionTest {
     @Before
     public void setup() {
 
-        resourceNodeCode = "BD_DINGTALK_BROADCAST";
+        resourceNodeCode = "Gsb_Supplier_Order_Salesman_All";
         super.setup();
     }
 

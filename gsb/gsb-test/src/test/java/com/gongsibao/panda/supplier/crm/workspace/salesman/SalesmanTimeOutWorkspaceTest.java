@@ -3,6 +3,8 @@ package com.gongsibao.panda.supplier.crm.workspace.salesman;
 import org.junit.Before;
 import org.netsharp.panda.plugin.entity.PToolbar;
 
+import com.gongsibao.crm.web.TaskAllListPart;
+
 public class SalesmanTimeOutWorkspaceTest extends SalesmanAllTaskWorkspaceTest {
 
     @Override
@@ -15,6 +17,8 @@ public class SalesmanTimeOutWorkspaceTest extends SalesmanAllTaskWorkspaceTest {
         urlList = "/crm/salesman/task/timeout/list";
         resourceNodeCode = "CRM_SALESMAN_TIMEOUT";
         listFilter = "foolowStatus = 3 and ownerId = '{userId}' and DATEDIFF(NOW(),next_foolow_time)>0";
+
+        listPartServiceController = TaskAllListPart.class.getName();
     }
 
 

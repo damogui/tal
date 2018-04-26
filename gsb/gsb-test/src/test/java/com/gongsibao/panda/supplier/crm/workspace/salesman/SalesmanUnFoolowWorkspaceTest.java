@@ -3,6 +3,8 @@ package com.gongsibao.panda.supplier.crm.workspace.salesman;
 import org.junit.Before;
 import org.netsharp.panda.plugin.entity.PToolbar;
 
+import com.gongsibao.crm.web.TaskAllListPart;
+
 public class SalesmanUnFoolowWorkspaceTest extends SalesmanAllTaskWorkspaceTest{
 
 	@Override
@@ -17,6 +19,8 @@ public class SalesmanUnFoolowWorkspaceTest extends SalesmanAllTaskWorkspaceTest{
 		
 		//如：有下次跟进时间，并且是当天的
 		listFilter = "nextFoolowTime is not null and nextFoolowTime = CURDATE() and ownerId = '{userId}'";
+
+        listPartServiceController = TaskAllListPart.class.getName();
 	}
 	
 	

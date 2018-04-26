@@ -3,6 +3,8 @@ package com.gongsibao.panda.supplier.crm.workspace.salesman;
 import org.junit.Before;
 import org.netsharp.panda.plugin.entity.PToolbar;
 
+import com.gongsibao.crm.web.TaskAllListPart;
+
 public class SalesmanSignWorkspaceTest extends SalesmanAllTaskWorkspaceTest{
 
 	@Override
@@ -15,6 +17,8 @@ public class SalesmanSignWorkspaceTest extends SalesmanAllTaskWorkspaceTest{
 		urlList = "/crm/salesman/task/signed/list";
 		resourceNodeCode = "CRM_SALESMAN_TASK_SIGNED";
 		listFilter = "foolowStatus=5 and ownerId = '{userId}'";
+
+        listPartServiceController = TaskAllListPart.class.getName();
 	}
 	
 	@Override
