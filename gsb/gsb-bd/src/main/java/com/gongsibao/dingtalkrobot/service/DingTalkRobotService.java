@@ -11,7 +11,7 @@ import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.uc.User;
 import com.gongsibao.redis.base.IRedisAliyunService;
 import com.gongsibao.redis.dto.ConstantCache;
-import com.gongsibao.screendatav.base.IScreenDatavService;
+import com.gongsibao.screen.base.IScreenDatavService;
 import com.gongsibao.stat.dto.StatBillboard;
 import com.gongsibao.u8.base.IOrderProdService;
 import com.gongsibao.u8.base.ISoOrderProdUserMapService;
@@ -160,8 +160,7 @@ public class DingTalkRobotService implements IDingTalkRobotService {
         Map<Integer, List<OrderProdUserMap>> prodUserMap = soOrderProdUserMapService.findYWYByOrderProdIds(prodIds);
         Map<Integer, Integer> prodPayableMap = soOrderProdService.findPayablePrice(prodIds);
 
-        //String screenStr = screenDatavService.getObjectById(20);
-        String screenStr = "";
+        String screenStr = screenDatavService.getContentById(20);
         Map<Integer, Integer> userRank = new HashMap<>();
         if (StringUtils.isNotBlank(screenStr)) {
 
@@ -340,8 +339,7 @@ public class DingTalkRobotService implements IDingTalkRobotService {
         Map<Integer, List<OrderProdUserMap>> prodUserMap = soOrderProdUserMapService.findYWYByOrderProdIds(prodIds);
         Map<Integer, Integer> prodPayableMap = soOrderProdService.findPayablePrice(prodIds);
 
-        //String screenStr = screenDatavService.getObjectById(20);
-        String screenStr = "";
+        String screenStr = screenDatavService.getContentById(20);
         Map<Integer, Integer> userRank = new HashMap<>();
         if (StringUtils.isNotBlank(screenStr)) {
             List<StatBillboard> res = JsonUtils.jsonToList(screenStr, StatBillboard.class);
