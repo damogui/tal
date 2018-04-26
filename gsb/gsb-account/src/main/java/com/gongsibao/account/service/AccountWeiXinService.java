@@ -414,7 +414,7 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
             if (null != proName && null != orderNo) {
                 //取用户信息
                 Account account = accountService.byMobile(mobile);
-                this.pushTextMsgByOriginalId(originalId, account.getId(), "您的订单已创建成功,产品[" + proName + "]", orderNo, String.valueOf(payablePrice), addTime, "/index.html#/orderDetails/" + SecurityUtils.rc4Encrypt(pkid), null, AccountWxMsg.ORDER_SUCCESS);
+                this.pushTextMsgByOriginalId(originalId, account.getId(), "您的订单已创建成功,产品[" + proName + "]", orderNo, String.valueOf(payablePrice), addTime, "/index.html#/orderDetails/" + SecurityUtils.rc4Encrypt(pkid), "点击进行支付", AccountWxMsg.ORDER_SUCCESS);
             }
         } catch (SQLException e) {
             e.printStackTrace();
