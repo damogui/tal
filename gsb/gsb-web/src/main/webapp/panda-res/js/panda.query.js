@@ -559,7 +559,7 @@ org.netsharp.controls.NumberBoxQueryItem = org.netsharp.controls.Control.Extends
         qp.DbType = "String";
         qp.Value = propertyValue;
 
-        if (this.propertyName.indexOf("Start_") == 0) {
+        if (this.uiElement.id.indexOf("Start_") == 0) {
         	
         	if(interval){
         		
@@ -611,7 +611,7 @@ org.netsharp.controls.NumberBoxQueryItem = org.netsharp.controls.Control.Extends
       return qp;
     },
 	clear: function() {
-		$('#' + this.propertyName).numberbox('setValue','');
+		$('#' + this.uiElement.id).numberbox('setValue','');
 	}
 });
 
