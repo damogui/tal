@@ -36,7 +36,7 @@
         	<div class="cell cell-12">
 	        	<div id="sbyctj" class="easyui-panel" title="我的异常商标统计"  style="padding:0px 10px !important;" data-options="fit:true,border:false,tools:'#refreshtool'" >
 				<div id="refreshtool">
-					<a href="#" class="icon-reload" onclick="getAbnorvalNotice()"></a>
+					<a href="#" class="fa fa-refresh" onclick="getAbnorvalNotice()"></a>
 				</div> 
 				<div class="row" >
 	        			<div class="cell" style="width:12.5%;">
