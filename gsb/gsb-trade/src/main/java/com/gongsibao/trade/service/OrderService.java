@@ -41,6 +41,7 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
     IOrderDiscountService orderDiscountService = ServiceFactory.create(IOrderDiscountService.class);
     IOrderService tradeOrderService = ServiceFactory.create(IOrderService.class);
     IPersister<AuditLog> auditLogService = PersisterFactory.create();//审核
+
     public OrderService() {
         super();
         this.type = SoOrder.class;
@@ -542,30 +543,44 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
         //进行删除
         //判断能不能进行删除
         Integer num = checkOrderCanDel(orderId);
-        if (num>0){
+        if (num > 0) {
 
             return "改价订单、有回款、订单业绩、回款业绩、结转审核的不能删除";
-        }else {
+        } else {
             //进行删除
-            String sql=" UPDATE  so_order  SET  is_delete=1 WHERE pkid=? ";
+            String sql = " UPDATE  so_order  SET  is_delete=1 WHERE pkid=? ";
 
-            QueryParameters qps=new QueryParameters();
-            qps.add("@pkid",orderId,Types.INTEGER);
-            num=auditLogService.executeNonQuery(sql,qps);
-            if (num>0){
+            QueryParameters qps = new QueryParameters();
+            qps.add("@pkid", orderId, Types.INTEGER);
+            num = auditLogService.executeNonQuery(sql, qps);
+            if (num > 0) {
                 return "1";
 
-            }else  {
+            } else {
                 return "删除失败";
 
             }
 
 
-
-
-
         }
 
+    }
+
+    /*根据订单id获取订单编号*/
+    @Override
+    public String getOrderNoById(Integer id) {
+
+
+        String sql = "SELECT  NO   FROM   so_order WHERE  pkid=?";
+        QueryParameters qps = new QueryParameters();
+        qps.add("@pkid", id, Types.INTEGER);
+        Object obj= this.pm.executeScalar(sql, qps);
+        if (obj==null){
+
+            return  "";
+        }else{
+            return obj.toString();
+        }
     }
 
     /*校验是不是可以删除*/
@@ -584,12 +599,12 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
             qps2.add("@form_order_id", orderId, Types.INTEGER);
             qps2.add("@to_order_id", orderId, Types.INTEGER);
             int num = auditLogService.executeInt(sql2, qps2);
-            if (num==0){
+            if (num == 0) {
                 //结转中的订单不能删除
                 String sql3 = "SELECT   COUNT(1)   FROM so_order_pay_map WHERE  order_id=?";
                 QueryParameters qps3 = new QueryParameters();
                 qps3.add("@order_id", orderId, Types.INTEGER);
-                num=auditLogService.executeInt(sql3, qps3);
+                num = auditLogService.executeInt(sql3, qps3);
             }
 
             return num;

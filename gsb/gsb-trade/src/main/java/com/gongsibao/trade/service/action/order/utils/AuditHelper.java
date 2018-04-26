@@ -9,6 +9,7 @@ import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.INDepReceivableService;
 import com.gongsibao.trade.base.IOrderPayMapService;
+import com.gongsibao.trade.base.IOrderService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
 import org.netsharp.core.Oql;
@@ -128,6 +129,14 @@ public class AuditHelper {
 
         }
         return list;
+
+    }
+
+    /*根据订单id获取订单编号*/
+    public static String getOrderNoById(Integer orderId) {
+        IOrderService  orderService = ServiceFactory.create(IOrderService.class);
+      String no= orderService.getOrderNoById(orderId);
+      return  no;
 
     }
 }

@@ -1,6 +1,8 @@
 package com.gongsibao.trade.service.action.order.refund;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
@@ -20,7 +22,10 @@ public class ActionApplyRefundAudit  implements IAction{
 		AbstractAuditLogService auditLogService = AuditFactory.getAudit(RefundAudit.class);
 		//后期发送通知用
 		List<AuditLog> auditLogList = auditLogService.execute(refund.getId());
-		
+		// 推送消息
+		Map<String, Object> statusMap = new HashMap();
+		statusMap.put ("audits", auditLogList);
+		ctx.setStatus (statusMap);
 	}
 
 }
