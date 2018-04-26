@@ -26,7 +26,7 @@ public class ActionApplyContractAudit implements IAction {
 		Contract contract = (Contract) ctx.getItem();
 		Integer userId = SessionManager.getUserId();
 
-		// 合同审核
+		//		// 合同审核
 		AbstractAuditLogService auditLogService = AuditFactory.getAudit(ContractAudit.class);
 		List<AuditLog> auditLogList = auditLogService.execute(contract.getId());
 		// 审核记录

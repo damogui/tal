@@ -3,10 +3,7 @@ package com.gongsibao.trade.service.action.order.utils;
 import com.gongsibao.bd.base.IAuditLogService;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogType;
-import com.gongsibao.entity.trade.NOrderCarryover;
-import com.gongsibao.entity.trade.OrderInvoiceMap;
-import com.gongsibao.entity.trade.OrderPayMap;
-import com.gongsibao.entity.trade.Pay;
+import com.gongsibao.entity.trade.*;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.INDepReceivableService;
 import com.gongsibao.trade.base.IOrderInvoiceMapService;
@@ -146,20 +143,27 @@ public class AuditHelper {
     public static Object getOrderNosByInvoiceId(Integer id) {
 //        String  sql="SELECT  order_id FROM so_order_invoice_map  WHERE invoice_id=?";
 
-        IOrderInvoiceMapService orderInvoiceMapService=ServiceFactory.create(IOrderInvoiceMapService.class);
-        List<OrderInvoiceMap> listMaps= orderInvoiceMapService.getByInvoiceId(id);
-        StringBuilder sb=new StringBuilder();
-        int i=0;
-        for (OrderInvoiceMap item:listMaps
-             ) {
+        IOrderInvoiceMapService orderInvoiceMapService = ServiceFactory.create(IOrderInvoiceMapService.class);
+        List<OrderInvoiceMap> listMaps = orderInvoiceMapService.getByInvoiceId(id);
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        for (OrderInvoiceMap item : listMaps
+                ) {
             i++;
             sb.append(item.getSoOrder().getNo());
-            if (listMaps.size()!=i){
+            if (listMaps.size() != i) {
                 sb.append(",");
             }
 
         }
         return sb.toString();
+
+    }
+
+    /*根据订单id获取订单信息*/
+    public static SoOrder getOrderById(int toOrderId) {
+        IOrderService orderService = ServiceFactory.create(IOrderService.class);
+        return orderService.getSoOrderById(toOrderId, "");
 
     }
 }

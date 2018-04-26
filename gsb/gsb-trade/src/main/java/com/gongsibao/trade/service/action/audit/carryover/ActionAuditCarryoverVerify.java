@@ -52,6 +52,8 @@ public class ActionAuditCarryoverVerify implements IAction{
         Map<String, Object> statusMap = new HashMap<String, Object>();
         statusMap.put("auditLog", auditLog);
         statusMap.put("orderId", carryover.getFormOrderId());
+        statusMap.put("toOrderId", carryover.getToOrderId());//去向orderId
+        statusMap.put("soOrder", carryover.getFormOrder());//来源订单
         ctx.setStatus(statusMap);
 	}
 
