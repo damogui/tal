@@ -20,8 +20,8 @@ import org.netsharp.wx.pa.response.PublicAccountManager;
 import org.netsharp.wx.pa.response.WeixinReplyResponse;
 import org.netsharp.wx.pa.response.subscribe.IWeixinSubscriber;
 /**
- * ClassName: SubscribeTrademark
- * @Description: TODO 商标用户扫码关注处理
+ * ClassName: SubscribeGsbRest
+ * @Description: TODO 默认关注
  * @author hbpeng <hbpeng@gongsibao.com>
  * @date 2018/4/20 17:53
  */
@@ -30,7 +30,7 @@ public class SubscribeGsbRest implements IWeixinSubscriber {
     NReply reply = null;
     public boolean validate(EventRequest request, Fans fans, PublicAccount publicAccount){
         String subscribeCode = publicAccount.getSubscribeCode();
-        logger.error("公众号关注回复关键字："+subscribeCode);
+        logger.warn("公众号关注回复关键字："+subscribeCode);
         if (StringHelper.isNullOrEmpty(subscribeCode)) {
             return false;
         }
@@ -38,15 +38,15 @@ public class SubscribeGsbRest implements IWeixinSubscriber {
         reply = PublicAccountManager.getInstance().getReply(subscribeCode, request.getToUserName());
 
         if(reply==null){
-            logger.error("匹配图文：false");
+            logger.warn("匹配图文：false");
         }else{
-            logger.error("匹配图文："+reply.getKeyword()+","+reply.getClass().getName());
+            logger.warn("匹配图文："+reply.getKeyword()+","+reply.getClass().getName());
         }
 
         return reply != null;
     }
     public ResponseMessage reply(EventRequest request, Fans fans, PublicAccount publicAccount, int sceneId){
-        logger.error("rest subcribe send msg!");
+        logger.warn("rest subcribe send msg!");
         WeixinReplyResponse response = new WeixinReplyResponse();
         return response.response(reply, request);
     }
