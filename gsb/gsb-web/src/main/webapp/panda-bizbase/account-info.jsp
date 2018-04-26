@@ -28,12 +28,12 @@
     <div class="media-body">
         <h4 class="media-heading">  欢迎您，<%=employee.getName() %> 
         	<%
-        		if(employee.getPost() != null){
+        		//if(employee.getPost() != null){
         	%>
         	
-        	<%=employee.getPost().getName() %>
+        	<%//=employee.getPost().getName() %>
         	
-        	<%}%>
+        	<%//}%>
         </h4>
         <p>
             <i class="icon icon-color wb-bell"></i> 这是您第 <%=employee.getLoginNum()%> 次登录，上次登录日期：<%=employee.getLastLoginTime()!=null?employee.getLastLoginTime():"" %>，详细信息请查看
