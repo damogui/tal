@@ -42,7 +42,7 @@
         <!--       <param-value>com.my.webservice.TestRequestFilter</param-value>  -->
         <!-- </init-param>-->
         
-        <!-- 配置默认的资源包路径，使用默认的配置类去加载资源 -->
+        <!-- 配置默认的资源包路径，使用默认的配置类去加载资源  -->
         <!-- <init-param> -->
         <!-- <param-name>jersey.config.server.provider.packages</param-name> -->
         <!-- <param-value>com.cisdi.jersey.api</param-value> -->
