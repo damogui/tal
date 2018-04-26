@@ -3,6 +3,7 @@ com.gongsibao.crm.web.NCustomerDepartmentEditFormPart = com.gongsibao.crm.web.NC
 
     ctor: function () {
         this.base();
+        this.isPlatform = 0;
         this.verifyUrl = '/panda/crm/department/customer/verify';
         this.addUrl='/panda/crm/department/customer/edit';
         this.editUrl='/panda/crm/department/customer/edit';
@@ -16,6 +17,7 @@ com.gongsibao.crm.web.NCustomerDepartmentEditFormPart = com.gongsibao.crm.web.NC
 com.gongsibao.crm.web.DepartmentTaskDetailPart = com.gongsibao.crm.web.NCustomerTaskDetailPart.Extends( {
     ctor: function () {
         this.base();
+        this.isPlatform = 0;
         this.addUrl = '/panda/crm/department/task/add';
         this.editUrl = '/panda/crm/department/task/edit';
     }

@@ -691,4 +691,16 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
         List<NCustomerTask> nCustomerTasks = this.pm.queryList(oql);
         return nCustomerTasks;
     }
+
+	@Override
+	public List<NCustomerTask> getByCustomerId(Integer customerId) {
+		Oql oql = new Oql();
+        {
+            oql.setType(this.type);
+            oql.setSelects("NCustomerTask.*,owner.name");
+            oql.setFilter("customerId =" + customerId);
+        }
+        List<NCustomerTask> tasks = this.pm.queryList(oql);
+        return tasks;
+	}
 }
