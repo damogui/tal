@@ -46,7 +46,23 @@ public class TradeMarkCasePart extends FormPart {
 		//鑾峰彇褰撳墠鐨勫煙鍚�
 		TradeMarkCase entity1 = (TradeMarkCase) entity;
 		Integer departmentId = SupplierSessionManager.getDepartmentId();
-		entity1.setDepartmentId(departmentId);
+		Integer sid = SupplierSessionManager.getSupplierId();
+		//判断服务商id是否相同
+		if(sid!=null && sid!=-1){
+			if(SessionManager.getUserId().equals(entity1.getOwnerId())) {
+				entity1.setSupplierId(sid);
+			}else {
+				entity1.setSupplierId(entity1.getSupplierId());
+			}
+		}
+		//判断部门Id是否相同
+		if(departmentId!=null && departmentId!=-1) {
+			if(departmentId.equals(entity1.getDepartmentId())) {
+				entity1.setDepartmentId(departmentId);
+			}else {
+				entity1.setDepartmentId(entity1.getDepartmentId());
+			}
+		}
 		if (entity1.getEntityState() == EntityState.New) {
 			entity1.setCode(DateManage.toString(new Date(),"yyyyMMddHHmmss"));
 			String urlstr = this.fetchQrCodeUrl(entity1.getCode());
