@@ -126,6 +126,9 @@ com.gongsibao.trade.web.FileCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
 				    		}
 				    	}
 				    });
+				},true,function(){
+					
+					layer.close(index);
 				});
 				
 				me.initUploadFileGrid();
