@@ -1,11 +1,13 @@
 package com.gongsibao.trade.service.action.order.utils;
 
+import com.gongsibao.bd.base.IAuditLogService;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.NOrderCarryover;
 import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
+import com.gongsibao.trade.base.INDepReceivableService;
 import com.gongsibao.trade.base.IOrderPayMapService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
@@ -104,11 +106,28 @@ public class AuditHelper {
 
         IPersister<NOrderCarryover> carryService = PersisterFactory.create();
         String sql = "SELECT  count(1) FROM    bd_audit_log WHERE  type_id= 1052 AND status_id=?   AND  form_id IN (SELECT  id  FROM  so_order_carryover   WHERE  to_order_id=? ) ";//校验订单是不是存在待结转审核的
-        QueryParameters qps=new QueryParameters();
-        qps.add("@status_id",type.getValue(),Types.INTEGER);
-        qps.add("@to_order_id",id,Types.INTEGER);
+        QueryParameters qps = new QueryParameters();
+        qps.add("@status_id", type.getValue(), Types.INTEGER);
+        qps.add("@to_order_id", id, Types.INTEGER);
         Integer num = carryService.executeInt(sql, qps);
 
         return num;
+    }
+
+    /*根据外键 formId类型typeId level 等级进行查询下一级的userIds*/
+    public static List<Integer> getNextLevelUserIds(Integer fromId, int typeId, int level) {
+
+        IAuditLogService auditService = ServiceFactory.create(IAuditLogService.class);//订单业绩服务
+
+        List<AuditLog> audits = auditService.getNextLevelUserIds(fromId, typeId, level);
+        List<Integer> list = new ArrayList<>();
+
+        for (AuditLog item : audits
+                ) {
+            list.add(item.getCreatorId());
+
+        }
+        return list;
+
     }
 }

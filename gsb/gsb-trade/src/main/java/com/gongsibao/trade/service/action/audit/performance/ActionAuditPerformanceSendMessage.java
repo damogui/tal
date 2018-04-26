@@ -8,6 +8,7 @@ import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.trade.base.INDepReceivableService;
+import com.gongsibao.trade.service.action.order.utils.AuditHelper;
 import com.gongsibao.trade.service.action.order.utils.UserHelper;
 import com.gongsibao.utils.sms.SmsHelper;
 import org.netsharp.action.ActionContext;
@@ -68,13 +69,23 @@ public class ActionAuditPerformanceSendMessage implements IAction {
                     String content = String.format("【订单业绩审核提醒】您好，您有1个订单提交的订单业绩申请已审核通过，订单编号为【%s】，请知悉", soOrder.getNo());
                     SmsHelper.send(soOrder.getOwner().getMobile(), content);//订单业务员
                     sendAuditPass(soOrder.getId(), soOrder.getNo());//业绩相关业务员
-                }else{
+                } else {
                     //通知下一级
-
-
+                    List<Integer> userIds = AuditHelper.getNextLevelUserIds(soOrder.getId(), auditLog.getType().getValue(), auditLog.getLevel() + 1);//获取下一级要通知的人 fromId
+                    sendNextAudit(userIds, soOrder.getNo());//下一级审核
 
                 }
                 break;
+        }
+
+    }
+
+    /*下一级审核*/
+    private void sendNextAudit(List<Integer> userIds, String no) {
+        for (Integer item:userIds
+             ) {
+            String content = String.format("【订单业绩待审核提醒】您好，有1个订单业绩申请待您审核，请及时审核");
+            SmsHelper.send(UserHelper.getEmployeTelById(item), content);//电话和内容
         }
 
     }
