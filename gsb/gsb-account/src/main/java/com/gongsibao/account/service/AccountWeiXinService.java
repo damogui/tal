@@ -41,7 +41,6 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
      */
     public final static String SYSINQUIRY_CONTINUE_CALLBACK_URL_PREFIX = "https://open.weixin.qq.com/connect/oauth2/authorize?from=weixin&appid=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s#wechat_redirect";
     public static final String ORDER_CHANGE_STATE_MSG = "您购买的服务\"%s\" 办理进度变更为 \"%s\" \n\r" + "<a href=\"%s\">点此查看详情>></a>";
-    public static final String OID = "gh_29f5a8b8da16";
 
     public AccountWeiXinService() {
         super();
@@ -209,11 +208,10 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
                             String url,
                             String remark,
                             AccountWxMsg tmpId) {
-        IPublicAccountService publicAccountService = ServiceFactory.create(IPublicAccountService.class);
-        //取公众号配置
-        PublicAccount weixinConfig = publicAccountService.byOriginalId(OID);
         //取微信用户openid
         Fans fans = this.queryFansByUserId(accountId);
+        //取公众号配置
+        PublicAccount weixinConfig = this.queryByFansId(fans);
         //获取token
         AccessToken token = token(weixinConfig);
         String template_id = this.getTemplateId(token, tmpId.getEmpId());
@@ -251,7 +249,7 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
             }
         }
         //拼接消息内容
-        String redirectUrl = UrlHelper.encode("http://" + weixinConfig.getHost() + UrlHelper.join(url, "originalId=" + OID));
+        String redirectUrl = UrlHelper.encode("http://" + weixinConfig.getHost() + UrlHelper.join(url, "originalId=" +weixinConfig.getOriginalId() ));
         SendTemplateMessageRequest request = new SendTemplateMessageRequest();
         {
             request.setTokenInfo(token);
@@ -318,7 +316,7 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
             }
         }
         //拼接消息内容
-        String redirectUrl = UrlHelper.encode("http://" + weixinConfig.getHost() + UrlHelper.join(url, "originalId=" + OID));
+        String redirectUrl = UrlHelper.encode("http://" + weixinConfig.getHost() + UrlHelper.join(url, "originalId=" + originalId));
         SendTemplateMessageRequest request = new SendTemplateMessageRequest();
         {
             request.setTokenInfo(token);
