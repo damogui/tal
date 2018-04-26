@@ -31,7 +31,7 @@ public class AuditCarryoverActionTest  extends BaseActionTest{
 
 		createBean(beanPath, "1.验证", ActionAuditCarryoverVerify.class.getName(), resourceNode, 100);
 		createBean(beanPath, "2.回写", ActionAuditCarryoverWriteBack.class.getName(), resourceNode, 200);
-		createBean(beanPath, "4.通知", ActionAuditCarryoverSendMessage.class.getName(), resourceNode, 300);
+		//createBean(beanPath, "4.通知", ActionAuditCarryoverSendMessage.class.getName(), resourceNode, 300);
 		beanPathService.save(beanPath);
 	}
 }
