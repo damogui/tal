@@ -37,6 +37,7 @@ public class MessageController extends BaseController{
         String productName =  StringUtils.trimToEmpty(req.get("productName"));
         String payStatus =  StringUtils.trimToEmpty(req.get("payStatus"));
         String orderNo = StringUtils.trimToEmpty(req.get("orderNo"));
+        String remainMoney = StringUtils.trimToEmpty(req.get("remainMoney"));
         ResponseData data = new ResponseData();
         if (StringUtils.isBlank(openId)) {
             data.setCode(500);
@@ -69,7 +70,11 @@ public class MessageController extends BaseController{
         }
         try{
             Account account=accountService.queryByOpenId(openId);
-            accountService.buySuccessSendMsg(originalId(request),account.getId(),money,productName,"您的订单"+orderNo+"支付成功,我们将立即为您办理",payStatus.equals("1")?"/index.html#/mine/order/2":"/index.html#/mine/order/1");
+            String memo="您的订单"+orderNo+"支付成功,我们将立即为您办理。";
+            if(!StringUtils.isBlank(remainMoney)){
+                memo="您的订单"+orderNo+ " 已支付"+money+",还需支付"+remainMoney+"。";
+            }
+            accountService.buySuccessSendMsg(originalId(request),account.getId(),money,productName,memo,payStatus.equals("1")?"/index.html#/mine/order/2":"/index.html#/mine/order/1");
             data.setCode(200);
             data.setMsg("发送成功！");
         }catch (Exception e){
