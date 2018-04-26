@@ -6,6 +6,7 @@ import com.gongsibao.entity.igirl.tm.TradeMarkCase;
 import com.gongsibao.igirl.tm.base.ITradeMarkCaseService;
 import com.gongsibao.igirl.tm.service.TradeMarkCaseService;
 
+import com.gongsibao.trade.base.ICustomerService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.netsharp.communication.ServiceFactory;
@@ -28,6 +29,8 @@ import org.netsharp.wx.pa.response.subscribe.IWeixinSubscriber;
 public class IgirlSubscribeTrademark implements IWeixinSubscriber {
     protected static Log logger = LogFactory.getLog(SubscribeEvent.class);
     IAccountService accountService = ServiceFactory.create(IAccountService.class);
+    ICustomerService customerService = ServiceFactory.create(ICustomerService.class);
+
     public boolean validate(EventRequest request, Fans fans, PublicAccount publicAccount){
         SubscribeEvent eventRequest = (SubscribeEvent) request;
         String  sceneStr=eventRequest.getSceneStr();
@@ -41,7 +44,10 @@ public class IgirlSubscribeTrademark implements IWeixinSubscriber {
         }else{
             String[] param=sceneStr.split("\\|");
             if(param[2].equals("SB")){
-                accountService.updateAccount(param[0],fans.getOpenId());
+                Account account = accountService.updateAccount(param[0], fans.getOpenId());
+                if (null != account) {
+                    customerService.saveByAccount(account, 4110218);
+                }
                 return true;
             }else{
                 return false;

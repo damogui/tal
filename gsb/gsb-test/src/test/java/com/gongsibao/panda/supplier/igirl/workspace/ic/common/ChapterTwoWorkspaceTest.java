@@ -37,10 +37,7 @@ public class ChapterTwoWorkspaceTest extends WorkspaceCreationBase {
         formServiceController = ChapterTwoPart.class.getName();
         formJsController = ChapterTwoPart.class.getName();
         formJsImport = "/gsb/igirl/js/chaptertwo.form.part.js";
-        //通过重写service的save方法实现的保存操作，没有走listpart
-//        listPartServiceController = ChapterTwoListPart.class.getName();
-//        listPartJsController=ChapterTwoListPart.class.getName();
-//        listPartImportJs="/gsb/igirl/js/chaptertwo.listpart.js";
+
     }
 
     @Override
@@ -126,16 +123,13 @@ public class ChapterTwoWorkspaceTest extends WorkspaceCreationBase {
         addFormField(form, "artificialPersonName", "紧急联系人", null, ControlTypes.TEXT_BOX, false,false).setWidth(200);
         field =addFormField(form, "artificialPersionMobile", "紧急联系人手机", null, ControlTypes.TEXT_BOX, true,false);
         {
-            field.setTroikaTrigger("controllerchapterTwo.PhoneVerify(this);");
+            field.setTroikaTrigger("controllerchapterTwo.MobileVerify(this);");
         }
         addFormField(form, "artificialPersionIdcard", "紧急联系人身份证号", null, ControlTypes.TEXT_BOX, false,false).setWidth(200);
         addFormField(form, "artificialPersionAddress", "紧急联系人住址", null, ControlTypes.TEXT_BOX, false,false).setWidth(200);
         addFormField(form, "artificialPersionCertType", "紧急联系人确认状态", null, ControlTypes.TEXT_BOX, false,false).setWidth(200);
-        addFormFieldRefrence(form, "chapterOne.code", "地区ID", null, "ChapterOne", true, false);
-//        {
-//            field.setTroikaTrigger("controllerchapterTwo.Test(this);");
-//        }
-        //addFormField(form, "area", "地区ID", null, ControlTypes.TEXT_BOX, true,false).setWidth(200);
+        addFormFieldRefrence(form, "chapterOne.name", "地区ID", null, "ChapterOne", true, false);
+
         addFormField(form, "sid", "原数据ID", null, ControlTypes.TEXT_BOX, false,false).setWidth(200);
         addFormField(form, "policeCode", "原policeCode", null, ControlTypes.TEXT_BOX, false,false).setWidth(200);
         addFormField(form, "user", "原user", null, ControlTypes.TEXT_BOX, false,false).setWidth(200);

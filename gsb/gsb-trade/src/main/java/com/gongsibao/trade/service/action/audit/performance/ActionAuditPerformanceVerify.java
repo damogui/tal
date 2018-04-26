@@ -56,9 +56,11 @@ public class ActionAuditPerformanceVerify implements IAction {
         if (!auditLog.getType ().equals (AuditLogType.DdYjSq)) {
             throw new BusinessException ("该审核类别不是【" + AuditLogType.DdYjSq.getText () + "】,禁止审核");
         }
+        StringBuilder sb = new StringBuilder();
+        sb.append("SoOrder.*,");
+        sb.append("SoOrder.owner.name");
 
-
-        SoOrder soOrder = orderService.getByOrderId (auditLog.getFormId ());//订单
+        SoOrder soOrder = orderService.getSoOrderById (auditLog.getFormId (),sb.toString());//订单
         if (soOrder == null) {
             throw new BusinessException ("该的订单业绩信息不存在");
         }

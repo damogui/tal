@@ -449,6 +449,7 @@ public class OrderService implements IOrderService {
 
     private Result<SoOrder> doOrder(OrderAddDTO orderAddDTO) {
         Account account = orderAddDTO.getAccount();
+
         // 组建order对象
         List<OrderProdAddDTO> prodDtoList = orderAddDTO.getProductList();
         if (CollectionUtils.isEmpty(prodDtoList)) {

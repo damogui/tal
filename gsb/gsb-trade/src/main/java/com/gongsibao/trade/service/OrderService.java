@@ -584,6 +584,13 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
             qps2.add("@form_order_id", orderId, Types.INTEGER);
             qps2.add("@to_order_id", orderId, Types.INTEGER);
             int num = auditLogService.executeInt(sql2, qps2);
+            if (num==0){
+                //结转中的订单不能删除
+                String sql3 = "SELECT   COUNT(1)   FROM so_order_pay_map WHERE  order_id=?";
+                QueryParameters qps3 = new QueryParameters();
+                qps3.add("@order_id", orderId, Types.INTEGER);
+                num=auditLogService.executeInt(sql3, qps3);
+            }
 
             return num;
 

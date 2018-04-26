@@ -121,6 +121,10 @@ public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> i
             entity.setDepartmentId(SupplierSessionManager.getDepartmentId());
             entity.setOwner(SessionManager.getUserName());
             entity.setOwnerId(SessionManager.getUserId());
+            entity.setOperator(SessionManager.getUserName());
+            entity.setOperatorId(SessionManager.getUserId());
+            entity.setCollector(SessionManager.getUserName());
+            entity.setCollectorId(SessionManager.getUserId());
         }
         return super.save(entity);
     }
@@ -157,7 +161,7 @@ public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> i
         oql.setFilter("approvalName=?");
         oql.getParameters().add("approvalName",name,Types.VARCHAR);
         IcExRegisterCase icCase = this.pm.queryFirst(oql);
-        if (icCase!=null&&!icCase.getEntityState().equals(statue)){
+        if (icCase!=null&&!icCase.getCorpRegStatue().equals(statue)){
             icCase.setCorpRegStatue(statue);
             icCase.toPersist();
             return super.save(icCase);
@@ -166,7 +170,7 @@ public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> i
     }
 
     @Override
-    public IcExRegisterCase updateOwner(Integer id, Integer toUserId) {
+    public IcExRegisterCase updateOwner(Integer id, Integer toUserId,Integer type) {
         IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
         Oql oql = new Oql();
         oql.setSelects("IcExRegisterCase.*");
@@ -175,9 +179,17 @@ public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> i
         oql.getParameters().add("id",id,Types.INTEGER);
         IcExRegisterCase icCase =this.queryFirst(oql);
         if (icCase!=null){
-            icCase.setOwnerId(toUserId);
             Employee employee = employeeService.byId(toUserId);
-            icCase.setOwner(employee.getName());
+            if (type==0){
+                icCase.setOwnerId(employee.getId());
+                icCase.setOwner(employee.getName());
+            }else if (type==1){
+                icCase.setOperatorId(employee.getId());
+                icCase.setOperator(employee.getName());
+            }else{
+                icCase.setCollectorId(employee.getId());
+                icCase.setCollector(employee.getName());
+            }
             icCase.toPersist();
             icCase = super.save(icCase);
         }
@@ -211,7 +223,7 @@ public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> i
         List<IGirlConfig> configs=girlConf.queryList(oql);
         String qcurl="";
         if(configs.size()==1) {
-            qcurl="{qrServiceUrl}/qc?detailLink=|{currentDomain}/gsb/igirl/mobile/main.html#/?spid="+SupplierSessionManager.getSupplierId()+"&casecode="+casecode+"&source=case";
+            qcurl="{qrServiceUrl}/qc?detailLink=|{currentDomain}/gsb/igirl/ic/html/icExRegisterCase.html#/?spid="+SupplierSessionManager.getSupplierId()+"&casecode="+casecode+"&source=case";
             qcurl=qcurl.replace("{qrServiceUrl}", configs.get(0).getConfigValue()).replace("{currentDomain}", url);
             try {
                 qcurl=qcurl.split("\\|")[0]+ URLEncoder.encode(qcurl.split("\\|")[1],"UTF-8");
@@ -221,7 +233,7 @@ public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> i
             }
         }
         if(configs.size()==2) {
-            qcurl="{qrServiceUrl}/qc?detailLink=|{currentDomain}/gsb/igirl/mobile/main.html#/?spid="+SupplierSessionManager.getSupplierId()+"&casecode="+casecode+"&source=case";
+            qcurl="{qrServiceUrl}/qc?detailLink=|{currentDomain}/gsb/igirl/ic/html/icExRegisterCase.html#/?spid="+SupplierSessionManager.getSupplierId()+"&casecode="+casecode+"&source=case";
             qcurl=qcurl.replace("{qrServiceUrl}", configs.get(0).getConfigValue()).replace("{currentDomain}", configs.get(1).getConfigValue());
             try {
                 qcurl=qcurl.split("\\|")[0]+URLEncoder.encode(qcurl.split("\\|")[1],"UTF-8");

@@ -417,6 +417,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 		{
 			part.setName("客户信息");
 			part.setDockStyle(DockType.TOP);
+			part.setStyle("height:320px;");
 		}
 	}
 

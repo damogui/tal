@@ -13,10 +13,10 @@
 <body class="easyui-layout">
 	<div id="tt" class="easyui-tabs">
 	    <div title="商机信息" iconCls="fa fa-file-o" style="display:none;">
-	        <iframe id="iframe_task" scrolling="auto" frameborder="0" style="width:100%;height:100%;"></iframe>  
+	        <iframe id="iframe_task" scrolling="auto" frameborder="0" style="width:100%;height:800px;"></iframe>  
 	    </div>   
 	    <div title="客户信息" iconCls="fa fa-user" style="display:none;">
-	        <iframe id="iframe_customer" scrolling="auto" frameborder="0" style="width:100%;height:100%;"></iframe>
+	        <iframe id="iframe_customer" scrolling="auto" frameborder="0" style="width:100%;height:800px;"></iframe>
 	    </div>
 	</div>  
 </body>

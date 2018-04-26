@@ -21,9 +21,9 @@
 
 	<%@include file="/wx/qy/bd/include/footer.jsp" %>
 	<script src="/wx/qy/cw/js/enum.items.js"></script>
-	<script src="/wx/qy/cw/js/audit.list.ctrl.js"></script>
+	<script src="/wx/qy/cw/js/subsidy.list.ctrl.js"></script>
 	<script>
-	  var ctrl = new org.netsharp.we.core.auditListCtrl();
+	  var ctrl = new org.netsharp.we.core.subsidyListCtrl();
 	  $(function(){
 		  ctrl.init();
 	  });

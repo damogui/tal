@@ -6,4 +6,5 @@ import com.gongsibao.entity.crm.NCustomerTaskInspection;
 
 public interface INCustomerTaskInspectionService extends IPersistableService<NCustomerTaskInspection> {
 
+	NCustomerTaskInspection getByTaskId(Integer taskId);
 }

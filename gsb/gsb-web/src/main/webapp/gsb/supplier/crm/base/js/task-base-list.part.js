@@ -45,7 +45,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 	    		  fixed: false,
 	    		  maxmin: true,
 	    		  shadeClose:true,
-	    		  area: ['90%','90%'],
+	    		  area: ['98%','98%'],
 	    		  content: url
 	    	});
 		}
@@ -69,7 +69,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
     		  fixed: false,
     		  maxmin: true,
     		  shadeClose:true,
-    		  area: ['90%','90%'],
+    		  area: ['98%','98%'],
     		  content: url
     	});
 	},

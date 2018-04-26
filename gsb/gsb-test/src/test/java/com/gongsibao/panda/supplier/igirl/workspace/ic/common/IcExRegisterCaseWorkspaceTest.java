@@ -104,11 +104,35 @@ public class IcExRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 			item.toNew();
 			item.setCode("doAllot");
 			item.setIcon("fa fa-link");
-			item.setName("分配");
+			item.setName("分配后期");
 			item.setCommand(null);
 			item.setOperationType(ot1);
 			item.setSeq(4000);
-			item.setCommand("{controller}.doAllot();");
+			item.setCommand("{controller}.doAllot(0);");
+			toolbar.getItems().add(item);
+		}
+		item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("doAllot");
+			item.setIcon("fa fa-link");
+			item.setName("分配业务");
+			item.setCommand(null);
+			item.setOperationType(ot1);
+			item.setSeq(4000);
+			item.setCommand("{controller}.doAllot(1);");
+			toolbar.getItems().add(item);
+		}
+		item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("doAllot");
+			item.setIcon("fa fa-link");
+			item.setName("分配材料");
+			item.setCommand(null);
+			item.setOperationType(ot1);
+			item.setSeq(4000);
+			item.setCommand("{controller}.doAllot(2);");
 			toolbar.getItems().add(item);
 		}
 		toolbarService.save(toolbar);
@@ -157,15 +181,26 @@ public class IcExRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 
 		PDatagrid datagrid = super.createDatagrid(node);
 		PDatagridColumn column = null;
-		column = addColumn(datagrid, "customer.realName", "客户姓名", ControlTypes.TEXT_BOX, 300);
+		column = addColumn(datagrid, "customer.realName", "客户姓名", ControlTypes.TEXT_BOX, 150);
 		column.setAlign(DatagridAlign.CENTER);
-		column = addColumn(datagrid, "customer.mobile", "客户电话", ControlTypes.TEXT_BOX, 300, true);
+		column = addColumn(datagrid, "customer.mobile", "客户电话", ControlTypes.TEXT_BOX, 150);
 		column.setAlign(DatagridAlign.CENTER);
-		column = addColumn(datagrid, "approvalName", "核准公司名称", ControlTypes.TEXT_BOX, 300);
+		column = addColumn(datagrid, "approvalName", "核准公司名称", ControlTypes.TEXT_BOX, 250);
 		column.setAlign(DatagridAlign.CENTER);
-		column = addColumn(datagrid, "approvalType", "审核状态", ControlTypes.ENUM_BOX, 300);
-		column = addColumn(datagrid, "corpRegStatue", "工商业务状态", ControlTypes.ENUM_BOX, 300);
-		column = addColumn(datagrid, "operator", "操作者", ControlTypes.ENUM_BOX, 300);
+		column = addColumn(datagrid, "approvalType", "审核状态", ControlTypes.ENUM_BOX, 150);
+		column.setAlign(DatagridAlign.CENTER);
+		column = addColumn(datagrid, "corpRegStatue", "工商业务状态", ControlTypes.ENUM_BOX, 150);
+		column.setAlign(DatagridAlign.CENTER);
+		column = addColumn(datagrid, "operatorType", "填报账户", ControlTypes.ENUM_BOX, 150);
+		column.setAlign(DatagridAlign.CENTER);
+		column = addColumn(datagrid, "businessType", "业务类型", ControlTypes.ENUM_BOX, 150);
+		column.setAlign(DatagridAlign.CENTER);
+		column = addColumn(datagrid, "owner", "后期人员", ControlTypes.TEXT_BOX, 150);
+		column.setAlign(DatagridAlign.CENTER);
+		column = addColumn(datagrid, "operator", "业务人员", ControlTypes.TEXT_BOX, 150);
+		column.setAlign(DatagridAlign.CENTER);
+		column = addColumn(datagrid, "collector", "材料人员", ControlTypes.TEXT_BOX, 150);
+		column.setAlign(DatagridAlign.CENTER);
 		return datagrid;
 	}
 
@@ -190,7 +225,8 @@ public class IcExRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 		}
 		addFormField(form, "approvalType", "审核状态", null, ControlTypes.ENUM_BOX, true,false);
 		addFormField(form, "corpRegStatue", "工商业务状态", null, ControlTypes.ENUM_BOX, true,false);
-		addFormField(form, "operator", "操作者", null, ControlTypes.ENUM_BOX, true,false);
+		addFormField(form, "operatorType", "填报账户", null, ControlTypes.ENUM_BOX, true,false);
+		addFormField(form, "businessType", "业务类型", null, ControlTypes.ENUM_BOX, true,false);
 		addFormField(form, "tokenImgUrl", "二维码", null, ControlTypes.IMAGE, false, true);
 		return form;
 	}

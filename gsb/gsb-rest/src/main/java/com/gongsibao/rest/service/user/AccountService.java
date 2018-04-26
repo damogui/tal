@@ -1,21 +1,24 @@
 package com.gongsibao.rest.service.user;
 
+import com.gongsibao.account.base.IAccountCompanyService;
 import com.gongsibao.account.base.IAccountWeiXinService;
+import com.gongsibao.trade.base.ICustomerService;
 import com.gongsibao.entity.acount.Account;
+import com.gongsibao.entity.acount.AccountCompany;
 import com.gongsibao.entity.acount.AccountWxMsg;
 import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.rest.base.user.IAccountService;
 import com.gongsibao.rest.web.common.util.*;
 import com.gongsibao.rest.web.common.web.Constant;
+import com.gongsibao.rest.web.dto.user.AccountValidateDTO;
 import com.gongsibao.u8.base.IOrderPayMapService;
 import com.gongsibao.utils.NumberUtils;
 import com.gongsibao.utils.sms.SmsHelper;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
-import org.netsharp.panda.controls.utility.UrlHelper;
 import org.netsharp.wx.pa.base.ICustomService;
 import org.netsharp.wx.pa.base.IFansService;
 import org.netsharp.wx.pa.base.IPublicAccountService;
@@ -25,9 +28,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
-import java.net.URLEncoder;
 import java.sql.Types;
 import java.util.*;
 
@@ -36,7 +37,15 @@ public class AccountService implements IAccountService {
     com.gongsibao.account.base.IAccountService accountService = ServiceFactory.create(com.gongsibao.account.base.IAccountService.class);
     IAccountWeiXinService accountWeiXinService = ServiceFactory.create(IAccountWeiXinService.class);
     ICustomService customService = ServiceFactory.create(ICustomService.class);
+
     IOrderPayMapService orderPayMapService = ServiceFactory.create(IOrderPayMapService.class);
+
+    // 会员绑定公司服务
+    IAccountCompanyService accountCompanyService = ServiceFactory.create(IAccountCompanyService.class);
+
+    // Crm客户服务
+    ICustomerService customerService = ServiceFactory.create(ICustomerService.class);
+
     @Value("${wx_notify_key}")
     private String notifyKey;
     /*日志*/
@@ -95,7 +104,10 @@ public class AccountService implements IAccountService {
 
     @Override
     public void updateAccount(String mobile, String openId) {
-        accountService.updateAccount(mobile,openId);
+        Account account = accountService.updateAccount(mobile, openId);
+        if (null != account) {
+            customerService.saveByAccount(account, 4110218);
+        }
     }
 
     @Override
@@ -220,6 +232,7 @@ public class AccountService implements IAccountService {
         Map map = XMLUtil.doXMLParse(resXml);
         try {
             String return_msg = new String(((String) map.get("return_msg")).getBytes("ISO-8859-1"), "UTF-8");
+            log.info("==========return_msg:==========" + return_msg);
             // H5支付时:统一下单接口返回支付相关参数给商户后台，如支付跳转url（参数名“mweb_url”，前端访问中转页面“mweb_url”主动唤起微信支付收银台）【此h5支付接口，腾讯暂时不受理了，申请不了了】
             return  StringUtils.trimToEmpty(map.get("prepay_id").toString());
         } catch (Exception e) {
@@ -254,5 +267,36 @@ public class AccountService implements IAccountService {
             oql.getParameters().add("@publicAccountId", accountId, Types.INTEGER);
         }
         return fansService.queryFirst(oql)!=null?true:false;
+    }
+
+    @Override
+    public AccountValidateDTO validAccountByOpenId(String openId) {
+        AccountValidateDTO dto = new AccountValidateDTO();
+        if (StringUtils.isBlank(openId)) {
+            return dto;
+        }
+
+        dto.setOpenId(openId);
+        Fans weiXin = accountWeiXinService.queryFansByOpenId(openId);
+        if (null == weiXin) {
+            // 创建微信账号
+            weiXin = accountWeiXinService.createFans(openId);
+        }
+
+        if (null != weiXin.getUserId()) {
+            // 查询关联会员
+            Account account = accountService.getById(weiXin.getUserId());
+            if (null != account) {
+                dto.setMobile(account.getMobilePhone());
+                // 查会员关联企业
+                List<AccountCompany> companyList = accountCompanyService.findByAccount(account.getId(), 1);
+                if (CollectionUtils.isNotEmpty(companyList)) {
+                    // TODO 暂时取第一个公司
+                    String companyName = companyList.get(0).getCompanyName();
+                    dto.setCompanyName(companyName);
+                }
+            }
+        }
+        return dto;
     }
 }

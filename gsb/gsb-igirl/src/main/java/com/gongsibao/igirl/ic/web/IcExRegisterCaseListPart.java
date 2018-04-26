@@ -21,8 +21,7 @@ public class IcExRegisterCaseListPart extends ListPart {
         return SupplierSessionManager.getSupplierId();
     }
 
-    public IcExRegisterCase updateOwner(Integer id,Integer toUserId){
-
-        return this.service.updateOwner(id,toUserId);
+    public IcExRegisterCase updateOwner(Integer id,Integer toUserId,Integer type){
+        return this.service.updateOwner(id,toUserId,type);
     }
 }

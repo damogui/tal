@@ -15,7 +15,7 @@
 	</div>
 </div>
 <div id="list" ></div>
-<div class="weui-btn-area">
+<div class="weui-btn-area" id="btnBack" >
   <a class="weui-btn weui-btn_default" href="javascript:history.back();">返回</a>
 </div>
 

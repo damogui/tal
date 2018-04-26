@@ -5,6 +5,7 @@ import com.gongsibao.entity.acount.Account;
 import com.gongsibao.rest.base.user.IAccountService;
 import com.gongsibao.rest.service.user.AccountService;
 import com.gongsibao.rest.web.common.util.Assert;
+import com.gongsibao.rest.web.common.util.StringUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,10 +22,10 @@ public class BaseController {
     IAccountService $accountService;
 
     protected String openId(HttpServletRequest request){
-        return request.getHeader(UserHeaders.openId);
+        return StringUtils.trimToEmpty(request.getHeader(UserHeaders.openId));
     }
     protected String originalId(HttpServletRequest request){
-        return request.getHeader(UserHeaders.originalId);
+        return StringUtils.trimToEmpty(request.getHeader(UserHeaders.originalId));
     }
 
     protected Account accountByOpenId(HttpServletRequest request){

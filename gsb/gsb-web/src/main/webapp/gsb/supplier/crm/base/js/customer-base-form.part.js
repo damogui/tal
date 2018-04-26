@@ -274,7 +274,7 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
             	window.top.$('#tabs').tabs('close','新增客户');
         	}else{
         		
-        		window.location.href=this.editUrl+'?id='+customerId;
+        		window.location.href='/panda/crm/salesman/customer/edit?id='+customerId;
         	}
     	}
     }
@@ -367,7 +367,7 @@ com.gongsibao.crm.web.NCustomerTaskDetailPart = org.netsharp.panda.commerce.Deta
   		  fixed: false,
   		  maxmin: true,
   		  shadeClose:true,
-  		  area: ['90%','90%'],
+  		  area: ['98%','98%'],
   		  content: url,
           success: function(layero, index){
         	  

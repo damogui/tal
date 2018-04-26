@@ -2,72 +2,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>联系人信息</title>
+	<title>我的已办</title>
 	<%@include file="/wx/qy/bd/include/header.jsp" %>
 </head>
 <body>
-
-<div class="weui_body">
-	<div id="list">
+	<div class="weui-search-bar" id="searchBar">
+	  <form class="weui-search-bar__form"  action="" onsubmit="return false;">
+	    <div class="weui-search-bar__box">
+	      <i class="weui-icon-search"></i>
+	      <input type="search" class="weui-search-bar__input" id="searchKeyWord" placeholder="搜索" onsearch="ctrl.filter()">
+	      <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+	    </div>
+	    <label class="weui-search-bar__label" id="searchText">
+	      <i class="weui-icon-search"></i>
+	      <span>搜索</span>
+	    </label>
+	  </form>
+	  <a href="javascript:ctrl.cancel();" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+	</div>
+	<div class="weui_body">
+	
+	  <div class="weui-pull-to-refresh__layer">
+	    <div class='weui-pull-to-refresh__arrow'></div>
+	    <div class='weui-pull-to-refresh__preloader'></div>
+	    <div class="down">下拉刷新</div>
+	    <div class="up">释放刷新</div>
+	    <div class="refresh">正在刷新</div>
+	  </div>
+	  <div id="list" class="weui-cells"></div>
+	  <div id="loadmore" class="weui-loadmore" style="display:none;">
+	    <i class="weui-loading"></i>
+	    <span class="weui-loadmore__tips">正在加载</span>
+	  </div>
+	  
 		<div id="nodata"  class="weui-loadmore weui-loadmore_line" style="display:none;">
 		  <span class="weui-loadmore__tips">暂无数据</span>
 		</div>
 	</div>
-</div>
-
-<div class="weui-btn-area">
-  <a class="weui-btn weui-btn_primary" href="javascript:ctrl.toAdd();" id="show-actions">新增联系人</a>
-</div>
-	<textarea id="template" class="template">
-	   {#foreach $T as record}
-			<div class="weui-form-preview">
-			  <div class="weui-form-preview__hd">
-			    <label class="weui-form-preview__label">姓名</label>
-			    <em class="weui-form-preview__value">{$T.record.name}</em>
-			  </div>
-			  <div class="weui-form-preview__bd">
-			    <div class="weui-form-preview__item">
-			      <label class="weui-form-preview__label">手机号</label>
-			      <span class="weui-form-preview__value">{$T.record.mobile}</span>
-			    </div>
-			    <div class="weui-form-preview__item">
-			      <label class="weui-form-preview__label">职务</label>
-			      <span class="weui-form-preview__value">{$T.record.post}</span>
-			    </div>
-			    <div class="weui-form-preview__item">
-			      <label class="weui-form-preview__label">微信号</label>
-			      <span class="weui-form-preview__value">{$T.record.weixin}</span>
-			    </div>
-			    <div class="weui-form-preview__item">
-			      <label class="weui-form-preview__label">QQ</label>
-			      <span class="weui-form-preview__value">{$T.record.qq}</span>
-			    </div>
-			    <div class="weui-form-preview__item">
-			      <label class="weui-form-preview__label">座机</label>
-			      <span class="weui-form-preview__value">{$T.record.tel}</span>
-			    </div>
-			    <div class="weui-form-preview__item">
-			      <label class="weui-form-preview__label">主联系人</label>
-			      <span class="weui-form-preview__value">
-			      	{#if $T.record.main==true} 是 {#else} 否 {#/if}
-			      </span>
-			    </div>
-			  </div>
-			  <div class="weui-form-preview__ft">
-			    <a class="weui-form-preview__btn weui-form-preview__btn_default" href="javascript:ctrl.toFranchiseeDetail({$T.record.franchiseeId});">返回</a>
-			    <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:ctrl.toEdit({$T.record.id});">修改</a>
-			  </div>
-			</div>
-       {#/for}
-	</textarea>
 	<%@include file="/wx/qy/bd/include/footer.jsp" %>
-	<script src="/wx/qy/bd/js/linkman.list.ctrl.js"></script>
+	<script src="/wx/qy/cw/js/enum.items.js"></script>
+	<script src="/wx/qy/cw/js/todo.list.ctrl.js"></script>
+	<script src="/wx/qy/cw/js/done.list.ctrl.js"></script>
 	<script>
-	  var ctrl = new org.netsharp.we.core.linkmanListCtrl();
+	  var ctrl = new org.netsharp.we.core.DoneListCtrl();
 	  $(function(){
 		  ctrl.init();
 	  });
 	</script>
-
 </body>
 </html>

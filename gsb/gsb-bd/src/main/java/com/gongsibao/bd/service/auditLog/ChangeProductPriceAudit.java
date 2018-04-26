@@ -29,4 +29,19 @@ public class ChangeProductPriceAudit extends AbstractAuditLogService{
 	protected String setActionPath() {
 		return "";
 	}
+
+	@Override
+	public List<String> getAuditPassTel() {
+		return null;
+	}
+
+	@Override
+	public List<String> getAuditFailTel() {
+		return null;
+	}
+
+	@Override
+	public List<String> getAuditWaitTel(int level) {
+		return null;
+	}
 }

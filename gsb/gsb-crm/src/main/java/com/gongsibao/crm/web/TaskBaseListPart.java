@@ -14,15 +14,18 @@ import org.netsharp.util.StringManager;
 import com.gongsibao.crm.base.ICustomerCompanyMapService;
 import com.gongsibao.crm.base.INCustomerOperationLogService;
 import com.gongsibao.crm.base.INCustomerService;
+import com.gongsibao.crm.base.INCustomerTaskInspectionService;
 import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.crm.NCustomerTask;
+import com.gongsibao.entity.crm.NCustomerTaskInspection;
 
 public class TaskBaseListPart extends AdvancedListPart {
 
 	INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
 	ICustomerCompanyMapService customerCompanyMapService = ServiceFactory.create(ICustomerCompanyMapService.class);
-
+	INCustomerTaskInspectionService taskInspectService = ServiceFactory.create(INCustomerTaskInspectionService.class);
+	
 	public String getFilterByParameter(FilterParameter parameter) {
 		if (parameter.getKey().equals("keyword")) {
 			// 这里全匹配
@@ -165,7 +168,19 @@ public class TaskBaseListPart extends AdvancedListPart {
 		INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
 		return taskService.abnormal(taskId, state, content, type);
 	}
-
+	/**
+     * 查看-抽查异常
+     * @param taskId
+     * @return
+     */
+    public String showAbnormal(Integer taskId) {
+        String inspecteContent = "";
+    	NCustomerTaskInspection taskInspcete =  taskInspectService.getByTaskId(taskId);
+    	if(taskInspcete != null){
+    		inspecteContent = taskInspcete.getContent();
+    	}
+        return inspecteContent;
+    }
 	/**
 	 * @throws
 	 * @Title: recordLookLog

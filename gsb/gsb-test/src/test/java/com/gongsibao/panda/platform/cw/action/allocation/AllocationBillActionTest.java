@@ -9,7 +9,7 @@ import com.gongsibao.cw.service.action.allocation.ActionAllocationApplyLog;
 import com.gongsibao.cw.service.action.allocation.ActionAllocationApplyPersist;
 import com.gongsibao.cw.service.action.allocation.ActionAllocationApplySendMessage;
 import com.gongsibao.cw.service.action.allocation.ActionAllocationApplyVerify;
-import com.gongsibao.panda.supplier.crm.action.BaseActionTest;
+import com.gongsibao.panda.action.BaseActionTest;
 
 
 public class AllocationBillActionTest  extends BaseActionTest{
