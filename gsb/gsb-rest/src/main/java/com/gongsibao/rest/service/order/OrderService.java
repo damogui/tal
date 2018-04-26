@@ -281,8 +281,8 @@ public class OrderService implements IOrderService {
         orderProductDTO.setSoOrderAddtime(soOrder.getCreateTime());
         orderProductDTO.setSoOrderPaidPrice(soOrder.getPaidPrice());
         orderProductDTO.setSoOrderPayStatusId(soOrder.getPayStatus().getValue());
-        orderProductDTO.setSoOrderPrice(soOrder.getPayablePrice());
-        orderProductDTO.setSoOrderPriceOriginal(soOrder.getTotalPrice());
+        orderProductDTO.setSoOrderPrice(soOrder.getTotalPrice());
+        orderProductDTO.setSoOrderPriceOriginal(soOrder.getPayablePrice());
         orderProductDTO.setTimeoutDays(orderProd.getTimeoutDays());
         orderProductDTO.setType(soOrder.getType().getValue());
         if (orderProductDTO.getSoOrderPaidPrice().compareTo(orderProductDTO.getSoOrderPriceOriginal()) == 0 || orderProd.getProcessStatusId() > 0) {
