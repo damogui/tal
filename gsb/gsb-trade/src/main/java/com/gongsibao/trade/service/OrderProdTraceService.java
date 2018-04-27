@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.gongsibao.account.base.IAccountWeiXinService;
 import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -50,6 +51,9 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
     }
 
     IOrderProdService orderProdService = ServiceFactory.create(IOrderProdService.class);
+    IOrderService orderService = ServiceFactory.create(IOrderService.class);
+
+    private IAccountWeiXinService accountWeiXinService = ServiceFactory.create(IAccountWeiXinService.class);
 
     @Override
     public List<OrderProdTrace> querySoOrderTraceList(Integer soOrderId) {
@@ -470,12 +474,10 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
         updateOrderProcessStatus(trace);
 
         this.create(trace);
-
+        String mobile = orderService.getCustomerMobile(trace.getOrderId());
+        //发送短息
         if (trace.getIsSendSms()) {
-
             Calendar now = Calendar.getInstance();
-            IOrderService orderService = ServiceFactory.create(IOrderService.class);
-            String mobile = orderService.getCustomerMobile(trace.getOrderId());
             String smsString = "【公司宝】您的订单：" + trace.getOrderNo() + ",已于" + now.get(Calendar.YEAR) + "年" + (now.get(Calendar.MONTH) + 1) + "月" + now.get(Calendar.DAY_OF_MONTH) + "日变更为“"
                     + newWorkflowNode.getName() + "”状态。如需帮助，请拨打服务热线：4006-798-999。";
             new Thread() {
@@ -484,6 +486,12 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
                     SmsHelper.send(mobile, smsString);
                 }
             }.start();
+        }
+        //发送icompany公众号消息
+        try {
+            accountWeiXinService.pushOrderStateMsg(mobile, orderProdId);
+        } catch (Exception e) {
+            //e.printStackTrace();
         }
         return true;
     }
@@ -548,12 +556,12 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
         Oql oql = new Oql();
         oql.setType(this.type);
         oql.setSelects("OrderProdTrace.*,orderProdStatus.*,operator.{name}");
-        if(typeIds!=null&&typeIds.size()>0){
-            sql.append(String.format(" and type_id in(%s) ",StringUtils.join(typeIds,",")));
+        if (typeIds != null && typeIds.size() > 0) {
+            sql.append(String.format(" and type_id in(%s) ", StringUtils.join(typeIds, ",")));
         }
         oql.setFilter(sql.toString());
         oql.setOrderby(" pkid DESC, add_time DESC ");
-        oql.getParameters().add("order_prod_id",orderProdId,Types.INTEGER);
+        oql.getParameters().add("order_prod_id", orderProdId, Types.INTEGER);
         return this.pm.queryList(oql);
     }
 }

@@ -45,7 +45,7 @@ public class OrderNewSaveActionTest extends BaseActionTest {
 		createBean(beanPath, "3.优惠劵", ActionSaveOrderCoupon.class.getName(), resourceNode, 700);
 		createBean(beanPath, "8.改价审核", ActionSaveOrderChangePriceAudit.class.getName(), resourceNode, 800);
 		createBean(beanPath, "9.分配", ActionSaveOrderAutoAllocation.class.getName(), resourceNode, 900);
-		//createBean(beanPath, "10.消息", ActionSaveOrderSendMessage.class.getName(), resourceNode, 1000);
+		createBean(beanPath, "10.消息", ActionSaveOrderSendMessage.class.getName(), resourceNode, 1000);
 		beanPathService.save(beanPath);
 	}
 }

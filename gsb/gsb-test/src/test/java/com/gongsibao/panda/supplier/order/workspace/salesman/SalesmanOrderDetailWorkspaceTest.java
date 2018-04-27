@@ -104,7 +104,10 @@ public class SalesmanOrderDetailWorkspaceTest extends WorkspaceCreationBase {
         addColumn(datagrid, "soOrder.companyIntention.companyName", "订单关联公司", ControlTypes.TEXT_BOX, 150);
         addColumn(datagrid, "companyIntention.companyName", "明细订单关联公司", ControlTypes.TEXT_BOX, 150);
         addColumn(datagrid, "soOrder.customer.realName", "下单人", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "soOrder.accountMobile", "下单人电话", ControlTypes.TEXT_BOX, 100);
+        column = addColumn(datagrid, "soOrder.accountMobile", "下单人电话", ControlTypes.TEXT_BOX, 100);
+        {
+            column.setFormatter(" var ctrl=workspace.parts.byIndex(0).key; return eval(ctrl+'.contactFormatter(value,row,index,\\'手机号\\')');");
+        }
         addColumn(datagrid, "soOrder.createTime", "下单时间", ControlTypes.DATETIME_BOX, 100);
         return datagrid;
     }
