@@ -62,7 +62,8 @@ public class Loan extends BizEntity {
 	@Reference(foreignKey = "bankId")
 	private U8Bank u8Bank ;
 	
-	@Reference(foreignKey = "creatorId",header="U8系统部门表" )
+	
+	@Reference(foreignKey = "creatorId",header="U8系统部门表" ,primaryKey="personnelCode")
 	private U8Department u8Department ;
 	
 	@Column(name = "payment_method", header = "付款方式 1:现金 ，2：转账 ，3：支票")
