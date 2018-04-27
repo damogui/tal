@@ -88,4 +88,17 @@ public class DepartmentOrderAllListPart extends BaseDepartmentListPart{
 
         return parameter.getFilter();
     }
+
+
+    /**
+     * @author: 郭佳
+     * @param orderList
+     * @param toUserId
+     * @Description:TODO 转移/分配（包括批量转移/分配）
+     * @date:   2018/4/27 15:18
+     */
+    public void orderTran(List<Integer> orderList, Integer toUserId) {
+
+        orderService.orderTran(orderList, toUserId);
+    }
 }
