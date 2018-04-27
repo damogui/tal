@@ -33,7 +33,14 @@ public class ActionAuditOrderNewSaveSendMessage implements IAction {
         //审核
         //审核意见
         String remark = auditContext.getremark();
-        auditSend(state, auditLog, soOrder, remark);
+        try {
+            //auditSend(state, auditLog, soOrder, remark);
+
+        }catch (Exception e){
+            //暂时不处理
+
+        }
+
         //推送icompnay公众号消息
         sendWxMsg(state, auditLog, soOrder);
     }
