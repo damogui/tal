@@ -429,8 +429,8 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
             PublicAccount publicAccount=this.queryByFansId(fans);
             NewsResponse news = new NewsResponse();
             {
-                news.setToUserName(publicAccount.getOriginalId());
-                news.setFromUserName(fans.getOpenId());
+                news.setToUserName(fans.getOpenId());
+                news.setFromUserName(publicAccount.getOriginalId());
             }
             Article article = new Article();
             {
