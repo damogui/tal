@@ -77,7 +77,7 @@ com.gongsibao.trade.web.AuditPayPerformanceCtrl = com.gongsibao.trade.web.AuditB
             $('#audit_progress_grid').datagrid({
                 idField: 'id',
                 emptyMsg: '暂无记录',
-                striped: true,
+                striped: false,
                 pagination: false,
                 showFooter: true,
                 singleSelect: true,

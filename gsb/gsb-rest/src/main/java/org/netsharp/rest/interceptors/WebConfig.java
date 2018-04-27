@@ -1,4 +1,4 @@
-
+package org.netsharp.rest.interceptors;
 import org.netsharp.rest.interceptors.LoginCheckInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
