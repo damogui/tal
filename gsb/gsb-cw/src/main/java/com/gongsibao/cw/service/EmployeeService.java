@@ -44,6 +44,7 @@ public class EmployeeService extends PersistableService<Employee> implements IEm
 			employee.setId(row.getInteger("id"));
 			employee.setMobile(row.getString("mobile"));
 			employee.setName(row.getString("name"));
+			employee.setLoginName(row.getString("login_name"));
 			resultList.add(employee);
 		}
 		return resultList;
@@ -70,6 +71,7 @@ public class EmployeeService extends PersistableService<Employee> implements IEm
 				employee.setId(row.getInteger("id"));
 				employee.setMobile(row.getString("mobile"));
 				employee.setName(row.getString("name"));
+				employee.setLoginName(row.getString("login_name"));
 				resultList.add(employee);
 			}
 		}
@@ -94,6 +96,7 @@ public class EmployeeService extends PersistableService<Employee> implements IEm
 				employee.setId(row.getInteger("id"));
 				employee.setMobile(row.getString("mobile"));
 				employee.setName(row.getString("name"));
+				employee.setLoginName(row.getString("login_name"));
 				break;
 			}
 		}

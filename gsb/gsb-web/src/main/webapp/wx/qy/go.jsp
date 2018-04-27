@@ -33,7 +33,6 @@
 	}
 	UserInfoResponse userInfoResponse = userInfoRequest.getResponse();
 	String wxUserId = userInfoResponse.getUserId();
-	wxUserId = "13301503086";
 	IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
 	Oql oql = new Oql();
 	{
