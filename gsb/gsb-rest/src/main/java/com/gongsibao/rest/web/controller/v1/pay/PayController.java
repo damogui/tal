@@ -160,6 +160,13 @@ public class PayController extends BaseController {
                 e.printStackTrace();
             }
 
+            // 微信模板消息发送
+            try {
+                accountWeiXinService.buySuccessSendMsg(orderId, total_fee);
+            }  catch (Exception e) {
+                log.error("========== message send error ========== ", e);
+            }
+
             String resXml = "";
             if (isSuccess) {
                 // 这里是支付成功
