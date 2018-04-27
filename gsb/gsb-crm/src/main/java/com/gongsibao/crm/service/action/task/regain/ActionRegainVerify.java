@@ -38,8 +38,8 @@ public class ActionRegainVerify implements IAction {
          * 2.平台（售前）：当前商机的服务商、部门、业务员都为空
         */
         
-        //区分那个账号角色登录（默认平台-2；服务商-1）
-       if(isPlatform.equals(2)){
+        //区分那个账号角色登录（默认平台-1；服务商-0）
+       if(isPlatform.equals(1)){
     	   taskEntity.setSupplierId(null);
            taskEntity.setDepartmentId(null); 
            taskEntity.setOwnerId(null);

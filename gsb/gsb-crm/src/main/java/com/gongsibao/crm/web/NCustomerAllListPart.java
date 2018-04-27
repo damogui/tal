@@ -1,21 +1,13 @@
 package com.gongsibao.crm.web;
 
-import com.gongsibao.crm.base.ICustomerCompanyMapService;
-import com.gongsibao.entity.crm.NCustomer;
 import org.netsharp.communication.ServiceFactory;
 
 import com.gongsibao.crm.base.INCustomerOperationLogService;
 import com.gongsibao.crm.base.INCustomerService;
-import org.netsharp.core.Oql;
-import org.netsharp.panda.commerce.FilterParameter;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.gongsibao.crm.base.INCustomerTaskService;
 
 public class NCustomerAllListPart extends NCustomerBaseListPart {
-
+	INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
     /**
      * 开通会员功能
      *
@@ -42,4 +34,12 @@ public class NCustomerAllListPart extends NCustomerBaseListPart {
         INCustomerOperationLogService changeService = ServiceFactory.create(INCustomerOperationLogService.class);
         return changeService.recordLookLog(customerId, typeName);
     }
+    /**
+	 * 根据客户id获取商机所属人的集合
+	 * @param customerId
+	 * @return
+	 */
+	public String isHaveTask(int customerId){		
+		return taskService.getTaskNamesByCustomerId(customerId);
+	}
 }

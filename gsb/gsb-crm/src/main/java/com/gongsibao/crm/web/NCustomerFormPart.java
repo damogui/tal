@@ -1,18 +1,14 @@
 package com.gongsibao.crm.web;
 
-import java.util.List;
-
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.entity.IPersistable;
 import org.netsharp.panda.commerce.FormNavigation;
 import org.netsharp.panda.commerce.FormPart;
-import org.netsharp.persistence.session.SessionManager;
 
 import com.gongsibao.crm.base.INCustomerOperationLogService;
 import com.gongsibao.crm.base.INCustomerService;
 import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.entity.crm.NCustomer;
-import com.gongsibao.entity.crm.NCustomerTask;
 
 public class NCustomerFormPart extends FormPart{
 
@@ -61,21 +57,11 @@ public class NCustomerFormPart extends FormPart{
 	}
 	
 	/**
-	 * 当前登录人是否等于客户的商机所属业务员，若是允许创建否则返回相关的商机业务员
+	 * 根据客户id获取商机所属人的集合
 	 * @param customerId
 	 * @return
 	 */
-	public String isHaveTask(int customerId){
-		String ownerName = "";		
-		List<NCustomerTask> taskList = taskService.getByCustomerId(customerId);
-		for (NCustomerTask item : taskList) {
-			if(!item.getOwnerId().equals(SessionManager.getUserId())){
-				ownerName += item.getOwner().getName()+"、";
-			}
-		}
-		if(ownerName.length()>0){
-			ownerName = ownerName.substring(0,ownerName.length()-1);	
-		}
-		return ownerName;
+	public String isHaveTask(int customerId){		
+		return taskService.getTaskNamesByCustomerId(customerId);
 	}
 }

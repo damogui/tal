@@ -202,7 +202,7 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
      * @date 2018/4/19 14:14
      */
     @Override
-    public void pushTextMsg(Integer accountId,
+    public void pushTextMsgOauth(Integer accountId,
                             String first,
                             String keyword1,
                             String keyword2,
@@ -216,7 +216,7 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
         PublicAccount weixinConfig = this.queryByFansId(fans);
         //获取token
         AccessToken token = token(weixinConfig);
-        String template_id = this.getTemplateId(token, tmpId.getEmpId());
+        String template_id = tmpId.getEmpId();
         SendTemplateData data = new SendTemplateData();
         {
             if (tmpId.getEmpId().equals(AccountWxMsg.BUY_SUCCESS.getEmpId())) {
@@ -258,6 +258,67 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
             request.setTouser(fans.getOpenId());
             request.setTemplate_id(template_id);
             request.setPageUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + weixinConfig.getAppId() + "&redirect_uri=" + redirectUrl + "&response_type=code&scope=snsapi_base&state=111echat_redirect&connect_redirect=1#wechat_redirect");
+            request.setData(data);
+        }
+        request.getResponse();
+    }
+
+    @Override
+    public void pushTextMsg(Integer accountId,
+                            String first,
+                            String keyword1,
+                            String keyword2,
+                            String date,
+                            String url,
+                            String remark,
+                            AccountWxMsg tmpId) {
+        //取微信用户openid
+        Fans fans = this.queryFansByUserId(accountId);
+        //取公众号配置
+        PublicAccount weixinConfig = this.queryByFansId(fans);
+        //获取token
+        AccessToken token = token(weixinConfig);
+        String template_id = tmpId.getEmpId();
+        SendTemplateData data = new SendTemplateData();
+        {
+            if (tmpId.getEmpId().equals(AccountWxMsg.BUY_SUCCESS.getEmpId())) {
+                data.getFirst().setValue(first);
+                data.getKeynotes().put("orderMoneySum", new KeyNote(keyword1));
+                data.getKeynotes().put("orderProductName", new KeyNote(keyword2));
+                if (StringUtils.isNotEmpty(remark))
+                    data.getKeynotes().put("Remark", new KeyNote(remark));
+                else
+                    data.getKeynotes().put("Remark", new KeyNote(""));
+            } else if (tmpId.getEmpId().equals(AccountWxMsg.ORDER_STATE_CHANGE.getEmpId())) {
+                data.getFirst().setValue(first);
+                data.getKeynotes().put("OrderSn", new KeyNote(keyword1));
+                data.getKeynotes().put("OrderStatus", new KeyNote(keyword2));
+                if (StringUtils.isNotEmpty(remark)) {
+                    data.getKeynotes().put("remark", new KeyNote(remark));
+                } else {
+                    data.getKeynotes().put("remark", new KeyNote(""));
+                    data.setRemark(new KeyNote(""));
+                }
+            } else if (tmpId.getEmpId().equals(AccountWxMsg.WORK_PROCESS_CHANGE.getEmpId())) {
+                data.getFirst().setValue(first);
+                data.getKeynotes().put("keyword1", new KeyNote(keyword1));
+                data.getKeynotes().put("keyword2", new KeyNote(keyword2));
+                data.getKeynotes().put("keyword3", new KeyNote(date));
+                if (StringUtils.isNotEmpty(remark)) {
+                    data.getKeynotes().put("remark", new KeyNote(remark));
+                } else {
+                    data.getKeynotes().put("remark", new KeyNote(""));
+                    data.setRemark(new KeyNote(""));
+                }
+            }
+        }
+        //拼接消息内容
+        SendTemplateMessageRequest request = new SendTemplateMessageRequest();
+        {
+            request.setTokenInfo(token);
+            request.setTouser(fans.getOpenId());
+            request.setTemplate_id(template_id);
+            request.setPageUrl(url);
             request.setData(data);
         }
         request.getResponse();

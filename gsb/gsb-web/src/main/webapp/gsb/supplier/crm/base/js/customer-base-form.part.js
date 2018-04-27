@@ -349,7 +349,7 @@ com.gongsibao.crm.web.NCustomerTaskDetailPart = org.netsharp.panda.commerce.Deta
         		  }
           	    });
     		}else{
-    			IMessageBox.info("您不是客户所拥有者，无法创建商机，请联系" + ownerName + "创建");
+    			IMessageBox.info("您不是客户所拥有者，无法创建商机，请联系【" + ownerName + "】创建");
     		}
     	});
     },

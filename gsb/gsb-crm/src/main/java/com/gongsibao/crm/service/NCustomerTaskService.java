@@ -18,6 +18,7 @@ import org.netsharp.core.BusinessException;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
 import org.netsharp.core.QueryParameters;
+import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
@@ -693,14 +694,26 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
     }
 
 	@Override
-	public List<NCustomerTask> getByCustomerId(Integer customerId) {
+	public String getTaskNamesByCustomerId(Integer customerId) {
+		String ownerName = "";
 		Oql oql = new Oql();
         {
             oql.setType(this.type);
             oql.setSelects("NCustomerTask.*,owner.name");
             oql.setFilter("customerId =" + customerId);
         }
-        List<NCustomerTask> tasks = this.pm.queryList(oql);
-        return tasks;
+        List<NCustomerTask> taskList = this.pm.queryList(oql);
+        for (NCustomerTask item : taskList) {
+        	//当前登录人是否等于客户的商机所属业务员，若是允许创建否则返回相关的商机业务员
+        	if(item.getOwnerId() !=null && item.getOwner()!=null){
+        		if(!item.getOwnerId().equals(SessionManager.getUserId())){
+    				ownerName += item.getOwner().getName()+"、";
+    			}
+        	}
+		}
+		if(ownerName.length()>0){
+			ownerName = ownerName.substring(0,ownerName.length()-1);	
+		}
+        return ownerName;
 	}
 }
