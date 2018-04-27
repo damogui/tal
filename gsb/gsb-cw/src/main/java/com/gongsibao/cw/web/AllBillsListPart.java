@@ -5,6 +5,7 @@ import java.util.List;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.apache.log4j.Logger;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
 import org.netsharp.panda.commerce.ListPart;
@@ -17,16 +18,18 @@ import com.gongsibao.entity.cw.CostDetail;
 import com.gongsibao.entity.cw.Expense;
 import com.gongsibao.entity.cw.Loan;
 import com.gongsibao.entity.cw.dict.FinanceDict;
+import com.gongsibao.u8.base.IU8DepartmentService;
 
 public class AllBillsListPart extends ListPart{
 
+	private  Logger logger = Logger.getLogger(AllBillsListPart.class);
 	 //借款服务
 	ILoanService loanService = ServiceFactory.create(ILoanService.class);
 	//报销服务
 	IExpenseService expenseService = ServiceFactory.create(IExpenseService.class);
 	//付款服务
 	IPaymentService paymentService = ServiceFactory.create(IPaymentService.class);
-		
+	
 	/**
 	 * 凭证生成
 	* @Title: createVoucher  
@@ -42,8 +45,9 @@ public class AllBillsListPart extends ListPart{
 		if(formType == FinanceDict.FormType.JKD.getValue()){ //借款单
 			Loan loan = loanService.getBillByFormId(formId,true);
 			JSONObject jsonObject = loanVoucher(loan);
-			System.out.println("凭证请求参数："+jsonObject.toString());
+			logger.info("凭证请求参数："+jsonObject.toString());
 			result = HttpClientUtil.doPost(FinanceDict.U8_VOUCHER_, jsonObject);
+			logger.info("凭证返回参数："+result.toString());
 		}
 		return result;
 	}
@@ -60,7 +64,11 @@ public class AllBillsListPart extends ListPart{
 		JSONObject josnObject = new JSONObject();
 		josnObject.put("senderNo",5);  //测试5 
 		//josnObject.put("senderNo", loan.getSetOfBooks().getSenderNo());
-		josnObject.put("enterName",loan.getSetOfBooks().getEnterName());
+		if(loan.getSetOfBooks()!= null){
+			josnObject.put("enterName",loan.getSetOfBooks().getEnterName());
+		}else{
+			 throw new BusinessException("帐套对应制单人为空");
+		}
 		josnObject.put("setOfBooksId", loan.getSetOfBooksId());
 		josnObject.put("type", 3);
 		josnObject.put("payId", loan.getId());
@@ -70,8 +78,9 @@ public class AllBillsListPart extends ListPart{
 		JSONArray inEntryList = new JSONArray();
 		
 		JSONObject inEntryJson = new JSONObject();
-		inEntryJson.put("accountCode", "");
+		inEntryJson.put("accountCode", "1001");
 		inEntryJson.put("naturalDebitCurrency", loan.getAmount()/100);
+		
 		if(loan.getU8Department() !=null){
 			inEntryJson.put("operator",loan.getU8Department().getSalesmanId());
 			inEntryJson.put("deptId", loan.getU8Department().getCode());

@@ -137,7 +137,7 @@ public class IcExRegisterController {
             IcExLog log = new IcExLog();
             log.setCompanyName(name);
             log.setCorpRegStatue(CorpRegStatue.getItem(state));
-            log.setTitle("工商日志");
+            log.setTitle("自动日志");
             log.setContent("更新工商状态");
             log.setCreateTime(new Date());
             log.toNew();

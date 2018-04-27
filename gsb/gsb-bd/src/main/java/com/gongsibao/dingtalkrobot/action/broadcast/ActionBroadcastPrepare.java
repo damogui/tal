@@ -26,6 +26,7 @@ public class ActionBroadcastPrepare implements IAction {
         if (ctxStatus == null) return;
         String ywyMobile = StringUtils.trimToEmpty((String) ctxStatus.get("ywyMobile"));
         String atMobile = StringUtils.trimToEmpty((String) ctxStatus.get("atMobile"));
+        String atName = StringUtils.trimToEmpty((String) ctxStatus.get("atName"));
         Integer accountId = NumberUtils.toInt(ctxStatus.get("accountId"));
         String prodName = StringUtils.trimToEmpty((String) ctxStatus.get("prodName"));
         List<String> ywyNames = (List<String>) ctxStatus.get("ywyNames");
@@ -50,7 +51,7 @@ public class ActionBroadcastPrepare implements IAction {
             }
         }
         String combinationStr = "客户 **" + customerName + "** 已经下单! 下单内容为：" + prodName + ", 请及时跟进";
-        String textMsg = "{ \"msgtype\": \"markdown\", \"markdown\": {\"title\": \"新单通知\",\"text\": \" **新单通知** " + atMobile + "\\n > " + combinationStr + "\\n > ###### " + DateUtils.dateStr(new Date(), "yyyy-MM-dd HH:mm:ss") + " 发布 [公司宝](http://www.gongsibao.com/) \\n \"}, \"at\": {\"atMobiles\":[" + ywyMobile + "],\"isAtAll\":false}}";
+        String textMsg = "{ \"msgtype\": \"markdown\", \"markdown\": {\"title\": \"新单通知\",\"text\": \" **新单通知** " + atName + "\\n > " + combinationStr + "\\n > ###### " + DateUtils.dateStr(new Date(), "yyyy-MM-dd HH:mm:ss") + " 发布 [公司宝](http://www.gongsibao.com/) \\n \"}, \"at\": {\"atMobiles\":[" + ywyMobile + "],\"isAtAll\":false}}";
         String readMsg = "新单通知：" + StringUtils.join(ywyNames, ",") + "，您的客户" + customerName + "已经下单! 下单内容为：" + prodName + ", 请及时跟进";
         ctxStatus.put("textMsg", textMsg);
         ctxStatus.put("readMsg", readMsg);

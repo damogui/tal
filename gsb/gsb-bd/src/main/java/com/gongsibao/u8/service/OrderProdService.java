@@ -26,7 +26,7 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
     public List<OrderProd> getByOrderId(Integer orderId) {
         Oql oql = new Oql();
         {
-            oql.setType(this.type);
+            oql.setType(OrderProd.class);
             oql.setSelects("*");
             oql.setFilter("order_id = ?");
             oql.getParameters().add("orderId", orderId, Types.INTEGER);

@@ -1,6 +1,7 @@
 package com.gongsibao.rest.web.controller.v1.user;
 
 import com.gongsibao.rest.web.common.apiversion.Api;
+import com.gongsibao.rest.web.common.web.ResponseData;
 import com.gongsibao.rest.web.controller.BaseController;
 import org.netsharp.wx.mp.api.accesstoken.AccessToken;
 import org.netsharp.wx.mp.api.accesstoken.AccessTokenManage;
@@ -27,7 +28,7 @@ public class QrCodeController extends BaseController {
      */
     @RequestMapping(value = "/qrcode",method = RequestMethod.GET)
     @CrossOrigin
-    public String qrcode(HttpServletRequest request,
+    public ResponseData qrcode(HttpServletRequest request,
                          @RequestParam("mobile") String mobile,
                          @RequestParam("businessId") String businessId,
                          @RequestParam("source") String source
@@ -41,7 +42,7 @@ public class QrCodeController extends BaseController {
         // 过期时间，为0表示是持久的二维码，否则是临时二维码
         requestQ.setExpireSeconds(60*60*24*30);
         QrCodeResponse response = requestQ.getResponse();
-        return response.getQrCodeUrl();
+        return ResponseData.getSuccess(response.getQrCodeUrl(),"获取成功!");
     }
 
 }
