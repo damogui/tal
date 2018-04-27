@@ -1,6 +1,5 @@
-package com.gongsibao.rest;
 
-import com.gongsibao.rest.web.common.interceptor.LoginCheckInterceptor;
+import org.netsharp.rest.interceptors.LoginCheckInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

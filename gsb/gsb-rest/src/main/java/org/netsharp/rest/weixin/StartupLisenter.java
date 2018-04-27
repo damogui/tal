@@ -1,4 +1,4 @@
-package com.gongsibao.rest.servlet;
+package org.netsharp.rest.weixin;
 
 import org.netsharp.startup.IStartup;
 import org.netsharp.util.StopWatch;

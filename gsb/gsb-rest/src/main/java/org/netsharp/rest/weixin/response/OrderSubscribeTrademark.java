@@ -1,20 +1,15 @@
-package com.gongsibao.rest.servlet.response;
+package org.netsharp.rest.weixin.response;
 
 import com.gongsibao.account.base.IAccountService;
 import com.gongsibao.account.base.IAccountWeiXinService;
 import com.gongsibao.entity.acount.Account;
-import com.gongsibao.entity.igirl.tm.TradeMarkCase;
-import com.gongsibao.igirl.tm.base.ITradeMarkCaseService;
 import com.gongsibao.trade.base.ICustomerService;
-import com.gongsibao.trade.base.IOrderService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.wx.mp.message.ResponseMessage;
 import org.netsharp.wx.mp.message.request.event.EventRequest;
 import org.netsharp.wx.mp.message.request.event.SubscribeEvent;
-import org.netsharp.wx.mp.message.response.Article;
-import org.netsharp.wx.mp.message.response.NewsResponse;
 import org.netsharp.wx.pa.base.IFansService;
 import org.netsharp.wx.pa.entity.Fans;
 import org.netsharp.wx.pa.entity.PublicAccount;

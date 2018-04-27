@@ -1,4 +1,4 @@
-package com.gongsibao.rest.web.common.interceptor;
+package org.netsharp.rest.interceptors;
 
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.rest.base.user.IAccountService;
