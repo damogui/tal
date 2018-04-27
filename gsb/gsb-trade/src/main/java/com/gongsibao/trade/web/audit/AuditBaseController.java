@@ -43,6 +43,7 @@ public abstract class AuditBaseController {
 			oql.setType(AuditLog.class);
 			oql.setSelects("auditLog.*,auditLog.employee.name");
 			oql.setFilter("formId=? and type=?");
+			oql.setOrderby("level");
 			oql.getParameters().add("formId", id, Types.INTEGER);
 			oql.getParameters().add("type", auditLogType, Types.INTEGER);
 		}

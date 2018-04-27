@@ -160,19 +160,52 @@ com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.
     		$('#audit_progress_grid').datagrid({
     			idField:'id',
     			emptyMsg:'暂无记录',
-    			striped:true,
+    			striped:false,
     			pagination:false,
     			showFooter:true,
     			singleSelect:true,
     			height:'100%',
     			data:data,
+    			rowStyler: function(index,row){
+		        	
+		        	if(row.level%2 == 0){
+    					
+        				return 'background-color:#99CCCC;';
+    				}
+				},
     		    columns:[[
-    		        {field:'creatorId',title:'创建人名称',width:80,align:'center',formatter: function(value,row,index){
+    		        {field:'level',title:'顺序',width:80,align:'center',formatter: function(value,row,index){
+    		        	return value+1;
+    		        }},
+    		        {field:'creatorId',title:'审核人',width:80,align:'center',formatter: function(value,row,index){
     		        	return row.employee.name;
     		        }},
     		        {field:'status',title:'审核状态',width:80,align:'center',formatter: function(value,row,index){
     		        	return me.auditLogStatusEnum[value];
-    		        }},
+    		        },styler: function(value,row,index){
+
+    	   				if(value == 1052){
+        					
+        					//审核中
+            				return 'color:#25C6FC;';
+            				
+        				}else if(value == 1053){
+        					
+        					//驳回审核
+        					return 'color:#E03636;';
+        					
+        				}else if(value == 1054){
+        					
+        					//审核通过
+        					return 'color:#009966;';
+        					
+        				}else if(value == 1055){
+        					
+        					//审核排队
+        					return 'color:#003399;';
+        					
+        				}
+    				}},
     		        {field:'createTime',title:'创建时间',width:150,align:'center'},
     		        {field:'content',title:'审批内容',width:150,align:'right'},
     		        {field:'remark',title:'说明',width:300,align:'center'}
@@ -181,3 +214,9 @@ com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.
     	});
     }
 });
+
+//<span style="width: 60px; background-color:#8F1D78"></span>
+//<span style="width: 60px; background-color:#BA874C"></span>
+//<span style="width: 60px; background-color:#E9AE6A"></span>
+//<span style="width: 60px; background-color:#FEE388"></span>
+//<span style="width: 60px; background-color:#FFFEA0"></span>
