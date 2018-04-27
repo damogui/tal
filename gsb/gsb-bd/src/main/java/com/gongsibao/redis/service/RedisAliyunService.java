@@ -139,7 +139,7 @@ public class RedisAliyunService implements IRedisAliyunService {
 
     private Jedis getRedis() {
         if (null == redis) {
-            redis = new Jedis("123.57.156.212", 8967);
+            redis = new Jedis("59.110.125.76", 8967);
             redis.auth("Gongsibao2018");
         }
         return redis;
