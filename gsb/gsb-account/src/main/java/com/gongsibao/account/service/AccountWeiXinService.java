@@ -518,12 +518,12 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
             String payStatus="1";
             if(order.getPayablePrice()!=order.getPaidPrice()){
                 payStatus="0";
-                memo="您的订单"+order.getNo()+ " 已支付"+(Integer.valueOf(payMoney)/100)+",还需支付"+(order.getPayablePrice()-order.getPaidPrice())/10+"。";
+                memo="您的订单"+order.getNo()+ " 已支付"+(Double.valueOf(payMoney)/100)+",还需支付"+Double.valueOf(order.getPayablePrice()-order.getPaidPrice())/100+"。";
             }
             Account account=accountService.byId(order.getAccountId());
             Fans fans=fansService.getFansByUserId(account.getId());
             PublicAccount publicAccount=this.queryByFansId(fans);
-            this.pushTextMsgByOriginalId(publicAccount.getOriginalId(),account.getId(),memo,String.valueOf(Integer.valueOf(payMoney)/100),order.getProdName(),null,payStatus.equals("1")?"/index.html#/mine/order/2":"/index.html#/mine/order/1",null, AccountWxMsg.BUY_SUCCESS);
+            this.pushTextMsgByOriginalId(publicAccount.getOriginalId(),account.getId(),memo,String.valueOf(Double.valueOf(payMoney)/100),order.getProdName(),null,payStatus.equals("1")?"/index.html#/mine/order/2":"/index.html#/mine/order/1",null, AccountWxMsg.BUY_SUCCESS);
         }catch (Exception e){
             logger.error("推送微信支付成功消息失败："+e.getMessage());
         }
