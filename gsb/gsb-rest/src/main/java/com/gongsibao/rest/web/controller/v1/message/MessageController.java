@@ -2,6 +2,7 @@ package com.gongsibao.rest.web.controller.v1.message;
 
 import com.gongsibao.account.base.IAccountWeiXinService;
 import com.gongsibao.entity.acount.Account;
+import com.gongsibao.entity.acount.AccountWxMsg;
 import com.gongsibao.rest.web.common.apiversion.Api;
 import com.gongsibao.rest.web.common.web.Constant;
 import com.gongsibao.rest.web.common.web.ResponseData;
@@ -143,7 +144,7 @@ public class MessageController extends BaseController{
     ) {
         ResponseData data = new ResponseData();
         IAccountWeiXinService weiXinService=ServiceFactory.create(IAccountWeiXinService.class);
-        weiXinService.sendLinkMsg("测试文章","您的商标进度有变化，点击查看","baidu.com",accountId);
+        weiXinService.pushTextMsg(accountId,"您的商标进度有变化点击查看","1000020","开始办理",null,"baidu.com",null, AccountWxMsg.WORK_PROCESS_CHANGE);
         data.setCode(200);
         data.setMsg("发送成功");
         return data;
