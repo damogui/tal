@@ -69,6 +69,9 @@ public class Account extends BaseEntity {
     @Column(name = "fans_id", header = "粉丝id")
     private Integer fansId;
 
+    @Column(name = "scene_str", header = "来源:null 正常关注  手机号|订单id|业务类型")
+    private String sceneStr;
+
     //-------------------非入库字段-----------------------
     @Exclusive
     @Column(name = "customer_name", header = "取'crm_customer'客户名称")
@@ -236,5 +239,13 @@ public class Account extends BaseEntity {
 
     public void setFansId(Integer fansId) {
         this.fansId = fansId;
+    }
+
+    public String getSceneStr() {
+        return sceneStr;
+    }
+
+    public void setSceneStr(String sceneStr) {
+        this.sceneStr = sceneStr;
     }
 }

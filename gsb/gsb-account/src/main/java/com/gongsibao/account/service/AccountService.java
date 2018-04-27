@@ -81,6 +81,23 @@ public class AccountService extends PersistableService<Account> implements IAcco
 		return this.pm.executeNonQuery (cmdText, null) ;
 	}
 
+	/**
+	 * @Description:TODO
+	 * @param  mobile, openId, sceneStr
+	 * @return com.gongsibao.entity.acount.Account
+	 * @author hbpeng <hbpeng@gongsibao.com>
+	 * @date 2018/4/27 15:00
+	 */
+	public Account updateAccount(String mobile, String openId,String sceneStr){
+		Account account=this.updateAccount(mobile,openId);
+		if(sceneStr!=null){
+			account.toPersist();
+			account.setSceneStr(sceneStr);
+			this.save(account);
+		}
+		return account;
+	}
+
 	@Override
 	public Account updateAccount(String mobile, String openId) {
 		Account accountOld = this.byMobile(mobile);
