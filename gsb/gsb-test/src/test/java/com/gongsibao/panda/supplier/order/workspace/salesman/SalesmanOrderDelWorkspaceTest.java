@@ -94,7 +94,15 @@ public class SalesmanOrderDelWorkspaceTest extends WorkspaceCreationBase {
             toolbar.getItems().add(item);
         }
 
-
+        item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("recover");
+            item.setName("恢复");
+            item.setSeq(1);
+            item.setCommand("{controller}.recover();");
+            toolbar.getItems().add(item);
+        }
         toolbarService.save(toolbar);
     }
 

@@ -19,25 +19,25 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         this.addContractUrl = '/panda/trade/order/contract/form';//创建合同
         this.addInvoiceUrl = '/panda/trade/order/invoice/form';//创建发票 
     },
-    onload:function(){
-    	
-		this.bindKeyupEvent();
-    	this.setState();
-		this.setStyle();
+    onload: function () {
+
+        this.bindKeyupEvent();
+        this.setState();
+        this.setStyle();
     },
-    getSupplierType:function(){
-    	
-    	return PandaHelper.Storage.byKey('SupplierType');//此值会在登录时存在sessionStorage中
+    getSupplierType: function () {
+
+        return PandaHelper.Storage.byKey('SupplierType');//此值会在登录时存在sessionStorage中
     },
     //以下控制操作按钮状态，代理服务商不可使用，隐藏
-    getaddOrderReceivedState:function(){
-    	
-		var supplierType= this.getSupplierType();
-		if(supplierType == 2){
-			
-			return UiElementState.Hide;
-		}
-    	return UiElementState.Empty;
+    getaddOrderReceivedState: function () {
+
+        var supplierType = this.getSupplierType();
+        if (supplierType == 2) {
+
+            return UiElementState.Hide;
+        }
+        return UiElementState.Empty;
     },
 //    getaddReceivedState:function(){
 //    	
@@ -48,14 +48,14 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
 //		}
 //    	return UiElementState.Empty;
 //    },
-    getaddPayPerformanceState:function(){
-    	
-    	var supplierType= this.getSupplierType();
-		if(supplierType == 2){
-			
-			return UiElementState.Hide;
-		}
-    	return UiElementState.Empty;
+    getaddPayPerformanceState: function () {
+
+        var supplierType = this.getSupplierType();
+        if (supplierType == 2) {
+
+            return UiElementState.Hide;
+        }
+        return UiElementState.Empty;
     },
 //    getaddCarryoverState:function(){
 //    	
@@ -66,14 +66,14 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
 //		}
 //    	return UiElementState.Empty;
 //    },
-    getaddContractState:function(){
-    	
-    	var supplierType= this.getSupplierType();
-		if(supplierType == 2){
-			
-			return UiElementState.Hide;
-		}
-    	return UiElementState.Empty;
+    getaddContractState: function () {
+
+        var supplierType = this.getSupplierType();
+        if (supplierType == 2) {
+
+            return UiElementState.Hide;
+        }
+        return UiElementState.Empty;
     },
 //    getaddRefundState:function(){
 //    	
@@ -93,23 +93,23 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
 //		}
 //    	return UiElementState.Empty;
 //    },
-    getaddInvoiceState:function(){
-    	
-    	var supplierType= this.getSupplierType();
-		if(supplierType == 2){
-			
-			return UiElementState.Hide;
-		}
-    	return UiElementState.Empty;
+    getaddInvoiceState: function () {
+
+        var supplierType = this.getSupplierType();
+        if (supplierType == 2) {
+
+            return UiElementState.Hide;
+        }
+        return UiElementState.Empty;
     },
-    getbatchOrderTranState:function(){
-    	
-    	var supplierType= this.getSupplierType();
-		if(supplierType == 2){
-			
-			return UiElementState.Hide;
-		}
-    	return UiElementState.Empty;
+    getbatchOrderTranState: function () {
+
+        var supplierType = this.getSupplierType();
+        if (supplierType == 2) {
+
+            return UiElementState.Hide;
+        }
+        return UiElementState.Empty;
     },
 
     addPayPerformance: function () {
@@ -191,13 +191,13 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         /*创建订单业绩是不是已经存在存在的话不能创建*/
         me.invokeService("checkCanOrderPer", [parseInt(row.id)], function (data) {
             if (data > 0) {
-                if(data==1){
+                if (data == 1) {
                     layer.msg("订单业绩已经创建");
-                }else if(data==2){
+                } else if (data == 2) {
 
 
                     layer.msg("【该订单有笔结转转入额还在审核中，请审核通过后再创建】");
-                }else if(data==3){
+                } else if (data == 3) {
                     layer.msg("【该订单无业绩可创建，请核实】");
                 }
 
@@ -310,11 +310,11 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             IMessageBox.info('请先选择订单数据');
             return false;
         }
-        
+
         if (rows.length > 1) {
             return false;
         }
-        
+
         var contentUrl = this.addRefundUrl + "?id=" + row.id;
         //验证金额 和一些退款的状态
         me.invokeService("refundValidate", [row.id], function (data) {
@@ -356,11 +356,11 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             IMessageBox.info('请先选择订单数据');
             return false;
         }
-        
+
         if (rows.length > 1) {
             return false;
         }
-        
+
         var contentUrl = this.addCarryoverUrl + "?id=" + row.id;
         me.invokeService("carryValidate", [row.id], function (data) {
             if (data < 0) {
@@ -401,11 +401,11 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             IMessageBox.info('请先选择订单数据');
             return false;
         }
-        
+
         if (rows.length > 1) {
             return false;
         }
-        
+
         //判断是否改价订单（审核中，不允许分期）。0-审核通过、未审核；1-驳回；2-审核中
         me.invokeService("isChangePriceOrde", [row.id], function (data) {
             if (data == 1) {
@@ -463,11 +463,11 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             IMessageBox.info('请先选择订单数据');
             return false;
         }
-        
+
         if (rows.length > 1) {
             return false;
         }
-        
+
         var serviceLocator = new org.netsharp.core.JServiceLocator();
         var url = this.addContractUrl + '?fk=orderId:' + row.id + "&isAdd=1";
         //增加订单是否创建合同
@@ -511,11 +511,11 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             IMessageBox.info('请先选择订单数据');
             return false;
         }
-        
+
         if (rows.length > 1) {
             return false;
         }
-        
+
         var url = this.addInvoiceUrl + '?fk=orderId:' + row.id + "&isAdd=1";
 
         var serviceLocator = new org.netsharp.core.JServiceLocator();
@@ -678,11 +678,11 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             return false;
         }
         this.invokeService("orderDel", [id], function (data) {
-            if(data=="1"){
+            if (data == "1") {
 
                 IMessageBox.toast('删除成功');
                 realodCurrentPage("datagridsoOrderList");
-            }else{
+            } else {
 
                 layer.msg(data);
             }
@@ -690,7 +690,25 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         });
 
 
-    },
+    }, recover: function (id) {//恢复
+        var rows = this.getSelections();
+        if (id == null && rows.length != 1) {
+            IMessageBox.info('请先选择一条订单数据');
+            return false;
+        }
+        this.invokeService("orderRecover", [id], function (data) {
+            if (data >0) {
+
+                IMessageBox.toast('恢复成功');
+                realodCurrentPage("datagridsoOrderList");
+            } else {
+                layer.msg("恢复失败");
+            }
+
+        });
+
+
+    }
 
 });
 
@@ -700,9 +718,10 @@ function reloadPage() {
     controllersoOrderList.query();
 
 }
+
 /*传递过来进行刷新当前页面*/
 function realodCurrentPage(gridId) {
-    $('#'+gridId).datagrid('reload');
+    $('#' + gridId).datagrid('reload');
 }
 
 

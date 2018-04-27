@@ -574,13 +574,25 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
         String sql = "SELECT  NO   FROM   so_order WHERE  pkid=?";
         QueryParameters qps = new QueryParameters();
         qps.add("@pkid", id, Types.INTEGER);
-        Object obj= this.pm.executeScalar(sql, qps);
-        if (obj==null){
+        Object obj = this.pm.executeScalar(sql, qps);
+        if (obj == null) {
 
-            return  "";
-        }else{
+            return "";
+        } else {
             return obj.toString();
         }
+    }
+
+    /*恢复订单*/
+    @Override
+    public Integer orderRecover(Integer orderId) {
+        //进行删除
+        String sql = " UPDATE  so_order  SET  is_delete=0,process_status_id=3021 WHERE pkid=? ";
+
+        QueryParameters qps = new QueryParameters();
+        qps.add("@pkid", orderId, Types.INTEGER);
+        int num = auditLogService.executeNonQuery(sql, qps);
+        return num;
     }
 
     /*校验是不是可以删除*/
