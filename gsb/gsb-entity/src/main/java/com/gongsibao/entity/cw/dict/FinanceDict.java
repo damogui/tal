@@ -7,7 +7,7 @@ public class FinanceDict {
 	//微信消息发送code
 	public static final String WX_MSG_CODE = "Finance";
 	//U8凭证生成接口地址
-	public static final String U8_VOUCHER_ = "http://t1.gongsibao.com/gongsibao-sys/u8/voucher/addVoucher";
+	public static final String U8_VOUCHER_ = "http://www.gongsibao.com/gongsibao-sys/u8/voucher/addVoucher";
 
 	/*
 	 * 财务单据审批
