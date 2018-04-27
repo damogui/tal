@@ -34,7 +34,7 @@ public class ActionAuditOrderNewSaveSendMessage implements IAction {
         //审核意见
         String remark = auditContext.getremark();
         try {
-            //auditSend(state, auditLog, soOrder, remark);
+            auditSend(state, auditLog, soOrder, remark);
 
         }catch (Exception e){
             //暂时不处理
@@ -64,7 +64,7 @@ public class ActionAuditOrderNewSaveSendMessage implements IAction {
                 if (auditLog.getLevel().equals(auditLog.getMaxLevel())) {
                     //通过审核
                     String content = String.format("【改价审核提醒】您好，您有1个订单提交的改价申请已审核通过，订单编号为【%s】，请知悉", soOrder.getNo());
-                    SmsHelper.send(soOrder.getOwner().getMobile(), content);//订单业务员
+                    SmsHelper.send(UserHelper.getEmployeTelById(soOrder.getOwnerId()), content);//订单业务员
 
                 } else {
                     //通知下一级

@@ -35,7 +35,7 @@ public class ActionSaveOrderSendMessage implements IAction {
         if (soOrder.getIsChangePrice()) {
 
             try {
-               // sendChangePrice(audits, soOrder);
+                sendChangePrice(audits, soOrder);
             } catch (Exception e) {
             //暂时不处理
 
