@@ -113,7 +113,11 @@ public class ActionAuditOrderNewSaveSendMessage implements IAction {
     private void sendWxMsg(AuditState state, AuditLog auditLog, SoOrder soOrder) {
         if (state.equals(AuditState.PASS) && auditLog.getLevel().equals(auditLog.getMaxLevel())) {
             //推送icompany公众号的模板消息
-            accountWeiXinService.saveOrderMsg(soOrder.getAccountMobile(), soOrder.getId());
+            try {
+                accountWeiXinService.saveOrderMsg(soOrder.getAccountMobile(), soOrder.getId());
+            } catch (Exception e) {
+                //e.printStackTrace();
+            }
         }
     }
 
