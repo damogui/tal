@@ -3,6 +3,7 @@ com.gongsibao.crm.web.DepartmentAllTaskListPart = com.gongsibao.crm.web.BaseTask
 	ctor : function() {
 		
 		this.base();
+		this.isPlatform = 0;
 		this.addUrl = "/panda/crm/department/task/add";
 		this.editUrl = "/nav/gsb/supplier/crm/department/task";
 		this.followUrl = '/panda/crm/department/task/follow';

@@ -7,8 +7,8 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		this.editUrl = null;
 		this.followUrl = null;
 		this.addCustomerUrl = null;
-		//区分那个账号角色登录（默认平台-2；服务商-1）
-		this.isPlatform = 2;
+		//区分那个账号角色登录（默认平台-1；服务商-0）
+		this.isPlatform = 1;
 	},
 	addCustomer:function(){
 		
@@ -34,22 +34,40 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		}
 	},
 	add:function(){
+		var me = this;
 		var row = this.getSelectedItem();
 		if(row){
-
 			var customerId = row.customerId;
-			var url = this.addUrl+"?fk=customerId:"+customerId;
-	    	layer.open({
-	    		  type: 2,
-	    		  title: '新增商机',
-	    		  fixed: false,
-	    		  maxmin: true,
-	    		  shadeClose:true,
-	    		  area: ['98%','98%'],
-	    		  content: url
-	    	});
+			me.isHaveTask(customerId,function(ownerName){
+				if(ownerName == ''){
+					var url = me.addUrl+"?fk=customerId:"+customerId;
+			    	layer.open({
+			    		  type: 2,
+			    		  title: '新增商机',
+			    		  fixed: false,
+			    		  maxmin: true,
+			    		  shadeClose:true,
+			    		  area: ['98%','98%'],
+			    		  content: url
+			    	});
+				}else{
+					IMessageBox.info("您不是客户所拥有者，无法创建商机，请联系【" + ownerName + "】创建");
+				}
+			});
+			
 		}
 	},
+	isHaveTask:function(customerId,callBack){
+    	var me = this;
+    	if(this.isPlatform==0){
+    		me.invokeService("isHaveTask", [customerId], function (ownerName) {
+				return callBack(ownerName);        	
+   	        });
+    	}else{
+    		//平台不受影响
+    		return callBack("");     
+    	}
+    },
 	detail:function(id){
 		
 		this.edit(id);
