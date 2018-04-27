@@ -33,7 +33,7 @@ public class ActionSaveOrderSendMessage implements IAction {
         Map<String, Object> objectMap = ctx.getStatus();
         List<AuditLog> audits = (List<AuditLog>) objectMap.get("audits");
         if (soOrder.getIsChangePrice()) {
-            //sendChangePrice(audits, soOrder);
+            sendChangePrice(audits, soOrder);
         } else {//生成订单成功后，如果没有改价，则直接推送消息
             //推送icompany公众号的模板消息
             try {
