@@ -26,12 +26,41 @@ public class PortalStatisticCtrl {
 		return salesman;
 	}
 	/**
-	 * 获取新增商机数
-	 * @param portalLevel 1-售前、2-服务商
+	 * 返回销售简报详情
+	 * @param portalLevel 1-售前、0-服务商
 	 * @param dateType 1-今日、2-本周、3-本月、4-本年
 	 * @return
 	 */
-	public Integer getNewTasksCount(Integer portalLevel,Integer dateType) {
+	public PortalStatisticDTO salesPresentation(Integer isPlatform,Integer dateType){
+		PortalStatisticDTO statisticDTO = new PortalStatisticDTO();
+		Integer newTasksCount = getNewTasksCount(isPlatform,dateType);
+		Integer unStartTasksCount = getUnStartTasksCount(isPlatform,dateType);
+		Integer unfoolowTasksCount = getUnfoolowTasksCount();
+		Integer timeOutTasksCount = getTimeOutTasksCount();
+		Integer exceptUntreatedTasksCount = getExceptUntreatedTasksCount();
+		
+		//领导可查看公海数量，业务员看不到数据（门户统计过滤业务员），由于该方法公用（统计报表用），门户不需要过滤日期
+		Salesman salesman = currentSalesMan();
+		Integer highSeasCount = 0;
+		if(salesman != null && salesman.getIsLeader()){
+			highSeasCount = getHighSeasCount(isPlatform,-1);
+		}
+		
+		statisticDTO.setNewTasksCount(newTasksCount);
+		statisticDTO.setUnStartTasksCount(unStartTasksCount);
+		statisticDTO.setUnfoolowTasksCount(unfoolowTasksCount);
+		statisticDTO.setTimeOutTasksCount(timeOutTasksCount);
+		statisticDTO.setExceptUntreatedTasksCount(exceptUntreatedTasksCount);
+		statisticDTO.setHighSeasCount(highSeasCount);
+		return statisticDTO;
+	}
+	/**
+	 * 获取新增商机数
+	 * @param isPlatform 1-售前、0-服务商
+	 * @param dateType 1-今日、2-本周、3-本月、4-本年
+	 * @return
+	 */
+	public Integer getNewTasksCount(Integer isPlatform,Integer dateType) {
 		
 		Integer returnInteger = 0;
 		Salesman salesman = currentSalesMan();
@@ -43,7 +72,7 @@ public class PortalStatisticCtrl {
 		strSql.append("SELECT COUNT(id) newTasksCount");
 		strSql.append(" from n_crm_customer_task");
 		//门户级别
-		if(portalLevel.equals(1)){
+		if(isPlatform.equals(1)){
 			strSql.append(" where 1=1");
 		}else{
 			if(salesman.getIsLeader()!= null && salesman.getIsLeader()){
@@ -76,11 +105,11 @@ public class PortalStatisticCtrl {
 	}
 	/**
 	 * 获取未启动商机数
-	 * @param portalLevel 1-售前、2-服务商
+	 * @param isPlatform 1-售前、0-服务商
 	 * @param dateType 1-今日、2-本周、3-本月、4-本年
 	 * @return
 	 */
-	public Integer getUnStartTasksCount(Integer portalLevel,Integer dateType) {
+	public Integer getUnStartTasksCount(Integer isPlatform,Integer dateType) {
 		Integer returnInteger = 0;
 		Salesman salesman = currentSalesMan();
 		if(salesman == null){
@@ -89,7 +118,7 @@ public class PortalStatisticCtrl {
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT count(id) unStartTasksCount");
 		strSql.append(" from n_crm_customer_task");
-		if(portalLevel.equals(1)){
+		if(isPlatform.equals(1)){
 			switch(dateType){
 			case 1:
 				strSql.append(" where DATE_FORMAT(create_time,'%Y-%m-%d') = CURDATE()");
@@ -200,12 +229,12 @@ public class PortalStatisticCtrl {
 		return returnInteger;
 	}
 	/**
-	 * 获取公海商机数
-	 * @param portalLevel 1-售前、2-服务商
+	 * 获取公海商机数(门户有过滤)
+	 * @param isPlatform 1-售前、0-服务商
 	 * @param dateType 1-今日、2-本周、3-本月
 	 * @return
 	 */
-	public Integer getHighSeasCount(Integer portalLevel,Integer dateType) {
+	public Integer getHighSeasCount(Integer isPlatform,Integer dateType) {
 		Integer returnInteger = 0;
 		Salesman salesman = currentSalesMan();
 		if(salesman == null){
@@ -216,7 +245,7 @@ public class PortalStatisticCtrl {
 		strSql.append("SELECT COUNT(id) highSeasCount");
 		strSql.append(" from n_crm_customer_task");
 		strSql.append(" WHERE (owner_id is null or owner_id=0)");
-		if(portalLevel.equals(2)){
+		if(isPlatform.equals(0)){
 			strSql.append(" and department_id in ("+salesman.getDepartmentId()+")");
 			strSql.append(" and DATE_FORMAT(create_time,'%Y-%m-%d') <= CURDATE()");
 		}else {
