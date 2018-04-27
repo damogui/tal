@@ -5,6 +5,8 @@ import com.gongsibao.account.base.IAccountWeiXinService;
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.acount.AccountWeiXin;
 import com.gongsibao.entity.acount.AccountWxMsg;
+import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.u8.base.ISoOrderService;
 import com.gongsibao.utils.DateUtils;
 import com.gongsibao.utils.SecurityUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -503,6 +505,27 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
                 }
             }
             news.getArticles().add(article);
+        }
+    }
+
+
+    @Override
+    public void buySuccessSendMsg(int orderId, String payMoney) {
+        try{
+            ISoOrderService orderService=ServiceFactory.create(ISoOrderService.class);
+            SoOrder order=orderService.getByOrderId(orderId);
+            String memo="您的订单"+order.getNo()+"支付成功,我们将立即为您办理。";
+            String payStatus="1";
+            if(order.getPayablePrice()!=order.getPaidPrice()){
+                payStatus="0";
+                memo="您的订单"+order.getNo()+ " 已支付"+payMoney+",还需支付"+(order.getPayablePrice()-order.getPaidPrice())+"。";
+            }
+            Account account=accountService.byId(order.getAccountId());
+            Fans fans=fansService.getFansByUserId(account.getId());
+            PublicAccount publicAccount=this.queryByFansId(fans);
+            this.pushTextMsgByOriginalId(publicAccount.getOriginalId(),account.getId(),memo,payMoney,order.getProdName(),null,payStatus.equals("1")?"/index.html#/mine/order/2":"/index.html#/mine/order/1",null, AccountWxMsg.BUY_SUCCESS);
+        }catch (Exception e){
+            logger.error("推送微信支付成功消息失败："+e.getMessage());
         }
     }
 
