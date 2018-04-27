@@ -18,6 +18,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		
 		var row = this.getSelectedItem();
 		if(row){
+			debugger;
 			var taskId = row.id ||'';
 			var customerId = row.customerId ||'';
 			var accountId = row.customer_accountId ||'';
@@ -437,7 +438,6 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		}
 	},
 	unFollowDaysFormatter:function(value,row,index){
-		debugger;
 	     var lastFollowTime = row.lastFollowTime;
 	     if(lastFollowTime == null){
 	    	 return "";

@@ -96,7 +96,7 @@ public class OrderNavigationTest extends NavigationBase {
             }
             createPTreeNode(tree, "Gsb_Supplier_Order", null, "Gsb_Supplier_Order_Salesman", "我的订单", "", 5);
             {
-//                createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_Add", "创建订单", "/crm/order/salesman/add", 1);
+                createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_Add", "创建订单", "/crm/order/salesman/add", 1);
                 createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_All", "全部订单", "/crm/order/salesman/all/list", 2);
                 createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_OrderProd", "我的明细订单", "/crm/order/salesman/detail/list", 3);
                 createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", nodeIcon, "Gsb_Supplier_Order_Salesman_Performance", "订单业绩", "/crm/order/salesman/performance/list", 3);
