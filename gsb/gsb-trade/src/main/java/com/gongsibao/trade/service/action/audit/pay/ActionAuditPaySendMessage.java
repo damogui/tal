@@ -87,7 +87,7 @@ public class ActionAuditPaySendMessage implements IAction {
         List<OrderPayMap> orderPayMaps = orderPayMapService.queryByPayId(payId);
         for (OrderPayMap item : orderPayMaps
                 ) {
-            String content = String.format("【回款审核提醒】您好，【业务员】分配给您的订单编号为【XXXXX】的回款，审核已通过，请知悉", owerName, no);
+            String content = String.format("【回款审核提醒】您好，【%s】分配给您的订单编号为【%s】的回款，审核已通过，请知悉", owerName, no);
             SmsHelper.send(UserHelper.getEmployeTelById(item.getCreatorId()), content);//电话和内容
 
         }
