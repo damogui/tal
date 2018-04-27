@@ -36,7 +36,7 @@ public class AuditOrderNewSaveActionTest extends BaseActionTest{
 
 		createBean(beanPath, "1.验证", ActionAuditOrderNewSaveVerify.class.getName(), resourceNode, 100);
 		createBean(beanPath, "2.回写", ActionAuditOrderNewSaveWriteBack.class.getName(), resourceNode, 200);
-		//createBean(beanPath, "4.通知", ActionAuditOrderNewSaveSendMessage.class.getName(), resourceNode, 300);
+		createBean(beanPath, "4.通知", ActionAuditOrderNewSaveSendMessage.class.getName(), resourceNode, 300);
 		beanPathService.save(beanPath);
 	}
 }

@@ -152,7 +152,7 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
             $('#department_name').combogrid('setValue', departmentId);
             $('#salesman_name').combogrid('setValue', ownerId);
         }
-        $("#amount").numberbox('setValue', paidPrice - hasAmount);
+        $("#amount").numberbox('setValue', $("#unPerformance").val());
     }
 });
 

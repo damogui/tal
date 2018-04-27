@@ -62,4 +62,6 @@ public interface IAccountWeiXinService extends IPersistableService<AccountWeiXin
 						  String url,
 						  String remark,
 						  AccountWxMsg tmpId);
+
+	void buySuccessSendMsg(int orderId, String payMoney);
 }
