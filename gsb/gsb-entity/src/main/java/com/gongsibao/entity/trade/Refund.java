@@ -86,7 +86,7 @@ public class Refund extends BaseEntity {
     @Subs(subType = RefundItemPrice.class, foreignKey = "refundId", header = "退款价格")
     private List<RefundItemPrice> prices = new ArrayList<RefundItemPrice>();
 
-    @Subs(subType = NDepRefund.class, foreignKey = "refundId", header = "部门退款业绩")
+    @Subs(subType = NDepRefund.class, foreignKey = "refundId", header = "退款业绩")
     private List<NDepRefund> depRefunds = new ArrayList<NDepRefund>();
 
     //我的退款业绩

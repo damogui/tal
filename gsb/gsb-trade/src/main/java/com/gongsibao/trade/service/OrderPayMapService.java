@@ -36,7 +36,7 @@ public class OrderPayMapService extends PersistableService<OrderPayMap> implemen
     }
 
     @Override
-    public OrderPayMap queryByPayId(Integer payId) {
+    public List<OrderPayMap> queryByPayId(Integer payId) {
         Oql oql = new Oql ();
         {
             oql.setType (this.type);
@@ -44,7 +44,7 @@ public class OrderPayMapService extends PersistableService<OrderPayMap> implemen
             oql.setFilter ("pay_id=?");
             oql.getParameters ().add ("pay_id", payId, Types.INTEGER);
         }
-        return this.queryFirst (oql);
+        return this.queryList (oql);
     }
 
 //    /*最后的回写支付挂靠到订单*/
