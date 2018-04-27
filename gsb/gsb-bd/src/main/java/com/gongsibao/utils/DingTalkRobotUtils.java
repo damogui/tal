@@ -25,6 +25,8 @@ public class DingTalkRobotUtils {
     //机器人测试小群    推荐
     private static String privacy = "https://oapi.dingtalk.com/robot/send?access_token=31a2422c60c9845119a27aa0c2d936d8a53199b608c198b3dcc4968e7de3d471";
 
+    private static String testRoot = "https://oapi.dingtalk.com/robot/send?access_token=5e323888cd07cc70cac2b033e5407b3b2326cab7c24258ab0f772abe427f4748";
+
     //机器人群-播报机器人
     private static String radio = "https://oapi.dingtalk.com/robot/send?access_token=89770f9b5a70bfffad5cdda33c61a900932688d68b75064498b31f0b05d85327";
 
@@ -67,6 +69,15 @@ public class DingTalkRobotUtils {
     public static void setRadio(String radio) {
         DingTalkRobotUtils.radio = radio;
     }
+
+    public static String getTestRoot() {
+        return testRoot;
+    }
+
+    public static void setTestRoot(String testRoot) {
+        DingTalkRobotUtils.testRoot = testRoot;
+    }
+
     //endregion
 
     //region 共有方法

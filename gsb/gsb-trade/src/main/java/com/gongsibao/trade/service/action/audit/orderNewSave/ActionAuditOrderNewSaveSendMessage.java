@@ -11,6 +11,7 @@ import com.gongsibao.trade.service.action.order.utils.AuditHelper;
 import com.gongsibao.trade.service.action.order.utils.UserHelper;
 import com.gongsibao.utils.sms.SmsHelper;
 import org.netsharp.action.ActionContext;
+import org.netsharp.action.ActionManager;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
 
@@ -36,6 +37,8 @@ public class ActionAuditOrderNewSaveSendMessage implements IAction {
         //auditSend(state, auditLog, soOrder, remark);
         //推送icompnay公众号消息
         sendWxMsg(state, auditLog, soOrder);
+        //钉钉播报
+        sendDingTalk(state, auditLog, soOrder.getId());
     }
 
     /*进行发送消息*/
@@ -119,6 +122,21 @@ public class ActionAuditOrderNewSaveSendMessage implements IAction {
                 //e.printStackTrace();
             }
         }
+    }
+
+    //钉钉播报
+    private void sendDingTalk(AuditState state, AuditLog auditLog, Integer orderId) {
+        if (state.equals(AuditState.PASS) && auditLog.getLevel().equals(auditLog.getMaxLevel())) {
+            ActionContext dingtackctx = new ActionContext();
+            {
+                dingtackctx.setPath("gsb/bd/dingtalk/broadcast");
+                dingtackctx.setItem(orderId);
+            }
+
+            ActionManager action = new ActionManager();
+            action.execute(dingtackctx);
+        }
+
     }
 
 }

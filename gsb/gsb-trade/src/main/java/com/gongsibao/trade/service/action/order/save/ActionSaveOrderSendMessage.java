@@ -6,6 +6,7 @@ import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.service.action.order.utils.UserHelper;
 import com.gongsibao.utils.sms.SmsHelper;
 import org.netsharp.action.ActionContext;
+import org.netsharp.action.ActionManager;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.util.StringManager;
@@ -41,6 +42,13 @@ public class ActionSaveOrderSendMessage implements IAction {
             } catch (Exception e) {
                 //e.printStackTrace();
             }
+            //钉钉播报
+            try {
+                sendDingTalk(soOrder.getId());
+            } catch (Exception e) {
+
+            }
+
         }
     }
 
@@ -70,6 +78,18 @@ public class ActionSaveOrderSendMessage implements IAction {
                 SmsHelper.send(tel, content);//电话和内容
             }
         }
+    }
+
+    //钉钉播报
+    private void sendDingTalk(Integer orderId) {
+        ActionContext dingtackctx = new ActionContext();
+        {
+            dingtackctx.setPath("gsb/bd/dingtalk/broadcast");
+            dingtackctx.setItem(orderId);
+        }
+
+        ActionManager action = new ActionManager();
+        action.execute(dingtackctx);
     }
 
 }

@@ -34,7 +34,8 @@ public class ActionBroadcastVerify implements IAction {
 
         String ywyMobile = null;
         String atMobile = null;
-        Set<String> ywyNames = new HashSet<>();
+        String atName = null;
+        List<String> ywyNames = new ArrayList<>();
         if (StringUtils.isBlank(DingTalkRobotUtils.getGsbFollowToken())) {
             return;// -2
         }
@@ -69,18 +70,21 @@ public class ActionBroadcastVerify implements IAction {
         }
         if (StringUtils.isBlank(ywyMobile)) {
             ywyMobile = "\"" + salesman.getMobile() + "\",\"" + boss.getMobile() + "\"";
-            atMobile = "@" + salesman.getMobile() + "@" + boss.getMobile();
+            atMobile = "@" + salesman.getMobile() + " @" + boss.getMobile();
+            atName = "@" + salesman.getName() + " @" + boss.getName();
             ywyNames.add(salesman.getName());
             ywyNames.add(boss.getName());
         } else {
             if (atMobile.indexOf(salesman.getMobile()) == -1) {
                 ywyMobile += "," + "\"" + salesman.getMobile() + "\"";
-                atMobile += "@" + salesman.getMobile();
+                atMobile += " @" + salesman.getMobile();
+                atName += " @" + salesman.getName();
                 ywyNames.add(salesman.getName());
             }
             if (atMobile.indexOf(salesman.getMobile()) == -1) {
                 ywyMobile += "," + "\"" + salesman.getMobile() + "\",\"" + boss.getMobile() + "\"";
-                atMobile += "@" + salesman.getMobile() + "@" + boss.getMobile();
+                atMobile += " @" + salesman.getMobile() + "@" + boss.getMobile();
+                atName += " @" + salesman.getName();
                 ywyNames.add(salesman.getName());
                 ywyNames.add(boss.getName());
             }
@@ -93,7 +97,8 @@ public class ActionBroadcastVerify implements IAction {
         }
         Map<String, Object> statusMap = new HashMap<>();
         statusMap.put("ywyMobile", ywyMobile);
-        statusMap.put("atMobile", ywyMobile);
+        statusMap.put("atMobile", atMobile);
+        statusMap.put("atName", atName);
         statusMap.put("ywyNames", ywyNames);
         statusMap.put("accountId", soOrder.getAccountId());
         statusMap.put("prodName", prodName);
@@ -104,7 +109,7 @@ public class ActionBroadcastVerify implements IAction {
     private String getProductName(List<OrderProd> prodList) {
         String prodName = "";
         for (OrderProd orderProd : prodList) {
-            prodName += orderProd.getProduct() + ",";
+            prodName += orderProd.getProductName() + ",";
         }
         if (prodName.endsWith(",")) {
             prodName = StringManager.substring(prodName, 0, prodName.length() - 1);
