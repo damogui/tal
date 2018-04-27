@@ -5,38 +5,41 @@ import org.netsharp.base.IEnum;
 
 public enum VoucherLogType implements IEnum {
 
-	Shoukuan(0, "收款"), 
-	Querenshouru(1, "确认收入"),
-	Tuikuan(2, "退款");
-	
-	
-	private int value;
-	private String text;
+    Shoukuan(0, "收款"),
+    Querenshouru(1, "确认收入"),
+    Tuikuan(2, "退款"),
+    Jiekuan(3, "借款"),
+    Baoxiao(4, "报销"),
+    Fukuan(5, "付款");
 
-	VoucherLogType(int value, String text) {
-		this.value = value;
-		this.text = text;
-	}
 
-	@JsonCreator
-	public static VoucherLogType getItem(int value) {
+    private int value;
+    private String text;
 
-		for (VoucherLogType item : values()) {
+    VoucherLogType(int value, String text) {
+        this.value = value;
+        this.text = text;
+    }
 
-			if (item.getValue() == value) {
-				return item;
-			}
-		}
-		return null;
-	}
+    @JsonCreator
+    public static VoucherLogType getItem(int value) {
 
-	public String getText() {
-		return this.text;
-	}
+        for (VoucherLogType item : values()) {
 
-	@Override
-	public Integer getValue() {
+            if (item.getValue() == value) {
+                return item;
+            }
+        }
+        return null;
+    }
 
-		return this.value;
-	}
+    public String getText() {
+        return this.text;
+    }
+
+    @Override
+    public Integer getValue() {
+
+        return this.value;
+    }
 }

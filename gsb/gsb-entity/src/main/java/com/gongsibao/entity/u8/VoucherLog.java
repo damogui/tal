@@ -63,7 +63,7 @@ public class VoucherLog extends Entity {
 	@Column(name = "abstract_info", header = "摘要信息")
 	private String abstractInfo;
 	
-	@Column(name = "type", header = "0:收款 1:确认收入 2:退款")
+	@Column(name = "type", header = "0:收款 1:确认收入 2:退款 3:借款 4:报销 5：付款")
 	private VoucherLogType type = VoucherLogType.Shoukuan;
 
 	public String getSender() {
