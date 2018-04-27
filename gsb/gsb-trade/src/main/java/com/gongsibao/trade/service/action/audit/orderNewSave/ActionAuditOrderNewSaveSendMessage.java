@@ -27,7 +27,7 @@ public class ActionAuditOrderNewSaveSendMessage implements IAction {
         AuditContext auditContext = (AuditContext) ctx.getItem();
         Map<String, Object> objectMap = ctx.getStatus();
         AuditLog auditLog = (AuditLog) objectMap.get("auditLog");
-        SoOrder soOrder = (SoOrder) objectMap.get("soOrder");
+        SoOrder soOrder = (SoOrder) objectMap.get("order");
         //本次审核通过或驳回
         AuditState state = auditContext.getState();
         //审核

@@ -50,6 +50,7 @@ public class ActionAuditOrderNewSaveVerify implements IAction{
         }
         Map<String, Object> statusMap = new HashMap<String, Object>();
         statusMap.put("auditLog", auditLog);
+        statusMap.put("order", order);
         ctx.setStatus(statusMap);
 		
 	}
