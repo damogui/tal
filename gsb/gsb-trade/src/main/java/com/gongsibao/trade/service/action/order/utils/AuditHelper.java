@@ -27,6 +27,7 @@ import java.util.List;
 public class AuditHelper {
 
     private static IPersister<AuditLog> auditLogService = PersisterFactory.create();
+    static IOrderService orderService = ServiceFactory.create(IOrderService.class);
 
     /*查询是否存在已经审核的记录*/
     public static Integer getRecode(Integer formId, Integer typeId) {
@@ -140,7 +141,7 @@ public class AuditHelper {
     }
 
     /*根据发票id获取订单编号*/
-    public static Object getOrderNosByInvoiceId(Integer id) {
+    public static String getOrderNosByInvoiceId(Integer id) {
 //        String  sql="SELECT  order_id FROM so_order_invoice_map  WHERE invoice_id=?";
 
         IOrderInvoiceMapService orderInvoiceMapService = ServiceFactory.create(IOrderInvoiceMapService.class);
@@ -162,8 +163,22 @@ public class AuditHelper {
 
     /*根据订单id获取订单信息*/
     public static SoOrder getOrderById(int toOrderId) {
-        IOrderService orderService = ServiceFactory.create(IOrderService.class);
+
         return orderService.getSoOrderById(toOrderId, "");
+
+    }
+
+    /*根据发票id获取相关订单的业务员电话*/
+    public static List<String> getOwnerTelsByInvoiceId(Integer invoiceId) {
+        IOrderInvoiceMapService orderInvoiceMapService = ServiceFactory.create(IOrderInvoiceMapService.class);
+        List<OrderInvoiceMap> listMaps = orderInvoiceMapService.getByInvoiceId(invoiceId);
+        List<String> tels = new ArrayList<>();
+        for (OrderInvoiceMap item : listMaps
+                ) {
+            tels.add(UserHelper.getEmployeTelById(item.getSoOrder().getOwnerId()));
+        }
+        return tels;
+
 
     }
 }
