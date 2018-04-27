@@ -24,7 +24,11 @@ import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.SelectBuilder;
 import org.netsharp.wx.ea.base.IEaMessageService;
 
+import com.gongsibao.account.base.IAccountService;
+import com.gongsibao.account.base.IAccountWeiXinService;
 import com.gongsibao.bd.service.GsbPersistableService;
+import com.gongsibao.entity.acount.Account;
+import com.gongsibao.entity.acount.AccountWxMsg;
 import com.gongsibao.entity.igirl.tm.TradeMark;
 import com.gongsibao.entity.igirl.tm.TradeMarkCase;
 import com.gongsibao.entity.igirl.tm.UploadAttachment;
@@ -547,6 +551,25 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 					msg, emp.getMobile().substring(0,11));
 			msg="> @"+emp.getMobile().substring(0,11)+"\\n >"+msg;//
 			rs.postToRobot(msg);
+			
+			
+			IAccountWeiXinService weiXinService=ServiceFactory.create(IAccountWeiXinService.class);
+			//商标进度提醒
+			TradeMarkCase tmc=tm.getTradeMarkCase();
+			String url="http://beehive.gongsibao.com//gsb/igirl/mobile/main.html#/progresslist?spid="+tmc.getSupplierId()+"&source=case&casecode="+tmc.getCode();
+			Date d = new Date();  
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+			String dateNowStr = sdf.format(d);  
+			IAccountService accountService=ServiceFactory.create(IAccountService.class);
+			Account account = accountService.byMobile(emp.getMobile().substring(0,11));
+			if(account!=null) {
+				try{
+					weiXinService.pushTextMsg(account.getId(),"您的商标进度有变化,请点击查看","进度通知",ms.getText(),dateNowStr,url,null, AccountWxMsg.WORK_PROCESS_CHANGE);
+				}catch (Exception e) {
+					// TODO: handle exception
+				}
+					
+			}
 			
 		}
 
