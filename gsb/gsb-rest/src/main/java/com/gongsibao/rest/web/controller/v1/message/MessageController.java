@@ -144,7 +144,7 @@ public class MessageController extends BaseController{
     ) {
         ResponseData data = new ResponseData();
         IAccountWeiXinService weiXinService=ServiceFactory.create(IAccountWeiXinService.class);
-        weiXinService.pushTextMsg(accountId,"您的商标进度有变化点击查看","1000020","开始办理",null,"baidu.com",null, AccountWxMsg.WORK_PROCESS_CHANGE);
+        weiXinService.pushTextMsg(accountId,"您的商标进度有变化点击查看","1000020","开始办理","2018-04-27","baidu.com",null, AccountWxMsg.WORK_PROCESS_CHANGE);
         data.setCode(200);
         data.setMsg("发送成功");
         return data;
