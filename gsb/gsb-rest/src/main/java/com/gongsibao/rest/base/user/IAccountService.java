@@ -50,4 +50,5 @@ public interface IAccountService {
     boolean matchOpenIdOid(String openId, Integer accountId);
 
     AccountValidateDTO validAccountByOpenId(String openId);
+
 }

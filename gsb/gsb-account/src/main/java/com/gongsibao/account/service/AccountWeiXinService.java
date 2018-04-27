@@ -18,6 +18,8 @@ import org.netsharp.util.sqlbuilder.UpdateBuilder;
 import org.netsharp.wx.mp.api.accesstoken.AccessToken;
 import org.netsharp.wx.mp.api.accesstoken.AccessTokenManage;
 import org.netsharp.wx.mp.api.messagetemplate.*;
+import org.netsharp.wx.mp.message.response.Article;
+import org.netsharp.wx.mp.message.response.NewsResponse;
 import org.netsharp.wx.pa.WeixinMessageListener;
 import org.netsharp.wx.pa.base.ICustomService;
 import org.netsharp.wx.pa.base.IFansService;
@@ -420,6 +422,27 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
         }
     }
 
-
+    @Override
+    public void sendLinkMsg(String title,String content, String url, int accountId) {
+        Fans fans=this.queryFansByUserId(accountId);
+        if(null!=fans){
+            PublicAccount publicAccount=this.queryByFansId(fans);
+            NewsResponse news = new NewsResponse();
+            {
+                news.setToUserName(publicAccount.getOriginalId());
+                news.setFromUserName(fans.getOpenId());
+            }
+            Article article = new Article();
+            {
+                article.setTitle(title);
+                article.setDescription(content);
+                article.setPicUrl( null);
+                if(StringUtils.isNotBlank(url)){
+                    article.setUrl( url);
+                }
+            }
+            news.getArticles().add(article);
+        }
+    }
 
 }

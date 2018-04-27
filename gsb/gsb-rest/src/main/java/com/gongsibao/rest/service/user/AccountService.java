@@ -24,6 +24,7 @@ import org.netsharp.wx.pa.base.IFansService;
 import org.netsharp.wx.pa.base.IPublicAccountService;
 import org.netsharp.wx.pa.entity.Fans;
 import org.netsharp.wx.pa.entity.PublicAccount;
+import org.netsharp.wx.pa.response.PublicAccountManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -304,4 +305,6 @@ public class AccountService implements IAccountService {
         }
         return dto;
     }
+
+
 }

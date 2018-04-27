@@ -1,5 +1,6 @@
 package com.gongsibao.rest.web.controller.v1.message;
 
+import com.gongsibao.account.base.IAccountWeiXinService;
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.rest.web.common.apiversion.Api;
 import com.gongsibao.rest.web.common.web.Constant;
@@ -135,14 +136,14 @@ public class MessageController extends BaseController{
         return data;
     }
 
-    @RequestMapping(value = "/createMenu", method = RequestMethod.GET)
+    @RequestMapping(value = "/sendMsg", method = RequestMethod.GET)
     public ResponseData saveOrderMsg(
             HttpServletRequest request,
-            @RequestParam("originalId") String originalId
+            @RequestParam("accountId") int accountId
     ) {
         ResponseData data = new ResponseData();
-        INMenuItemService menuService = ServiceFactory.create(INMenuItemService.class);
-        menuService.generate(originalId);
+        IAccountWeiXinService weiXinService=ServiceFactory.create(IAccountWeiXinService.class);
+        weiXinService.sendLinkMsg("测试文章","您的商标进度有变化，点击查看","baidu.com",accountId);
         data.setCode(200);
         data.setMsg("发送成功");
         return data;
