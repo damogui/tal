@@ -39,4 +39,12 @@ public interface IAccountService extends IPersistableService<Account> {
 	Account updateAccount(String mobile, String openId);
 
 	Boolean updateFansId(Integer id, Integer fansId);
+	/**
+	 * @Description:TODO
+	 * @param  mobile openId sceneStr 二维码携带的参数 
+	 * @return
+	 * @author hbpeng <hbpeng@gongsibao.com>
+	 * @date 2018/4/27 14:58 
+	 */
+	Account updateAccount(String mobile, String openId,String sceneStr);
 }
