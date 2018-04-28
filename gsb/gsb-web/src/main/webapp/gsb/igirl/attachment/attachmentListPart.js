@@ -77,10 +77,10 @@ org.netsharp.core.attachmentListController = System.Object.Extends({
 				           {field:'name',title:'名称',width:550},
 				           {field:'fileExtend',title:'扩展名',width:50,align:"right"},
 				           {field:'downLoadCount',title:'下载次数',width:60,align:"center"},
-				           {field:'alias',title:'操作',width:60,align:"center",formatter:function(value,rowData,rowIndex){
+				           {field:'alias',title:'操作',width:80,align:"center",formatter:function(value,rowData,rowIndex){
 				        	   //return "<a href='/download?name="+rowData.name+"&path="+rowData.path+"' onclick='listController.updateDownLoadCount("+rowData.id+");'>下载</a>";
 				        	   
-				        	   return "<a target='_blank' href='"+rowData.path+"' onclick='listController.updateDownLoadCount("+rowData.id+");'>下载</a>";
+				        	   return "<a target='_blank' href='"+rowData.path+"' onclick='listController.updateDownLoadCount("+rowData.id+");'>下载</a>&nbsp;<a target='_blank' href='javascript:;' onclick='listController.removeAttachment("+rowData.id+");'>删除</a>";
 				           }},
 				           {field:'creator',title:'上传人',width:60,align:"center"},
 				           {field:'createTime',title:'上传时间',width:130,align:"center"}				           
@@ -150,7 +150,18 @@ org.netsharp.core.attachmentListController = System.Object.Extends({
 			me.initDataGrid();
 		});
     },
-    
+    removeAttachment:function(dataid){
+		var me = this;
+		IMessageBox.confirm("确认要删除选中的记录吗？", function(istrue) {
+			if (istrue) {
+				var pars = [dataid];
+				me.invoke("delete", pars, function(data) {
+					me.initDataGrid();
+				});
+			}
+		});
+	 	
+    },
 	remove:function(){
 		
 		var count = this.getSelectionCount();
