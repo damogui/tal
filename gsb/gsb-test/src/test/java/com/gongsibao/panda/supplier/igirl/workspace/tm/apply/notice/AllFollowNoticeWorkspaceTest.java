@@ -69,7 +69,7 @@ public class AllFollowNoticeWorkspaceTest extends WorkspaceCreationBase {
 		{
 			item.toNew();
 			item.setCode("autoSubmit");
-			item.setIcon("fa fa-link");
+			item.setIcon("fa fa-check");
 			item.setName("审核");
 			item.setCommand(null);
 			item.setOperationType(ot1);
@@ -81,7 +81,7 @@ public class AllFollowNoticeWorkspaceTest extends WorkspaceCreationBase {
 		{
 			item.toNew();
 			item.setCode("autoSubmit");
-			item.setIcon("fa fa-link");
+			item.setIcon("fa fa-mail-reply");
 			item.setName("返回");
 			item.setOperationType(ot1);
 			item.setSeq(3000);

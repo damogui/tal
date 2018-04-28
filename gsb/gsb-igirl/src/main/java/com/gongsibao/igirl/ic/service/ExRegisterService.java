@@ -1,5 +1,6 @@
 package com.gongsibao.igirl.ic.service;
 
+import com.gongsibao.bd.base.IDictService;
 import com.gongsibao.bd.service.GsbPersistableService;
 import com.gongsibao.crm.base.INCustomerService;
 import com.gongsibao.crm.base.INCustomerTaskService;
@@ -61,6 +62,9 @@ public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> i
                 customer.setWeixin("");
                 customer.setImportant(Important.COMMON);
                 customer.setRemark("");
+                IDictService dictService = ServiceFactory.create(IDictService.class);
+                customer.setCustomerSourceId(entity.getSource().getValue());
+                customer.setCustomerSource(dictService.byId(entity.getSource().getValue()));
                 customer.setAllocationType(AllocationType.NATURAL);
                 customer.setSupplierId(SupplierSessionManager.getSupplierId());
                 customer.setSupplier(SupplierSessionManager.getSupplier());
@@ -95,9 +99,9 @@ public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> i
                 task.setCosted(false);
                 task.setAllocationType(NAllocationType.MANUAL);
                 task.setAllocationDispositon(SupplierType.UNLIMITED);
-                task.setSourceId(4184);
-                task.setSourceOther("");
-                task.setConsultWayId(4211);
+                task.setSourceId(entity.getSource().getValue());
+                task.setSourceOther(customer.getCustomerSourceOther());
+                task.setConsultWayId(entity.getConsultWay().getValue());
                 task.setConsultWayOther("");
                 task.setProcessingState(1);
                 task.setAllocationState(AllocationState.ALLOCATED);

@@ -1,5 +1,7 @@
 package com.gongsibao.igirl.ic.web;
 
+import com.gongsibao.crm.base.INCustomerService;
+import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.igirl.ic.ex.IcExRegisterCase;
 import com.gongsibao.entity.igirl.tm.TradeMarkCase;
 import com.gongsibao.entity.igirl.tm.TransferTradeMark;
@@ -17,6 +19,7 @@ import java.util.Date;
 
 public class IcExRegisterCasePart extends FormPart {
     IcExRegisterService service = ServiceFactory.create(IcExRegisterService.class);
+    INCustomerService customerService = ServiceFactory.create(INCustomerService.class);
 
     /*通过公司名查找公司名称是否存在*/
     public Integer findCom(String approvalName){
@@ -47,9 +50,8 @@ public class IcExRegisterCasePart extends FormPart {
 
     /*通过电话号获取姓名*/
 
-    public String findMobile(String customerMobile){
-        String customerName= service.findMoblie(customerMobile);
-        return customerName;
+    public NCustomer findByMobile(String customerMobile){
+        return customerService.getByMobile(customerMobile);
     }
 
 }

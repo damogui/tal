@@ -28,7 +28,7 @@ com.gongsibao.trade.web.AuditOrderListPart = org.netsharp.panda.commerce.ListPar
             fixed: false,
             maxmin: true,
             shadeClose: true,
-            area: ['70%', '70%'],
+            area: ['98%', '98%'],
             zIndex: 100000,
             id: "orderIframe",
             content: contentUrl,
@@ -56,7 +56,7 @@ com.gongsibao.trade.web.AuditOrderListPart = org.netsharp.panda.commerce.ListPar
              fixed: false,
              maxmin: true,
              shadeClose: true,
-             area: ['70%', '70%'],
+             area: ['98%', '98%'],
              zIndex: 100000,
              id: "orderIframe",
              content: contentUrl

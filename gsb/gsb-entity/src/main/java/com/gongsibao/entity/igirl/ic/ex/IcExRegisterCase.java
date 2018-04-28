@@ -1,6 +1,9 @@
 package com.gongsibao.entity.igirl.ic.ex;
 
+import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.NCustomer;
+import com.gongsibao.entity.crm.dic.ConsultWay;
+import com.gongsibao.entity.crm.dic.CustomerSource;
 import com.gongsibao.entity.igirl.ic.dict.CorpRegStatue;
 import com.gongsibao.entity.igirl.ic.ex.dict.ApprovalType;
 import com.gongsibao.entity.igirl.ic.ex.dict.BusinessType;
@@ -48,6 +51,12 @@ public class IcExRegisterCase extends Entity {
 
     @Column(name = "supplier_id", header = "服务商Id")
     private Integer supplierId = -1;
+
+    @Column(name = "source_id",header = "客户来源")
+    private CustomerSource source = CustomerSource.CUSTOMER_SOURCE_4181;
+
+    @Column(name = "consult_way", header = "421 CRM咨询途径: 4211 400电话、 4212 在线客服、 4213企业QQ、 4214 PC官网、 4215 H5官网、 4216 手机APP")
+    private ConsultWay consultWay=ConsultWay.CONSULT_WAY_4211;
 
     @JsonIgnore
     @Reference(foreignKey = "supplierId", header = "服务商")
@@ -235,5 +244,21 @@ public class IcExRegisterCase extends Entity {
 
     public void setBusinessType(BusinessType businessType) {
         this.businessType = businessType;
+    }
+
+    public CustomerSource getSource() {
+        return source;
+    }
+
+    public void setSource(CustomerSource source) {
+        this.source = source;
+    }
+
+    public ConsultWay getConsultWay() {
+        return consultWay;
+    }
+
+    public void setConsultWay(ConsultWay consultWay) {
+        this.consultWay = consultWay;
     }
 }

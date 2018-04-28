@@ -2,6 +2,7 @@ System.Declare("com.gongsibao.trade.web");
 com.gongsibao.trade.web.AuditBaseCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
     ctor: function () {
     	this.base();
+    	this.auditLogStatusEnum = PandaHelper.Enum.get('com.gongsibao.entity.bd.dic.AuditLogStatusType');
     },
     init:function(){
 
@@ -216,10 +217,10 @@ com.gongsibao.trade.web.AuditBaseCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     		});
     	});
     },
-    initauditLog: function(formId){
+    initAuditLog: function(formId,type){
 
     	var me = this;
-    	this.invokeService("getAuditLogList", [formId,1046], function(data){
+    	this.invokeService("getAuditLogList", [formId,type],function(data){
     		$('#audit_progress_grid').datagrid({
     			idField:'id',
     			emptyMsg:'暂无记录',
@@ -256,6 +257,7 @@ com.gongsibao.trade.web.AuditBaseCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     		        	}
     		        }},
     		        {field:'status',title:'审核状态',width:80,align:'center',formatter: function(value,row,index){
+
     		        	return me.auditLogStatusEnum[value];
     		        },styler: function(value,row,index){
 

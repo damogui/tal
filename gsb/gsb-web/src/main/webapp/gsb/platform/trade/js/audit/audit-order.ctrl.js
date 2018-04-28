@@ -22,7 +22,8 @@ com.gongsibao.trade.web.AuditOrderCtrl = com.gongsibao.trade.web.AuditBaseCtrl.E
 		    		return;
 		    	}
 		    	if(title=='审批进度'){
-		    		me.auditLogInfor(orderId);
+
+		    		me.initAuditLog(orderId,1042);
 		    	}
 		    }
     	});
@@ -77,33 +78,6 @@ com.gongsibao.trade.web.AuditOrderCtrl = com.gongsibao.trade.web.AuditBaseCtrl.E
     	        		}
     	        		return '-';
     		        }}
-    		    ]]
-    		});
-    	});
-    },    
-    auditLogInfor: function(formId){
-    	//tab-审批进度
-    	var me = this;
-    	this.invokeService("getAuditLogList", [formId,1042], function(data){
-    		$('#audit_progress_grid').datagrid({
-    			idField:'id',
-    			emptyMsg:'暂无记录',
-    			striped:false,
-    			pagination:false,
-    			showFooter:true,
-    			singleSelect:true,
-    			height:'100%',
-    			data:data,
-    		    columns:[[
-    		        {field:'creatorId',title:'创建人名称',width:80,align:'center',formatter: function(value,row,index){
-    		        	return row.employee.name;
-    		        }},
-    		        {field:'status',title:'审核状态',width:80,align:'center',formatter: function(value,row,index){
-    		        	return me.auditLogStatusEnum[value];
-    		        }},
-    		        {field:'createTime',title:'创建时间',width:150,align:'center'},
-    		        {field:'content',title:'审批内容',width:150,align:'right'},
-    		        {field:'remark',title:'说明',width:300,align:'center'}
     		    ]]
     		});
     	});
