@@ -697,7 +697,8 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         });
 
 
-    }, recover: function (id) {//恢复
+    },
+    recover: function (id) {//恢复
         var rows = this.getSelections();
         if (id == null && rows.length != 1) {
             IMessageBox.info('请先选择一条订单数据');
@@ -715,8 +716,35 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         });
 
 
-    }
+    },
+    viewQqCode: function (id) {
+        var me = this;
+        var row = me.getSelectedItem();
+        if (row == null) {
+            IMessageBox.info('请先选择一条订单数据');
+            return false;
+        }
+        var img = "<img src='http://icompany.gongsibao.net/wx/v1/user/qrcode?mobile=" + row.accountMobile + "&businessId=" + id + "&source=ORDER' />";
+        layer.open({
+            type: 1,//1是字符串 2是内容
+            title: '查看二维码',
+            fixed: false,
+            maxmin: true,
+            shadeClose: true,
+            area: ['500px', '500px'],
+            zIndex: 100000,
+            id: "viewQqCodeframe",
+            content: img,
+            success: function (layero, index) {
+                layerIndex = index; //获取当前窗口的索引
+                layerInitWidth = $("#layui-layer" + layerIndex).width(); //获取layer的宽度
+                layerInitHeight = $("#layui-layer" + layerIndex).height(); //获取layer的高度
+                resizeLayer(layerIndex, layerInitWidth, layerInitHeight); //调用resizeLayer方法
+            },
+        });
 
+
+    }
 });
 
 
