@@ -49,6 +49,7 @@ public class AuditPerformanceController extends AuditBaseController {
      * @return
      */
     public Boolean rejected(Integer auditLogId, String remark) {
+    	
         return auditLogService.audit (AuditState.NOTPASS, auditLogId, remark);
     }
 
@@ -68,8 +69,7 @@ public class AuditPerformanceController extends AuditBaseController {
 
         }
         depReceivables = nDepReceivableService.queryList (oql);
-        for (NDepReceivable item : depReceivables
-                ) {
+        for (NDepReceivable item : depReceivables) {
 
             NDepReceivableDTO nDepReceivableDTO = new NDepReceivableDTO ();
 
@@ -81,31 +81,6 @@ public class AuditPerformanceController extends AuditBaseController {
             depReceivableDTOs.add (nDepReceivableDTO);
 
         }
-
-
         return depReceivableDTOs;
-
     }
-
-    /*订单业绩审核流程*/
-    public List<AuditLogDTO> getAuditLogList(Integer id) {
-        List<AuditLog> logList = new ArrayList<AuditLog> ();
-        List<AuditLogDTO> logDtos = new ArrayList<AuditLogDTO> ();
-
-        logList = super.getAuditLogList (id, AuditLogType.DdYjSq.getValue ());
-        for (AuditLog item : logList
-                ) {
-            AuditLogDTO auditLogDTO = new AuditLogDTO ();
-            auditLogDTO.setId (item.getId ());
-            auditLogDTO.setCreator (item.getEmployee ()==null?"":item.getEmployee ().getName ());
-            auditLogDTO.setOption (item.getStatus ().getText ());
-            auditLogDTO.setContent (item.getContent ());
-            auditLogDTO.setRemark (item.getRemark ());
-            //auditLogDTO.setCreateTime (item.getCreateTime ().toString ());
-            logDtos.add (auditLogDTO);
-        }
-        return logDtos;
-    }
-
-
 }

@@ -31,7 +31,7 @@ com.gongsibao.trade.web.AuditRefundListPart = org.netsharp.panda.commerce.ListPa
             fixed: false,
             maxmin: true,
             shadeClose: true,
-            area: ['70%', '80%'],
+            area: ['95%', '95%'],
             zIndex: 100000,
             id: "auditRefundIframe",
             content: contentUrl,
@@ -62,7 +62,7 @@ com.gongsibao.trade.web.AuditRefundListPart = org.netsharp.panda.commerce.ListPa
              fixed: false,
              maxmin: true,
              shadeClose: true,
-             area: ['70%', '80%'],
+             area: ['95%', '95%'],
              zIndex: 100000,
              id: "auditRefundIframe",
              content: contentUrl
