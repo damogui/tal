@@ -167,7 +167,7 @@ $(function(){
 						  this.sourceInfo=sourceInfo;
 						  this.fetchData();
 				          //判断url来源，如果是案件，那么就跳转到案件商标页面
-				  		if(this.sourceInfo.source && this.sourceInfo.source!=""){
+				  		if(this.sourceInfo.source && this.sourceInfo.source=="case"){
 				  			      //应该获取案件信息，根据状态来决定跳转到哪个页面
 				  			      //如果是待确认或异议，那么调转到确认页面
 				  			      //如果是已确认，那么跳专到付款页面
@@ -207,9 +207,11 @@ $(function(){
 				  						me.$router.push({path:"/progresslist",query:{spid:sourceInfo.supplierId,source:sourceInfo.source,casecode:sourceInfo.casecode}});
 				  					      }
 				  			    	  });
-				  			      }
-				  			 
+				  			      }			 
 				  			 }
+				  		 if(this.sourceInfo.source && this.sourceInfo.source=="iccase"){
+				  			 
+				  		      }
 					  },
 					  methods:{
 						  fetchData:function(){
