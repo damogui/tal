@@ -118,7 +118,7 @@ public class SoOrderService extends PersistableService<SoOrder> implements ISoOr
             Salesman  salesmanFor=salesmanMap.get(order.getId());
             setMap.put("formUser", salesmanFor);//转移的来自业务员
             setMap.put("orderLengh", orderLengh);//订单的长度来判断是单个还是批量
-            setMap.put("flagEnd", flagEnd);//是否是最后
+
             if(type.length>0){
                 setMap.put("type", 1);//来确定是业务员（转移 0）还是平台（分配 1）
             }else{
@@ -142,6 +142,7 @@ public class SoOrderService extends PersistableService<SoOrder> implements ISoOr
                 flagEnd=true;
                 setMap.put("hashFrom", hashFrom);//转移给的业务员
             }
+            setMap.put("flagEnd", flagEnd);//是否是最后
             ActionContext ctx = new ActionContext();
             {
                 ctx.setPath("gsb/crm/order/transform");

@@ -136,7 +136,7 @@ public class ActionTransformSendMessage implements IAction {
      * @date: 2018/4/28 15:20
      */
     private void batchToUserLeaderSendMsg(Salesman toUser) {
-        List<String> tels = UserHelper.getSalesmanLeaders(toUser.getId());
+        List<String> tels = UserHelper.getSalesmanLeaders(toUser.getEmployeeId());
         for (String tel : tels
                 ) {
             if (!StringManager.isNullOrEmpty(tel)) {
@@ -172,7 +172,7 @@ public class ActionTransformSendMessage implements IAction {
      */
     private void formUserLeaderSendMsg(Salesman formUser, String toName) {
 
-        List<String> tels = UserHelper.getSalesmanLeaders(formUser.getId());
+        List<String> tels = UserHelper.getSalesmanLeaders(formUser.getEmployeeId());
         for (String tel : tels
                 ) {
             if (!StringManager.isNullOrEmpty(tel)) {
@@ -210,7 +210,7 @@ public class ActionTransformSendMessage implements IAction {
      */
     private void toUserLeaderSendMsg(Salesman toUser) {
 
-        List<String> tels = UserHelper.getSalesmanLeaders(toUser.getId());
+        List<String> tels = UserHelper.getSalesmanLeaders(toUser.getEmployeeId());
         for (String tel : tels
                 ) {
             if (!StringManager.isNullOrEmpty(tel)) {
