@@ -40,8 +40,8 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
 		listPartImportJs = StringManager.join("|", ss);
 		listPartJsController = AuditStagingListPart.class.getName();
 		listPartServiceController = AuditStagingListPart.class.getName();
-		
-		listFilter = "type_id=" + AuditLogType.Fqsq.getValue()+ " AND add_user_id='{userId}' ";
+		//由于分期审核关联订单主键，分期审核驳回后，再申请会把之前的驳回的分期审核信息查出来，目前解决方法是来源分组（orderId）分组取最新的分期记录
+		listFilter = " pkid in(SELECT MAX(pkid) from bd_audit_log where type_id = " + AuditLogType.Fqsq.getValue()+ "  and add_user_id='{userId}' GROUP BY form_id)";
     }
     
     @Override

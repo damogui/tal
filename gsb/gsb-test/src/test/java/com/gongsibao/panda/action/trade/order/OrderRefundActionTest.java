@@ -46,7 +46,7 @@ public class OrderRefundActionTest  extends BaseActionTest{
 		createBean(beanPath, "1.验证", ActionApplyRefundVerify.class.getName(), resourceNode, 100);
 		createBean(beanPath, "2.保存", ActionApplyRefundPersist.class.getName(), resourceNode, 200);
 		createBean(beanPath, "3.审核", ActionApplyRefundAudit.class.getName(), resourceNode, 300);
-		createBean(beanPath, "4.通知", ActionApplyRefundSendMessage.class.getName(), resourceNode, 400);
+		//createBean(beanPath, "4.通知", ActionApplyRefundSendMessage.class.getName(), resourceNode, 400);
 		createBean(beanPath, "5.回写", ActionApplyRefundWriteBack.class.getName(), resourceNode, 500);
 		createBean(beanPath, "6.日志", ActionApplyRefundLog.class.getName(), resourceNode, 600);
 		beanPathService.save(beanPath);

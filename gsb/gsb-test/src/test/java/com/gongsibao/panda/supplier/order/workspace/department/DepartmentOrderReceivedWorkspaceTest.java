@@ -35,6 +35,7 @@ public class DepartmentOrderReceivedWorkspaceTest extends SalesmanOrderReceivedW
         listPartName = formPartName = "部门回款业绩列表";//回款业绩  我部门创建的回款业绩和别人创建的回款业绩的订单所有人在我的部门
         meta = MtableManager.getMtable (entity);
         listToolbarPath="";
+        listFilter="";
        // listFilter = "salesman_id = '{userId}'  or creator_id = '{userId}'";//我创建和别人分配给我
         listPartServiceController = DepartmentOrderReceivedListPart.class.getName();
 

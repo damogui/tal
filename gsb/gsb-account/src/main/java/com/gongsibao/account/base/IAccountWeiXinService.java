@@ -39,4 +39,29 @@ public interface IAccountWeiXinService extends IPersistableService<AccountWeiXin
 	void saveOrderMsg(String mobile, Integer orderPorudctId);
 	void pushTextMsg(Integer accountId, String first, String keyword1, String keyword2, String date,String url, String remark, AccountWxMsg tmpId);
 	void pushTextMsgByOriginalId(String originalId,Integer accountId, String first, String keyword1, String keyword2, String date,String url, String remark, AccountWxMsg tmpId);
+	/**
+	 * @Description:TODO
+	 * @param   content 发送内容 url 跳转页面 accountId 用户id uc_account -pkid
+	 * @return
+	 * @author hbpeng <hbpeng@gongsibao.com>
+	 * @date 2018/4/27 10:15
+	 */
+	void sendLinkMsg(String title,String content,String url,int accountId);
+	/**
+	 * @Description:TODO Oauth 方式必须与公众号下域名下
+	 * @param
+	 * @return
+	 * @author hbpeng <hbpeng@gongsibao.com>
+	 * @date 2018/4/27 11:03
+	 */
+	void pushTextMsgOauth(Integer accountId,
+						  String first,
+						  String keyword1,
+						  String keyword2,
+						  String date,
+						  String url,
+						  String remark,
+						  AccountWxMsg tmpId);
+
+	void buySuccessSendMsg(int orderId, String payMoney);
 }

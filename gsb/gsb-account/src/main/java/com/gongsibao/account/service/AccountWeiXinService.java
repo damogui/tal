@@ -5,6 +5,8 @@ import com.gongsibao.account.base.IAccountWeiXinService;
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.acount.AccountWeiXin;
 import com.gongsibao.entity.acount.AccountWxMsg;
+import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.u8.base.ISoOrderService;
 import com.gongsibao.utils.DateUtils;
 import com.gongsibao.utils.SecurityUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -18,6 +20,8 @@ import org.netsharp.util.sqlbuilder.UpdateBuilder;
 import org.netsharp.wx.mp.api.accesstoken.AccessToken;
 import org.netsharp.wx.mp.api.accesstoken.AccessTokenManage;
 import org.netsharp.wx.mp.api.messagetemplate.*;
+import org.netsharp.wx.mp.message.response.Article;
+import org.netsharp.wx.mp.message.response.NewsResponse;
 import org.netsharp.wx.pa.WeixinMessageListener;
 import org.netsharp.wx.pa.base.ICustomService;
 import org.netsharp.wx.pa.base.IFansService;
@@ -200,7 +204,7 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
      * @date 2018/4/19 14:14
      */
     @Override
-    public void pushTextMsg(Integer accountId,
+    public void pushTextMsgOauth(Integer accountId,
                             String first,
                             String keyword1,
                             String keyword2,
@@ -214,7 +218,7 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
         PublicAccount weixinConfig = this.queryByFansId(fans);
         //获取token
         AccessToken token = token(weixinConfig);
-        String template_id = this.getTemplateId(token, tmpId.getEmpId());
+        String template_id = tmpId.getEmpId();
         SendTemplateData data = new SendTemplateData();
         {
             if (tmpId.getEmpId().equals(AccountWxMsg.BUY_SUCCESS.getEmpId())) {
@@ -256,6 +260,67 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
             request.setTouser(fans.getOpenId());
             request.setTemplate_id(template_id);
             request.setPageUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + weixinConfig.getAppId() + "&redirect_uri=" + redirectUrl + "&response_type=code&scope=snsapi_base&state=111echat_redirect&connect_redirect=1#wechat_redirect");
+            request.setData(data);
+        }
+        request.getResponse();
+    }
+
+    @Override
+    public void pushTextMsg(Integer accountId,
+                            String first,
+                            String keyword1,
+                            String keyword2,
+                            String date,
+                            String url,
+                            String remark,
+                            AccountWxMsg tmpId) {
+        //取微信用户openid
+        Fans fans = this.queryFansByUserId(accountId);
+        //取公众号配置
+        PublicAccount weixinConfig = this.queryByFansId(fans);
+        //获取token
+        AccessToken token = token(weixinConfig);
+        String template_id = tmpId.getEmpId();
+        SendTemplateData data = new SendTemplateData();
+        {
+            if (tmpId.getEmpId().equals(AccountWxMsg.BUY_SUCCESS.getEmpId())) {
+                data.getFirst().setValue(first);
+                data.getKeynotes().put("orderMoneySum", new KeyNote(keyword1));
+                data.getKeynotes().put("orderProductName", new KeyNote(keyword2));
+                if (StringUtils.isNotEmpty(remark))
+                    data.getKeynotes().put("Remark", new KeyNote(remark));
+                else
+                    data.getKeynotes().put("Remark", new KeyNote(""));
+            } else if (tmpId.getEmpId().equals(AccountWxMsg.ORDER_STATE_CHANGE.getEmpId())) {
+                data.getFirst().setValue(first);
+                data.getKeynotes().put("OrderSn", new KeyNote(keyword1));
+                data.getKeynotes().put("OrderStatus", new KeyNote(keyword2));
+                if (StringUtils.isNotEmpty(remark)) {
+                    data.getKeynotes().put("remark", new KeyNote(remark));
+                } else {
+                    data.getKeynotes().put("remark", new KeyNote(""));
+                    data.setRemark(new KeyNote(""));
+                }
+            } else if (tmpId.getEmpId().equals(AccountWxMsg.WORK_PROCESS_CHANGE.getEmpId())) {
+                data.getFirst().setValue(first);
+                data.getKeynotes().put("keyword1", new KeyNote(keyword1));
+                data.getKeynotes().put("keyword2", new KeyNote(keyword2));
+                data.getKeynotes().put("keyword3", new KeyNote(date));
+                if (StringUtils.isNotEmpty(remark)) {
+                    data.getKeynotes().put("remark", new KeyNote(remark));
+                } else {
+                    data.getKeynotes().put("remark", new KeyNote(""));
+                    data.setRemark(new KeyNote(""));
+                }
+            }
+        }
+        //拼接消息内容
+        SendTemplateMessageRequest request = new SendTemplateMessageRequest();
+        {
+            request.setTokenInfo(token);
+            request.setTouser(fans.getOpenId());
+            request.setTemplate_id(template_id);
+            request.setPageUrl(url);
             request.setData(data);
         }
         request.getResponse();
@@ -420,6 +485,48 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
         }
     }
 
+    @Override
+    public void sendLinkMsg(String title,String content, String url, int accountId) {
+        Fans fans=this.queryFansByUserId(accountId);
+        if(null!=fans){
+            PublicAccount publicAccount=this.queryByFansId(fans);
+            NewsResponse news = new NewsResponse();
+            {
+                news.setToUserName(fans.getOpenId());
+                news.setFromUserName(publicAccount.getOriginalId());
+            }
+            Article article = new Article();
+            {
+                article.setTitle(title);
+                article.setDescription(content);
+                article.setPicUrl( null);
+                if(StringUtils.isNotBlank(url)){
+                    article.setUrl( url);
+                }
+            }
+            news.getArticles().add(article);
+        }
+    }
 
+
+    @Override
+    public void buySuccessSendMsg(int orderId, String payMoney) {
+        try{
+            ISoOrderService orderService=ServiceFactory.create(ISoOrderService.class);
+            SoOrder order=orderService.getByOrderId(orderId);
+            String memo="您的订单"+order.getNo()+"支付成功,我们将立即为您办理。";
+            String payStatus="1";
+            if(order.getPayablePrice()!=order.getPaidPrice()){
+                payStatus="0";
+                memo="您的订单"+order.getNo()+ " 已支付"+(Double.valueOf(payMoney)/100)+",还需支付"+Double.valueOf(order.getPayablePrice()-order.getPaidPrice())/100+"。";
+            }
+            Account account=accountService.byId(order.getAccountId());
+            Fans fans=fansService.getFansByUserId(account.getId());
+            PublicAccount publicAccount=this.queryByFansId(fans);
+            this.pushTextMsgByOriginalId(publicAccount.getOriginalId(),account.getId(),memo,String.valueOf(Double.valueOf(payMoney)/100),order.getProdName(),null,payStatus.equals("1")?"/index.html#/mine/order/2":"/index.html#/mine/order/1",null, AccountWxMsg.BUY_SUCCESS);
+        }catch (Exception e){
+            logger.error("推送微信支付成功消息失败："+e.getMessage());
+        }
+    }
 
 }

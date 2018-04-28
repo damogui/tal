@@ -224,4 +224,13 @@ public class TaskBaseListPart extends AdvancedListPart {
 		return customerIdList;
 	}
 	// endregion
+	/**
+	 * 根据客户id获取商机所属人的集合
+	 * @param customerId
+	 * @return
+	 */
+	public String isHaveTask(int customerId){
+		String ownerNameString = taskService.getTaskNamesByCustomerId(customerId);
+		return ownerNameString;
+	}
 }

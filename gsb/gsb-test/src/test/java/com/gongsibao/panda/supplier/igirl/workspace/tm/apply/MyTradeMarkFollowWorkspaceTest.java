@@ -197,6 +197,7 @@ public class MyTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		addQueryItem(queryProject, "tradeMarkCase.orderCode", "订单号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "proxyCode", "代理号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "tradeMarkCase.companyName", "公司名称", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "tradeMarkCase.applier", "申请人", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "markState", "状态", ControlTypes.ENUM_BOX);
 		addQueryItem(queryProject, "createTime", "时间", ControlTypes.DATE_BOX).setWidth(400);
 		addQueryItem(queryProject, "markSubmitTime", "商标提交时间", ControlTypes.DATE_BOX).setWidth(400);

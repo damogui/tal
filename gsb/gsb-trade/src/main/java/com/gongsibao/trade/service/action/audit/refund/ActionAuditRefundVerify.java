@@ -52,6 +52,7 @@ public class ActionAuditRefundVerify implements IAction{
         Map<String, Object> statusMap = new HashMap<String, Object>();
         statusMap.put("auditLog", auditLog);
         statusMap.put("orderId", refund.getOrderId());
+        statusMap.put("refund", refund);
         ctx.setStatus(statusMap);
 	}
 }

@@ -196,5 +196,12 @@ public interface INCustomerTaskService extends IPersistableService<NCustomerTask
     NCustomerTask getById(Integer id);
 
     List<NCustomerTask> getByIdList(List<Integer> idList);
+    
+    /**
+     * 根据客户id获取商机所属人的集合
+     * @param customerId
+     * @return
+     */
+    public String getTaskNamesByCustomerId(Integer customerId);
 
 }

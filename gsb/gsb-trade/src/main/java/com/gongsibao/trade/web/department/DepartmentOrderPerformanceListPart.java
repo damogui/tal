@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.netsharp.panda.commerce.FilterParameter;
 import org.netsharp.util.StringManager;
 
-public class DepartmentOrderPerformanceListPart extends DepartmentOrderAllListPart{
+public class DepartmentOrderPerformanceListPart extends BaseDepartmentListPart{
 	
     @Override
     public String getFilterByParameter(FilterParameter parameter) {

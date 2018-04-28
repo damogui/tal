@@ -25,6 +25,7 @@ public class PayWorkspaceTest  extends SalesmanOrderPayWorkspaceTest {
         listFilter = "";
         listPartServiceController = PayListPart.class.getName ();
     }
+    
     @Override
     @Test
     public void createRowToolbar() {

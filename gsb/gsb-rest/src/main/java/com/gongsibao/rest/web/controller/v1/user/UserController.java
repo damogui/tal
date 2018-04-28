@@ -731,11 +731,11 @@ public class UserController extends BaseController {
                     return ResponseData.getError(ResponseData.FAIL, "请填写公司名称");
                 }
 
-                // 验证公司名称是否存在于大数据
-                EntRegistry entRegistry = TaurusApiService.getEntRegistry(companyName);
-                if (null == entRegistry) {
-                    return ResponseData.getError(ResponseData.FAIL, "公司[" + companyName + "]不存在");
-                }
+                // 验证公司名称是否存在于大数据 TODO 目前测试环境ip不在大数据白名单，先注释掉这里，让测试先测
+//                EntRegistry entRegistry = TaurusApiService.getEntRegistry(companyName);
+//                if (null == entRegistry) {
+//                    return ResponseData.getError(ResponseData.FAIL, "公司[" + companyName + "]不存在");
+//                }
             } else {
                 dto.setCompanyName(companyName);
             }

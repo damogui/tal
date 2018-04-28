@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.lang.model.element.VariableElement;
-
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.trade.base.ICompanyIntentionService;
 import org.netsharp.communication.ServiceFactory;
@@ -248,11 +246,16 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
     }
 
 
-
-
     /*进行删除操作*/
-    public   String  orderDel(Integer orderId) {
+    public String orderDel(Integer orderId) {
         return noService.orderDel(orderId);
+
+
+    }
+
+    /*进行订单恢复操作*/
+    public Integer orderRecover(Integer orderId) {
+        return noService.orderRecover(orderId);
 
 
     }

@@ -26,5 +26,4 @@
 		<jsp:include page="portal-statistic.jsp"></jsp:include>
 	</div>
 </body>
-
 </html>

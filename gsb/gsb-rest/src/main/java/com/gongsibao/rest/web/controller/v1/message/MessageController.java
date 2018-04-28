@@ -1,6 +1,8 @@
 package com.gongsibao.rest.web.controller.v1.message;
 
+import com.gongsibao.account.base.IAccountWeiXinService;
 import com.gongsibao.entity.acount.Account;
+import com.gongsibao.entity.acount.AccountWxMsg;
 import com.gongsibao.rest.web.common.apiversion.Api;
 import com.gongsibao.rest.web.common.web.Constant;
 import com.gongsibao.rest.web.common.web.ResponseData;
@@ -9,8 +11,12 @@ import com.gongsibao.rest.web.controller.BaseController;
 import com.gongsibao.rest.web.common.util.StringUtils;
 import org.apache.log4j.Logger;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.Oql;
 import org.netsharp.panda.controls.utility.UrlHelper;
+import org.netsharp.wx.mp.WeixinException;
+import org.netsharp.wx.pa.base.INMenuItemService;
 import org.netsharp.wx.pa.base.IPublicAccountService;
+import org.netsharp.wx.pa.entity.NMenuItem;
 import org.netsharp.wx.pa.entity.PublicAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -126,6 +132,20 @@ public class MessageController extends BaseController{
             return data;
         }
         accountService.saveOrderMsg(mobile,orderPorudctId);
+        data.setCode(200);
+        data.setMsg("发送成功");
+        return data;
+    }
+
+    @RequestMapping(value = "/sendMsg", method = RequestMethod.GET)
+    public ResponseData saveOrderMsg(
+            HttpServletRequest request,
+            @RequestParam("accountId") int accountId
+    ) {
+        ResponseData data = new ResponseData();
+        IAccountWeiXinService weiXinService=ServiceFactory.create(IAccountWeiXinService.class);
+        //商标进度提醒
+        weiXinService.pushTextMsg(accountId,"您的商标进度有变化点击查看","办理事项","办理进度","2018-04-27","baidu.com",null, AccountWxMsg.WORK_PROCESS_CHANGE);
         data.setCode(200);
         data.setMsg("发送成功");
         return data;

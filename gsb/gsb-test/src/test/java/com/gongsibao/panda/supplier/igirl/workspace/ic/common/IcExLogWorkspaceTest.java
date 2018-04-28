@@ -14,6 +14,7 @@ import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
+import org.netsharp.panda.dic.OrderbyMode;
 import org.netsharp.panda.entity.*;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
@@ -61,8 +62,7 @@ public class IcExLogWorkspaceTest extends WorkspaceCreationBase{
 			toolbar.setResourceNode(node);
 		}
 		PToolbarItem item = new PToolbarItem();
-		item = new PToolbarItem();
-		{
+		/*{
 			item.toNew();
 			item.setCode("remove");
 			item.setIcon("fa fa-trash-o");
@@ -72,7 +72,7 @@ public class IcExLogWorkspaceTest extends WorkspaceCreationBase{
 			item.setSeq(4000);
 			item.setCommand("{controller}.remove();");
 			toolbar.getItems().add(item);
-		}
+		}*/
 		toolbarService.save(toolbar);
 	}
 
@@ -89,6 +89,10 @@ public class IcExLogWorkspaceTest extends WorkspaceCreationBase{
 		column = addColumn(datagrid, "companyName", "公司名称", ControlTypes.TEXT_BOX, 300);
 		column.setAlign(DatagridAlign.CENTER);
 		column = addColumn(datagrid, "corpRegStatue", "状态", ControlTypes.ENUM_BOX, 300);
+		column.setAlign(DatagridAlign.CENTER);
+		column = addColumn(datagrid, "createTime", "时间", ControlTypes.TEXT_BOX, 300);
+		column.setAlign(DatagridAlign.CENTER);
+		column.setOrderbyMode(OrderbyMode.DESC);
 		return datagrid;
 	}
 

@@ -3,6 +3,7 @@ System.Declare("com.gongsibao.crm.web");
 com.gongsibao.crm.web.BaseCustomerListPart = org.netsharp.panda.commerce.ListPart.Extends({
 	ctor : function() {
 		this.base();
+		this.isPlatform = 1;
 		this.addUrl = null;
 		this.editUrl = null;
 		this.addTaskUrl=null;
@@ -24,26 +25,44 @@ com.gongsibao.crm.web.BaseCustomerListPart = org.netsharp.panda.commerce.ListPar
 		this.edit(row.id);
 	},
 	addTask:function(){
-
+		var me = this;
 		var row = this.getSelectedItem();
 		if(row == null){
 			return;
 		}
 		var customerId = row.id;
-    	var url=this.addTaskUrl+'?fk=customerId:'+customerId;
-    	layer.open({
-  		  type: 2,
-  		  title: '新增商机',
-  		  fixed: false,
-  		  maxmin: true,
-  		  shadeClose:true,
-  		  area: ['98%','98%'],
-  		  content: url,
-  		  cancel: function(){ 
+		me.isHaveTask(customerId,function(ownerName){
+			if(ownerName == ''){
+				var url=me.addTaskUrl+'?fk=customerId:'+customerId;
+		    	layer.open({
+		  		  type: 2,
+		  		  title: '新增商机',
+		  		  fixed: false,
+		  		  maxmin: true,
+		  		  shadeClose:true,
+		  		  area: ['98%','98%'],
+		  		  content: url,
+		  		  cancel: function(){ 
 
-		  }
-  	    });
+				  }
+		  	    });
+			}else{
+				IMessageBox.info("您不是客户所拥有者，无法创建商机，请联系【" + ownerName + "】创建");
+			}
+		});
+    	
 	},
+	isHaveTask:function(customerId,callBack){
+    	var me = this;
+    	if(this.isPlatform==0){
+    		me.invokeService("isHaveTask", [customerId], function (ownerName) {
+				return callBack(ownerName);        	
+   	        });
+    	}else{
+    		//平台不受影响
+    		return callBack("");     
+    	}
+    },
 	openMember : function(customerId,isSendSms){
 
 		var msg = isSendSms==true?"确定要开通会员吗？该操作会向客户发送短信":"确定要静默开通会员吗？该操作<span style='color:red;'>不会向客户发送短信</span>，客户将无法直接获取自己的账号密码";

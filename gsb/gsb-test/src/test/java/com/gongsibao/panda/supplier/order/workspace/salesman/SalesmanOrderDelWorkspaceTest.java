@@ -94,7 +94,15 @@ public class SalesmanOrderDelWorkspaceTest extends WorkspaceCreationBase {
             toolbar.getItems().add(item);
         }
 
-
+        item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("recover");
+            item.setName("恢复");
+            item.setSeq(1);
+            item.setCommand("{controller}.recover();");
+            toolbar.getItems().add(item);
+        }
         toolbarService.save(toolbar);
     }
 
@@ -107,7 +115,7 @@ public class SalesmanOrderDelWorkspaceTest extends WorkspaceCreationBase {
             String toolbarPath = listrowToolbarPath;
             datagrid.setName("全部订单");
             datagrid.setToolbar(toolbarPath);
-            datagrid.setShowCheckbox(true);
+            datagrid.setShowCheckbox(false);
             datagrid.setSingleSelect(false);
         }
 

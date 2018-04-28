@@ -64,7 +64,7 @@ com.gongsibao.trade.web.AuditCarryoverCtrl = com.gongsibao.trade.web.AuditBaseCt
     		$('#audit_progress_grid').datagrid({
     			idField:'id',
     			emptyMsg:'暂无记录',
-    			striped:true,
+    			striped:false,
     			pagination:false,
     			showFooter:true,
     			singleSelect:true,

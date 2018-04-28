@@ -115,6 +115,10 @@
 		.file_panel #notUploadCount{
 			color:red;
 		}
+		
+		.moxie-shim{
+			left:290px !important;
+		}
 	</style>
 	<script src='/package/easyui/jquery.min.js'></script>
 	<script src='/package/layer/layer.js'></script>
@@ -130,15 +134,15 @@
 	<script src='/gsb/platform/trade/js/prod/select-salesman.ctrl.js'></script>
 	<script src='/gsb/platform/trade/js/prod/select-company.ctrl.js'></script>
 	
-	<script src='/gsb/platform/trade/js/prod/prod-main.ctrl.js'></script>
-	<script src='/gsb/platform/trade/js/prod/prod-trace.ctrl.js'></script>
-	<script src='/gsb/platform/trade/js/prod/prod-principal.ctrl.js'></script>
-	<script src='/gsb/platform/trade/js/prod/prod-file.ctrl.js'></script>
-	<script src='/gsb/platform/trade/js/prod/prod-company.ctrl.js'></script>
-	<script src='/gsb/platform/trade/js/prod/prod-customer.ctrl.js'></script>
-	<script src='/gsb/platform/trade/js/prod/prod-order.ctrl.js'></script>
-	<script src='/gsb/platform/trade/js/prod/prod-file-preview.ctrl.js'></script>
-	<script src='/gsb/platform/trade/js/prod/prod-trail.ctrl.js'></script>
+	<script src='/gsb/platform/trade/js/prod/prod-main.ctrl.js?v=1.0'></script>
+	<script src='/gsb/platform/trade/js/prod/prod-trace.ctrl.js?v=1.0'></script>
+	<script src='/gsb/platform/trade/js/prod/prod-principal.ctrl.js?v=1.0'></script>
+	<script src='/gsb/platform/trade/js/prod/prod-file.ctrl.js?v=1.0'></script>
+	<script src='/gsb/platform/trade/js/prod/prod-company.ctrl.js?v=1.0'></script>
+	<script src='/gsb/platform/trade/js/prod/prod-customer.ctrl.js?v=1.0'></script>
+	<script src='/gsb/platform/trade/js/prod/prod-order.ctrl.js?v=1.0'></script>
+	<script src='/gsb/platform/trade/js/prod/prod-file-preview.ctrl.js?v=1.0'></script>
+	<script src='/gsb/platform/trade/js/prod/prod-trail.ctrl.js?v=1.0'></script>
 </head>
     <body class="easyui-layout">
 		<div class="easyui-panel" title="订单信息" style="height:70px;padding-left:10px;" data-options="tools:[{

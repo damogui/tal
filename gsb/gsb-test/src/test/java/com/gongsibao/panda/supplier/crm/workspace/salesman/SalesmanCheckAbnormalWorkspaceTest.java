@@ -10,6 +10,7 @@ import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.controls.PropertyQueryDictComboBox;
+import com.gongsibao.crm.web.TaskAllListPart;
 import com.gongsibao.entity.crm.NCustomerTaskQuality;
 
 
@@ -27,6 +28,8 @@ public class SalesmanCheckAbnormalWorkspaceTest extends SalesmanAllTaskWorkspace
 		//listFilter = "inspectionState in (3,4) and foolowStatus=4 and ownerId = '{userId}'";
 		
 		listFilter = "inspectionState in (3,4) and ownerId = '{userId}'";
+
+        listPartServiceController = TaskAllListPart.class.getName();
 	}	
 	
 	@Override

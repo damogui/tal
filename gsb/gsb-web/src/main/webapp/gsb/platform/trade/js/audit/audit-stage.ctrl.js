@@ -29,9 +29,9 @@ com.gongsibao.trade.web.AuditStageCtrl = com.gongsibao.trade.web.AuditBaseCtrl.E
     	});
     	me.initializeDetailList.add('分期信息',this.installInfo(orderId));
     },
-    installInfo: function(id){
+    installInfo: function(orderId){
     	//tab-获取分期信息
-    	this.invokeService ("getSoOrder", [id], function(data){
+    	this.invokeService ("getOrderStage", [orderId], function(data){
     		//分期金额=订单金额（yyk提供）
     		var stageAmount = (data.payablePrice/100).toFixed(2);    		
     		var builder = new System.StringBuilder();

@@ -545,7 +545,7 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
         Integer num = checkOrderCanDel(orderId);
         if (num > 0) {
 
-            return "改价订单、有回款、订单业绩、回款业绩、结转审核的不能删除";
+            return "有回款、订单业绩、回款业绩、结转审核的不能删除";
         } else {
             //进行删除
             String sql = " UPDATE  so_order  SET  is_delete=1 WHERE pkid=? ";
@@ -574,19 +574,31 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
         String sql = "SELECT  NO   FROM   so_order WHERE  pkid=?";
         QueryParameters qps = new QueryParameters();
         qps.add("@pkid", id, Types.INTEGER);
-        Object obj= this.pm.executeScalar(sql, qps);
-        if (obj==null){
+        Object obj = this.pm.executeScalar(sql, qps);
+        if (obj == null) {
 
-            return  "";
-        }else{
+            return "";
+        } else {
             return obj.toString();
         }
+    }
+
+    /*恢复订单*/
+    @Override
+    public Integer orderRecover(Integer orderId) {
+        //进行删除
+        String sql = " UPDATE  so_order  SET  is_delete=0,process_status_id=3021 WHERE pkid=? ";
+
+        QueryParameters qps = new QueryParameters();
+        qps.add("@pkid", orderId, Types.INTEGER);
+        int num = auditLogService.executeNonQuery(sql, qps);
+        return num;
     }
 
     /*校验是不是可以删除*/
     private Integer checkOrderCanDel(Integer orderId) {
 
-        String sql = "SELECT  COUNT(1) FROM  bd_audit_log WHERE  form_id=?  AND  type_id IN (1042,1045,1050,1051)";
+        String sql = "SELECT  COUNT(1) FROM  bd_audit_log WHERE  form_id=?  AND  type_id IN (1045,1050,1051)";
         QueryParameters qps = new QueryParameters();
         qps.add("@form_id", orderId, Types.INTEGER);
         int numAudit = auditLogService.executeInt(sql, qps);

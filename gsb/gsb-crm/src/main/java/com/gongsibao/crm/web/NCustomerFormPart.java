@@ -7,11 +7,13 @@ import org.netsharp.panda.commerce.FormPart;
 
 import com.gongsibao.crm.base.INCustomerOperationLogService;
 import com.gongsibao.crm.base.INCustomerService;
+import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.entity.crm.NCustomer;
 
 public class NCustomerFormPart extends FormPart{
 
 	INCustomerService customerService = ServiceFactory.create(INCustomerService.class);
+	INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
 	public NCustomer validationContactWay(Integer id,String contactWay,String type){
 	
 		return customerService.validationContactWay(id,contactWay, type);
@@ -52,5 +54,14 @@ public class NCustomerFormPart extends FormPart{
 		entity = customerService.create(entity);
 		entity = customerService.byId(entity);
 		return entity;
+	}
+	
+	/**
+	 * 根据客户id获取商机所属人的集合
+	 * @param customerId
+	 * @return
+	 */
+	public String isHaveTask(int customerId){		
+		return taskService.getTaskNamesByCustomerId(customerId);
 	}
 }

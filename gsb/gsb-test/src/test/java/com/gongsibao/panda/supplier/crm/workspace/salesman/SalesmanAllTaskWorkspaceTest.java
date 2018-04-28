@@ -12,6 +12,8 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.controls.PropertyQueryDictComboBox;
+import com.gongsibao.crm.web.TaskAllListPart;
+import com.gongsibao.crm.web.platform.PlatformTaskAllListPart;
 import com.gongsibao.entity.crm.NCustomerTaskQuality;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.panda.platform.operation.workspace.crm.TaskALLWorkspaceTest;
@@ -38,6 +40,8 @@ public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
         listFilter = "owner_id = '{userId}'";
         listToolbarPath = "salesman/task/all";
         rowToolbaPath = "salesman/task/all/row";
+        
+        listPartServiceController = TaskAllListPart.class.getName();
     }
 
     @Override

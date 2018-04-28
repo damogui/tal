@@ -274,7 +274,7 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
             	window.top.$('#tabs').tabs('close','新增客户');
         	}else{
         		
-        		window.location.href='/panda/crm/salesman/customer/edit?id='+customerId;
+        		window.location.href=this.editUrl+'?id='+customerId;
         	}
     	}
     }
@@ -292,7 +292,7 @@ com.gongsibao.crm.web.NCustomerTaskDetailPart = org.netsharp.panda.commerce.Deta
         this.editUrl = null;
     },
     add: function() {
-    	
+    	var me = this;
 //    	var url='';
 //    	if(this.isPlatform==1){
 //    		
@@ -308,57 +308,80 @@ com.gongsibao.crm.web.NCustomerTaskDetailPart = org.netsharp.panda.commerce.Deta
 //    		
 //        	url=this.addUrl+'?isPlatform=0&ctrl='+this.context.instanceName;
 //    	}
-    	
-    	var url = this.addUrl+'?isPlatform=0&type=add&ctrl='+this.context.instanceName;
-    	if(this.parent.viewModel.currentItem.entityState != EntityState.New){
-			
-    		var customerId = this.parent.viewModel.currentItem.id;
-    		url = this.addUrl+'?isPlatform=1&fk=customerId:'+customerId;
-		}
-    	
-    	var swtCustomerId = this.queryString("swtCustomerId");
-    	var swtServiceId = this.queryString("swtServiceId");
-    	if(!System.isnull(swtCustomerId)){
-    		
-    		url = url+'&swtCustomerId='+swtCustomerId;
-    	}
-    	
-    	if(!System.isnull(swtServiceId)){
-    		
-    		url = url+'&swtServiceId='+swtServiceId;
-    	}
-    	
-//    	var swtCustomerId = this.queryString("swtCustomerId");
-//    	if(!System.isnull(swtCustomerId)){
-//    		
-//    		//设置默认值
-//    		currentItem.customerSourceId = 4181;
-//    		currentItem.consultWay = 42143;
-//    	}
+    	this.isHaveTask(function(ownerName){
+    		if(ownerName == ''){
+    			var url = me.addUrl+'?isPlatform=0&type=add&ctrl='+me.context.instanceName;
+            	if(me.parent.viewModel.currentItem.entityState != EntityState.New){        			
+            		var customerId = me.parent.viewModel.currentItem.id;
+            		url = me.addUrl+'?isPlatform=1&fk=customerId:'+customerId;
+        		}
+            	
+            	var swtCustomerId = me.queryString("swtCustomerId");
+            	var swtServiceId = me.queryString("swtServiceId");
+            	if(!System.isnull(swtCustomerId)){
+            		
+            		url = url+'&swtCustomerId='+swtCustomerId;
+            	}
+            	
+            	if(!System.isnull(swtServiceId)){
+            		
+            		url = url+'&swtServiceId='+swtServiceId;
+            	}
+            	
+//            	var swtCustomerId = this.queryString("swtCustomerId");
+//            	if(!System.isnull(swtCustomerId)){
+//            		
+//            		//设置默认值
+//            		currentItem.customerSourceId = 4181;
+//            		currentItem.consultWay = 42143;
+//            	}
 
-    	layer.open({
-  		  type: 2,
-  		  title: '新增商机',
-  		  fixed: false,
-  		  maxmin: true,
-  		  shadeClose:true,
-  		  area: ['90%','90%'],
-  		  content: url,
-  		  cancel: function(){ 
+            	layer.open({
+          		  type: 2,
+          		  title: '新增商机',
+          		  fixed: false,
+          		  maxmin: true,
+          		  shadeClose:true,
+          		  area: ['90%','90%'],
+          		  content: url,
+          		  cancel: function(){ 
 
-		  }
-  	    });
+        		  }
+          	    });
+    		}else{
+    			IMessageBox.info("您不是客户所拥有者，无法创建商机，请联系【" + ownerName + "】创建");
+    		}
+    	});
+    },
+    isHaveTask:function(callBack){
+    	var me = this;
+    	//yxbAdd(2018/4/26)仅适用于服务商角色(客户在系统已经存在，而且已经创建一个或多个商机)    	
+    	if(this.isPlatform==0){
+    		if(this.parent.viewModel.currentItem.entityState != EntityState.New){
+    			if(this.parent.viewModel.currentItem.entityState != EntityState.New){
+    				var customerId = this.parent.viewModel.currentItem.id;
+    				me.parent.invokeService("isHaveTask", [customerId], function (ownerName) {
+    					return callBack(ownerName);        	
+    	   	        });
+    			}
+    		}else{
+    			//新增客户不受影响
+    			return callBack("");   	
+    		} 
+    	}else{
+    		//平台不受影响
+    		return callBack("");     
+    	}
     },
 	doubleClickRow : function(rowIndex, rowData) {
-		
 		var url='';
-
     	if(this.isPlatform==1){
     		
         	url = this.editUrl+'?id='+rowData.id;
     	}else{
-    		
-        	url = this.editUrl+'?isPlatform=0&type=edit&ctrl='+this.context.instanceName;
+    		//yxbAdd(2018/4/26)服务商不让查看客户详情（里面有商机）
+        	//url = this.editUrl+'?isPlatform=0&type=edit&ctrl='+this.context.instanceName;
+    		return;
     	}
     	
     	layer.open({

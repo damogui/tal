@@ -1,10 +1,9 @@
-package com.gongsibao.rest.servlet.response;
+package org.netsharp.rest.weixin.response;
 
 import com.gongsibao.account.base.IAccountService;
 import com.gongsibao.entity.acount.Account;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.NetsharpException;
-import org.netsharp.wx.mp.api.accesstoken.PaConfiguration;
 import org.netsharp.wx.mp.message.RequestMessage;
 import org.netsharp.wx.mp.message.ResponseMessage;
 import org.netsharp.wx.mp.message.request.event.EventRequest;
@@ -13,7 +12,6 @@ import org.netsharp.wx.pa.base.IFansService;
 import org.netsharp.wx.pa.base.IPublicAccountService;
 import org.netsharp.wx.pa.entity.Fans;
 import org.netsharp.wx.pa.entity.PublicAccount;
-import org.netsharp.wx.pa.response.PublicAccountManager;
 
 /**
  * 微信取消关注,禁止回复消息

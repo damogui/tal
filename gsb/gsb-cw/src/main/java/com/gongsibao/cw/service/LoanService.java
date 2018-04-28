@@ -17,6 +17,7 @@ import com.gongsibao.cw.base.ILoanService;
 import com.gongsibao.entity.cw.AuditRecord;
 import com.gongsibao.entity.cw.Loan;
 import com.gongsibao.entity.cw.dict.FinanceDict;
+import com.gongsibao.u8.base.IU8DepartmentService;
 
 @Service
 public class LoanService extends PersistableService<Loan> implements ILoanService{
@@ -26,6 +27,9 @@ public class LoanService extends PersistableService<Loan> implements ILoanServic
 	IFileService fileService = ServiceFactory.create(IFileService.class);
 	//审核记录服务
 	IAuditRecordService auditRecordService = ServiceFactory.create(IAuditRecordService.class);
+	
+	//U8部门信息
+	IU8DepartmentService u8DepartmentService = ServiceFactory.create(IU8DepartmentService.class);
 	
 	public LoanService() {
 		super();
@@ -49,7 +53,7 @@ public class LoanService extends PersistableService<Loan> implements ILoanServic
 	public Loan getBillByFormId(Integer formId ,Boolean isSubset) {
 		Oql oql = new Oql();
 		oql.setType(Loan.class);
-		oql.setSelects("loan.*,loan.setOfBooks.name,loan.u8Bank.code,loan.u8Department.code,loan.u8Department.personnelCode,loan.borrowerEmployee.name");
+		oql.setSelects("loan.*,loan.setOfBooks.*,loan.u8Bank.code");
 		oql.setFilter("id=?");
 		oql.getParameters().add("id", formId, Types.INTEGER);
 		Loan entity = this.queryFirst(oql);
@@ -59,6 +63,8 @@ public class LoanService extends PersistableService<Loan> implements ILoanServic
 			entity.setFiles(fileService.getByTabNameFormId("cw_loan", formId));
 			//审核信息
 			entity.setAuditItem(auditRecordService.getAuditRecordList(formId, FinanceDict.FormType.JKD.getValue()));
+			//u8部门信息
+			entity.setU8Department(u8DepartmentService.getByEmployeeId(entity.getCreatorId()));
 		}
 		return entity;
 	}

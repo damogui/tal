@@ -170,4 +170,10 @@ public interface IOrderService extends IPersistableService<SoOrder> {
     String orderDel(Integer orderId);
 
     String getOrderNoById(Integer id);
+    /**
+     * 订单恢复
+     * @param orderId
+     * @return
+     */
+    Integer orderRecover(Integer orderId);
 }

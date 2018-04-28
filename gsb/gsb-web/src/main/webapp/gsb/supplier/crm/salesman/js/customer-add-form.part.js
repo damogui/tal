@@ -67,7 +67,6 @@ com.gongsibao.crm.web.SalesmanNCustomerTaskDetailPart = com.gongsibao.crm.web.NC
         this.editUrl = "/panda/crm/salesman/task/add";
     },
 	doubleClickRow : function(rowIndex, rowData) {
-		
 		var url='';
 
     	if(rowData.entityState != EntityState.New){

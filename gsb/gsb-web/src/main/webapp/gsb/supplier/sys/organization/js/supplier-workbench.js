@@ -24,3 +24,21 @@ com.gongsibao.workbench.SupplierWorkbench = org.netsharp.panda.Workbench.Extends
 		});
 	}
 });
+
+
+$(function(){
+	
+	var orderTips = sessionStorage['orderTips'];
+	if(orderTips == '0' || orderTips == undefined){
+		
+		layer.confirm('【订单管理】>【我的订单】>【创建订单】功能已关闭，请从商机创建订单。', {title:'重要提醒',closeBtn:false,shade:false,
+			  btn: ['我知道了']
+			}, function(){
+
+				sessionStorage['orderTips'] = '1';
+				layer.closeAll();
+		});
+		
+	}
+	
+});

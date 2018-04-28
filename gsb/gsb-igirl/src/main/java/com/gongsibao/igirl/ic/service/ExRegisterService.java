@@ -8,11 +8,13 @@ import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.dic.*;
 import com.gongsibao.entity.igirl.ic.dict.CorpRegStatue;
 import com.gongsibao.entity.igirl.ic.ex.IcExRegisterCase;
+import com.gongsibao.entity.igirl.ic.ex.baseinfo.IcExLog;
 import com.gongsibao.entity.igirl.ic.ex.dict.ApprovalType;
 import com.gongsibao.entity.igirl.ic.ex.dict.OperatorType;
 import com.gongsibao.entity.igirl.tm.baseinfo.IGirlConfig;
 import com.gongsibao.entity.igirl.tm.dict.ConfigType;
 import com.gongsibao.entity.supplier.dict.SupplierType;
+import com.gongsibao.igirl.ic.base.IcExLogService;
 import com.gongsibao.igirl.ic.base.IcExRegisterService;
 import com.gongsibao.igirl.tm.base.IGirlConfigService;
 import com.gongsibao.utils.SupplierSessionManager;
@@ -125,6 +127,27 @@ public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> i
             entity.setOperatorId(SessionManager.getUserId());
             entity.setCollector(SessionManager.getUserName());
             entity.setCollectorId(SessionManager.getUserId());
+        }else if (state.equals(EntityState.Persist)){
+            IcExLogService logService = ServiceFactory.create(IcExLogService.class);
+            Integer id = entity.getId();
+            IcExRegisterCase icCase = this.byId(id);
+            CorpRegStatue newState = entity.getCorpRegStatue();
+            CorpRegStatue oldState = icCase.getCorpRegStatue();
+            if (!newState.equals(oldState)){
+                IcExLog log = new IcExLog();
+                log.setCompanyName(icCase.getApprovalName());
+                log.setCorpRegStatue(newState);
+                log.setTitle("手动日志");
+                Integer userId = SessionManager.getUserId();
+                IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
+                Employee employee = employeeService.byId(userId);
+                StringBuffer sb = new StringBuffer("");
+                sb.append(employee.getName()).append("-").append(employee.getMobile()).append("-").append("更新工商状态");
+                log.setContent(sb.toString());
+                log.setCreateTime(new Date());
+                log.toNew();
+                logService.save(log);
+            }
         }
         return super.save(entity);
     }

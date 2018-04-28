@@ -1,4 +1,4 @@
-package com.gongsibao.rest.servlet;
+package org.netsharp.rest.weixin;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -34,9 +34,9 @@
 <div>
 		 <div class="row" style="height:150px;">
         	<div class="cell cell-12">
-	        	<div id="sbyctj" class="easyui-panel" title="我的异常商标统计"  style="padding:0px 10px !important;" data-options="tools:'#refreshtool'" >
+	        	<div id="sbyctj" class="easyui-panel" title="我的异常商标统计"  style="padding:0px 10px !important;" data-options="fit:true,border:false,tools:'#refreshtool'" >
 				<div id="refreshtool">
-					<a href="#" class="icon-reload" onclick="getAbnorvalNotice()"></a>
+					<a href="#" class="fa fa-refresh" onclick="getAbnorvalNotice()"></a>
 				</div> 
 				<div class="row" >
 	        			<div class="cell" style="width:12.5%;">
@@ -200,29 +200,13 @@
 		$(function() {
 			
  			//这几个数据可以用一个DTO一次性返回，这样调用次数太多
-			brief.briefingCountPars2('getNewTasksCount',2,1,function(count){
-				$("#new_count").text(count);
-			});
-			brief.briefingCountPars2('getUnStartTasksCount',2,1,function(count){
-				$("#un_start_count").text(count);
-			});
-			brief.briefingCountPars0('getUnfoolowTasksCount',function(count){
-				$("#stay_foolow_count").text(count);
-			});
-			brief.briefingCountPars0('getTimeOutTasksCount',function(count){
-				$("#timeout_count").text(count);
-			});
-			
-			
-			brief.briefingCountPars0('getExceptUntreatedTasksCount',function(count){
-				$("#abnormal_count").text(count);
-			});
-			brief.briefingCountPars0('currentSalesMan',function(entity){
-				if(entity.isLeader){
-					brief.briefingCountPars2('getHighSeasCount',2,-1,function(count){
-						$("#public_count").text(count);
-					});
-				}
+ 			brief.briefingCountPars2('salesPresentation',0,1,function(entity){
+				$("#new_count").text(entity.newTasksCount);
+				$("#un_start_count").text(entity.unStartTasksCount);
+				$("#stay_foolow_count").text(entity.unfoolowTasksCount);
+				$("#timeout_count").text(entity.timeOutTasksCount);
+				$("#abnormal_count").text(entity.exceptUntreatedTasksCount);				
+				$("#public_count").text(entity.highSeasCount);
 			});
 			
 			foolow.foolowCountPars0('getFoolowSatatistic');

@@ -74,7 +74,8 @@ com.gongsibao.trade.web.FileCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
 		var builder = new System.StringBuilder();
 		builder.append('	<table cellpadding="5" cellspacing="10" class="form-panel">');
 		builder.append('		<tr><td style="color: #009688;">此处上传文件只作补充/更新文件上传之用，不会更改订单状态。</td></tr>');
-		builder.append('		<tr><td>相关材料：<input id="workflowFile"/> <a id="btn_select_file" class="easyui-linkbutton">选择文件</a> <span style="color:red;">注意:可选择多个文件上传!</span></td></tr>');
+		builder.append('		<tr><td>相关材料：<input id="workflowFile"/> <a id="btn_select_file" style="margin-left:5px;" class="easyui-linkbutton">选择文件</a> <span style="color:red;">注意:可选择多个文件上传!</span></td></tr>');
+		builder.append('		<tr id="other_file_row" style="display:none;"><td>请填写材料名称：<input id="other_file_name" class="easyui-textbox nsInput" placeholder="材料名称" style="width:457px"> </td></tr>');
 		builder.append('		<tr><td><table id="upload_file_grid"></table></td></tr>');
 		builder.append('		<tr><td><textarea id="upload_file_remark" placeholder="备注信息..." style="width: 570px; height:80px;"></textarea></td></tr>');
 		builder.append('	</table>');
@@ -87,7 +88,7 @@ com.gongsibao.trade.web.FileCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
 			maxmin : false,
 			shadeClose : true,
 			zIndex : 100000,
-			area : [ '600px', '500px' ],
+			area : [ '600px', '550px' ],
 			content : builder.toString(),
 			btn : [ '确定', '取消' ],
 			success : function(layero, index) {
@@ -98,6 +99,8 @@ com.gongsibao.trade.web.FileCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
                 var id = me.mainCtrl.orderProd.id;
 				me.invokeService("queryWorkflowFileList", [id], function(data){
 
+					var _version = data[0] != null ?data[0].version:0;
+					data.push({id:-1,name:'其它',must:true,version:_version});
 					$("#workflowFile").combobox({
 						width:200,
 						editable:false,
@@ -110,8 +113,23 @@ com.gongsibao.trade.web.FileCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
 				    		var color = row.must==true?'red':'#404040';
 				    		var title = row.must==true?'必要文件':'';
 			    			return '<span title="'+title+'" style="color:'+color+'">'+row['name']+'</span>';
+				    	},
+				    	onChange:function(newValue,oldValue){
+				    		
+				    		if(newValue==-1){
+
+				    			//显示【请填写材料名称】
+				    			$('#other_file_row').show();
+				    		}else{
+
+				    			$('#other_file_row').hide();
+				    			$('#other_file_name').val('');
+				    		}
 				    	}
 				    });
+				},true,function(){
+					
+					layer.close(index);
 				});
 				
 				me.initUploadFileGrid();
@@ -192,11 +210,18 @@ com.gongsibao.trade.web.FileCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
     save:function(index){
     	
     	var workflowFileId = $("#workflowFile").combobox('getValue');
-		if(System.isnull(workflowFileId)){
+    	if(System.isnull(workflowFileId)){
 			
 			layer.msg('请选择材料！');
 			return;
 		}
+    	var otherFileName = $('#other_file_name').val();
+    	if(parseInt(workflowFileId)==-1 && System.isnull(otherFileName)){
+    		
+			layer.msg('请填写材料名称！');
+			return;
+    		
+    	} 
 		
 		var files = [];
 		var rows = $("#upload_file_grid").datagrid('getRows');
@@ -226,6 +251,8 @@ com.gongsibao.trade.web.FileCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
 			return;
 		}
 		
+		var workflowFileName = parseInt(workflowFileId)==-1?otherFileName: $("#workflowFile").combobox('getText');
+		
 		var me = this;
 		var dto = new Object();
 		dto.orderId = this.mainCtrl.orderProd.orderId
@@ -233,7 +260,7 @@ com.gongsibao.trade.web.FileCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
 		dto.orderProdId = this.orderProdId;
 		dto.processStatusId = this.mainCtrl.orderProd.processStatusId;
 		dto.workflowFileId = workflowFileId;
-		dto.workflowFileName =  $("#workflowFile").combobox('getText');
+		dto.workflowFileName =  workflowFileName;
 		dto.info = remark;
 		dto.files = files;
 		

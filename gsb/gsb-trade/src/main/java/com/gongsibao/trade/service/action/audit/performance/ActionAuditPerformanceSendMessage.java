@@ -54,16 +54,16 @@ public class ActionAuditPerformanceSendMessage implements IAction {
                 if (soOrder.getOwner() != null) {
 
                     String content = String.format("【订单业绩审核提醒】您好，您有1个订单提交的订单业绩申请审核不通过，订单编号为【%s】，原因为【%S】,请知悉", soOrder.getNo(),remark);
-                    SmsHelper.send(soOrder.getOwner().getMobile(), content);//订单业务员
-                    sendAuditFail(soOrder.getOwner().getName(),soOrder.getId(), soOrder.getNo(), remark);//业绩相关业务员
+                    SmsHelper.send(UserHelper.getEmployeTelById(soOrder.getOwnerId()), content);//订单业务员
+                    sendAuditFail(UserHelper.getEmployeeName(soOrder.getOwnerId()),soOrder.getId(), soOrder.getNo(), remark);//业绩相关业务员
                 }
                 break;
             case 1://通过审核
                 if (auditLog.getLevel().equals(auditLog.getMaxLevel())) {
                     //通过审核
                     String content = String.format("【订单业绩审核提醒】您好，您有1个订单提交的订单业绩申请已审核通过，订单编号为【%s】，请知悉", soOrder.getNo());
-                    SmsHelper.send(soOrder.getOwner().getMobile(), content);//订单业务员
-                    sendAuditPass(soOrder.getOwner().getName(),soOrder.getId(), soOrder.getNo());//业绩相关业务员
+                    SmsHelper.send(UserHelper.getEmployeTelById(soOrder.getOwnerId()), content);//订单业务员
+                    sendAuditPass(UserHelper.getEmployeeName(soOrder.getOwnerId()),soOrder.getId(), soOrder.getNo());//业绩相关业务员
                 } else {
                     //通知下一级
                     List<Integer> userIds = AuditHelper.getNextLevelUserIds(soOrder.getId(), auditLog.getType().getValue(), auditLog.getLevel() + 1);//获取下一级要通知的人 fromId
