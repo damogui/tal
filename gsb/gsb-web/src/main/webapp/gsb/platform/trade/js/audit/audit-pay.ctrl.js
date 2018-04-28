@@ -114,7 +114,8 @@ com.gongsibao.trade.web.AuditPayCtrl = com.gongsibao.trade.web.AuditBaseCtrl.Ext
             ],
             callback: function (index, layero) {
                 var getAuditRemark = $("#auditRemark").val();
-                var payTime = $("#payTime").val();
+                var payTime = $('#payTime').datebox('getValue');//$("#payTime").val();
+
                 if (payTime.length < 8) {
 
                     layer.msg("请选择回款时间");
