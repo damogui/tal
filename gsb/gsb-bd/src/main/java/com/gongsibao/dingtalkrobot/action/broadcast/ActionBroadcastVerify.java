@@ -31,41 +31,55 @@ public class ActionBroadcastVerify implements IAction {
     public void execute(ActionContext ctx) {
         Integer orderId = (Integer) ctx.getItem();
         if (NumberUtils.toInt(orderId) <= 0) return;
-
+        Map<String, Object> statusMap = new HashMap<>();
+        statusMap.put("isSend", true);
         String ywyMobile = null;
         String atMobile = null;
         String atName = null;
         List<String> ywyNames = new ArrayList<>();
         if (StringUtils.isBlank(DingTalkRobotUtils.getGsbFollowToken())) {
+            statusMap.put("isSend", false);
             return;// -2
         }
         SoOrder soOrder = soOrderService.getByOrderId(orderId);
-        if (soOrder == null) return;//-3
+        if (soOrder == null) {
+            statusMap.put("isSend", false);
+            return;
+        }//-3
         Employee salesman = employeeService.byId(soOrder.getOwnerId());
         if (salesman == null || salesman.getDisabled()) {
+            statusMap.put("isSend", false);
             return;//-6
         }
         //订单服务商
         Supplier supplier = supplierService.getById(NumberUtils.toInt(soOrder.getSupplierId()));
         if (supplier == null) {
+            statusMap.put("isSend", false);
             return;//服务商存在-11
         }
         if (!supplier.getType().equals(SupplierType.SELFSUPPORT)) {
+            statusMap.put("isSend", false);
             return;//非自营的不播报-12
         }
         Employee boss = employeeService.byPhone(supplier.getMobilePhone());
         if (boss == null || boss.getDisabled()) {
+            statusMap.put("isSend", false);
             return;//服务商大领导不存在 -13
         }
         //屏蔽曹玉玺
         if (soOrder.getAccountId() == 95608) return;//-10
-        if (orderId == 0) return;//-2
+        if (orderId == 0) {
+            statusMap.put("isSend", false);
+            return;//-2
+        }
         List<OrderProd> prodList = soOrderProdService.getByOrderId(orderId);
         if (CollectionUtils.isEmpty(prodList)) {
+            statusMap.put("isSend", false);
             return;//-1
         }
         String prodName = getProductName(prodList);
         if (StringManager.isNullOrEmpty(prodName)) {
+            statusMap.put("isSend", false);
             return;//-5
         }
         if (StringUtils.isBlank(ywyMobile)) {
@@ -90,12 +104,14 @@ public class ActionBroadcastVerify implements IAction {
             }
         }
         if (StringManager.isNullOrEmpty(ywyMobile)) {
+            statusMap.put("isSend", false);
             return;//-6
         }
         if (StringManager.isNullOrEmpty(atMobile)) {
+            statusMap.put("isSend", false);
             return;//-14
         }
-        Map<String, Object> statusMap = new HashMap<>();
+
         statusMap.put("ywyMobile", ywyMobile);
         statusMap.put("atMobile", atMobile);
         statusMap.put("atName", atName);
@@ -109,7 +125,7 @@ public class ActionBroadcastVerify implements IAction {
     private String getProductName(List<OrderProd> prodList) {
         String prodName = "";
         for (OrderProd orderProd : prodList) {
-            prodName += orderProd.getProductName() + ",";
+            prodName = prodName + orderProd.getProductName() + ",";
         }
         if (prodName.endsWith(",")) {
             prodName = StringManager.substring(prodName, 0, prodName.length() - 1);
@@ -117,6 +133,5 @@ public class ActionBroadcastVerify implements IAction {
         return prodName;
     }
     //endregion
-
 
 }

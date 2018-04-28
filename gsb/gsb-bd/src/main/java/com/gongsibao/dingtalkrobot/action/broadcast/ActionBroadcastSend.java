@@ -3,6 +3,7 @@ package com.gongsibao.dingtalkrobot.action.broadcast;
 import com.gongsibao.utils.DingTalkRobotUtils;
 import com.gongsibao.redis.base.IRedisAliyunService;
 import com.gongsibao.redis.dto.ConstantCache;
+import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -30,7 +31,11 @@ public class ActionBroadcastSend implements IAction {
         if (ctxStatus == null) return;
         String textMsg = StringUtils.trimToEmpty((String) ctxStatus.get("textMsg"));
         String readMsg = StringUtils.trimToEmpty((String) ctxStatus.get("readMsg"));
+        boolean isSend = (boolean) ctxStatus.get("isSend");
         Integer orderId = (Integer) ctx.getItem();
+        if (!isSend) {
+            return;
+        }
         //钉钉大群信息推送
         DingTalkRobotUtils.postToRobot(textMsg, DingTalkRobotUtils.getGsbFollowToken());
         try {
@@ -39,5 +44,5 @@ public class ActionBroadcastSend implements IAction {
             e.printStackTrace();
         }
     }
-    
+
 }
