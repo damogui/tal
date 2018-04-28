@@ -8,12 +8,12 @@ import com.gongsibao.entity.acount.AccountCompany;
 import com.gongsibao.entity.acount.AccountWxMsg;
 import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.rest.base.user.IAccountService;
-import com.gongsibao.rest.web.common.util.*;
 import com.gongsibao.rest.web.common.web.Constant;
 import com.gongsibao.rest.web.dto.user.AccountValidateDTO;
 import com.gongsibao.u8.base.IOrderPayMapService;
 import com.gongsibao.utils.NumberUtils;
 import com.gongsibao.utils.sms.SmsHelper;
+import com.netsharp.rest.util.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
@@ -24,7 +24,6 @@ import org.netsharp.wx.pa.base.IFansService;
 import org.netsharp.wx.pa.base.IPublicAccountService;
 import org.netsharp.wx.pa.entity.Fans;
 import org.netsharp.wx.pa.entity.PublicAccount;
-import org.netsharp.wx.pa.response.PublicAccountManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -215,7 +214,7 @@ public class AccountService implements IAccountService {
         // 支付成功回调接口
         String notify_url = account.getMchNotifyUrl();
         // body 类型：String(128),当body长度过长时，会报错"return_msg=body参数长度有误, return_code=FAIL"
-        body = com.gongsibao.rest.web.common.util.StringUtils.getSubStr(body, 100);
+        body = StringUtils.getSubStr(body, 100);
         SortedMap<String, String> packageParams = new TreeMap<String, String>();
         packageParams.put("appid", appid);
         packageParams.put("mch_id", mch_id);
