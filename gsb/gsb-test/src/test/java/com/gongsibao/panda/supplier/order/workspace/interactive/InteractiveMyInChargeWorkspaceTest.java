@@ -90,13 +90,17 @@ public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
         {
             column.setVisible(false);
         }
-        addColumn(datagrid, "productName", "产品名称", ControlTypes.TEXT_BOX, 180);
-        addColumn(datagrid, "cityName", "产品地区", ControlTypes.TEXT_BOX, 220);
-        addColumn(datagrid, "processStatus.name", "办理状态", ControlTypes.TEXT_BOX, 150);
+        addColumn(datagrid, "soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 80);
+        addColumn(datagrid, "id", "订单明细号", ControlTypes.TEXT_BOX, 80);
+        addColumn(datagrid, "processStatus.name", "办理状态", ControlTypes.TEXT_BOX, 80);
+        addColumn(datagrid, "soOrder.companyIntention.companyName", "订单关联公司", ControlTypes.TEXT_BOX, 200);
+        addColumn(datagrid, "companyIntention.companyName", "明细订单公司", ControlTypes.TEXT_BOX, 200);
+        addColumn(datagrid, "productName", "产品名称", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "cityName", "产品地区", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "operator", "操作员", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "soOrder.refundStatus", "退款状态", ControlTypes.ENUM_BOX, 80);
         addColumn(datagrid, "isUrgent", "是否加急", ControlTypes.BOOLCOMBO_BOX, 80);
-        addColumn(datagrid, "id", "订单明细号", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "soOrder.no", "订单号", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "soOrder.payablePrice", "订单金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn(datagrid, "soOrder.balance", "订单余额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn(datagrid, "soOrder.customer.realName", "联系人", ControlTypes.TEXT_BOX, 100);
@@ -104,19 +108,13 @@ public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
         {
             column.setFormatter(" var ctrl=workspace.parts.byIndex(0).key; return eval(ctrl+'.contactFormatter(value,row,index,\\'手机号\\')');");
         }
-        addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "operator", "操作员", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "soOrder.companyIntention.companyName", "订单关联公司", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "companyIntention.companyName", "明细订单公司", ControlTypes.TEXT_BOX, 100);
         column = addColumn(datagrid, "soOrder.createTime", "下单日期", ControlTypes.DATETIME_BOX, 100);
         {
-
             column.setOrderbyMode(OrderbyMode.DESC);
         }
         addColumn(datagrid, "allocationOperatorDate", "分配日期", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "surplusDays", "剩余天数", ControlTypes.DECIMAL_BOX, 80);
         addColumn(datagrid, "handleName", "办理名称", ControlTypes.TEXT_BOX, 100);
-
         return datagrid;
     }
 
