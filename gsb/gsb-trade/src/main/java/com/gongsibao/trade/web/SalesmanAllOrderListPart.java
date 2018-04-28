@@ -4,6 +4,7 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.trade.base.ICompanyIntentionService;
@@ -259,5 +260,11 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
 
 
     }
+
+    public SoOrder getOrderById(Integer orderId) {
+        SoOrder order = orderService.getByOrderId(orderId);
+        return order;
+    }
+
 
 }
