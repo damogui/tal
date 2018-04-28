@@ -498,7 +498,11 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     resizeLayer(layerIndex, layerInitWidth, layerInitHeight); //调用resizeLayer方法
                 },
                 yes: function () {
-                    document.getElementById('contractCreateIframe').firstElementChild.contentWindow.controllercontract.save();
+                    var controllercontract = document.getElementById('contractCreateIframe').firstElementChild.contentWindow.controllercontract;
+                    controllercontract.save();
+                    controllercontract.saveCallBack = function () {
+                        me.reload();
+                    };
                 }
             });
         }, null, false);
@@ -545,9 +549,12 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                         layerInitHeight = $("#layui-layer" + layerIndex).height(); //获取layer的高度
                         resizeLayer(layerIndex, layerInitWidth, layerInitHeight); //调用resizeLayer方法
                     },
-
                     yes: function () {
-                        document.getElementById('invoiceCreateIframe').firstElementChild.contentWindow.controllerinvoice.save();
+                        var controllerinvoice = document.getElementById('invoiceCreateIframe').firstElementChild.contentWindow.controllerinvoice;
+                        controllerinvoice.saveCallBack = function () {
+                            me.reload();
+                        };
+                        controllerinvoice.save();
                     }
                 });
             }
@@ -690,14 +697,15 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         });
 
 
-    }, recover: function (id) {//恢复
+    },
+    recover: function (id) {//恢复
         var rows = this.getSelections();
         if (id == null && rows.length != 1) {
             IMessageBox.info('请先选择一条订单数据');
             return false;
         }
         this.invokeService("orderRecover", [id], function (data) {
-            if (data >0) {
+            if (data > 0) {
 
                 IMessageBox.toast('恢复成功');
                 realodCurrentPage("datagridsoOrderList");
@@ -708,8 +716,48 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         });
 
 
+    },
+    viewQqCode: function (id) {
+        var me = this;
+        me.getById(id, function (data) {
+            me.getQqCodeUrl(data)
+        });
+    },
+    getById: function (id, callback) {
+        var me = this;
+        me.invokeService("getOrderById", [id], function (data) {
+            if (callback) {
+                callback(data);
+            }
+        });
+    },
+    getQqCodeUrl: function (order) {
+        var url = 'http://icompany.gongsibao.net/wx/v1/user/qrcode?mobile=' + order.accountMobile + '&businessId=' + order.id + '&source=ORDER';
+        $.get(url, function (result, status) {
+            if ('success' == status) {
+                if (!result.data) {
+                    IMessageBox.info('生成二维码失败');
+                    return false;
+                }
+                var img = "<img src='" + result.data + "' />";
+                layer.open({
+                    type: 1,//1是字符串 2是内容
+                    title: '查看二维码',
+                    fixed: false,
+                    maxmin: true,
+                    shadeClose: true,
+                    area: ['500px', '500px'],
+                    zIndex: 100000,
+                    id: "viewQqCodeframe",
+                    content: img,
+                    success: function (layero, index) {
+                    },
+                });
+            } else {
+                IMessageBox.info('生成二维码失败' + status);
+            }
+        }, "json");
     }
-
 });
 
 

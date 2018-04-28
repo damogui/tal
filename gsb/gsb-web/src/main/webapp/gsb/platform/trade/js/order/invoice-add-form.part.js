@@ -59,7 +59,9 @@ com.gongsibao.trade.web.InvoiceFormPart = org.netsharp.panda.commerce.FormPart.E
                 me.invokeService("applyInvoice", [entity, entity.orderId], function (data) {
                     IMessageBox.info('申请成功，请等待审核!', function (s) {
                         window.parent.layer.closeAll();
-                        window.parent.location.reload();
+                        if (me.saveCallBack) {
+                            me.saveCallBack();
+                        }
                     });
                 });
             }
