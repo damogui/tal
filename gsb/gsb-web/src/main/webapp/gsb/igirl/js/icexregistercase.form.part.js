@@ -15,6 +15,21 @@ com.gongsibao.igirl.ic.web.IcExRegisterCasePart = org.netsharp.panda.commerce.Fo
         me.invokeService("findByMobile",[customerMobile],function (customer) {
             if(customer!=null){
                 $("#customerName").val(customer.realName).attr('readonly',true);
+                //选取对应id的下拉框选项值
+                var data= $("#source").combobox("getData");
+                for (var i = 0; i < data.length; i++){
+                    if(data[i].value==customer.customerSourceId){
+                        $("#source").combobox("setValue",customer.customerSourceId);
+                        break;
+                    }
+                }
+                var dataway= $("#consultWay").combobox("getData");
+                for (var i = 0; i < dataway.length; i++){
+                    if(dataway[i].value==customer.consultWay){
+                        $("#consultWay").combobox("setValue",customer.consultWay);
+                        break;
+                    }
+                }
             }
         })
         return true;
