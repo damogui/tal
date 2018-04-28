@@ -43,7 +43,7 @@ public class OrderApplyInvoiceActionTest  extends BaseActionTest{
 		createBean(beanPath, "1.验证", ActionApplyInvoiceVerify.class.getName(), resourceNode, 100);
 		createBean(beanPath, "2.保存", ActionApplyInvoicePersist.class.getName(), resourceNode, 200);
 		createBean(beanPath, "3.审核", ActionApplyInvoiceAudit.class.getName(), resourceNode, 300);
-		//createBean(beanPath, "4.通知", ActionApplyInvoiceSendMessage.class.getName(), resourceNode, 400);
+		createBean(beanPath, "4.通知", ActionApplyInvoiceSendMessage.class.getName(), resourceNode, 400);
 		createBean(beanPath, "5.日志", ActionApplyInvoiceLog.class.getName(), resourceNode, 500);
 		beanPathService.save(beanPath);
 	}

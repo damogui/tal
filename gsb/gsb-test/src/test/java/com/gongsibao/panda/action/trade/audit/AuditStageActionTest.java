@@ -31,7 +31,7 @@ public class AuditStageActionTest extends BaseActionTest {
 
 		createBean(beanPath, "1.验证", ActionAuditStageVerify.class.getName(), resourceNode, 100);
 		createBean(beanPath, "2.回写", ActionAuditStageWriteBack.class.getName(), resourceNode, 200);
-		//createBean(beanPath, "4.通知", ActionAuditStageSendMessage.class.getName(), resourceNode, 300);
+		createBean(beanPath, "4.通知", ActionAuditStageSendMessage.class.getName(), resourceNode, 300);
 		beanPathService.save(beanPath);
 	}
 }

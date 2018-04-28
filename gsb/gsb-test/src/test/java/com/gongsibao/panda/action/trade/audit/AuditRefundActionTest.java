@@ -31,7 +31,7 @@ public class AuditRefundActionTest  extends BaseActionTest{
 
 		createBean(beanPath, "1.验证", ActionAuditRefundVerify.class.getName(), resourceNode, 100);
 		createBean(beanPath, "2.回写", ActionAuditRefundWriteBack.class.getName(), resourceNode, 200);
-		//createBean(beanPath, "4.通知", ActionAuditRefundSendMessage.class.getName(), resourceNode, 300);
+		createBean(beanPath, "4.通知", ActionAuditRefundSendMessage.class.getName(), resourceNode, 300);
 		beanPathService.save(beanPath);
 	}
 }

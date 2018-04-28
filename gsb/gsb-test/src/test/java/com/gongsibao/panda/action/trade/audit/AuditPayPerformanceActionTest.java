@@ -35,7 +35,7 @@ public class AuditPayPerformanceActionTest extends BaseActionTest {
 
         createBean(beanPath, "1.验证", ActionAuditPayPerVerify.class.getName(), resourceNode, 100);
         createBean(beanPath, "2.回写", ActionAuditPayPerWriteBack.class.getName(), resourceNode, 200);
-        //createBean(beanPath, "4.通知", ActionAuditPayPerSendMessage.class.getName(), resourceNode, 300);
+        createBean(beanPath, "4.通知", ActionAuditPayPerSendMessage.class.getName(), resourceNode, 300);
         beanPathService.save(beanPath);
     }
 }

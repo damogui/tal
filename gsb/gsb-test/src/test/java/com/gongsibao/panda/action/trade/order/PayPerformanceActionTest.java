@@ -36,7 +36,7 @@ public class PayPerformanceActionTest extends BaseActionTest {
 		createBean(beanPath, "1.验证", ActionApplyPayPerformanceVerify.class.getName(), resourceNode, 100);
 		createBean(beanPath, "2.保存", ActionApplyPayPerformancePersist.class.getName(), resourceNode, 200);
 		createBean(beanPath, "3.审核", ActionApplyPayPerformanceAudit.class.getName(), resourceNode, 300);
-		//createBean(beanPath, "4.通知", ActionApplyPayPerformanceSendMessage.class.getName(), resourceNode, 400);
+		createBean(beanPath, "4.通知", ActionApplyPayPerformanceSendMessage.class.getName(), resourceNode, 400);
 		createBean(beanPath, "5.日志", ActionApplyPayPerformanceLog.class.getName(), resourceNode, 500);
 		beanPathService.save(beanPath);
 	}

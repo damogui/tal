@@ -44,7 +44,7 @@ public class OrderCarryoverActionTest  extends BaseActionTest{
 		createBean(beanPath, "1.验证", ActionApplyCarryoverVerify.class.getName(), resourceNode, 100);
 		createBean(beanPath, "2.保存", ActionApplyCarryoverPersist.class.getName(), resourceNode, 200);
 		createBean(beanPath, "3.审核", ActionApplyCarryoverAudit.class.getName(), resourceNode, 300);
-		//createBean(beanPath, "4.通知", ActionApplyCarryoverSendMessage.class.getName(), resourceNode, 400);
+		createBean(beanPath, "4.通知", ActionApplyCarryoverSendMessage.class.getName(), resourceNode, 400);
 		createBean(beanPath, "5.回写", ActionApplyCarryoverWriteBack.class.getName(), resourceNode, 500);
 		createBean(beanPath, "6.日志", ActionApplyCarryoverLog.class.getName(), resourceNode, 600);
 		beanPathService.save(beanPath);
