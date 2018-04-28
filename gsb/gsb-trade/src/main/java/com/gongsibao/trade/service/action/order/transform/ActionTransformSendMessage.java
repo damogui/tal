@@ -4,6 +4,7 @@ import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.uc.User;
 import com.gongsibao.trade.service.action.order.utils.AuditHelper;
 import com.gongsibao.trade.service.action.order.utils.UserHelper;
 import com.gongsibao.utils.sms.SmsHelper;
@@ -80,7 +81,7 @@ public class ActionTransformSendMessage implements IAction {
             Integer fromUserId = entry.getKey();
             Integer num = entry.getValue();
 
-            String content = String.format("【批量%s提醒】您好，【%s】把您的%s个订单分配给【%s】，请知悉",title, SessionManager.getUserName(), num, toName);
+            String content = String.format("【批量%s提醒】您好，【%s】把您的%s个订单分配给【%s】，请知悉", title, SessionManager.getUserName(), num, toName);
             SmsHelper.send(UserHelper.getEmployeTelById(fromUserId), content);//电话和内容
             batchFromUserLeaderSendMsg(fromUserId, num, toName);//给相关领导发提醒
         }
@@ -102,7 +103,7 @@ public class ActionTransformSendMessage implements IAction {
         for (String tel : tels
                 ) {
             if (!StringManager.isNullOrEmpty(tel)) {
-                String content = String.format("【批量%s提醒】您好，【%s】把【%s】的%s个订单分配给【%s】，请知悉",title, SessionManager.getUserName(), UserHelper.getEmployeeName(fromUserId), orderLengh, toName);
+                String content = String.format("【批量%s提醒】您好，【%s】把【%s】的%s个订单分配给【%s】，请知悉", title, SessionManager.getUserName(), UserHelper.getEmployeeName(fromUserId), orderLengh, toName);
                 SmsHelper.send(tel, content);//电话和内容
             }
 
@@ -120,9 +121,9 @@ public class ActionTransformSendMessage implements IAction {
         if (toUser == null) {
             return;
         }
-        String content = String.format("【批量%s提醒】您好，【%s】批量分配给您%s个订单，请及时跟进",title, SessionManager.getUserName(), orderLengh);
+        String content = String.format("【批量%s提醒】您好，【%s】批量分配给您%s个订单，请及时跟进", title, SessionManager.getUserName(), orderLengh);
 
-        SmsHelper.send(toUser.getMobile(), content);//电话和内容
+        SmsHelper.send(UserHelper.getEmployeTelById(toUser.getEmployeeId()), content);//电话和内容
 
         batchToUserLeaderSendMsg(toUser);//给相关领导发提醒
 
@@ -139,7 +140,7 @@ public class ActionTransformSendMessage implements IAction {
         for (String tel : tels
                 ) {
             if (!StringManager.isNullOrEmpty(tel)) {
-                String content = String.format("【批量%s提醒】您好，【%s】批量分配给【%s，取值】%S个订单，请知悉",title, SessionManager.getUserName(), toUser.getName(), orderLengh);
+                String content = String.format("【批量%s提醒】您好，【%s】批量分配给【%s，取值】%S个订单，请知悉", title, SessionManager.getUserName(), toUser.getName(), orderLengh);
                 SmsHelper.send(tel, content);//电话和内容
             }
 
@@ -157,9 +158,9 @@ public class ActionTransformSendMessage implements IAction {
         if (formUser == null) {
             return;
         }
-        String content = String.format("【%s提醒】您好，【%s】把您的1个订单分配给【%s】，订单编号为【%s】，请知悉",title, SessionManager.getUserName(), toName, orderNo);
+        String content = String.format("【%s提醒】您好，【%s】把您的1个订单分配给【%s】，订单编号为【%s】，请知悉", title, SessionManager.getUserName(), toName, orderNo);
 
-        SmsHelper.send(formUser.getMobile(), content);//电话和内容
+        SmsHelper.send(UserHelper.getEmployeTelById(formUser.getEmployeeId()), content);//电话和内容
         formUserLeaderSendMsg(formUser, toName);//给相关领导发提醒
     }
 
@@ -175,7 +176,7 @@ public class ActionTransformSendMessage implements IAction {
         for (String tel : tels
                 ) {
             if (!StringManager.isNullOrEmpty(tel)) {
-                String content = String.format("【%s提醒】您好，【%S】把【%s】的1个订单分配给【%s】，订单编号为【%s】，请知悉",title, SessionManager.getUserName(), formUser.getName(), toName, orderNo);
+                String content = String.format("【%s提醒】您好，【%S】把【%s】的1个订单分配给【%s】，订单编号为【%s】，请知悉", title, SessionManager.getUserName(), formUser.getName(), toName, orderNo);
                 SmsHelper.send(tel, content);//电话和内容
             }
 
@@ -193,9 +194,9 @@ public class ActionTransformSendMessage implements IAction {
         if (toUser == null) {
             return;
         }
-        String content = String.format("【%s提醒】您好，【%s】分配给您1个订单，订单编号为【%s】，请及时跟进", title,SessionManager.getUserName(), orderNo);
+        String content = String.format("【%s提醒】您好，【%s】分配给您1个订单，订单编号为【%s】，请及时跟进", title, SessionManager.getUserName(), orderNo);
 
-        SmsHelper.send(toUser.getMobile(), content);//电话和内容
+        SmsHelper.send(UserHelper.getEmployeTelById(toUser.getEmployeeId()), content);//电话和内容//toUser.getMobile()
 
         toUserLeaderSendMsg(toUser);//给相关领导发提醒
 
@@ -213,7 +214,7 @@ public class ActionTransformSendMessage implements IAction {
         for (String tel : tels
                 ) {
             if (!StringManager.isNullOrEmpty(tel)) {
-                String content = String.format("【%s提醒】您好，【%s】分配给【%s】1个订单，订单编号为【%s】，请知悉",title, SessionManager.getUserName(), toUser.getName(), orderNo);
+                String content = String.format("【%s提醒】您好，【%s】分配给【%s】1个订单，订单编号为【%s】，请知悉", title, SessionManager.getUserName(), toUser.getName(), orderNo);
                 SmsHelper.send(tel, content);//电话和内容
             }
 
