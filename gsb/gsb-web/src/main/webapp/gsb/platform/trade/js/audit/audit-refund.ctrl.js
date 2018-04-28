@@ -35,7 +35,7 @@ com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.
 		    	if(title=='退款业绩分配'){
 		    		me.resultsfundInfor(refundId);
 		    	}else if(title=='审批进度'){
-		    		me.auditLogInfor(refundId);
+		    		me.initauditLog(refundId);
 		    	}
 		    }
     	});
@@ -152,83 +152,5 @@ com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.
     		    ]]
     		});
     	});
-    },
-    auditLogInfor: function(formId){
-    	//tab-审批进度
-    	var me = this;
-    	this.invokeService("getAuditLogList", [formId,1046], function(data){
-    		$('#audit_progress_grid').datagrid({
-    			idField:'id',
-    			emptyMsg:'暂无记录',
-    			striped:false,
-    			pagination:false,
-    			showFooter:true,
-    			singleSelect:true,
-    			height:'100%',
-    			data:data,
-				onLoadSuccess: function(data){
-					var mark=1;
-					for (var i=1; i <data.rows.length; i++) {
-						if (data.rows[i]['level'] == data.rows[i-1]['level']) {
-							mark += 1;                                            
-							$(this).datagrid('mergeCells',{ 
-								index: i+1-mark,
-								field: 'level',
-								rowspan:mark
-							}); 
-						}else{
-							mark=1;
-						}
-					}
-				},
-    		    columns:[[
-    		        {field:'level',title:'顺序',width:80,align:'center',formatter: function(value,row,index){
-    		        	return value+1;
-    		        }},
-    		        {field:'creatorId',title:'审核人',width:80,align:'center',formatter: function(value,row,index){
-    		        	
-    		        	if(row.employee){
-
-        		        	return row.employee.name;
-    		        	}
-    		        }},
-    		        {field:'status',title:'审核状态',width:80,align:'center',formatter: function(value,row,index){
-    		        	return me.auditLogStatusEnum[value];
-    		        },styler: function(value,row,index){
-
-    	   				if(value == 1052){
-        					
-        					//审核中
-            				return 'color:#25C6FC;';
-            				
-        				}else if(value == 1053){
-        					
-        					//驳回审核
-        					return 'color:#E03636;';
-        					
-        				}else if(value == 1054){
-        					
-        					//审核通过
-        					return 'color:#009966;';
-        					
-        				}else if(value == 1055){
-        					
-        					//审核排队
-        					return 'color:#003399;';
-        					
-        				}
-    				}},
-    		        {field:'createTime',title:'创建时间',width:150,align:'center'},
-    		        {field:'content',title:'审批内容',width:150,align:'left'},
-    		        {field:'remark',title:'说明',width:300,align:'center'}
-    		    ]]
-    		});
-    	});
     }
 });
-
-//<span style="width: 60px; background-color:#8F1D78"></span>
-//<span style="width: 60px; background-color:#BA874C"></span>
-//<span style="width: 60px; background-color:#E9AE6A"></span>
-//<span style="width: 60px; background-color:#FEE388"></span>
-//<span style="width: 60px; background-color:#FFFEA0"></span>
