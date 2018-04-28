@@ -42,8 +42,10 @@ public class PortalStatisticCtrl {
 		//领导可查看公海数量，业务员看不到数据（门户统计过滤业务员），由于该方法公用（统计报表用），门户不需要过滤日期
 		Salesman salesman = currentSalesMan();
 		Integer highSeasCount = 0;
-		if(salesman != null && salesman.getIsLeader()){
-			highSeasCount = getHighSeasCount(isPlatform,-1);
+		if(salesman != null && salesman.getIsLeader()!=null){
+			if(salesman.getIsLeader()){
+				highSeasCount = getHighSeasCount(isPlatform,-1);
+			}
 		}
 		
 		statisticDTO.setNewTasksCount(newTasksCount);

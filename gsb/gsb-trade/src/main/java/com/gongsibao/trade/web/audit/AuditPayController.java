@@ -1,33 +1,25 @@
 package com.gongsibao.trade.web.audit;
 
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.Oql;
+
 import com.gongsibao.bd.base.IAuditLogService;
 import com.gongsibao.bd.service.auditLog.AbstractAuditLogService;
 import com.gongsibao.bd.service.auditLog.AuditFactory;
 import com.gongsibao.bd.service.auditLog.AuditState;
 import com.gongsibao.bd.service.auditLog.PayAudit;
 import com.gongsibao.entity.bd.AuditLog;
-import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.entity.trade.Pay;
-import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.IOrderPayMapService;
 import com.gongsibao.trade.base.IPayService;
-import com.gongsibao.trade.web.dto.AuditLogDTO;
 import com.gongsibao.trade.web.dto.OrderInfoDTO;
 import com.gongsibao.trade.web.dto.OrderPayInfoDTO;
 import com.gongsibao.utils.NumberUtils;
-import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.Oql;
-import org.netsharp.core.QueryParameters;
-import org.netsharp.persistence.IPersister;
-import org.netsharp.persistence.PersisterFactory;
-import org.netsharp.util.NumUtil;
-import org.netsharp.util.StringManager;
-
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class AuditPayController extends AuditBaseController {
 
@@ -69,26 +61,6 @@ public class AuditPayController extends AuditBaseController {
      */
     public Boolean rejected(Integer auditLogId, String remark) {
         return auditLogService.audit(AuditState.NOTPASS, auditLogId, remark);
-    }
-
-    /*回款审核流程*/
-    public List<AuditLogDTO> getAuditLogList(Integer id) {
-        List<AuditLog> logList = new ArrayList<AuditLog>();
-        List<AuditLogDTO> logDtos = new ArrayList<AuditLogDTO>();
-
-        logList = super.getAuditLogList(id, AuditLogType.Sksq.getValue());
-        for (AuditLog item : logList
-                ) {
-            AuditLogDTO auditLogDTO = new AuditLogDTO();
-            auditLogDTO.setId(item.getId());
-            auditLogDTO.setCreator(item.getEmployee() == null ? "" : item.getEmployee().getName());
-            auditLogDTO.setOption(item.getStatus().getText());
-            auditLogDTO.setRemark(item.getRemark());
-            auditLogDTO.setContent(item.getContent());
-            auditLogDTO.setCreateTime(item.getCreateTime());
-            logDtos.add(auditLogDTO);
-        }
-        return logDtos;
     }
 
     /*获取订单信息、付款凭证、关联订单*/

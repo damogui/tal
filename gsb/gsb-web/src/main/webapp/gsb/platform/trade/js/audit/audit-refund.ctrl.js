@@ -7,7 +7,6 @@ com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.
     	this.initializeDetailList = new System.Dictionary();
     	//获取枚举
     	this.processStatusEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderProcessStatusType');
-    	this.auditLogStatusEnum = PandaHelper.Enum.get('com.gongsibao.entity.bd.dic.AuditLogStatusType');
     	//判断审核退款的当前登录人是否是收退款专员的角色
     	this.invokeService("isFinancialRole", [], function(data){
     		if(data){
@@ -35,7 +34,7 @@ com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.
 		    	if(title=='退款业绩分配'){
 		    		me.resultsfundInfor(refundId);
 		    	}else if(title=='审批进度'){
-		    		me.initauditLog(refundId);
+		    		me.initAuditLog(refundId,1046);
 		    	}
 		    }
     	});

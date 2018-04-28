@@ -49,18 +49,5 @@ public class PayAudit extends AbstractAuditLogService {
         return "gsb/crm/audit/pay";
     }
 
-    @Override
-    public List<String> getAuditPassTel() {
-        return null;
-    }
 
-    @Override
-    public List<String> getAuditFailTel() {
-        return null;
-    }
-
-    @Override
-    public List<String> getAuditWaitTel(int level) {
-        return null;
-    }
 }

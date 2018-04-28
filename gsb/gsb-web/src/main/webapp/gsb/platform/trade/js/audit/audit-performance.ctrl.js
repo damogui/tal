@@ -45,36 +45,7 @@ com.gongsibao.trade.web.AuditPerformanceCtrl = com.gongsibao.trade.web.AuditBase
                 ]]
             });
 
-            me.initGridAudit(id);//等上一个请求完渲染第二个
+            me.initAuditLog(id,1050);//等上一个请求完渲染第二个
         });
-
-
-    },
-
-    initGridAudit: function (orderId) {//审批进度
-        var me = this;
-        this.invokeService ("getAuditLogList", [orderId], function(data){
-            $('#audit_progress_grid').datagrid({
-                idField: 'id',
-                emptyMsg: '暂无记录',
-                striped: false,
-                pagination: false,
-                showFooter: true,
-                singleSelect: true,
-                height: '100%',
-                data: data,
-                columns: [[
-                    // {field: 'id', checkbox: true},
-                    {field: 'creator', title: '审批人', width: 100, align: 'center'},
-                    {field: 'option', title: '操作', width: 150},
-                    {field: 'content', title: '审批记录内容', width: 150},
-                    {field: 'createTime', title: '操作时间', width: 150},
-                    {field: 'remark', title: '说明', width: 150}
-
-                ]]
-            });
-
-        });
-
-    },
+    }
 });

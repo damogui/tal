@@ -52,12 +52,8 @@ com.gongsibao.trade.web.AuditPayCtrl = com.gongsibao.trade.web.AuditBaseCtrl.Ext
                 ]]
             });
 
-            me.initGridOrder(id);//关联订单
-
-
+            me.initAuditLog(id,1045);//关联订单
         });
-
-
     },
     initGridOrder: function (id) {//获取付款凭证和关联订单
         var me = this;
@@ -84,39 +80,12 @@ com.gongsibao.trade.web.AuditPayCtrl = com.gongsibao.trade.web.AuditBaseCtrl.Ext
                 ]]
             });
 
-            me.initGridAudit(id);//等上一个请求完渲染第二个
+            me.initAuditLog(id,1045);//关联订单
         });
 
 
     },
 
-
-    initGridAudit: function (payId) {//审批进度
-        var me = this;
-        this.invokeService("getAuditLogList", [payId], function (data) {
-            $('#audit_progress_grid').datagrid({
-                idField: 'id',
-                emptyMsg: '暂无记录',
-                striped: false,
-                pagination: false,
-                showFooter: true,
-                singleSelect: true,
-                height: '100%',
-                data: data,
-                columns: [[
-                    // {field: 'id', checkbox: true},
-                    {field: 'creator', title: '审批人', width: 100, align: 'center'},
-                    {field: 'option', title: '操作', width: 150},
-                    {field: 'content', title: '审批记录内容', width: 150},
-                    {field: 'createTime', title: '操作时间', width: 150},
-                    {field: 'remark', title: '说明', width: 150}
-
-                ]]
-            });
-
-        });
-
-    },
     approved: function (callback) {//重写审核通过
         //这里有弹出填写驳回原因的窗口，校验
         var me = this;

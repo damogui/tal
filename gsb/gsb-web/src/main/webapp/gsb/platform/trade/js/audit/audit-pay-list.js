@@ -26,7 +26,7 @@ com.gongsibao.trade.web.AuditPayListPart = org.netsharp.panda.commerce.ListPart.
             fixed: false,
             maxmin: true,
             shadeClose: true,
-            area: ['70%', '95%'],
+            area: ['95%', '95%'],
             zIndex: 100000,
             id: "addAuditPayIframe",
             content: contentUrl,
@@ -61,7 +61,7 @@ com.gongsibao.trade.web.AuditPayListPart = org.netsharp.panda.commerce.ListPart.
             fixed: false,
             maxmin: true,
             shadeClose: true,
-            area: ['70%', '95%'],
+            area: ['95%', '95%'],
             zIndex: 100000,
             id: "addAuditPayIframe",
             content: contentUrl
