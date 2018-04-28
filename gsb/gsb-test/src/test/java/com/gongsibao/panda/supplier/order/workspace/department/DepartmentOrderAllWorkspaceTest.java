@@ -24,7 +24,7 @@ public class DepartmentOrderAllWorkspaceTest extends SalesmanOrderAllWorkspaceTe
         super.setup();
         urlList = "/crm/order/department/all/list";
         resourceNodeCode = "Gsb_Supplier_Order_Department_All";
-        
+
         //批量转移工具栏
         listToolbarPath = "department/order/orderall/edit";
         listPartServiceController = DepartmentOrderAllListPart.class.getName();
@@ -43,7 +43,8 @@ public class DepartmentOrderAllWorkspaceTest extends SalesmanOrderAllWorkspaceTe
             toolbar.setResourceNode(node);
             toolbar.setToolbarType(ToolbarType.BASE);
         }
-        PToolbarItem item = new PToolbarItem();
+        PToolbarItem item;
+        item = new PToolbarItem();
         {
             item.toNew();
             item.setCode("orderTran");
@@ -52,33 +53,43 @@ public class DepartmentOrderAllWorkspaceTest extends SalesmanOrderAllWorkspaceTe
             item.setCommand("{controller}.orderTran();");
             toolbar.getItems().add(item);
         }
+        item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("viewQqCode");
+            item.setName("查看二维码");
+            item.setSeq(3);
+            item.setCommand("{controller}.viewQqCode();");
+            toolbar.getItems().add(item);
+        }
         toolbarService.save(toolbar);
     }
+
     @Test
     public void createListToolbar() {
 
-		ResourceNode node = resourceService.byCode(resourceNodeCode);
+        ResourceNode node = resourceService.byCode(resourceNodeCode);
 //		OperationType ot1 = operationTypeService.byCode(OperationTypes.view);
-		PToolbar toolbar = new PToolbar();
-		{
-			toolbar.toNew();
-			toolbar.setPath(listToolbarPath);
-			toolbar.setName("所有订单操作");
-			toolbar.setResourceNode(node);
-			toolbar.setToolbarType(ToolbarType.BASE);
-		}
-		PToolbarItem item = new PToolbarItem();
-		{
-			item.toNew();
-			item.setCode("batchOrderTran");
-			item.setIcon(PToolbarHelper.iconTran);
-			item.setName("批量转移");
-			item.setSeq(1);
-			item.setCommand("{controller}.batchOrderTran();");
-			toolbar.getItems().add(item);
-		}
+        PToolbar toolbar = new PToolbar();
+        {
+            toolbar.toNew();
+            toolbar.setPath(listToolbarPath);
+            toolbar.setName("所有订单操作");
+            toolbar.setResourceNode(node);
+            toolbar.setToolbarType(ToolbarType.BASE);
+        }
+        PToolbarItem item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("batchOrderTran");
+            item.setIcon(PToolbarHelper.iconTran);
+            item.setName("批量转移");
+            item.setSeq(1);
+            item.setCommand("{controller}.batchOrderTran();");
+            toolbar.getItems().add(item);
+        }
 
-		toolbarService.save(toolbar);
+        toolbarService.save(toolbar);
     }
 
     protected PDatagrid createDatagrid(ResourceNode node) {

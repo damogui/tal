@@ -101,4 +101,9 @@ public class DepartmentOrderAllListPart extends BaseDepartmentListPart{
 
         orderService.orderTran(orderList, toUserId);
     }
+
+    public SoOrder getOrderById(Integer orderId) {
+        SoOrder order = orderService.getByOrderId(orderId);
+        return order;
+    }
 }

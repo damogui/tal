@@ -27,10 +27,13 @@ public class ActionBroadcastPrepare implements IAction {
         String ywyMobile = StringUtils.trimToEmpty((String) ctxStatus.get("ywyMobile"));
         String atMobile = StringUtils.trimToEmpty((String) ctxStatus.get("atMobile"));
         String atName = StringUtils.trimToEmpty((String) ctxStatus.get("atName"));
-        Integer accountId = NumberUtils.toInt(ctxStatus.get("accountId"));
+        Integer accountId = NumberUtils.toInt(ctxStatus.get("accountId"));//statusMap.put("isSend", 0);
+        boolean isSend = (boolean) ctxStatus.get("isSend");
         String prodName = StringUtils.trimToEmpty((String) ctxStatus.get("prodName"));
         List<String> ywyNames = (List<String>) ctxStatus.get("ywyNames");
-
+        if (!isSend) {
+            return;
+        }
         NCustomer crm = customerService.getByAccount(accountId);
         String customerName;
         if (crm == null) {

@@ -43,7 +43,13 @@ public class MyInChargeListPart extends AdvancedListPart {
         }
         //操作员
         if (parameter.getKey().equals("operator")) {
-            String operatorWhere = "OrderProd.pkid IN(SELECT order_prod_id FROM so_order_prod_user_map opm JOIN sys_permission_employee em ON opm.user_id = em.id AND opm.`status_id` = " + OrderProdUserMapStatus.Zzfz.getValue() + " AND opm.`type_id`=" + OrderProdUserMapType.Czy.getValue() + " WHERE em.name LIKE '%" + keyword + "%')";
+            String operatorWhere = "OrderProd.pkid IN(SELECT order_prod_id FROM so_order_prod_user_map opm JOIN sys_permission_employee em ON opm.user_id = em.id AND opm.`type_id`=" + OrderProdUserMapType.Czy.getValue() + " WHERE em.name LIKE '%" + keyword + "%')";
+            return operatorWhere;
+        }
+
+        //操作员
+        if (parameter.getKey().equals("operatorData_name")) {
+            String operatorWhere = "OrderProd.pkid IN(SELECT order_prod_id FROM so_order_prod_user_map WHERE `type_id`=" + OrderProdUserMapType.Czy.getValue() + " and user_id = '" + keyword + "')";
             return operatorWhere;
         }
 

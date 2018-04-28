@@ -55,11 +55,14 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         entity.customerId = entity.soOrder.customerId == null ? 0 : entity.soOrder.customerId;
     },
     onSaved: function (jmessage) {
+        var me = this;
         if (jmessage != null) {
             IMessageBox.toast("保存成功！");
             this.databind();
             window.parent.layer.closeAll();
-            window.parent.location.reload();
+            if (me.saveCallBack) {
+                me.saveCallBack();
+            }
         } else {
             IMessageBox.error("保存失败！");
         }
