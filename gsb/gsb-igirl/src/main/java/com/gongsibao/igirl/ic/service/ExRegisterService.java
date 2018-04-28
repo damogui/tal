@@ -133,7 +133,7 @@ public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> i
             IcExRegisterCase icCase = this.byId(id);
             CorpRegStatue newState = entity.getCorpRegStatue();
             CorpRegStatue oldState = icCase.getCorpRegStatue();
-            if (newState.equals(oldState)){
+            if (!newState.equals(oldState)){
                 IcExLog log = new IcExLog();
                 log.setCompanyName(icCase.getApprovalName());
                 log.setCorpRegStatue(newState);
