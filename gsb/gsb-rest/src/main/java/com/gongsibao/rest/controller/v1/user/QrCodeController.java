@@ -36,18 +36,17 @@ public class QrCodeController extends BaseController {
                          @RequestParam("businessId") String businessId,
                          @RequestParam("source") String source
     ){
-//        IPublicAccountService publicAccountService= ServiceFactory.create(IPublicAccountService.class);
-//        PublicAccount pa=publicAccountService.byOriginalId(oid);
-//        AccessToken at = AccessTokenManage.getTokenByAppId( pa.getAppId() );
-//        QrCodeRequest requestQ = new QrCodeRequest();
-//        StringBuffer senceStr=new StringBuffer(mobile);
-//        requestQ.setTokenInfo(at);
-//        requestQ.setSenceStr(senceStr.append("|").append(businessId).append("|").append(source).toString());
-//        // 过期时间，为0表示是持久的二维码，否则是临时二维码
-//        requestQ.setExpireSeconds(60*60*24*30);
-//        QrCodeResponse response = requestQ.getResponse();
-//        return ResponseData.getSuccess(response.getQrCodeUrl(),"获取成功!");
-        return ResponseData.getSuccess("https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQFP7zwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyaGtZU2x3dWpjX20xYl9UYnhyY1oAAgT-KuRaAwQAjScA","获取成功!");
+        IPublicAccountService publicAccountService= ServiceFactory.create(IPublicAccountService.class);
+        PublicAccount pa=publicAccountService.byOriginalId(oid);
+        AccessToken at = AccessTokenManage.getTokenByAppId( pa.getAppId() );
+        QrCodeRequest requestQ = new QrCodeRequest();
+        StringBuffer senceStr=new StringBuffer(mobile);
+        requestQ.setTokenInfo(at);
+        requestQ.setSenceStr(senceStr.append("|").append(businessId).append("|").append(source).toString());
+        // 过期时间，为0表示是持久的二维码，否则是临时二维码
+        requestQ.setExpireSeconds(60*60*24*30);
+        QrCodeResponse response = requestQ.getResponse();
+        return ResponseData.getSuccess(response.getQrCodeUrl(),"获取成功!");
     }
 
 }
