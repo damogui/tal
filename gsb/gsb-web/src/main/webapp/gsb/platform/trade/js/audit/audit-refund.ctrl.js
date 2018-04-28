@@ -166,19 +166,31 @@ com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.
     			singleSelect:true,
     			height:'100%',
     			data:data,
-    			rowStyler: function(index,row){
-		        	
-		        	if(row.level%2 == 0){
-    					
-        				return 'background-color:#99CCCC;';
-    				}
+				onLoadSuccess: function(data){
+					var mark=1;
+					for (var i=1; i <data.rows.length; i++) {
+						if (data.rows[i]['level'] == data.rows[i-1]['level']) {
+							mark += 1;                                            
+							$(this).datagrid('mergeCells',{ 
+								index: i+1-mark,
+								field: 'level',
+								rowspan:mark
+							}); 
+						}else{
+							mark=1;
+						}
+					}
 				},
     		    columns:[[
     		        {field:'level',title:'顺序',width:80,align:'center',formatter: function(value,row,index){
     		        	return value+1;
     		        }},
     		        {field:'creatorId',title:'审核人',width:80,align:'center',formatter: function(value,row,index){
-    		        	return row.employee.name;
+    		        	
+    		        	if(row.employee){
+
+        		        	return row.employee.name;
+    		        	}
     		        }},
     		        {field:'status',title:'审核状态',width:80,align:'center',formatter: function(value,row,index){
     		        	return me.auditLogStatusEnum[value];
@@ -207,7 +219,7 @@ com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.
         				}
     				}},
     		        {field:'createTime',title:'创建时间',width:150,align:'center'},
-    		        {field:'content',title:'审批内容',width:150,align:'right'},
+    		        {field:'content',title:'审批内容',width:150,align:'left'},
     		        {field:'remark',title:'说明',width:300,align:'center'}
     		    ]]
     		});
