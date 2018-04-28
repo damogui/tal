@@ -704,9 +704,11 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
         }
         List<NCustomerTask> taskList = this.pm.queryList(oql);
         for (NCustomerTask item : taskList) {
-        	//当前登录人是否等于客户的商机所属业务员，若是允许创建否则返回相关的商机业务员
+        	//当前登录人是否等于客户的商机所属业务员，若是允许创建,否则返回相关的商机业务员
         	if(item.getOwnerId() !=null && item.getOwner()!=null){
-        		if(!item.getOwnerId().equals(SessionManager.getUserId())){
+        		if(item.getOwnerId().equals(SessionManager.getUserId())){
+        			return "";
+    			}else{
     				ownerName += item.getOwner().getName()+"、";
     			}
         	}

@@ -82,27 +82,27 @@
 	        		<div class="row">
 	        			<div class="cell cell-2">
 	        				<div class="title"><span>新增商机</span></div>
-	        				<div class="num"><span id="new_count">0</span></div>
+	        				<div class="num"><span id="crm_new_count">0</span></div>
 	        			</div>
 	        			<div class="cell cell-2">
 	        				<div class="title"><span>未启动</span></div>
-	        				<div class="num"><span id="un_start_count">0</span></div>
+	        				<div class="num"><span id="crm_un_start_count">0</span></div>
 	        			</div>
 	        			<div class="cell cell-2">
 	        				<div class="title"><span>待跟进</span></div>
-	        				<div class="num"><span id="stay_foolow_count">0</span></div>
+	        				<div class="num"><span id="crm_stay_foolow_count">0</span></div>
 	        			</div>
 	        			<div class="cell cell-2">
 	        				<div class="title"><span>超时未跟进</span></div>
-	        				<div class="num"><span id="timeout_count">0</span></div>
+	        				<div class="num"><span id="crm_timeout_count">0</span></div>
 	        			</div>
 	        			<div class="cell cell-2">
 	        				<div class="title"><span>异常未处理</span></div>
-	        				<div class="num"><span id="abnormal_count" style="color:red;">0</span></div>
+	        				<div class="num"><span id="crm_abnormal_count" style="color:red;">0</span></div>
 	        			</div>
 	        			<div class="cell cell-2">
 	        				<div class="title"><span>公海</span></div>
-	        				<div class="num"><span id="public_count">0</span></div>
+	        				<div class="num"><span id="crm_public_count">0</span></div>
 	        			</div>
 	        		</div>
 			    </div>
@@ -201,12 +201,12 @@
 			
  			//这几个数据可以用一个DTO一次性返回，这样调用次数太多
  			brief.briefingCountPars2('salesPresentation',0,1,function(entity){
-				$("#new_count").text(entity.newTasksCount);
-				$("#un_start_count").text(entity.unStartTasksCount);
-				$("#stay_foolow_count").text(entity.unfoolowTasksCount);
-				$("#timeout_count").text(entity.timeOutTasksCount);
-				$("#abnormal_count").text(entity.exceptUntreatedTasksCount);				
-				$("#public_count").text(entity.highSeasCount);
+				$("#crm_new_count").text(entity.newTasksCount);
+				$("#crm_un_start_count").text(entity.unStartTasksCount);
+				$("#crm_stay_foolow_count").text(entity.unfoolowTasksCount);
+				$("#crm_timeout_count").text(entity.timeOutTasksCount);
+				$("#crm_abnormal_count").text(entity.exceptUntreatedTasksCount);				
+				$("#crm_public_count").text(entity.highSeasCount);
 			});
 			
 			foolow.foolowCountPars0('getFoolowSatatistic');

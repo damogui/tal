@@ -71,6 +71,7 @@ public class ActionManualAllocationRecordLog implements IAction {
                 changeLog.setSupplierId(supplierId);
                 changeLog.setDepartmentId(departId);
             }
+            logList.add(changeLog);
         }
         changeService.saves(logList);
     }
