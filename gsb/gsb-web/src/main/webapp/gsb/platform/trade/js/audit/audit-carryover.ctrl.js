@@ -22,13 +22,14 @@ com.gongsibao.trade.web.AuditCarryoverCtrl = com.gongsibao.trade.web.AuditBaseCt
 		    		return;
 		    	}
 		    	if(title=='审批进度'){
-		    		me.auditLogInfor(carryOverId);
+		    		me.initAuditLog(carryOverId,1052);
 		    	}
 		    }
     	});
     	me.initializeDetailList.add('结转信息',this.carryoverInfo(carryOverId));
     },
     carryoverInfo: function(id){
+
     	//tab-获取分期信息
     	this.invokeService ("getNOrderCarryover", [id], function(data){
     		var builder = new System.StringBuilder();
@@ -55,33 +56,6 @@ com.gongsibao.trade.web.AuditCarryoverCtrl = com.gongsibao.trade.web.AuditBaseCt
     		builder.append('</tr>');
     		
     		$("#carryover_info_grid").append(builder.toString());
-    	});
-    },
-    auditLogInfor: function(id){
-    	//tab-审批进度
-    	var me = this;
-    	this.invokeService("getAuditLogList", [id,1052], function(data){    		
-    		$('#audit_progress_grid').datagrid({
-    			idField:'id',
-    			emptyMsg:'暂无记录',
-    			striped:false,
-    			pagination:false,
-    			showFooter:true,
-    			singleSelect:true,
-    			height:'100%',
-    			data:data,
-    		    columns:[[
-    		        {field:'creator',title:'创建人名称',width:80,align:'center',formatter: function(value,row,index){
-    		        	return row.employee.name;
-    		        }},
-    		        {field:'status',title:'审核状态',width:80,align:'center',formatter: function(value,row,index){
-    		        	return me.auditLogStatusEnum[value];
-    		        }},
-    		        {field:'createTime',title:'创建时间',width:150,align:'center'},
-    		        {field:'content',title:'审批内容',width:150,align:'center'},
-    		        {field:'remark',title:'说明',width:300,align:'center'}
-    		    ]]
-    		});
     	});
     }
 });

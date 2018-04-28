@@ -94,25 +94,25 @@ public class AuditPayPerformanceController extends AuditBaseController {
     }
 
 
-    /*回款业绩审核流程*/
-    public List<AuditLogDTO> getAuditLogList(Integer id) {
-        List<AuditLog> logList = new ArrayList<AuditLog>();
-        List<AuditLogDTO> logDtos = new ArrayList<AuditLogDTO>();
-
-        logList = super.getAuditLogList(id, AuditLogType.Skyjsh.getValue());
-        for (AuditLog item : logList
-                ) {
-            AuditLogDTO auditLogDTO = new AuditLogDTO();
-            auditLogDTO.setId(item.getId());
-            auditLogDTO.setCreator(item.getEmployee() == null ? "" : item.getEmployee().getName());
-            auditLogDTO.setOption(item.getStatus().getText());
-            auditLogDTO.setContent(item.getContent());
-            auditLogDTO.setRemark(item.getRemark());
-            auditLogDTO.setCreateTime(item.getCreateTime());
-            logDtos.add(auditLogDTO);
-        }
-        return logDtos;
-    }
+//    /*回款业绩审核流程*/
+//    public List<AuditLogDTO> getAuditLogList(Integer id) {
+//        List<AuditLog> logList = new ArrayList<AuditLog>();
+//        List<AuditLogDTO> logDtos = new ArrayList<AuditLogDTO>();
+//
+//        logList = super.getAuditLogList(id, AuditLogType.Skyjsh.getValue());
+//        for (AuditLog item : logList
+//                ) {
+//            AuditLogDTO auditLogDTO = new AuditLogDTO();
+//            auditLogDTO.setId(item.getId());
+//            auditLogDTO.setCreator(item.getEmployee() == null ? "" : item.getEmployee().getName());
+//            auditLogDTO.setOption(item.getStatus().getText());
+//            auditLogDTO.setContent(item.getContent());
+//            auditLogDTO.setRemark(item.getRemark());
+//            auditLogDTO.setCreateTime(item.getCreateTime());
+//            logDtos.add(auditLogDTO);
+//        }
+//        return logDtos;
+//    }
 
 
     /*获取订单信息*/

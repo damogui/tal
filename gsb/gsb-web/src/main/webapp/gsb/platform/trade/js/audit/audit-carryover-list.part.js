@@ -29,7 +29,7 @@ com.gongsibao.trade.web.AuditCarryoverListPart = org.netsharp.panda.commerce.Lis
             fixed: false,
             maxmin: true,
             shadeClose: true,
-            area: ['70%', '70%'],
+            area: ['95%', '95%'],
             zIndex: 100000,
             id: "carryOverIframe",
             content: contentUrl,
@@ -58,7 +58,7 @@ com.gongsibao.trade.web.AuditCarryoverListPart = org.netsharp.panda.commerce.Lis
              fixed: false,
              maxmin: true,
              shadeClose: true,
-             area: ['70%', '70%'],
+             area: ['95%', '95%'],
              zIndex: 100000,
              id: "carryOverIframe",
              content: contentUrl

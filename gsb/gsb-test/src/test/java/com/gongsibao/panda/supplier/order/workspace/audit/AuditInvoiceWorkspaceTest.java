@@ -36,7 +36,7 @@ public class AuditInvoiceWorkspaceTest extends WorkspaceCreationBase {
         listPartName = formPartName = "发票审核";
         meta = MtableManager.getMtable(entity);
         resourceNodeCode = "Gsb_Supplier_Order_Audit_Invoice";
-        listPartImportJs = "/gsb/platform/trade/js/audit/audit-invoice.ctrl.js|/gsb/panda-extend/gsb.custom.query.controls.js";
+        listPartImportJs = "/gsb/platform/trade/js/audit/audit-invoice-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
         listPartServiceController = AuditInvoiceListPart.class.getName();
         listPartJsController = AuditInvoiceListPart.class.getName();
         listFilter = "type_id=" + AuditLogType.Fbsq.getValue() + " and add_user_id = '{userId}' ";
