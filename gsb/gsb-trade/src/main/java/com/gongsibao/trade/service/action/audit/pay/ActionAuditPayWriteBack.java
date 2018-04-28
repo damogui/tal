@@ -62,7 +62,7 @@ public class ActionAuditPayWriteBack<T> implements IAction {
             case 1://通过审核
                 auditService.auditApproved(auditLog.getId(), remark);
                 //当最后级别审核通过时，修改合同实体审核状态为审核通过
-                if (!StringManager.isNullOrEmpty(payTime)){
+                if (auditLog.getLevel ().equals (auditLog.getMaxLevel ())){
                     Integer execNum = payService.auditPass(payTime, auditLog.getFormId());//根据确认时间和支付时间更新
                 }
 

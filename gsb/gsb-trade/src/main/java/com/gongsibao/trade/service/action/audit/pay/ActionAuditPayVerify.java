@@ -61,6 +61,14 @@ public class ActionAuditPayVerify implements IAction {
         if (!pay.getOfflineAuditStatus ().equals (AuditStatusType.Dsh)) {
             throw new BusinessException ("该支付不是【" + AuditStatusType.Dsh.getText () + "】,禁止审核");
         }
+        if (auditLog.getLevel ().equals (auditLog.getMaxLevel ())){
+            String payTime = (String)auditContext.getOtherInfo();
+            if (StringManager.isNullOrEmpty(payTime)){
+
+                throw new BusinessException ("回款时间必须填写");
+            }
+
+        }
         Map<String, Object> statusMap = new HashMap ();
         statusMap.put ("auditLog", auditLog);
         statusMap.put ("pay", pay);
