@@ -305,11 +305,6 @@ public abstract class AbstractAuditLogService<T> {
         this.currentLevel = currentLevel;
     }
 
-    /*审核通过的电话号码*/
-    public abstract List<String> getAuditPassTel();
-    /*审核失败的电话号码*/
-    public abstract List<String> getAuditFailTel();
-    /*审核待审核的电话号码*/
-    public abstract List<String> getAuditWaitTel(int level);
+
 
 }
