@@ -4,7 +4,7 @@ import com.gongsibao.bd.base.IPreferentialCodeService;
 import com.gongsibao.bd.base.IPreferentialService;
 import com.gongsibao.entity.bd.Preferential;
 import com.gongsibao.entity.bd.PreferentialCode;
-import com.gongsibao.rest.web.common.util.RedisClient;
+import com.netsharp.rest.util.RedisClient;
 import com.gongsibao.rest.web.common.web.Constant;
 import com.gongsibao.rest.web.dto.user.PreferentialCodeDTO;
 import com.gongsibao.rest.web.dto.user.PreferentialUsageDTO;
@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.gongsibao.rest.web.common.util.Assert.isTrue;
+import static com.netsharp.rest.util.Assert.isTrue;
 
 /**
  * @author ffli <ffli@gongsibao.com>
