@@ -53,7 +53,7 @@ public class LoanService extends PersistableService<Loan> implements ILoanServic
 	public Loan getBillByFormId(Integer formId ,Boolean isSubset) {
 		Oql oql = new Oql();
 		oql.setType(Loan.class);
-		oql.setSelects("loan.*,loan.setOfBooks.*,loan.u8Bank.code");
+		oql.setSelects("loan.*,loan.setOfBooks.*,loan.u8Bank.code,loan.borrowerEmployee.name");
 		oql.setFilter("id=?");
 		oql.getParameters().add("id", formId, Types.INTEGER);
 		Loan entity = this.queryFirst(oql);

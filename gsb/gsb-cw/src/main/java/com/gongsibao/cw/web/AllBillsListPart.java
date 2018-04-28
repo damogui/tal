@@ -97,12 +97,12 @@ public class AllBillsListPart extends ListPart{
 		//贷方分录
 		JSONArray outEntryList = new JSONArray();
 		JSONObject outEntryJson = new JSONObject();
-		outEntryJson.put("accountCode", loan.getU8Bank().getCode());
 		outEntryJson.put("naturalCreditCurrency", loan.getAmount()/100);
 		outEntryJson.put("operator", "");
 		outEntryJson.put("personnelId", "");
 		outEntryJson.put("deptId", "");
 		if(loan.getU8Bank() != null){
+			outEntryJson.put("accountCode", loan.getU8Bank().getCode());
 			outEntryJson.put("cashItem", loan.getU8Bank().getCode());
 			outEntryJson.put("remarkIId", loan.getU8Bank().getCode());
 		}else{

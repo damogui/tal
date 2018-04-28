@@ -83,7 +83,7 @@ org.netsharp.we.core.ExpenseDetailCtrl = org.netsharp.we.core.detailCtrl.Extends
     	var formId = this.queryString('id');
     	window.location.href = 'filesList?formId=' + formId +"&formType="+this.formType;
     },
-    saveAudit:function (){
+    saveAudit:function (status){
     	var me = this;
     	var employeeId = me.queryString('employeeId');
     	var memoto = $("#memoto").val();
@@ -92,7 +92,7 @@ org.netsharp.we.core.ExpenseDetailCtrl = org.netsharp.we.core.detailCtrl.Extends
 			return;
 		}
     	var auditRecord = {};
-    	auditRecord.status = $("input[name='auditDetailStatus']:checked").val();
+    	auditRecord.status = status;
     	auditRecord.memoto =memoto;
     	auditRecord.formId = $("#formId").val();
     	auditRecord.formType = 4;  //报销单

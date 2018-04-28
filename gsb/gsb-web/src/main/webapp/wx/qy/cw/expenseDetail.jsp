@@ -144,29 +144,6 @@
 	  	
 	  	<div id="auditDiv" >
 		    <div class="weui-cells__title">审批信息</div>
-		  	<div class="weui-cells weui-cells_checkbox">
-			  <label class="weui-cell weui-check__label" for="agree">
-			    <div class="weui-cell__hd">
-			      <input type="radio" class="weui-check" name="auditDetailStatus" value="2"  id="agree" checked="checked">
-			      <i class="weui-icon-checked"></i>
-			    </div>
-			    <div class="weui-cell__bd">
-			      <p>通过</p>
-			    </div>
-			  </label>
-			  <label class="weui-cell weui-check__label" for="reject">
-			    <div class="weui-cell__hd">
-			      <input type="radio" name="auditDetailStatus" class="weui-check" value="3"  id="reject">
-			      <i class="weui-icon-checked"></i>
-			    </div>
-			    <div class="weui-cell__bd">
-			      <p>驳回</p>
-			    </div>
-			  </label>
-			
-			</div>
-			
-			
 			<div class="weui-cell weui-cell_select" id="payBankDiv" >
 			    <div class="weui-cell__bd" >
 				    <select class="weui-select" name="payBank" id="payBank" >
@@ -184,9 +161,14 @@
 		
 	</div>
 
-    <div class="weui-btn-area" id="saveBtn" >
-      <a class="weui-btn weui-btn_primary" href="javascript:ctrl.saveAudit();">提交</a>
-    </div>
+    <div class="weui-flex" id="saveBtn">
+	  <div class="weui-flex__item" style="padding: 10px;">
+	  	<a class="weui-btn weui-btn_primary" href="javascript:ctrl.saveAudit(2);">通过</a>
+	  </div>
+	  <div class="weui-flex__item" style="padding: 10px;">
+	  	<a class="weui-btn weui-btn_warn" href="javascript:ctrl.saveAudit(3);">驳回</a>
+	  </div>
+	</div>
     
     <div class="weui-btn-area">
       <a class="weui-btn weui-btn_default" href="javascript:history.back();">返回</a>
