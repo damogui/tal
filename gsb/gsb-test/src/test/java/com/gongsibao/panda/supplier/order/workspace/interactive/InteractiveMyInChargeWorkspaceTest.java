@@ -1,5 +1,6 @@
 package com.gongsibao.panda.supplier.order.workspace.interactive;
 
+import com.gongsibao.entity.u8.SetOfBooks;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
@@ -135,12 +136,15 @@ public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
         addQueryItem(queryProject, "handleName", "办理名称", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "owner.name", "业务员", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "operator", "操作员", ControlTypes.TEXT_BOX);
+        //addRefrenceQueryItem(queryProject, "operatorData.name", "操作员1", "CRM_Employee");
         addQueryItem(queryProject, "cityName", "产品地区", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "processStatus.name", "办理状态", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "soOrder.createTime", "下单日期", ControlTypes.DATE_BOX);
         addQueryItem(queryProject, "soOrder.processStatus", "订单总体进度", ControlTypes.ENUM_BOX);
         item = addQueryItem(queryProject, "inChargeStatus", "负责状态", ControlTypes.ENUM_BOX);
-        item.setAppconfigCondition(OrderProdUserMapStatus.class.getName());
+        {
+            item.setAppconfigCondition(OrderProdUserMapStatus.class.getName());
+        }
 
         return queryProject;
     }
