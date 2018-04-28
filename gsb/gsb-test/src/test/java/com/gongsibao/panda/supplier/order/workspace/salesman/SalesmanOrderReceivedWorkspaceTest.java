@@ -76,7 +76,7 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
             datagrid.setName ("回款业绩");
             datagrid.setToolbar (listrowToolbarPath);
             datagrid.setAutoQuery (true);
-            datagrid.setShowCheckbox (true);
+            datagrid.setShowCheckbox (false);
             datagrid.setSingleSelect (false);
         }
         PDatagridColumn column = null;

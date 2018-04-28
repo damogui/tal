@@ -79,7 +79,7 @@ public class SalesmanOrderPayWorkspaceTest  extends WorkspaceCreationBase {
             datagrid.setToolbar (listrowToolbarPath);
             datagrid.setNowrap(false);
             datagrid.setAutoQuery (true);
-            datagrid.setShowCheckbox (true);
+            datagrid.setShowCheckbox (false);
             datagrid.setSingleSelect (false);
         }
         PDatagridColumn column = null;

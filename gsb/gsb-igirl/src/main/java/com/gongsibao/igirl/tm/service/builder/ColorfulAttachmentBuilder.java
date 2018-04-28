@@ -33,7 +33,7 @@ public class ColorfulAttachmentBuilder extends AbstractSwitchBuilder{
 	public List<UploadAttachment> buildUps(TradeMark tm) {
 		// TODO Auto-generated method stub
 		List<UploadAttachment> ups=new ArrayList<UploadAttachment>();
-		UploadAttachment attachment1 = AttachmentBuilderManager.buildUploadAttachment(tm.getMemo() + "彩色_商标图样",
+		UploadAttachment attachment1 = AttachmentBuilderManager.buildUploadAttachment(tm.getMemo() + "_彩色商标图样",
 				AttachmentCat.TRADEMARK_PICT, tm.getTradeMarkCaseId(), FileType.JPGC, FileType.JPGC, tm.getId(),tm.getShareGroup());
 		ups.add(attachment1);
 

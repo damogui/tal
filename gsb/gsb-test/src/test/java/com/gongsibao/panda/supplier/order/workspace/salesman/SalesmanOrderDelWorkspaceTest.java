@@ -115,7 +115,7 @@ public class SalesmanOrderDelWorkspaceTest extends WorkspaceCreationBase {
             String toolbarPath = listrowToolbarPath;
             datagrid.setName("全部订单");
             datagrid.setToolbar(toolbarPath);
-            datagrid.setShowCheckbox(true);
+            datagrid.setShowCheckbox(false);
             datagrid.setSingleSelect(false);
         }
 
