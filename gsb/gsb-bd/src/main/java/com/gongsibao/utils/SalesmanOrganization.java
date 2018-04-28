@@ -75,6 +75,11 @@ public class SalesmanOrganization {
 	 * @Fields directLeaderName : TODO(业务员直属领导名称)   
 	 */   
 	private String directLeaderName;
+
+	/**
+	 * @Fields directLeaderMobile : TODO(业务员直属领导电话)
+	 */
+	private String directLeaderMobile;
 	
 	/**   
 	 * @Fields directLoginName : TODO(业务员直属领导登录名)   
@@ -90,6 +95,11 @@ public class SalesmanOrganization {
 	 * @Fields superiorLeaderName : TODO(业务员隔级领导名称)   
 	 */   
 	private String superiorLeaderName;
+
+	/**
+	 * @Fields superiorLeaderMobile : TODO(业务员隔级领导电话)
+	 */
+	private String superiorLeaderMobile;
 	
 	/**   
 	 * @Fields superiorLoginName : TODO(业务员隔级领导登录名)   
@@ -230,5 +240,21 @@ public class SalesmanOrganization {
 
 	public void setSuperiorLoginName(String superiorLoginName) {
 		this.superiorLoginName = superiorLoginName;
+	}
+
+	public String getDirectLeaderMobile() {
+		return directLeaderMobile;
+	}
+
+	public void setDirectLeaderMobile(String directLeaderMobile) {
+		this.directLeaderMobile = directLeaderMobile;
+	}
+
+	public String getSuperiorLeaderMobile() {
+		return superiorLeaderMobile;
+	}
+
+	public void setSuperiorLeaderMobile(String superiorLeaderMobile) {
+		this.superiorLeaderMobile = superiorLeaderMobile;
 	}
 }

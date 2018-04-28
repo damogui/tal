@@ -38,7 +38,7 @@ public class OrderTransformActionTest extends BaseActionTest {
 
         createBean(beanPath, "1.验证", ActionTransformVerify.class.getName(), resourceNode, 100);
         createBean(beanPath, "2.保存订单业务员id", ActionTransformPersist.class.getName(), resourceNode, 200);
-        createBean(beanPath, "3.通知", ActionTransformSendMessage.class.getName(), resourceNode, 300);
+        //createBean(beanPath, "3.通知", ActionTransformSendMessage.class.getName(), resourceNode, 300);
         createBean(beanPath, "4.日志", ActionTransformRecordLog.class.getName(), resourceNode, 400);
         beanPathService.save(beanPath);
     }

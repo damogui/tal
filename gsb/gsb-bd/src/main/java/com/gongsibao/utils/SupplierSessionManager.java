@@ -133,7 +133,7 @@ public class SupplierSessionManager {
         Oql oql = new Oql();
         {
             oql.setType(Salesman.class);
-            oql.setSelects("salesman.{id,name,loginName},salesman.employee.{id,name,loginName},salesman.department.{id,name},salesman.supplier.{id,admin_id,name}");
+            oql.setSelects("salesman.{id,name,loginName,mobile},salesman.employee.{id,name,loginName},salesman.department.{id,name},salesman.supplier.{id,admin_id,name}");
             oql.setFilter("employeeId=?");
             oql.getParameters().add("@employeeId", employeeId, Types.INTEGER);
         }
@@ -163,6 +163,7 @@ public class SupplierSessionManager {
         		so.setDirectLeaderId(directLeader.getEmployeeId());
         		so.setDirectLeaderName(directLeader.getName());
         		so.setDirectLoginName(directLeader.getLoginName());
+				so.setDirectLeaderMobile(directLeader.getMobile());//电话
         	}
         	
         	//隔级领导
@@ -172,6 +173,7 @@ public class SupplierSessionManager {
         		so.setSuperiorLeaderId(superiorLeader.getEmployeeId());
         		so.setSuperiorLeaderName(superiorLeader.getName());
         		so.setSuperiorLoginName(superiorLeader.getLoginName());
+        		so.setSuperiorLeaderMobile(superiorLeader.getMobile());//电话
         	}
         }
 		return so;
