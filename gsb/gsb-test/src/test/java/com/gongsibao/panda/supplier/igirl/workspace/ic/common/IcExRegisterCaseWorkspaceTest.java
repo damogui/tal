@@ -1,5 +1,7 @@
 package com.gongsibao.panda.supplier.igirl.workspace.ic.common;
 
+import com.gongsibao.controls.DictComboBox;
+import com.gongsibao.controls.PropertyQueryDictComboBox;
 import com.gongsibao.entity.igirl.ic.ex.IcExRegisterCase;
 import com.gongsibao.igirl.ic.web.*;
 import org.junit.Before;
@@ -10,13 +12,10 @@ import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
-import org.netsharp.panda.dic.DockType;
-import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.*;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
-import org.netsharp.util.ReflectManager;
 
 /**
  * @ClassName:  ProductWorkspaceTest
@@ -158,20 +157,6 @@ public class IcExRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 			item.setCommand("{controller}.save();");
 			toolbar.getItems().add(item);
 		}
-		item = new PToolbarItem();
-		{
-			item.toNew();
-			item.setCode("add");
-			item.setIcon("fa fa-plus");
-			item.setName("新增");
-			item.setCommand(null);
-			item.setOperationType(ot1);
-			item.setSeq(3000);
-			item.setCommand("{controller}.add();");
-			toolbar.getItems().add(item);
-		}
-
-
 		toolbarService.save(toolbar);
 	}
 
@@ -219,6 +204,10 @@ public class IcExRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 			formField.setTroikaTrigger("controllericExRegisterCase.isTel(this);");
 		}
 		addFormField(form, "customerName", "客户姓名", null, ControlTypes.TEXT_BOX, true,false);
+		addFormField(form, "source", "客户来源", null, ControlTypes.ENUM_BOX, true, false);
+
+		addFormField(form, "consultWay", "咨询途径", null, ControlTypes.ENUM_BOX, true, false);
+
 		formField = addFormField(form, "approvalName", "核准公司名称", null, ControlTypes.TEXT_BOX, true,false);
 		{
 			formField.setTroikaTrigger("controllericExRegisterCase.isCom(this);");

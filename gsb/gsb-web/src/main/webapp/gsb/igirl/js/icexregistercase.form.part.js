@@ -12,9 +12,9 @@ com.gongsibao.igirl.ic.web.IcExRegisterCasePart = org.netsharp.panda.commerce.Fo
             $("#customerMobile").val("");
             return false;
         }
-        me.invokeService("findMobile",[customerMobile],function (result) {
-            if(result!=null){
-                $("#customerName").val(result).attr('readonly',true);
+        me.invokeService("findByMobile",[customerMobile],function (customer) {
+            if(customer!=null){
+                $("#customerName").val(customer.realName).attr('readonly',true);
             }
         })
         return true;
