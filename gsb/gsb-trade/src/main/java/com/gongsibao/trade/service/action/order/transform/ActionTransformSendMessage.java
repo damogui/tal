@@ -13,6 +13,7 @@ import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.util.StringManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,62 +25,160 @@ import java.util.Map;
  */
 public class ActionTransformSendMessage implements IAction {
 
-    private    String orderNo="";//订单编号
+    private String orderNo = "";//订单编号
+    private int orderLengh = 0;//几个订单
+    private Boolean flagEnd = false;//是否最后
+    HashMap<Integer, Integer> hashFrom = new HashMap<Integer, Integer>();//被转走的业务员订单数量
+
     @Override
     public void execute(ActionContext ctx) {
         //订单
         SoOrder entity = (SoOrder) ctx.getItem();
-        orderNo=entity.getNo();
+        orderNo = entity.getNo();
         //转移的目标业务员
         //获取额外参数
         Map<String, Object> statusMap = ctx.getStatus();
+        orderLengh = (int) statusMap.get("orderLengh");
+        flagEnd = (Boolean) statusMap.get("flagEnd");
+        hashFrom = (HashMap<Integer, Integer>) statusMap.get("hashFrom");
         Salesman toUser = (Salesman) statusMap.get("toUser");
         //转移的目标业务员
         Salesman formUser = (Salesman) statusMap.get("formUser");
-        //发送消息待审核
+        if (orderLengh > 1 && flagEnd) {//批量并且走到最后
 
-        toUserSendMsg(toUser);//接受业务员消息
-        formUserSendMsg(formUser);//被转移分配业务员消息
+            batchToUserSendMsg(toUser);//接受业务员消息
+            batchFormUserSendMsg(hashFrom, toUser.getName());//被转移分配业务员消息
 
-
-//
-//        if (audits.size()<1){
-//            return;
-//        }
-//        List<String> tels=new ArrayList<>();
-//        for (AuditLog  item:audits
-//                ) {
-//            if (item.getLevel()==1){
-//
-//                tels.add(UserHelper.getEmployeTelById(item.getCreatorId()));
-//            }
-//
-//        }
-//        auditSend(entity,tels);
+        } else {//单个
+            //发送消息
+            toUserSendMsg(toUser);//接受业务员消息
+            formUserSendMsg(formUser,toUser.getName());//被转移分配业务员消息
+        }
 
 
+    }
+
+    /**
+     * @param hashFrom
+     * @param toName
+     * @author: 郭佳
+     * @Description:TODO被转移分配业务员消息
+     * @date: 2018/4/28 15:46
+     */
+    private void batchFormUserSendMsg(HashMap<Integer, Integer> hashFrom, String toName) {
+        if (hashFrom == null) {
+            return;
+        }
+        for (Map.Entry<Integer, Integer> entry : hashFrom.entrySet()) {
+            Integer fromUserId = entry.getKey();
+            Integer num = entry.getValue();
+
+            String content = String.format("【批量分配提醒】您好，【%s】把您的%s个订单分配给【%s】，请知悉", SessionManager.getUserName(), num,toName);
+            SmsHelper.send(UserHelper.getEmployeTelById(fromUserId), content);//电话和内容
+            batchFromUserLeaderSendMsg(fromUserId,num,toName);//给相关领导发提醒
+        }
+
+
+    }
+    /**
+     * @author: 郭佳
+     * @param fromUserId
+     * @param num
+     * @param toName
+     * @Description:TODO 给相关领导发提醒
+     * @date:   2018/4/28 16:04
+     */
+    private void batchFromUserLeaderSendMsg(Integer fromUserId, Integer num, String toName) {
+
+        List<String> tels = UserHelper.getSalesmanLeaders(fromUserId);
+        for (String tel : tels
+                ) {
+            if (!StringManager.isNullOrEmpty(tel)) {
+                String content = String.format("【批量分配提醒】您好，【%s】把【%s】的%s个订单分配给【%s】，请知悉", SessionManager.getUserName(),UserHelper.getEmployeeName(fromUserId), orderLengh,toName);
+                SmsHelper.send(tel, content);//电话和内容
+            }
+
+        }
+
+    }
+
+    /**
+     * @param toUser
+     * @author: 郭佳
+     * @Description:TODO 批量通知转向业务员
+     * @date: 2018/4/28 15:18
+     */
+    private void batchToUserSendMsg(Salesman toUser) {
+        if (toUser == null) {
+            return;
+        }
+        String content = String.format("【批量分配提醒】您好，【%s】批量分配给您%s个订单，请及时跟进", SessionManager.getUserName(), orderLengh);
+
+        SmsHelper.send(toUser.getMobile(), content);//电话和内容
+
+        batchToUserLeaderSendMsg(toUser);//给相关领导发提醒
+
+    }
+
+    /**
+     * @param toUser
+     * @author: 郭佳
+     * @Description:TODO 批量通知接受订单业务员领导
+     * @date: 2018/4/28 15:20
+     */
+    private void batchToUserLeaderSendMsg(Salesman toUser) {
+        List<String> tels = UserHelper.getSalesmanLeaders(toUser.getId());
+        for (String tel : tels
+                ) {
+            if (!StringManager.isNullOrEmpty(tel)) {
+                String content = String.format("【批量分配提醒】您好，【%s】批量分配给【%s，取值】%S个订单，请知悉", SessionManager.getUserName(), toUser.getName(), orderLengh);
+                SmsHelper.send(tel, content);//电话和内容
+            }
+
+        }
+
+    }
+
+    /**
+     * @param formUser
+     * @author: 郭佳
+     * @Description:TODO 被转移分配业务员消息
+     * @date: 2018/4/28 13:44
+     */
+    private void formUserSendMsg(Salesman formUser,String toName) {
+        if (formUser == null) {
+            return;
+        }
+        String content = String.format("【分配提醒】您好，【%s】把您的1个订单分配给【%s】，订单编号为【%s】，请知悉", SessionManager.getUserName(), toName,orderNo);
+
+        SmsHelper.send(formUser.getMobile(), content);//电话和内容
+        formUserLeaderSendMsg(formUser,toName);//给相关领导发提醒
     }
     /**
      * @author: 郭佳
      * @param formUser
-     * @Description:TODO 被转移分配业务员消息
-     * @date:   2018/4/28 13:44
+     * @Description:TODO  给相关领导发提醒  转移走
+     * @date:   2018/4/28 16:01
      */
-    private void formUserSendMsg(Salesman formUser) {
-        if (formUser == null) {
-            return;
-        }
-        String content = String.format("【分配提醒】您好，【%s】把您的1个订单分配给【业务员】，订单编号为【%s】，请知悉", SessionManager.getUserName(), orderNo);
+    private void formUserLeaderSendMsg(Salesman formUser,String toName) {
 
-        SmsHelper.send(formUser.getMobile(), content);//电话和内容
+        List<String> tels = UserHelper.getSalesmanLeaders(formUser.getId());
+        for (String tel : tels
+                ) {
+            if (!StringManager.isNullOrEmpty(tel)) {
+                String content = String.format("【分配提醒】您好，【%S】把【%s】的1个订单分配给【%s】，订单编号为【%s】，请知悉", SessionManager.getUserName(), formUser.getName(), toName,orderNo);
+                SmsHelper.send(tel, content);//电话和内容
+            }
+
+        }
 
     }
 
     /**
-     * @author: 郭佳
      * @param toUser
+     * @author: 郭佳
      * @Description:TODO 接受业务员消息
-     * @date:   2018/4/28 13:44
+     * @date: 2018/4/28 13:44
      */
     private void toUserSendMsg(Salesman toUser) {
         if (toUser == null) {
@@ -92,19 +191,23 @@ public class ActionTransformSendMessage implements IAction {
         toUserLeaderSendMsg(toUser);//给相关领导发提醒
 
     }
+
     /**
-     * @author: 郭佳
      * @param toUser
+     * @author: 郭佳
      * @Description:TODO 给相关领导发提醒
-     * @date:   2018/4/28 13:52
+     * @date: 2018/4/28 13:52
      */
     private void toUserLeaderSendMsg(Salesman toUser) {
 
-        List<String> tels=UserHelper.getSalesmanLeaders(toUser.getId());
-        for (String  tel:tels
-             ) {
-            String content = String.format("【分配提醒】您好，【%s】分配给【%s】1个订单，订单编号为【%s】，请知悉", SessionManager.getUserName(), toUser.getName(),orderNo);
-            SmsHelper.send(tel, content);//电话和内容
+        List<String> tels = UserHelper.getSalesmanLeaders(toUser.getId());
+        for (String tel : tels
+                ) {
+            if (!StringManager.isNullOrEmpty(tel)) {
+                String content = String.format("【分配提醒】您好，【%s】分配给【%s】1个订单，订单编号为【%s】，请知悉", SessionManager.getUserName(), toUser.getName(), orderNo);
+                SmsHelper.send(tel, content);//电话和内容
+            }
+
         }
 
     }
