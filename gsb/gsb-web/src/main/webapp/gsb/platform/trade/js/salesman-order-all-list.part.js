@@ -498,7 +498,11 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     resizeLayer(layerIndex, layerInitWidth, layerInitHeight); //调用resizeLayer方法
                 },
                 yes: function () {
-                    document.getElementById('contractCreateIframe').firstElementChild.contentWindow.controllercontract.save();
+                    var controllercontract = document.getElementById('contractCreateIframe').firstElementChild.contentWindow.controllercontract;
+                    controllercontract.save();
+                    controllercontract.saveCallBack = function () {
+                        me.reload();
+                    };
                 }
             });
         }, null, false);
@@ -545,9 +549,12 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                         layerInitHeight = $("#layui-layer" + layerIndex).height(); //获取layer的高度
                         resizeLayer(layerIndex, layerInitWidth, layerInitHeight); //调用resizeLayer方法
                     },
-
                     yes: function () {
-                        document.getElementById('invoiceCreateIframe').firstElementChild.contentWindow.controllerinvoice.save();
+                        var controllerinvoice = document.getElementById('invoiceCreateIframe').firstElementChild.contentWindow.controllerinvoice;
+                        controllerinvoice.saveCallBack = function () {
+                            me.reload();
+                        };
+                        controllerinvoice.save();
                     }
                 });
             }
@@ -697,7 +704,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             return false;
         }
         this.invokeService("orderRecover", [id], function (data) {
-            if (data >0) {
+            if (data > 0) {
 
                 IMessageBox.toast('恢复成功');
                 realodCurrentPage("datagridsoOrderList");
