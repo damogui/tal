@@ -51,7 +51,16 @@ public class ActionAuditPayWriteBack<T> implements IAction {
 
     }
 
-
+    /**
+     * @author: 郭佳
+     * @param state
+     * @param auditLog
+     * @param pay
+     * @param remark
+     * @param payTime
+     * @Description:TODO 进行回款审核
+     * @date:   2018/4/28 17:03
+     */
     private void audit(AuditState state, AuditLog auditLog, Pay pay, String remark,String payTime) {
         switch (state.getValue()) {
             case 0://驳回审核
