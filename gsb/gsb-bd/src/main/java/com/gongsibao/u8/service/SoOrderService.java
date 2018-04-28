@@ -76,9 +76,18 @@ public class SoOrderService extends PersistableService<SoOrder> implements ISoOr
         return map;
     }
 
-    //转移/分配（支持批量转移/分配）
+
+    /**
+     * @author: 郭佳
+     * @param orderIdList
+     * @param toUserId
+     * @param type 默认为0转移 当1的时候为分配 平台过来的
+     * @Description:TODO//转移/分配（支持批量转移/分配）
+     * @date:   2018/4/28 16:16
+     */
     @Override
-    public void orderTran(List<Integer> orderIdList, Integer toUserId) {
+    public void orderTran(List<Integer> orderIdList, Integer toUserId,Integer...type) {
+
 
         //订单id集合
         String orderIds = StringManager.join(",", orderIdList);
@@ -99,6 +108,7 @@ public class SoOrderService extends PersistableService<SoOrder> implements ISoOr
         Boolean flagEnd=false;//是否是最后来确定是否通知
         int  orderLengh=0;
         HashMap<Integer,Integer>hashFrom=new HashMap<Integer, Integer>();//被转走的业务员订单数量
+
         for (SoOrder order : soOrderList) {
             i++;
 
@@ -109,6 +119,13 @@ public class SoOrderService extends PersistableService<SoOrder> implements ISoOr
             setMap.put("formUser", salesmanFor);//转移的来自业务员
             setMap.put("orderLengh", orderLengh);//订单的长度来判断是单个还是批量
             setMap.put("flagEnd", flagEnd);//是否是最后
+            if(type.length>0){
+                setMap.put("type", 1);//来确定是业务员（转移 0）还是平台（分配 1）
+            }else{
+
+                setMap.put("type", 0);
+            }
+
             if (hashFrom.containsKey(salesmanFor.getEmployeeId())){
                 Integer  num=hashFrom.get(salesmanFor.getEmployeeId());
                 num++;

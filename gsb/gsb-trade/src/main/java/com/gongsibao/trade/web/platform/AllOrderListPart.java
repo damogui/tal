@@ -75,4 +75,10 @@ public class AllOrderListPart extends SalesmanAllOrderListPart {
 		}
 		return res;
 	}
+
+	//转移/分配（包括批量转移/分配）
+	public void orderTran(List<Integer> orderList, Integer toUserId) {
+		//ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
+		soOrderService.orderTran(orderList, toUserId,1);
+	}
 }

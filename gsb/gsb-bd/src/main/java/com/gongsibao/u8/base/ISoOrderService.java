@@ -19,7 +19,7 @@ public interface ISoOrderService extends IPersistableService<SoOrder> {
 
     //转移/分配（包括批量转移/分配）
     @Transaction
-    void orderTran(List<Integer> orderIdList, Integer toUserId);
+    void orderTran(List<Integer> orderIdList, Integer toUserId,Integer...type);
 
     /*
     *根据订单id集合获取，对应的业务员信息
