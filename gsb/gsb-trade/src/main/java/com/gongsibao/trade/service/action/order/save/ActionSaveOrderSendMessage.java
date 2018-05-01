@@ -31,7 +31,7 @@ public class ActionSaveOrderSendMessage implements IAction {
     public void execute(ActionContext ctx) {
     	
         SoOrder soOrder = (SoOrder) ctx.getItem();
-        //发送消息待审核
+        //发送消息待审核 
         Map<String, Object> objectMap = ctx.getStatus();
         List<AuditLog> audits = (List<AuditLog>) objectMap.get("audits");
 
