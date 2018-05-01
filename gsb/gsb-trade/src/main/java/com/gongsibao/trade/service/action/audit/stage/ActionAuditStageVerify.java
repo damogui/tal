@@ -9,22 +9,23 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
 import org.netsharp.util.StringManager;
 
+import com.gongsibao.bd.base.IAuditLogService;
 import com.gongsibao.bd.service.auditLog.AuditContext;
 import com.gongsibao.bd.service.auditLog.AuditState;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogStatusType;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.u8.base.ISoOrderService;
 
 public class ActionAuditStageVerify implements IAction {
 
-    IAuditService auditService = ServiceFactory.create(IAuditService.class);
+	IAuditLogService auditService = ServiceFactory.create(IAuditLogService.class);
     ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
 
     @Override
     public void execute(ActionContext ctx) {
+    	
         AuditContext auditContext = (AuditContext) ctx.getItem();
         if (auditContext == null) {
             throw new BusinessException("审核信息不能为空");

@@ -7,9 +7,9 @@ import java.util.Map;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 
-import com.gongsibao.bd.service.auditLog.AbstractAuditLogService;
-import com.gongsibao.bd.service.auditLog.AuditFactory;
-import com.gongsibao.bd.service.auditLog.PayAudit;
+import com.gongsibao.bd.service.auditLog.AbstractAuditService;
+import com.gongsibao.bd.service.auditLog.AuditServiceFactory;
+import com.gongsibao.bd.service.auditLog.AuditPayService;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.Pay;
 
@@ -20,7 +20,7 @@ public class ActionApplyPayAudit implements IAction {
 	public void execute(ActionContext ctx) {
 
 		Pay pay = (Pay) ctx.getItem();
-        AbstractAuditLogService auditLogHandler = AuditFactory.getAudit(PayAudit.class);
+        AbstractAuditService auditLogHandler = AuditServiceFactory.create(AuditPayService.class);
 		List<AuditLog> auditLogList = auditLogHandler.execute(pay.getId());
 
 		// 推送消息

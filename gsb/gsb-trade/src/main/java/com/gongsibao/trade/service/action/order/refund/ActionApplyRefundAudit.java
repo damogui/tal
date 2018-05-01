@@ -7,9 +7,9 @@ import java.util.Map;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 
-import com.gongsibao.bd.service.auditLog.AbstractAuditLogService;
-import com.gongsibao.bd.service.auditLog.AuditFactory;
-import com.gongsibao.bd.service.auditLog.RefundAudit;
+import com.gongsibao.bd.service.auditLog.AbstractAuditService;
+import com.gongsibao.bd.service.auditLog.AuditServiceFactory;
+import com.gongsibao.bd.service.auditLog.AuditRefundService;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.Refund;
 
@@ -19,7 +19,7 @@ public class ActionApplyRefundAudit  implements IAction{
 	public void execute(ActionContext ctx) {
 		Refund refund = (Refund) ctx.getItem();
 		// 退款审核
-		AbstractAuditLogService auditLogService = AuditFactory.getAudit(RefundAudit.class);
+		AbstractAuditService auditLogService = AuditServiceFactory.create(AuditRefundService.class);
 		//后期发送通知用
 		List<AuditLog> auditLogList = auditLogService.execute(refund.getId());
 		// 推送消息

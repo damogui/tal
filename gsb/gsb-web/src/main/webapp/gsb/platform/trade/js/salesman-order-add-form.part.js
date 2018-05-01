@@ -102,9 +102,13 @@ com.gongsibao.trade.web.SalesmanAddOrderFormPart = org.netsharp.panda.commerce.F
     onSaving: function (entity) {
 
         if (entity.products.length > 0) {
+        	
             $(entity.products).each(function (i, item) {
+            	
                 item.price = parseFloat(item.price);
+                
                 $(item.items).each(function (j, item2) {
+                	
                     item2.price = parseFloat(item2.price);
                 });
             });
@@ -113,9 +117,33 @@ com.gongsibao.trade.web.SalesmanAddOrderFormPart = org.netsharp.panda.commerce.F
             IMessageBox.toast('没有选择产品服务项', 2);
             return false;
         }
+        
+        //校验分期
+        if(parseInt(entity.stageNum) >1){
+        	
+        	 var stageAmount = 0;
+        	 $(entity.stages).each(function(i,item){
+
+        		 item.amount = parseInt(item.amount);
+        		 stageAmount+=item.amount;
+        	 });
+
+        	 
+        	 if(stageAmount != parseInt(entity.payablePrice)){
+        		 
+        		 IMessageBox.toast('【分期总金额】必须等于【应付金额】', 2);
+        		 $('#tabcenter').tabs('select','分期信息');
+        		 return false;
+        	 }
+        	 
+        	 entity.isInstallment = true;//设置订单为分期支付
+        	 entity.installmentAuditStatusId=1051;//分期支付状态为【待审核】
+        }
+        
         return true;
     },
     onSaved: function (jmessage) {
+    	
         this.currentItem = jmessage;
         if (this.currentItem != null) {
 
@@ -133,11 +161,16 @@ com.gongsibao.trade.web.SalesmanAddOrderFormPart = org.netsharp.panda.commerce.F
         } else {
             IMessageBox.error("保存失败！");
         }
+    },
+    stageNumChange:function(newValue,oldValue){
+    	
+    	controllerstages.add(newValue);
     }
 });
 
 
 com.gongsibao.trade.web.OrderProdItemDetailPart = org.netsharp.panda.commerce.DetailPart.Extends({
+	
     ctor: function () {
 
         this.base();
@@ -295,6 +328,75 @@ com.gongsibao.trade.web.OrderProdItemDetailPart = org.netsharp.panda.commerce.De
     remove: function (index) {
 
         $('#datagridproducts').datagrid('deleteRow', index);
+    }
+});
+
+com.gongsibao.trade.web.OrderStageDetailPart = org.netsharp.panda.commerce.DetailPart.Extends({
+    ctor: function () {
+
+        this.base();
+    },
+    doubleClickRow: function () {
+
+        //覆盖
+    },
+    add:function(instalmentNum){
+
+		this.getGrid().datagrid('loadData',[]);
+    	var num = parseInt(instalmentNum);
+    	if(num == 1){
+    		return;
+    	}
+    	
+    	var data = [];
+    	for(var i=1;i<=num;i++){
+    	
+    		var stage = new Object();
+    		stage.instalmentIndex = i;
+    		stage.amount = 0;
+    		stage.percentage = 0;
+    		data.push(stage);
+    	}
+    	this.getGrid().datagrid('loadData',data);
+    	
+        var me = this;
+        var options = this.getGrid().datagrid('options');
+        var columns = options.columns[0];
+        var hasEditor = false;
+        $(columns).each(function (i, col) {
+
+            if (col.field == 'amount') {
+
+                var editor = col.editor;
+                if (editor != undefined) {
+
+                    hasEditor = true;
+                } else {
+
+                    col.editor = {type: 'numberbox', options: {precision: 2, height: 31, min: 0, required: true}}
+                }
+            }
+        });
+        if (!hasEditor) {
+
+            options.onBeginEdit = function (index, row) {
+
+                var ed = $(this).datagrid('getEditor', {index: index, field: 'amount'});
+                var amount = System.RMB.fenToYuan(row.amount);
+                $(ed.target).numberbox('setValue', amount);
+
+                var amountEditCtrl = $(ed.target[0]).next().children()[0];
+                $(amountEditCtrl).bind('blur', function () {
+                	
+                    var value = System.RMB.yuanToFen($(this).val());
+                    $(ed.target).numberbox('setValue', value);
+                    //结束编辑
+                	me.getGrid().datagrid('endEdit', index);
+                });
+            }
+            me.getGrid().datagrid(options);
+            me.getGrid().datagrid('enableCellEditing');
+        }
     }
 });
 

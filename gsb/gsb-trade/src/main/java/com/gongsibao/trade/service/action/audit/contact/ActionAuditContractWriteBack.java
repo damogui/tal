@@ -1,21 +1,22 @@
 package com.gongsibao.trade.service.action.audit.contact;
 
+import java.util.Map;
+
+import org.netsharp.action.ActionContext;
+import org.netsharp.action.IAction;
+import org.netsharp.communication.ServiceFactory;
+
+import com.gongsibao.bd.base.IAuditLogService;
 import com.gongsibao.bd.service.auditLog.AuditContext;
 import com.gongsibao.bd.service.auditLog.AuditState;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.Contract;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
-import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.trade.base.IContractService;
-import org.netsharp.action.ActionContext;
-import org.netsharp.action.IAction;
-import org.netsharp.communication.ServiceFactory;
-
-import java.util.Map;
 
 public class ActionAuditContractWriteBack implements IAction {
 
-    IAuditService auditService = ServiceFactory.create(IAuditService.class);
+	IAuditLogService auditService = ServiceFactory.create(IAuditLogService.class);
 
     IContractService contractService = ServiceFactory.create(IContractService.class);
 

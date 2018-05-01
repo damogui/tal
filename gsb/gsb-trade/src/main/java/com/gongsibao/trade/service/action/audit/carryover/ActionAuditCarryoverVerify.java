@@ -9,17 +9,18 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
 import org.netsharp.util.StringManager;
 
+import com.gongsibao.bd.base.IAuditLogService;
 import com.gongsibao.bd.service.auditLog.AuditContext;
 import com.gongsibao.bd.service.auditLog.AuditState;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogStatusType;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.NOrderCarryover;
-import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.trade.base.INOrderCarryoverService;
 
 public class ActionAuditCarryoverVerify implements IAction{
-	IAuditService auditService = ServiceFactory.create(IAuditService.class);
+	
+	IAuditLogService auditService = ServiceFactory.create(IAuditLogService.class);
 	INOrderCarryoverService carryoverService = ServiceFactory.create(INOrderCarryoverService.class);
 	
 	

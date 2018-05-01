@@ -1,9 +1,9 @@
 package com.gongsibao.trade.service.action.order.settle;
 
-import com.gongsibao.bd.service.auditLog.AbstractAuditLogService;
-import com.gongsibao.bd.service.auditLog.AuditFactory;
-import com.gongsibao.bd.service.auditLog.ContractAudit;
-import com.gongsibao.bd.service.auditLog.SettleAudit;
+import com.gongsibao.bd.service.auditLog.AbstractAuditService;
+import com.gongsibao.bd.service.auditLog.AuditServiceFactory;
+import com.gongsibao.bd.service.auditLog.AuditContractService;
+import com.gongsibao.bd.service.auditLog.AuditSettleService;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.Contract;
 import com.gongsibao.entity.trade.settle.Settle;
@@ -27,7 +27,7 @@ public class ActionApplySettleAudit implements IAction {
 		Integer userId = SessionManager.getUserId();
 		Map<String, Object> status = ctx.getStatus();
 		// 合同审核
-		AbstractAuditLogService auditLogService = AuditFactory.getAudit(SettleAudit.class);
+		AbstractAuditService auditLogService = AuditServiceFactory.create(AuditSettleService.class);
 		List<AuditLog> auditLogList = auditLogService.execute(settle.getId());
 		// 审核记录
 		List<Integer> auditUserIdList = new ArrayList<>();

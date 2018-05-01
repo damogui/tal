@@ -15,7 +15,7 @@ import com.gongsibao.supplier.base.ISalesmanService;
  * @author Administrator
  *
  */
-public class RefundAudit extends AbstractAuditLogService{
+public class AuditRefundService extends AbstractAuditService{
 	ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
 	@Override
 	protected List<AuditLog> getExtenAuditLogList(Integer formId,Integer addUserId) {

@@ -14,7 +14,7 @@ import org.netsharp.communication.ServiceFactory;
  *
  * @author Administrator
  */
-public class ContractAudit extends AbstractAuditLogService {
+public class AuditContractService extends AbstractAuditService {
 
     ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
 

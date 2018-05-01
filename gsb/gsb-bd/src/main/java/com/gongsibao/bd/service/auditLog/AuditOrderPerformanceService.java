@@ -13,7 +13,7 @@ import java.util.List;
  * Created by win on 2018/3/24.
  */
 /*订单业绩审核*/
-public class OrderPerformanceAudit  extends AbstractAuditLogService{
+public class AuditOrderPerformanceService  extends AbstractAuditService{
 
     @Override
     protected List<AuditLog> getExtenAuditLogList(Integer formId, Integer addUserId) {

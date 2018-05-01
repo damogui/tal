@@ -9,9 +9,9 @@ import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.persistence.session.SessionManager;
 
-import com.gongsibao.bd.service.auditLog.AbstractAuditLogService;
-import com.gongsibao.bd.service.auditLog.AuditFactory;
-import com.gongsibao.bd.service.auditLog.ContractAudit;
+import com.gongsibao.bd.service.auditLog.AbstractAuditService;
+import com.gongsibao.bd.service.auditLog.AuditServiceFactory;
+import com.gongsibao.bd.service.auditLog.AuditContractService;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.Contract;
 
@@ -27,7 +27,7 @@ public class ActionApplyContractAudit implements IAction {
 		Integer userId = SessionManager.getUserId();
 
 		//		// 合同审核
-		AbstractAuditLogService auditLogService = AuditFactory.getAudit(ContractAudit.class);
+		AbstractAuditService auditLogService = AuditServiceFactory.create(AuditContractService.class);
 		List<AuditLog> auditLogList = auditLogService.execute(contract.getId());
 		// 审核记录
 		List<Integer> audiUserIdList = new ArrayList<>();

@@ -40,4 +40,20 @@ public interface IAuditLogService extends IPersistableService<AuditLog> {
 
     /*根据表单id 类型typeId和等级 查询出来下一级审核的人*/
     List<AuditLog> getNextLevelUserIds(Integer fromId, int typeId, int level);
+    
+    /**   
+     * @Title: getById   
+     * @Description: TODO(这里用一句话描述这个方法的作用)   
+     * @param: @param id
+     * @param: @return      
+     * @return: AuditLog      
+     * @throws   
+     */
+    AuditLog getById(Integer id);
+    
+    Boolean auditApproved(Integer auditId, String remark);
+    
+    Boolean auditRejected(Integer auditId, String remark);
+    
+    
 }

@@ -6,11 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.gongsibao.entity.acount.Account;
-import com.gongsibao.entity.crm.dic.ConsultWay;
-import com.gongsibao.entity.crm.dic.FollowStatus;
-import com.gongsibao.entity.crm.dic.Important;
-import com.gongsibao.entity.crm.dic.Sex;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.core.DataTable;
@@ -19,7 +14,12 @@ import org.netsharp.core.Row;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.StringManager;
 
+import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.crm.Customer;
+import com.gongsibao.entity.crm.dic.ConsultWay;
+import com.gongsibao.entity.crm.dic.FollowStatus;
+import com.gongsibao.entity.crm.dic.Important;
+import com.gongsibao.entity.crm.dic.Sex;
 import com.gongsibao.trade.base.ICustomerService;
 
 @Service

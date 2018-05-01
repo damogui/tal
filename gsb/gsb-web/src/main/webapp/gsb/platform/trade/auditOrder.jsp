@@ -18,7 +18,10 @@
 			<div id="detail_tabs" class="easyui-tabs" style="height:100%;" data-options="fit:true,tabHeight:30">
 			    <div title="产品信息">   
 			          <table id="order_product_grid"></table>
-			    </div> 
+			    </div>
+			    <div title="分期信息">   
+			         <table id="order_stage_grid"></table>
+			    </div>
 			    <div title="审批进度">   
 			         <table id="audit_progress_grid"></table>
 			    </div>

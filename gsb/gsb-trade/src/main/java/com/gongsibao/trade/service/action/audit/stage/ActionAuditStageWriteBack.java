@@ -12,19 +12,19 @@ import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
+import com.gongsibao.bd.base.IAuditLogService;
 import com.gongsibao.bd.service.auditLog.AuditContext;
 import com.gongsibao.bd.service.auditLog.AuditState;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.NOrderStage;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
-import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.trade.base.INOrderStageService;
 import com.gongsibao.u8.base.ISoOrderService;
 
 public class ActionAuditStageWriteBack implements IAction{
 	
-	IAuditService auditService = ServiceFactory.create(IAuditService.class);
+	IAuditLogService auditService = ServiceFactory.create(IAuditLogService.class);
 	ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
 	INOrderStageService orderStageService = ServiceFactory.create(INOrderStageService.class);
 	

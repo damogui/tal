@@ -1,18 +1,18 @@
 package com.gongsibao.trade.service;
 
-import com.gongsibao.entity.trade.dic.AuditStatusType;
+import java.sql.Types;
+import java.util.Date;
+import java.util.List;
+
 import org.netsharp.communication.Service;
 import org.netsharp.core.Oql;
 import org.netsharp.core.QueryParameters;
 import org.netsharp.service.PersistableService;
-
-import com.gongsibao.entity.trade.NDepReceivable;
-import com.gongsibao.trade.base.INDepReceivableService;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
-import java.sql.Types;
-import java.util.Date;
-import java.util.List;
+import com.gongsibao.entity.trade.NDepReceivable;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
+import com.gongsibao.trade.base.INDepReceivableService;
 
 /**
  * Created by win on 2018/2/27.

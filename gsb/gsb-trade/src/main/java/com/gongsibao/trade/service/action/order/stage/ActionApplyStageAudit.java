@@ -7,9 +7,9 @@ import java.util.Map;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 
-import com.gongsibao.bd.service.auditLog.AbstractAuditLogService;
-import com.gongsibao.bd.service.auditLog.AuditFactory;
-import com.gongsibao.bd.service.auditLog.StageAudit;
+import com.gongsibao.bd.service.auditLog.AbstractAuditService;
+import com.gongsibao.bd.service.auditLog.AuditServiceFactory;
+import com.gongsibao.bd.service.auditLog.AuditStageService;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.SoOrder;
 
@@ -27,7 +27,7 @@ public class ActionApplyStageAudit implements IAction{
 	public void execute(ActionContext ctx) {
 		SoOrder order = (SoOrder) ctx.getItem();
 		// 分期审核：（只能1次分期，所以审核中的formId用订单id即可）
-		AbstractAuditLogService auditLogService = AuditFactory.getAudit(StageAudit.class);
+		AbstractAuditService auditLogService = AuditServiceFactory.create(AuditStageService.class);
 		//后期发送通知用
 		List<AuditLog> auditLogList = auditLogService.execute(order.getId());
 		// 推送消息

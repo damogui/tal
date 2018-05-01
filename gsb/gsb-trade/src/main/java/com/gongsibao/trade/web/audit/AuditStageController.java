@@ -7,20 +7,27 @@ import java.util.List;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 
-import com.gongsibao.bd.service.auditLog.AbstractAuditLogService;
-import com.gongsibao.bd.service.auditLog.AuditFactory;
-import com.gongsibao.bd.service.auditLog.AuditState;
-import com.gongsibao.bd.service.auditLog.StageAudit;
+import com.gongsibao.bd.service.auditLog.AbstractAuditService;
+import com.gongsibao.bd.service.auditLog.AuditServiceFactory;
+import com.gongsibao.bd.service.auditLog.AuditStageService;
 import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.NOrderStage;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.INOrderStageService;
 import com.gongsibao.trade.web.dto.OrderStageDTO;
+import com.gongsibao.u8.base.ISoOrderService;
 
 public class AuditStageController extends AuditBaseController{
 
-	// 分期审核
-	AbstractAuditLogService auditLogService = AuditFactory.getAudit(StageAudit.class);
+	@Override
+	protected AbstractAuditService getAuditService() {
+
+		return AuditServiceFactory.create(AuditStageService.class);
+	}
+	
+	ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
+
 	INOrderStageService stageService = ServiceFactory.create(INOrderStageService.class);
 	
 	/**
@@ -76,13 +83,8 @@ public class AuditStageController extends AuditBaseController{
 		return stageDTO;
 	}
 	
-	/**
-	 * 获取分期审核日志集合(由于分期关联订单主键，分期审核驳回后，再申请会把之前的驳回的分期信息查出来，目前解决方法是分组取最新的分期记录)
-	 * @param id
-	 * @return
-	 */
 	@Override
-	public List<AuditLog> getAuditLogList(Integer id,Integer auditLogType) {
+	public List<AuditLog> getAuditLogList(Integer id, AuditLogType type) {
 		List<AuditLog> logList = new ArrayList<AuditLog>();
 		Oql oql = new Oql();
 		{
@@ -90,26 +92,9 @@ public class AuditStageController extends AuditBaseController{
 			oql.setSelects("auditLog.*,employee.{id,name}");
 			oql.setFilter("pkid in(SELECT max(pkid) from bd_audit_log where form_id = ? and type_id = ? GROUP BY `level`)");
 			oql.getParameters().add("form_id", id, Types.INTEGER);
-			oql.getParameters().add("type_id", auditLogType, Types.INTEGER);
+			oql.getParameters().add("type_id", type.getValue(), Types.INTEGER);
 		}
 		logList = auditService.queryList(oql);
 		return logList;
-	}
-	/**
-	 * 审核通过 注：参数未定
-	 * 
-	 * @return
-	 */
-	public Boolean approved(Integer auditLogId, String remark) {
-		return auditLogService.audit(AuditState.PASS, auditLogId, remark);
-	}
-
-	/**
-	 * 驳回 注：参数未定
-	 * 
-	 * @return
-	 */
-	public Boolean rejected(Integer auditLogId, String remark) {
-		return auditLogService.audit(AuditState.NOTPASS, auditLogId, remark);
 	}
 }

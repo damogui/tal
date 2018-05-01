@@ -8,10 +8,10 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 
 import com.gongsibao.bd.base.IAuditLogService;
-import com.gongsibao.bd.service.auditLog.AbstractAuditLogService;
-import com.gongsibao.bd.service.auditLog.AuditFactory;
+import com.gongsibao.bd.service.auditLog.AbstractAuditService;
+import com.gongsibao.bd.service.auditLog.AuditServiceFactory;
 import com.gongsibao.bd.service.auditLog.AuditState;
-import com.gongsibao.bd.service.auditLog.PayAudit;
+import com.gongsibao.bd.service.auditLog.AuditPayService;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.entity.trade.Pay;
@@ -24,8 +24,11 @@ import com.gongsibao.utils.NumberUtils;
 public class AuditPayController extends AuditBaseController {
 
 
-    // 收款（回款）审核
-    AbstractAuditLogService auditLogService = AuditFactory.getAudit(PayAudit.class);
+	@Override
+	protected AbstractAuditService getAuditService() {
+
+		return AuditServiceFactory.create(AuditPayService.class);
+	}
 
     /**
      * 审核通过 注：参数未定
@@ -33,16 +36,17 @@ public class AuditPayController extends AuditBaseController {
      * @return
      */
     public Boolean approvedPay(Integer auditLogId, String remark, String payTime) {
-        IPayService payService = ServiceFactory.create(IPayService.class);
+    	
+//        IPayService payService = ServiceFactory.create(IPayService.class);
         IAuditLogService auditLogBLL = ServiceFactory.create(IAuditLogService.class);
         AuditLog auditLog = auditLogBLL.byId(auditLogId);
         boolean auditResult = false;
         if (auditLog.getLevel().equals(auditLog.getMaxLevel())) {//审核完毕
+        	
             //Integer execNum = payService.auditPass(payTime, auditLog.getFormId());//根据确认时间和支付时间更新
-            auditResult = auditLogService.audit(AuditState.PASS, auditLogId, remark,payTime);
+            auditResult = getAuditService().audit(AuditState.PASS, auditLogId, remark,payTime);
         } else {
-            auditResult = auditLogService.audit(AuditState.PASS, auditLogId, remark);
-
+            auditResult = getAuditService().audit(AuditState.PASS, auditLogId, remark);
         }
 
 
@@ -52,15 +56,6 @@ public class AuditPayController extends AuditBaseController {
     @Override
     public Boolean approved(Integer auditLogId, String remark) {
         return null;
-    }
-
-    /**
-     * 驳回 注：参数未定
-     *
-     * @return
-     */
-    public Boolean rejected(Integer auditLogId, String remark) {
-        return auditLogService.audit(AuditState.NOTPASS, auditLogId, remark);
     }
 
     /*获取订单信息、付款凭证、关联订单*/

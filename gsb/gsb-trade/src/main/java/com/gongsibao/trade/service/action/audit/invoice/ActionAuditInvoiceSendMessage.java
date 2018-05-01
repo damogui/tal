@@ -1,22 +1,19 @@
 package com.gongsibao.trade.service.action.audit.invoice;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.netsharp.action.ActionContext;
+import org.netsharp.action.IAction;
+
 import com.gongsibao.bd.service.auditLog.AuditContext;
 import com.gongsibao.bd.service.auditLog.AuditState;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.Invoice;
-import com.gongsibao.entity.trade.NDepReceivable;
-import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.trade.base.INDepReceivableService;
 import com.gongsibao.trade.service.action.order.utils.AuditHelper;
 import com.gongsibao.trade.service.action.order.utils.UserHelper;
 import com.gongsibao.utils.sms.SmsHelper;
-import org.netsharp.action.ActionContext;
-import org.netsharp.action.IAction;
-import org.netsharp.communication.ServiceFactory;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /*发票*/
 public class ActionAuditInvoiceSendMessage implements IAction {

@@ -16,6 +16,7 @@ com.gongsibao.trade.web.AuditOrderCtrl = com.gongsibao.trade.web.AuditBaseCtrl.E
     	$('#detail_tabs').tabs({ 
     		tabHeight:30,
 		    onSelect:function(title){
+		    	
 		    	var detailCtrl = me.initializeDetailList.byKey(title);
 		    	if(detailCtrl){		    		
 		    		//已经初始化过的不再执行
@@ -24,7 +25,12 @@ com.gongsibao.trade.web.AuditOrderCtrl = com.gongsibao.trade.web.AuditBaseCtrl.E
 		    	if(title=='审批进度'){
 
 		    		me.initAuditLog(orderId,1042);
-		    	}
+		    		
+		    	}else if (title == '分期信息') {
+		    		
+                    me.initStage(orderId);
+
+                }
 		    }
     	});
     	//加载产品信息
@@ -81,5 +87,45 @@ com.gongsibao.trade.web.AuditOrderCtrl = com.gongsibao.trade.web.AuditBaseCtrl.E
     		    ]]
     		});
     	});
+    },
+    initStage:function(orderId){
+
+        var me = this;
+        this.invokeService("queryStageList", [orderId], function (data) {
+
+            $('#order_stage_grid').datagrid({
+                idField: 'id',
+                emptyMsg: '暂无记录',
+                striped: true,
+                pagination: false,
+                showFooter: true,
+                singleSelect: true,
+                height: '100%',
+                data: data,
+                columns: [[
+
+                    {
+                        field: 'instalmentIndex',
+                        title: '分期期数',
+                        width: 100,
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            return '第'+value+'期';
+                        }
+                    },
+                    {
+                        field: 'amount',
+                        title: '分期金额',
+                        width: 100,
+                        align: 'right',
+                        formatter: function (value, row, index) {
+                            return System.RMB.fenToYuan(value);
+                        }
+                    },
+                    {field: 'creator', title: '创建人', width: 100, align: 'center'},
+                    {field: 'createTime', title: '创建时间', width: 130, align: 'center'}
+                ]]
+            });
+        });
     }
 });

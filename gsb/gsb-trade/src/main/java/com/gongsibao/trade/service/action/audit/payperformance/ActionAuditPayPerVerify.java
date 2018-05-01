@@ -1,30 +1,26 @@
 package com.gongsibao.trade.service.action.audit.payperformance;
 
-import com.gongsibao.bd.service.auditLog.AuditContext;
-import com.gongsibao.bd.service.auditLog.AuditState;
-import com.gongsibao.entity.bd.AuditLog;
-import com.gongsibao.entity.bd.dic.AuditLogStatusType;
-import com.gongsibao.entity.bd.dic.AuditLogType;
-import com.gongsibao.entity.trade.NDepPay;
-import com.gongsibao.entity.trade.Pay;
-import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.entity.trade.dic.AuditStatusType;
-import com.gongsibao.trade.base.IAuditService;
-import com.gongsibao.trade.base.INDepPayService;
-import com.gongsibao.trade.base.IOrderService;
-import com.gongsibao.trade.base.IPayService;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
 import org.netsharp.util.StringManager;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.gongsibao.bd.base.IAuditLogService;
+import com.gongsibao.bd.service.auditLog.AuditContext;
+import com.gongsibao.bd.service.auditLog.AuditState;
+import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.bd.dic.AuditLogStatusType;
+import com.gongsibao.entity.bd.dic.AuditLogType;
+import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.trade.base.IOrderService;
 
 public class ActionAuditPayPerVerify implements IAction{
 
-    IAuditService auditService = ServiceFactory.create (IAuditService.class);
+	IAuditLogService auditService = ServiceFactory.create(IAuditLogService.class);
     IOrderService orderService = ServiceFactory.create (IOrderService.class);//主实体是订单
    // INDepPayService  depPayService = ServiceFactory.create (INDepPayService.class);
 
@@ -64,7 +60,7 @@ public class ActionAuditPayPerVerify implements IAction{
 //        if (!soOrder.getDepPayPerAuditStatusId ().equals (AuditStatusType.Dsh)) {
 //            throw new BusinessException ("该回款业绩不是【" + AuditStatusType.Dsh.getText () + "】,禁止审核");
 //        }//以审核表为主
-        Map<String, Object> statusMap = new HashMap ();
+        Map<String, Object> statusMap = new HashMap <String, Object>();
         statusMap.put ("auditLog", auditLog);
         statusMap.put ("soOrder", soOrder);
         ctx.setStatus (statusMap);

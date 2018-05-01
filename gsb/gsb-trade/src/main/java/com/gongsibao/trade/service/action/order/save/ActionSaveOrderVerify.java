@@ -1,14 +1,18 @@
 package com.gongsibao.trade.service.action.order.save;
 
+import java.util.Date;
 import java.util.List;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.core.BusinessException;
+import org.netsharp.persistence.session.SessionManager;
 
+import com.gongsibao.entity.trade.NOrderStage;
 import com.gongsibao.entity.trade.OrderDiscount;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.trade.dic.OrderStageNum;
 
 /**
  * @ClassName: ActionSaveOrderVerify
@@ -72,6 +76,30 @@ public class ActionSaveOrderVerify implements IAction {
 			if (prod.getItems() == null || prod.getItems().size() == 0) {
 
 				throw new BusinessException("没有添加产品服务项");
+			}
+		}
+		
+		//校验分期信息
+		if(soOrder.getStageNum() != OrderStageNum.ONE ){
+			
+			soOrder.setIsInstallment(true);
+			soOrder.setStageCreateTime(new Date());
+			soOrder.setStageCreator(SessionManager.getUserName());
+			List<NOrderStage> stageList = soOrder.getStages();
+			if (stageList == null || stageList.size() == 0) {
+				
+				throw new BusinessException("分期信息不能为空");
+			}
+
+			Integer stageAmount = 0;
+			for (NOrderStage stage : stageList) {
+				
+				stageAmount += stage.getAmount();
+			}
+			
+			if(!stageAmount.equals(soOrder.getPayablePrice())){
+				
+				throw new BusinessException("【分期总金额】必须等于【应付金额】");
 			}
 		}
 	}

@@ -4,35 +4,23 @@ import java.util.List;
 
 import org.netsharp.communication.ServiceFactory;
 
-import com.gongsibao.bd.service.auditLog.AbstractAuditLogService;
-import com.gongsibao.bd.service.auditLog.AuditFactory;
-import com.gongsibao.bd.service.auditLog.AuditState;
-import com.gongsibao.bd.service.auditLog.ChangeOrderPriceAudit;
+import com.gongsibao.bd.service.auditLog.AbstractAuditService;
+import com.gongsibao.bd.service.auditLog.AuditServiceFactory;
+import com.gongsibao.bd.service.auditLog.AuditOrderService;
+import com.gongsibao.entity.trade.NOrderStage;
 import com.gongsibao.entity.trade.OrderProd;
+import com.gongsibao.trade.base.INOrderStageService;
 import com.gongsibao.trade.base.IOrderProdService;
 
 public class AuditOrderController extends AuditBaseController{
 
-    // 订单（改价）审核
-    AbstractAuditLogService auditLogService = AuditFactory.getAudit(ChangeOrderPriceAudit.class);
 
-	/**
-	 * 审核通过 注：参数未定
-	 * 
-	 * @return
-	 */
-	public Boolean approved(Integer auditLogId, String remark) {
-        return auditLogService.audit(AuditState.PASS, auditLogId, remark);
+	@Override
+	protected AbstractAuditService getAuditService() {
+
+		return AuditServiceFactory.create(AuditOrderService.class);
 	}
 
-	/**
-	 * 驳回 注：参数未定
-	 * 
-	 * @return
-	 */
-	public Boolean rejected(Integer auditLogId, String remark) {
-        return auditLogService.audit(AuditState.NOTPASS, auditLogId, remark);
-	}
 	/**
 	 * @Title: queryProductList
 	 * @Description: TODO(查询产品明细)
@@ -45,5 +33,19 @@ public class AuditOrderController extends AuditBaseController{
 
 		IOrderProdService prodService = ServiceFactory.create(IOrderProdService.class);
 		return prodService.queryByOrderId(orderId);
+	}
+	
+	/**   
+	 * @Title: queryStageList   
+	 * @Description: TODO(根据订单Id获取分期信息)   
+	 * @param: @param orderId
+	 * @param: @return      
+	 * @return: List<NOrderStage>      
+	 * @throws   
+	 */
+	public List<NOrderStage> queryStageList(Integer orderId) {
+
+		INOrderStageService stageService = ServiceFactory.create(INOrderStageService.class);
+		return stageService.getListByOrderId(orderId);
 	}
 }

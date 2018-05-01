@@ -14,14 +14,15 @@ import org.netsharp.communication.ServiceFactory;
  *
  * @author Administrator
  */
-public class InvoiceAudit extends AbstractAuditLogService {
+public class AuditInvoiceService extends AbstractAuditService {
 
     ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
 
     //发票申请审批流：提交人（级别:0,状态:审核通过）-》发票专员（级别:1,状态:待审核）
     @Override
     protected List<AuditLog> getExtenAuditLogList(Integer formId, Integer addUserId) {
-        List<AuditLog> auditLogList = new ArrayList();
+    	
+        List<AuditLog> auditLogList = new ArrayList<AuditLog>();
         //Platform_Finance_FPZY 财务_发票专员
         Integer level = getCurrentLevel();
         level++;

@@ -9,9 +9,9 @@ import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.persistence.session.SessionManager;
 
-import com.gongsibao.bd.service.auditLog.AbstractAuditLogService;
-import com.gongsibao.bd.service.auditLog.AuditFactory;
-import com.gongsibao.bd.service.auditLog.InvoiceAudit;
+import com.gongsibao.bd.service.auditLog.AbstractAuditService;
+import com.gongsibao.bd.service.auditLog.AuditServiceFactory;
+import com.gongsibao.bd.service.auditLog.AuditInvoiceService;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.Invoice;
 
@@ -23,7 +23,7 @@ public class ActionApplyInvoiceAudit  implements IAction{
 		Integer userId = SessionManager.getUserId();
 
 		//发票审核
-		AbstractAuditLogService auditLogService = AuditFactory.getAudit(InvoiceAudit.class);
+		AbstractAuditService auditLogService = AuditServiceFactory.create(AuditInvoiceService.class);
 
 		List<AuditLog> auditLogList = auditLogService.execute(invoice.getId());
 		//审核记录

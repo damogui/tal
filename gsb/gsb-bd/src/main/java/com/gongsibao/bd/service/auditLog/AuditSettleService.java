@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Administrator
  */
-public class SettleAudit extends AbstractAuditLogService {
+public class AuditSettleService extends AbstractAuditService {
 
     ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
 

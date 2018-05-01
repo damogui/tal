@@ -1,12 +1,11 @@
 package com.gongsibao.bd.base;
 
-import com.gongsibao.entity.bd.BdService;
-import com.gongsibao.entity.bd.BdServiceProduct;
+import java.util.List;
+
 import org.netsharp.base.IPersistableService;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import com.gongsibao.entity.bd.BdService;
+import com.gongsibao.entity.bd.BdServiceProduct;
 
 public interface IBdServiceService extends IPersistableService<BdService>{
     /**

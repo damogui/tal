@@ -3,30 +3,26 @@ package com.gongsibao.trade.web;
 import java.sql.Types;
 import java.util.List;
 
+import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.Oql;
+import org.netsharp.entity.IPersistable;
+import org.netsharp.panda.commerce.FormNavigation;
+import org.netsharp.panda.commerce.FormPart;
+import org.netsharp.persistence.IPersister;
+import org.netsharp.persistence.PersisterFactory;
+
+import com.gongsibao.bd.base.IAuditLogService;
 import com.gongsibao.bd.base.IFileService;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.bd.dic.AuditLogType;
-import com.gongsibao.entity.trade.dic.OrderType;
-import com.gongsibao.trade.base.IAuditService;
-import com.gongsibao.utils.NumberUtils;
-import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.EntityState;
-import org.netsharp.core.Oql;
-import org.netsharp.core.QueryParameters;
-import org.netsharp.entity.IPersistable;
-import org.netsharp.panda.commerce.FormNavigation;
-import org.netsharp.panda.commerce.FormPart;
-
 import com.gongsibao.entity.trade.Contract;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.IContractService;
 import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IOrderService;
-import org.netsharp.persistence.IPersister;
-import org.netsharp.persistence.PersisterFactory;
-import org.netsharp.util.sqlbuilder.UpdateBuilder;
+import com.gongsibao.utils.NumberUtils;
 
 public class ContractFormPart extends FormPart {
     //合同服务
@@ -36,7 +32,7 @@ public class ContractFormPart extends FormPart {
 
     IFileService fileService = ServiceFactory.create(IFileService.class);
 
-    IAuditService auditService = ServiceFactory.create(IAuditService.class);
+    IAuditLogService auditService = ServiceFactory.create(IAuditLogService.class);
 
     public IPersistable newInstance(Object par) {
 
@@ -76,7 +72,7 @@ public class ContractFormPart extends FormPart {
             List<File> filelist = fileService.getByTabNameFormId("so_contract", contract.getId());
             contract.setFiles(filelist);
 
-            List<AuditLog> contractAuditList = auditService.getByTypeIdFormId(AuditLogType.Htsq, contract.getId());
+            List<AuditLog> contractAuditList = auditService.queryByFormId(contract.getId(),AuditLogType.Htsq);
             contract.setAuditLogs(contractAuditList);
             navigation.Entity = contract;
         }

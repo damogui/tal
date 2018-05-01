@@ -10,7 +10,7 @@ import com.gongsibao.entity.bd.dic.AuditLogType;
  *
  * @author Administrator
  */
-public class StageAudit extends AbstractAuditLogService {
+public class AuditStageService extends AbstractAuditService {
 
     @Override
     protected List<AuditLog> getExtenAuditLogList(Integer formId,

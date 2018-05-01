@@ -339,10 +339,11 @@ public class OrderProdDetailController {
         }
 
         List<String> ss = new ArrayList<String>();
-        ss.add("salesman.name like '%" + keyWord + "%'");
-        ss.add("supplier.name like '%" + keyWord + "%'");
-        ss.add("department.name like '%" + keyWord + "%'");
+        ss.add("salesman.name like '%"+keyWord+"%'");
+        ss.add("supplier.name like '%"+keyWord+"%'");
+        ss.add("department.name like '%"+keyWord+"%'");
         String filter = StringManager.join(" or ", ss);
+        
         Oql oql = new Oql();
         {
             oql.setType(Salesman.class);

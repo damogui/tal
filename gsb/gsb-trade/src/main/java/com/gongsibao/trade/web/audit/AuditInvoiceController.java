@@ -1,30 +1,16 @@
 package com.gongsibao.trade.web.audit;
 
-import com.gongsibao.bd.service.auditLog.AbstractAuditLogService;
-import com.gongsibao.bd.service.auditLog.AuditFactory;
-import com.gongsibao.bd.service.auditLog.AuditState;
-import com.gongsibao.bd.service.auditLog.InvoiceAudit;
+import com.gongsibao.bd.service.auditLog.AbstractAuditService;
+import com.gongsibao.bd.service.auditLog.AuditServiceFactory;
+import com.gongsibao.bd.service.auditLog.AuditInvoiceService;
 
 public class AuditInvoiceController extends AuditBaseController{
 
-	// 发票审核
-	AbstractAuditLogService auditLogService = AuditFactory.getAudit(InvoiceAudit.class);
-	/**
-	 * 审核通过 注：参数未定
-	 * 
-	 * @return
-	 */
-	public Boolean approved(Integer auditLogId, String remark) {
-		return auditLogService.audit(AuditState.PASS, auditLogId, remark);
-	}
 
-	/**
-	 * 驳回 注：参数未定
-	 * 
-	 * @return
-	 */
-	public Boolean rejected(Integer auditLogId, String remark) {
-		return auditLogService.audit(AuditState.NOTPASS, auditLogId, remark);
+	@Override
+	protected AbstractAuditService getAuditService() {
+
+		return AuditServiceFactory.create(AuditInvoiceService.class);
 	}
 
 }

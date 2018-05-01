@@ -11,10 +11,9 @@ import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
-import com.gongsibao.bd.service.auditLog.AbstractAuditLogService;
-import com.gongsibao.bd.service.auditLog.AuditFactory;
-import com.gongsibao.bd.service.auditLog.AuditState;
-import com.gongsibao.bd.service.auditLog.RefundAudit;
+import com.gongsibao.bd.service.auditLog.AbstractAuditService;
+import com.gongsibao.bd.service.auditLog.AuditServiceFactory;
+import com.gongsibao.bd.service.auditLog.AuditRefundService;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.NDepRefund;
 import com.gongsibao.entity.trade.OrderProd;
@@ -28,15 +27,20 @@ import com.gongsibao.trade.base.IRefundService;
 
 public class AuditRefundController extends AuditBaseController {
 
-	// 退款审核
-	AbstractAuditLogService auditLogService = AuditFactory.getAudit(RefundAudit.class);
 	ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
+	
+	@Override
+	protected AbstractAuditService getAuditService() {
+
+		return AuditServiceFactory.create(AuditRefundService.class);
+	}
 	
 	/**
 	 * 判断当前登录人的角色是否是收银员专员
 	 * @return
 	 */
 	public Boolean isFinancialRole(){
+		
 		List<Integer> stkzyIds = salesmanService.getEmployeeIdListByRoleCodes(Arrays.asList("Platform_Finance_STKZY"));
         for (Integer stkzyId : stkzyIds) {
         	if(stkzyId.equals(SessionManager.getUserId())){
@@ -146,20 +150,10 @@ public class AuditRefundController extends AuditBaseController {
 			oql.setFilter("refundId=?");
 			oql.getParameters().add("refundId", id, Types.INTEGER);
 		}
-		INDepRefundService refundService = ServiceFactory
-				.create(INDepRefundService.class);
+		INDepRefundService refundService = ServiceFactory.create(INDepRefundService.class);
 
 		List<NDepRefund> refundList = refundService.queryList(oql);
 		return refundList;
 	}
 
-	@Override
-	public Boolean approved(Integer auditLogId, String remark) {
-		return auditLogService.audit(AuditState.PASS, auditLogId,remark);
-	}
-
-	@Override
-	public Boolean rejected(Integer auditLogId, String remark) {		
-		return auditLogService.audit(AuditState.NOTPASS, auditLogId, remark);
-	}
 }

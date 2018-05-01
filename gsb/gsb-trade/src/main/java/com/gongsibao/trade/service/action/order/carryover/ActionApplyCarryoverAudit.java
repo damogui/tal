@@ -7,9 +7,9 @@ import java.util.Map;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 
-import com.gongsibao.bd.service.auditLog.AbstractAuditLogService;
-import com.gongsibao.bd.service.auditLog.AuditFactory;
-import com.gongsibao.bd.service.auditLog.CarryoverAudit;
+import com.gongsibao.bd.service.auditLog.AbstractAuditService;
+import com.gongsibao.bd.service.auditLog.AuditServiceFactory;
+import com.gongsibao.bd.service.auditLog.AuditCarryoverService;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.NOrderCarryover;
 
@@ -19,7 +19,7 @@ public class ActionApplyCarryoverAudit implements IAction {
 	public void execute(ActionContext ctx) {
 		NOrderCarryover carryOver = (NOrderCarryover) ctx.getItem();
 		// 结转审核
-		AbstractAuditLogService auditLogService = AuditFactory.getAudit(CarryoverAudit.class);
+		AbstractAuditService auditLogService = AuditServiceFactory.create(AuditCarryoverService.class);
 		//后期发送通知用
 		List<AuditLog> auditLogList = auditLogService.execute(carryOver.getId());
 		// 推送消息

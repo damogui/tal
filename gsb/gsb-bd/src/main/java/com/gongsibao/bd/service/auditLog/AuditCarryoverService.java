@@ -15,7 +15,7 @@ import com.gongsibao.supplier.base.ISalesmanService;
  *
  * @author Administrator
  */
-public class CarryoverAudit extends AbstractAuditLogService {
+public class AuditCarryoverService extends AbstractAuditService {
     ISalesmanService salesmanService = ServiceFactory.create (ISalesmanService.class);
 
     @Override

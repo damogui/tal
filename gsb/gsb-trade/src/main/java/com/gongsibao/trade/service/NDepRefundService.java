@@ -1,14 +1,14 @@
 package com.gongsibao.trade.service;
 
+import java.sql.Types;
+import java.util.List;
+
 import org.netsharp.communication.Service;
 import org.netsharp.core.Oql;
 import org.netsharp.service.PersistableService;
 
 import com.gongsibao.entity.trade.NDepRefund;
 import com.gongsibao.trade.base.INDepRefundService;
-
-import java.sql.Types;
-import java.util.List;
 
 /**
  * Created by win on 2018/2/27.

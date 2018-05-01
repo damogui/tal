@@ -1,36 +1,35 @@
 package com.gongsibao.trade.web.settle;
 
-import com.gongsibao.entity.bd.AuditLog;
-import com.gongsibao.entity.bd.dic.AuditLogType;
-import com.gongsibao.entity.trade.dic.AuditStatusType;
-import com.gongsibao.entity.trade.settle.Settle;
-import com.gongsibao.trade.base.IAuditService;
-import com.gongsibao.trade.base.settle.ISettleService;
+import java.util.List;
+
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.panda.commerce.FormPart;
 
-import java.util.List;
+import com.gongsibao.bd.base.IAuditLogService;
+import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.bd.dic.AuditLogType;
+import com.gongsibao.entity.trade.settle.Settle;
+import com.gongsibao.trade.base.settle.ISettleService;
 
 public class SettleFormPart extends FormPart {
-    ISettleService settleService = ServiceFactory.create(ISettleService.class);
+	ISettleService settleService = ServiceFactory.create(ISettleService.class);
 
-    IAuditService auditService = ServiceFactory.create(IAuditService.class);
+	IAuditLogService auditService = ServiceFactory.create(IAuditLogService.class);
 
-    public Settle settleDetail(Integer id) {
-        if (null == id || id == 0) {
-            return null;
-        }
+	public Settle settleDetail(Integer id) {
+		if (null == id || id == 0) {
+			return null;
+		}
 
-        return settleService.byId(id);
-    }
+		return settleService.byId(id);
+	}
 
-    public List<AuditLog> getLogs(Integer id) {
-        if (null == id || id == 0) {
-            return null;
-        }
+	public List<AuditLog> getLogs(Integer id) {
+		if (null == id || id == 0) {
+			return null;
+		}
 
-        return auditService.getByTypeIdFormId(AuditLogType.Jssh, id);
-    }
-
+		return auditService.queryByFormId(id, AuditLogType.Jssh);
+	}
 
 }

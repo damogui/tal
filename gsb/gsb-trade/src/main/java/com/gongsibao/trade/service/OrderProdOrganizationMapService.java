@@ -1,11 +1,10 @@
 package com.gongsibao.trade.service;
 
-import com.gongsibao.entity.crm.CompanyIntention;
-import com.gongsibao.entity.trade.OrderProd;
-import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.trade.base.IOrderProdUserMapService;
-import com.gongsibao.trade.base.IOrderService;
-import com.gongsibao.utils.NumberUtils;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.Service;
@@ -17,14 +16,13 @@ import org.netsharp.service.PersistableService;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
+import com.gongsibao.entity.crm.CompanyIntention;
+import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.OrderProdOrganizationMap;
 import com.gongsibao.trade.base.IOrderProdOrganizationMapService;
-
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.gongsibao.trade.base.IOrderProdUserMapService;
+import com.gongsibao.trade.base.IOrderService;
+import com.gongsibao.utils.NumberUtils;
 
 @Service
 public class OrderProdOrganizationMapService extends PersistableService<OrderProdOrganizationMap> implements IOrderProdOrganizationMapService {

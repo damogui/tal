@@ -1,26 +1,26 @@
 package com.gongsibao.trade.service.action.audit.settle;
 
-import com.gongsibao.bd.service.auditLog.AuditContext;
-import com.gongsibao.bd.service.auditLog.AuditState;
-import com.gongsibao.entity.bd.AuditLog;
-import com.gongsibao.entity.bd.dic.AuditLogStatusType;
-import com.gongsibao.entity.bd.dic.AuditLogType;
-import com.gongsibao.entity.trade.Refund;
-import com.gongsibao.entity.trade.settle.Settle;
-import com.gongsibao.trade.base.IAuditService;
-import com.gongsibao.trade.base.settle.ISettleService;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
 import org.netsharp.util.StringManager;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.gongsibao.bd.base.IAuditLogService;
+import com.gongsibao.bd.service.auditLog.AuditContext;
+import com.gongsibao.bd.service.auditLog.AuditState;
+import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.bd.dic.AuditLogStatusType;
+import com.gongsibao.entity.bd.dic.AuditLogType;
+import com.gongsibao.entity.trade.settle.Settle;
+import com.gongsibao.trade.base.settle.ISettleService;
 
 public class ActionAuditSettleVerify implements IAction{
 
-	IAuditService auditService = ServiceFactory.create(IAuditService.class);
+	IAuditLogService auditService = ServiceFactory.create(IAuditLogService.class);
     ISettleService settleService = ServiceFactory.create(ISettleService.class);
     
 	@Override

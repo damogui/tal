@@ -47,7 +47,10 @@
 						    </div>
 						    <div title="改价记录">   
 						         <table id="order_change_price_grid"></table>
-						    </div>  
+						    </div>
+						    <div title="分期信息">   
+						         <table id="order_stage_grid"></table>
+						    </div>   
 						    <%--<div title="优惠明细">   --%>
 						         <%--<table id="order_discount_grid"></table>--%>
 						    <%--</div>--%>

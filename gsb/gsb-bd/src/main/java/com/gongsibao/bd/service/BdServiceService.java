@@ -1,18 +1,19 @@
 package com.gongsibao.bd.service;
 
-import com.gongsibao.bd.base.IBdServiceProductService;
-import com.gongsibao.bd.base.IBdServiceService;
-import com.gongsibao.entity.bd.BdService;
-import com.gongsibao.entity.bd.BdServiceProduct;
-import com.gongsibao.entity.cms.Product;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.service.PersistableService;
 
-import java.sql.Types;
-import java.util.*;
+import com.gongsibao.bd.base.IBdServiceProductService;
+import com.gongsibao.bd.base.IBdServiceService;
+import com.gongsibao.entity.bd.BdService;
+import com.gongsibao.entity.bd.BdServiceProduct;
 @Service
 public class BdServiceService extends PersistableService<BdService> implements IBdServiceService {
 

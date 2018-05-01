@@ -1,5 +1,15 @@
 package com.gongsibao.trade.service.action.audit.invoice;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.netsharp.action.ActionContext;
+import org.netsharp.action.IAction;
+import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.BusinessException;
+import org.netsharp.util.StringManager;
+
+import com.gongsibao.bd.base.IAuditLogService;
 import com.gongsibao.bd.service.auditLog.AuditContext;
 import com.gongsibao.bd.service.auditLog.AuditState;
 import com.gongsibao.entity.bd.AuditLog;
@@ -7,20 +17,11 @@ import com.gongsibao.entity.bd.dic.AuditLogStatusType;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.Invoice;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
-import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.trade.base.IInvoiceService;
-import org.netsharp.action.ActionContext;
-import org.netsharp.action.IAction;
-import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.BusinessException;
-import org.netsharp.util.StringManager;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class ActionAuditInvoiceVerify implements IAction {
 
-    IAuditService auditService = ServiceFactory.create(IAuditService.class);
+	IAuditLogService auditService = ServiceFactory.create(IAuditLogService.class);
 
     IInvoiceService invoiceService = ServiceFactory.create(IInvoiceService.class);
 
@@ -59,7 +60,7 @@ public class ActionAuditInvoiceVerify implements IAction {
             throw new BusinessException("该发票不是【" + AuditStatusType.Dsh.getText() + "】,禁止审核");
         }
 
-        Map<String, Object> statusMap = new HashMap();
+        Map<String, Object> statusMap = new HashMap<String, Object>();
         statusMap.put("auditLog", auditLog);
         statusMap.put("invoice", invoice);
         ctx.setStatus(statusMap);

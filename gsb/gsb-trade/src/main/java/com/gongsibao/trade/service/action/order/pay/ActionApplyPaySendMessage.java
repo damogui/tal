@@ -1,18 +1,18 @@
 package com.gongsibao.trade.service.action.order.pay;
 
-import com.gongsibao.entity.bd.AuditLog;
-import com.gongsibao.entity.trade.Pay;
-import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.trade.service.action.order.utils.UserHelper;
-import com.gongsibao.utils.sms.SmsHelper;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.util.StringManager;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.trade.Pay;
+import com.gongsibao.trade.service.action.order.utils.UserHelper;
+import com.gongsibao.utils.sms.SmsHelper;
 
 /*创建回款通知*/
 public class ActionApplyPaySendMessage  implements IAction{
@@ -29,8 +29,8 @@ public class ActionApplyPaySendMessage  implements IAction{
 			return;
 		}
 		List<String> tels=new ArrayList<>();
-		for (AuditLog  item:audits
-				) {
+		for (AuditLog  item:audits) {
+			
 			if (item.getLevel()==1){
 
 				tels.add(UserHelper.getEmployeTelById(item.getCreatorId()));
@@ -55,7 +55,5 @@ public class ActionApplyPaySendMessage  implements IAction{
 			}
 
 		}
-
 	}
-
 }

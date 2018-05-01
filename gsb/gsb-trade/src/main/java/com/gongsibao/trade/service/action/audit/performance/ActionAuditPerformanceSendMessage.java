@@ -1,26 +1,21 @@
 package com.gongsibao.trade.service.action.audit.performance;
 
-import com.gongsibao.bd.service.auditLog.*;
-import com.gongsibao.entity.acount.Account;
+import java.util.List;
+import java.util.Map;
+
+import org.netsharp.action.ActionContext;
+import org.netsharp.action.IAction;
+import org.netsharp.communication.ServiceFactory;
+
+import com.gongsibao.bd.service.auditLog.AuditContext;
+import com.gongsibao.bd.service.auditLog.AuditState;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.NDepReceivable;
 import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.entity.trade.dic.AuditStatusType;
-import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.trade.base.INDepReceivableService;
 import com.gongsibao.trade.service.action.order.utils.AuditHelper;
 import com.gongsibao.trade.service.action.order.utils.UserHelper;
 import com.gongsibao.utils.sms.SmsHelper;
-import org.netsharp.action.ActionContext;
-import org.netsharp.action.IAction;
-import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.Oql;
-import org.netsharp.persistence.session.SessionManager;
-import org.netsharp.util.StringManager;
-
-import java.sql.Types;
-import java.util.List;
-import java.util.Map;
 
 /*订单业绩发送消息*/
 public class ActionAuditPerformanceSendMessage implements IAction {

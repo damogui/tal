@@ -1,14 +1,12 @@
 package com.gongsibao.bd.base;
 
-import net.sf.json.util.JSONStringer;
-import org.netsharp.base.IPersistableService;
-
-import com.gongsibao.entity.bd.PreferentialCode;
-import org.netsharp.core.annotations.Transaction;
-
-import java.beans.Transient;
 import java.util.Collection;
 import java.util.List;
+
+import org.netsharp.base.IPersistableService;
+import org.netsharp.core.annotations.Transaction;
+
+import com.gongsibao.entity.bd.PreferentialCode;
 
 public interface IPreferentialCodeService extends IPersistableService<PreferentialCode> {
 

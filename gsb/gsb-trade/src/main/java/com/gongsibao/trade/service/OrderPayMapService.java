@@ -3,12 +3,8 @@ package com.gongsibao.trade.service;
 import java.sql.Types;
 import java.util.List;
 
-import com.gongsibao.entity.trade.dic.AuditStatusType;
-import com.gongsibao.trade.base.IOrderService;
 import org.netsharp.communication.Service;
-import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
-import org.netsharp.core.QueryParameters;
 import org.netsharp.service.PersistableService;
 
 import com.gongsibao.entity.trade.OrderPayMap;

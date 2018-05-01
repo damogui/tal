@@ -1,8 +1,8 @@
 package com.gongsibao.trade.service.settle;
 
-import com.gongsibao.bd.service.auditLog.AbstractAuditLogService;
-import com.gongsibao.bd.service.auditLog.AuditFactory;
-import com.gongsibao.bd.service.auditLog.SettleAudit;
+import com.gongsibao.bd.service.auditLog.AbstractAuditService;
+import com.gongsibao.bd.service.auditLog.AuditServiceFactory;
+import com.gongsibao.bd.service.auditLog.AuditSettleService;
 import com.gongsibao.entity.Result;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.settle.Settle;
@@ -198,7 +198,7 @@ public class SettleService extends PersistableService<Settle> implements ISettle
 
     //合同申请审批流：提交人（级别:0,状态:审核通过）-》部门领导（级别:1,状态:待审核）->服务商管理员(级别:2,状态:等待)->合同采购专员(级别:3,状态:等待)->法务专员(级别:4,状态:等待)
     protected List<AuditLog> getExtenAuditLogList(Integer formId, Integer addUserId) {
-        AbstractAuditLogService auditLogService = AuditFactory.getAudit(SettleAudit.class);
+        AbstractAuditService auditLogService = AuditServiceFactory.create(AuditSettleService.class);
         return auditLogService.execute(formId, addUserId);
     }
 }

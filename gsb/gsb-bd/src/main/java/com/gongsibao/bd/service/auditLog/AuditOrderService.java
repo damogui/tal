@@ -11,7 +11,7 @@ import com.gongsibao.entity.bd.dic.AuditLogType;
  * @author Administrator
  *
  */
-public class ChangeOrderPriceAudit extends AbstractAuditLogService{
+public class AuditOrderService extends AbstractAuditService{
 	
 	@Override
 	protected List<AuditLog> getExtenAuditLogList(Integer formId,
@@ -28,6 +28,7 @@ public class ChangeOrderPriceAudit extends AbstractAuditLogService{
 
 	@Override
 	protected String setActionPath() {
+		
 		return "gsb/crm/audit/changeOrderPrice";
 	}
 

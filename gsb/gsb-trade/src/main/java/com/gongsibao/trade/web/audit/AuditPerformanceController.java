@@ -1,57 +1,27 @@
 package com.gongsibao.trade.web.audit;
 
-import com.gongsibao.bd.service.auditLog.AbstractAuditLogService;
-import com.gongsibao.bd.service.auditLog.AuditFactory;
-import com.gongsibao.bd.service.auditLog.AuditState;
-import com.gongsibao.bd.service.auditLog.OrderPerformanceAudit;
-import com.gongsibao.entity.bd.AuditLog;
-import com.gongsibao.entity.bd.dic.AuditLogType;
-import com.gongsibao.entity.trade.NDepReceivable;
-import com.gongsibao.trade.base.INDepReceivableService;
-import com.gongsibao.trade.web.dto.AuditLogDTO;
-import com.gongsibao.trade.web.dto.NDepReceivableDTO;
-import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.Oql;
-
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.Oql;
+
+import com.gongsibao.bd.service.auditLog.AbstractAuditService;
+import com.gongsibao.bd.service.auditLog.AuditServiceFactory;
+import com.gongsibao.bd.service.auditLog.AuditOrderPerformanceService;
+import com.gongsibao.entity.trade.NDepReceivable;
+import com.gongsibao.trade.base.INDepReceivableService;
+import com.gongsibao.trade.web.dto.NDepReceivableDTO;
+
 public class AuditPerformanceController extends AuditBaseController {
 
-    // 订单业绩审核
-    AbstractAuditLogService auditLogService = AuditFactory.getAudit (OrderPerformanceAudit.class);
+	@Override
+	protected AbstractAuditService getAuditService() {
 
-    /**
-     * 审核通过 注：参数未定
-     *
-     * @return
-     */
-    public Boolean approved(Integer auditLogId, String remark) {
-        boolean auditResult = auditLogService.audit (AuditState.PASS, auditLogId, remark);
-
-        if (auditResult) {
-
-//回写数据
-        } else {
-
-            //
-        }
-
-        return  auditResult;
-
-
-    }
-
-    /**
-     * 驳回 注：参数未定
-     *
-     * @return
-     */
-    public Boolean rejected(Integer auditLogId, String remark) {
-    	
-        return auditLogService.audit (AuditState.NOTPASS, auditLogId, remark);
-    }
+		return AuditServiceFactory.create(AuditOrderPerformanceService.class);
+	}
+	
 
     /*获取订单业绩划分展示根据订单id*/
     public List<NDepReceivableDTO> getOrderCutPerformance(Integer orderId) {

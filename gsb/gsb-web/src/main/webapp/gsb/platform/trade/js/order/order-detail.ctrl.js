@@ -16,6 +16,7 @@ com.gongsibao.trade.web.BaseCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
         this.initBtn();//初始化按钮
     },
     initBtn:function () {
+    	
         $("body").off("click", ".show");
         $("body").on("click", ".show", function () {
 
@@ -25,9 +26,7 @@ com.gongsibao.trade.web.BaseCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
             var idFraeam = $(this).attr("data-iframe");
             var urlEnd = url + "?id=" + orderId;
             showDetail(idFraeam, title, urlEnd);
-
         });
-
     }
 });
 
@@ -42,6 +41,7 @@ com.gongsibao.trade.web.OrderFormCtrl = com.gongsibao.trade.web.BaseCtrl.Extends
         this.initializeDetailList = new System.Dictionary();
     },
     init: function () {
+    	
         //1.添加‘合同信息’页签显示
         var orderId = this.queryString('id');
         this.invokeService("queryContractFirst", [orderId], function (data) {
@@ -50,6 +50,7 @@ com.gongsibao.trade.web.OrderFormCtrl = com.gongsibao.trade.web.BaseCtrl.Extends
                 addTab("合同信息", content);
             }
         });
+        
         //2.添加‘商机信息’页签显示
         var taskId = 0;
         var customerId = 0;
@@ -61,6 +62,7 @@ com.gongsibao.trade.web.OrderFormCtrl = com.gongsibao.trade.web.BaseCtrl.Extends
                 addTab("商机信息", content);
             }
         });
+        
         var me = this;
         //tab页签
         $('#tabs').tabs({
@@ -82,6 +84,7 @@ com.gongsibao.trade.web.OrderFormCtrl = com.gongsibao.trade.web.BaseCtrl.Extends
                 }
             }
         });
+        
         //详情页签
         $('#detail_tabs').tabs({
             tabHeight: 30,
@@ -122,7 +125,12 @@ com.gongsibao.trade.web.OrderFormCtrl = com.gongsibao.trade.web.BaseCtrl.Extends
                     changePriceDetailCtrl.init();
                     me.initializeDetailList.add(title, changePriceDetailCtrl);
 
-                } else if (title == '优惠明细') {
+                } else if (title == '分期信息') {
+                    var stageDetailCtrl = new com.gongsibao.trade.web.OrderStageDetailCtrl();
+                    stageDetailCtrl.init();
+                    me.initializeDetailList.add(title, stageDetailCtrl);
+
+                }else if (title == '优惠明细') {
                     var discountDetailCtrl = new com.gongsibao.trade.web.OrderDiscountDetailCtrl();
                     discountDetailCtrl.init();
                     me.initializeDetailList.add(title, discountDetailCtrl);
@@ -823,6 +831,63 @@ com.gongsibao.trade.web.OrderChangePriceDetailCtrl = com.gongsibao.trade.web.Bas
         });
     }
 });
+
+/*
+ * 分期明细
+ */
+com.gongsibao.trade.web.OrderStageDetailCtrl = com.gongsibao.trade.web.BaseCtrl.Extends({
+    ctor: function () {
+
+        this.base();
+    },
+    init: function () {
+
+        var me = this;
+        var orderId = this.queryString('id');
+        this.invokeService("queryStageList", [orderId], function (data) {
+
+            me.initGrid(data, orderId);
+        });
+    },
+    initGrid: function (data, orderId) {
+
+        var me = this;
+        $('#order_stage_grid').datagrid({
+            idField: 'id',
+            emptyMsg: '暂无记录',
+            striped: true,
+            pagination: false,
+            showFooter: true,
+            singleSelect: true,
+            height: '100%',
+            data: data,
+            columns: [[
+
+                {
+                    field: 'instalmentIndex',
+                    title: '分期期数',
+                    width: 100,
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        return '第'+value+'期';
+                    }
+                },
+                {
+                    field: 'amount',
+                    title: '分期金额',
+                    width: 100,
+                    align: 'right',
+                    formatter: function (value, row, index) {
+                        return System.RMB.fenToYuan(value);
+                    }
+                },
+                {field: 'creator', title: '创建人', width: 100, align: 'center'},
+                {field: 'createTime', title: '创建时间', width: 130, align: 'center'}
+            ]]
+        });
+    }
+});
+
 
 
 /*

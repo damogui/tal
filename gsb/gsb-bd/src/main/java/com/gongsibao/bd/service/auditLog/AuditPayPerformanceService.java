@@ -10,7 +10,7 @@ import com.gongsibao.supplier.base.ISalesmanService;
 import org.netsharp.communication.ServiceFactory;
 
 /*回款业绩*/
-public class PayPerformanceAudit extends AbstractAuditLogService {
+public class AuditPayPerformanceService extends AbstractAuditService {
 
     @Override
     protected List<AuditLog> getExtenAuditLogList(Integer formId, Integer addUserId) {

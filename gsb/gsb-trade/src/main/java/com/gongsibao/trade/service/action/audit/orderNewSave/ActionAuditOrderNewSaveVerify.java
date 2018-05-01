@@ -9,17 +9,18 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
 import org.netsharp.util.StringManager;
 
+import com.gongsibao.bd.base.IAuditLogService;
 import com.gongsibao.bd.service.auditLog.AuditContext;
 import com.gongsibao.bd.service.auditLog.AuditState;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogStatusType;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.u8.base.ISoOrderService;
 
 public class ActionAuditOrderNewSaveVerify implements IAction{
-	IAuditService auditService = ServiceFactory.create(IAuditService.class);
+	
+	IAuditLogService auditService = ServiceFactory.create(IAuditLogService.class);
 	ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
 	@Override
 	public void execute(ActionContext ctx) {
@@ -40,12 +41,13 @@ public class ActionAuditOrderNewSaveVerify implements IAction{
             throw new BusinessException("该审核状态不是【" + AuditLogStatusType.TOAUDIT.getText() + "】,禁止审核");
         }
 
-        if (auditLog.getType().equals(AuditLogType.Fqsq.getText())) {
+        if (auditLog.getType().equals(AuditLogType.Fqsq)) {
             throw new BusinessException("该审核类别不是【" + AuditLogType.Ddgj.getText() + "】,禁止审核");
         }
 
         SoOrder order = orderService.getByOrderId(auditLog.getFormId());
         if (order == null) {
+        	
             throw new BusinessException("该订单信息不存在");
         }
         Map<String, Object> statusMap = new HashMap<String, Object>();

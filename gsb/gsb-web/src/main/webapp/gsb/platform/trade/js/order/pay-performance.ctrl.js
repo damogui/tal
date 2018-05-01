@@ -49,16 +49,9 @@ com.gongsibao.trade.web.PayPerformanceCtrl = org.netsharp.panda.core.CustomCtrl.
     	
     	$('#platformSource').text(this.platformSourceTypeEnum[soOrder.platformSource]);
     	$('#payStatus').text(this.payStatusTypeEnum[soOrder.payStatus]);
-    	var installmentMode = soOrder.installmentMode;
-    	if(installmentMode){
-    		
-    		var ss = installmentMode.split('|');
-    		var count = ss.length;
-        	$('#installmentCount').text(count+'期');
-    	}else{
-    		
-    		$('#installmentCount').text('-');
-    	}
+    	
+        var stageNumText = soOrder.stageNum == 1?'不分期':soOrder.stageNum + '期';
+        $('#stageNum').text(stageNumText);
     	
     	$('#channelOrderNo').text(soOrder.channelOrderNo||'');
     	

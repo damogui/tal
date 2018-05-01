@@ -2,31 +2,22 @@ package com.gongsibao.trade.web.audit;
 
 import java.sql.Types;
 
-import com.gongsibao.bd.service.auditLog.*;
+import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 
+import com.gongsibao.bd.service.auditLog.AbstractAuditService;
+import com.gongsibao.bd.service.auditLog.AuditServiceFactory;
+import com.gongsibao.bd.service.auditLog.AuditCarryoverService;
 import com.gongsibao.entity.trade.NOrderCarryover;
+import com.gongsibao.trade.base.INOrderCarryoverService;
 
 public class AuditCarryoverController extends AuditBaseController {
+	
 
-	// 结转审核
-	AbstractAuditLogService auditLogService = AuditFactory.getAudit(CarryoverAudit.class);
-	/**
-	 * 审核通过 注：参数未定
-	 * 
-	 * @return
-	 */
-	public Boolean approved(Integer auditLogId, String remark) {
-		return auditLogService.audit(AuditState.PASS, auditLogId, remark);
-	}
+	@Override
+	protected AbstractAuditService getAuditService() {
 
-	/**
-	 * 驳回 注：参数未定
-	 * 
-	 * @return
-	 */
-	public Boolean rejected(Integer auditLogId, String remark) {
-		return auditLogService.audit(AuditState.NOTPASS, auditLogId, remark);
+		return AuditServiceFactory.create(AuditCarryoverService.class);
 	}
 	
 	/**
@@ -38,6 +29,7 @@ public class AuditCarryoverController extends AuditBaseController {
 	 * @throws
 	 */
 	public NOrderCarryover getNOrderCarryover(Integer id) {
+		
 		Oql oql = new Oql();
 		{
 			oql.setType(NOrderCarryover.class);
@@ -45,6 +37,8 @@ public class AuditCarryoverController extends AuditBaseController {
 			oql.setFilter("id=?");
 			oql.getParameters().add("id", id, Types.INTEGER);
 		}
+
+		INOrderCarryoverService carryoverService = ServiceFactory.create(INOrderCarryoverService.class);
 		NOrderCarryover entity = carryoverService.queryFirst(oql);
 		return entity;
 	}

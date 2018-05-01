@@ -27,13 +27,15 @@ import com.gongsibao.utils.SalesmanOrganization;
 import com.gongsibao.utils.SupplierSessionManager;
 
 
-public abstract class AbstractAuditLogService<T> {
+public abstract class AbstractAuditService {
+	
     IOrganizationService organizationService = ServiceFactory.create(IOrganizationService.class);
     IAuditLogService logService = ServiceFactory.create(IAuditLogService.class);
     ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
     ISupplierCategoryOwnerMapService supplierCateService = ServiceFactory.create(ISupplierCategoryOwnerMapService.class);
     ISupplierService supplierService = ServiceFactory.create(ISupplierService.class);
     IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
+    
     private Integer currentLevel;
 
     /**
@@ -55,6 +57,7 @@ public abstract class AbstractAuditLogService<T> {
      * @return
      */
     public List<AuditLog> execute(Integer formId) {
+    	
         Integer addUserId = SessionManager.getUserId();
         List<AuditLog> allList = auditLogAllList(formId, addUserId);
         return allList;
@@ -66,14 +69,12 @@ public abstract class AbstractAuditLogService<T> {
     public boolean audit(AuditState state, Integer auditLogId, String remark) {
 
         String actionPath = setActionPath();
-
         AuditContext auditContext = new AuditContext();
         {
             // 这里根据传入的参数构造;
             auditContext.setState(state);
             auditContext.setAuditLogId(auditLogId);
             auditContext.setremark(remark);
-
         }
         ActionContext ctx = new ActionContext();
         {
@@ -88,7 +89,7 @@ public abstract class AbstractAuditLogService<T> {
     /*
      * 审核(扩展参数)
      * */
-    public boolean audit(AuditState state, Integer auditLogId, String remark, T obj) {
+    public boolean audit(AuditState state, Integer auditLogId, String remark, Object obj) {
 
         String actionPath = setActionPath();
 

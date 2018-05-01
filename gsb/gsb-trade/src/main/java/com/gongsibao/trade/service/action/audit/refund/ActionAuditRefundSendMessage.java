@@ -1,23 +1,22 @@
 package com.gongsibao.trade.service.action.audit.refund;
 
-import com.gongsibao.bd.service.auditLog.AuditContext;
-import com.gongsibao.bd.service.auditLog.AuditState;
-import com.gongsibao.entity.bd.AuditLog;
-import com.gongsibao.entity.trade.NDepReceivable;
-import com.gongsibao.entity.trade.NDepRefund;
-import com.gongsibao.entity.trade.Refund;
-import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.trade.base.INDepReceivableService;
-import com.gongsibao.trade.base.INDepRefundService;
-import com.gongsibao.trade.service.action.order.utils.AuditHelper;
-import com.gongsibao.trade.service.action.order.utils.UserHelper;
-import com.gongsibao.utils.sms.SmsHelper;
+import java.util.List;
+import java.util.Map;
+
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
 
-import java.util.List;
-import java.util.Map;
+import com.gongsibao.bd.service.auditLog.AuditContext;
+import com.gongsibao.bd.service.auditLog.AuditState;
+import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.trade.NDepRefund;
+import com.gongsibao.entity.trade.Refund;
+import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.trade.base.INDepRefundService;
+import com.gongsibao.trade.service.action.order.utils.AuditHelper;
+import com.gongsibao.trade.service.action.order.utils.UserHelper;
+import com.gongsibao.utils.sms.SmsHelper;
 
 /*退款消息*/
 public class ActionAuditRefundSendMessage implements IAction {
@@ -29,8 +28,10 @@ public class ActionAuditRefundSendMessage implements IAction {
         AuditLog auditLog = (AuditLog) objectMap.get("auditLog");
         Refund refund = (Refund) objectMap.get("refund");
 
-        Integer orderId = (Integer) objectMap.get("orderId");
-        SoOrder soOrder = AuditHelper.getOrderById(orderId);
+        //此处没有用，查询浪费
+//        Integer orderId = (Integer) objectMap.get("orderId");
+//        SoOrder soOrder = AuditHelper.getOrderById(orderId);
+        
         //本次审核通过或驳回
         AuditState state = auditContext.getState();
         //审核

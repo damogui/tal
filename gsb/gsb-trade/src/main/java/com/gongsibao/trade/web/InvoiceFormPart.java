@@ -5,25 +5,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.gongsibao.bd.base.IFileService;
-import com.gongsibao.entity.bd.AuditLog;
-import com.gongsibao.entity.bd.File;
-import com.gongsibao.entity.bd.dic.AuditLogType;
-import com.gongsibao.entity.trade.OrderInvoiceMap;
-import com.gongsibao.entity.trade.dic.AuditStatusType;
-import com.gongsibao.trade.base.IAuditService;
-import com.gongsibao.trade.base.IOrderInvoiceMapService;
-import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.FormNavigation;
 import org.netsharp.panda.commerce.FormPart;
 
+import com.gongsibao.bd.base.IAuditLogService;
+import com.gongsibao.bd.base.IFileService;
+import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.bd.File;
+import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.Invoice;
+import com.gongsibao.entity.trade.OrderInvoiceMap;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.IInvoiceService;
+import com.gongsibao.trade.base.IOrderInvoiceMapService;
 import com.gongsibao.u8.base.ISoOrderService;
+import com.gongsibao.utils.NumberUtils;
 
 public class InvoiceFormPart extends FormPart {
 
@@ -33,7 +33,7 @@ public class InvoiceFormPart extends FormPart {
 
     IFileService fileService = ServiceFactory.create(IFileService.class);
 
-    IAuditService auditService = ServiceFactory.create(IAuditService.class);
+    IAuditLogService auditService = ServiceFactory.create(IAuditLogService.class);
 
     ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
 
@@ -79,7 +79,7 @@ public class InvoiceFormPart extends FormPart {
             List<File> filelist = fileService.getByTabNameFormId("so_invoice", invoice.getId());
             invoice.setFiles(filelist);
 
-            List<AuditLog> contractAuditList = auditService.getByTypeIdFormId(AuditLogType.Fbsq, invoice.getId());
+            List<AuditLog> contractAuditList = auditService.queryByFormId(invoice.getId(),AuditLogType.Fbsq);
             invoice.setAuditLogs(contractAuditList);
             navigation.Entity = invoice;
         }
