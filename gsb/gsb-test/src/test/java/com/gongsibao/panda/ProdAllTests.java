@@ -38,7 +38,7 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
     //所有Action入口
     ActionAllTest.class,
     
-	//放在最后处理
+	//放在最后处理 
 	AuthAllTest.class
 	})
 public class ProdAllTests {
