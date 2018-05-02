@@ -36,7 +36,7 @@ public class BaseController {
 
     protected Account accountByOpenId(String openId){
         Assert.hasText(openId,"尚未登录!");
-        Account account = $accountService.login(openId);
+        Account account = $accountService.queryByOpenId(openId);
         Assert.notNull(account,"账号尚未绑定!");
         return account;
     }

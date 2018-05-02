@@ -6,17 +6,18 @@ package com.netsharp.rest.controller.exception;
  * @date 2018/4/16 15:51
  */
 @SuppressWarnings("serial")
-public class BaseException extends RuntimeException{
+public class WxException extends RuntimeException{
     private int code = 200;
     private String msg = "";
-    public BaseException(){
+    public WxException(){
         super();
     }
 
-    public BaseException(String message){
-        super(message);
+    public WxException(String message){
+        this.code = -1;
+        this.msg = message;
     }
-    public BaseException(int code,String msg){
+    public WxException(int code, String msg){
         this.code = code;
         this.msg = msg;
     }

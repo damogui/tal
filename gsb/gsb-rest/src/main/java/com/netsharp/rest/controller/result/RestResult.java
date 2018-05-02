@@ -5,7 +5,7 @@ package com.netsharp.rest.controller.result;
  * @author hbpeng <hbpeng@gongsibao.com>
  * @date 2018/4/11 15:25
  */
-public class ResponseData {
+public class RestResult {
 
     public static int SUCCESS = 200;
     public static int FAIL = -1;
@@ -30,8 +30,8 @@ public class ResponseData {
     private String msg = "";
     private Object data;
 
-    public static ResponseData getSuccess(Object data, String msg) {
-        ResponseData result = new ResponseData();
+    public static RestResult getSuccess(Object data, String msg) {
+        RestResult result = new RestResult();
         result.setData(data);
         result.setMsg(msg);
         result.setCode(SUCCESS);
@@ -39,27 +39,27 @@ public class ResponseData {
     }
 
 
-    public static ResponseData getError(int code) {
+    public static RestResult getError(int code) {
         return getError(code, null);
     }
 
-    public static ResponseData getError(int code, String msg) {
-        ResponseData result = new ResponseData();
+    public static RestResult getError(int code, String msg) {
+        RestResult result = new RestResult();
         result.setCode(code);
         result.setMsg(msg);
         return result;
     }
 
-    public static ResponseData getError(Object data, int code, String msg) {
-        ResponseData result = new ResponseData();
+    public static RestResult getError(Object data, int code, String msg) {
+        RestResult result = new RestResult();
         result.setCode(code);
         result.setMsg(msg);
         result.setData(data);
         return result;
     }
 
-    public static ResponseData getException() {
-        ResponseData result = new ResponseData();
+    public static RestResult getException() {
+        RestResult result = new RestResult();
         result.setCode(EXCEPTION);
         result.setMsg("您的网络不稳定，请稍后再试。");
         return result;

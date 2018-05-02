@@ -1,6 +1,6 @@
 package com.netsharp.rest.controller.exception;
 
-import com.netsharp.rest.controller.result.ResponseData;
+import com.netsharp.rest.controller.result.RestResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -22,8 +22,8 @@ public class ExceptionController {
      */
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
-    public ResponseData errorHandler(Exception ex) {
-        return ResponseData.getError(ResponseData.EXCEPTION,ex.getMessage());
+    public RestResult errorHandler(Exception ex) {
+        return RestResult.getError(RestResult.EXCEPTION,ex.getMessage());
     }
 
     /**
@@ -34,9 +34,9 @@ public class ExceptionController {
      * @date 2018/5/2 15:20
      */
     @ResponseBody
-    @ExceptionHandler(value = BaseException.class)
-    public ResponseData myErrorHandler(BaseException ex) {
-        return ResponseData.getError(ex.getCode(),ex.getMsg());
+    @ExceptionHandler(value = WxException.class)
+    public RestResult myErrorHandler(WxException ex) {
+        return RestResult.getError(ex.getCode(),ex.getMsg());
     }
 
 }

@@ -3,6 +3,7 @@ package com.gongsibao.rest.controller.v1.user;
 import com.gongsibao.account.base.IAccountWeiXinService;
 import com.gongsibao.rest.controller.BaseController;
 import com.netsharp.rest.controller.annotation.Api;
+
 import static com.netsharp.rest.utils.Assert.*;
 
 import com.netsharp.rest.controller.result.Result;
@@ -38,25 +39,21 @@ public class UserPreferentialController extends BaseController {
      * @return Result<PreferentialUsageDTO>
      */
     @RequestMapping(value = "/usage", method = RequestMethod.GET)
-    public Result<PreferentialUsageDTO> usage(HttpServletRequest request) {
-        return Result.build(() -> {
-            return userPreferentialService.usage(accountIdByOpenId(request));
-        });
+    public PreferentialUsageDTO usage(HttpServletRequest request) {
+        return userPreferentialService.usage(accountIdByOpenId(request));
     }
 
     /**
      * 我的优惠券列表
      *
      * @param request HttpServletRequest
-     * @param status 优惠券状态
+     * @param status  优惠券状态
      * @return Result<PreferentialCodeDTO>
      */
     @RequestMapping(value = "/myList", method = RequestMethod.GET)
-    public Result<List<PreferentialCodeDTO>> myList(HttpServletRequest request,
-                                                    @RequestParam(value = "status") Integer status) {
-        return Result.build(() -> {
-            return userPreferentialService.pageActiveByCondition(accountIdByOpenId(request),status);
-        });
+    public List<PreferentialCodeDTO> myList(HttpServletRequest request,
+                                            @RequestParam(value = "status") Integer status) {
+        return userPreferentialService.pageActiveByCondition(accountIdByOpenId(request), status);
     }
 
     /**
@@ -67,12 +64,10 @@ public class UserPreferentialController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/active/{no}", method = RequestMethod.POST)
-    public Result<String> active(HttpServletRequest request, @PathVariable("no") String no) {
-        return Result.build(() -> {
-            hasText(no, "请输入优惠码!");
-            isTrue(StringUtils.trimToEmpty(no).length() <= 50, "您输入的优惠码过长!");
-            userPreferentialService.saveActive(accountIdByOpenId(request), no);
-            return "激活成功!";
-        }).resetOkMsgFromData();
+    public String active(HttpServletRequest request, @PathVariable("no") String no) {
+        hasText(no, "请输入优惠码!");
+        isTrue(StringUtils.trimToEmpty(no).length() <= 50, "您输入的优惠码过长!");
+        userPreferentialService.saveActive(accountIdByOpenId(request), no);
+        return "激活成功!";
     }
 }

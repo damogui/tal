@@ -6,8 +6,6 @@ import com.gongsibao.igirl.tm.base.ITradeMarkCaseService;
 import com.gongsibao.u8.base.ISoOrderService;
 import com.netsharp.rest.controller.annotation.Api;
 import com.netsharp.rest.controller.constant.Constant;
-import com.netsharp.rest.controller.exception.BaseException;
-import com.netsharp.rest.controller.result.ResponseData;
 import com.gongsibao.rest.controller.BaseController;
 import net.sf.json.JSONObject;
 import org.netsharp.communication.ServiceFactory;
@@ -32,40 +30,45 @@ import java.util.Date;
 public class QrCodeController extends BaseController {
     @Value("${oid}")
     private String oid;
-    ISceneService sceneService=ServiceFactory.create(ISceneService.class);
-    ISoOrderService orderService=ServiceFactory.create(ISoOrderService.class);
-    ITradeMarkCaseService caseService= ServiceFactory.create(ITradeMarkCaseService.class);
+    ISceneService sceneService = ServiceFactory.create(ISceneService.class);
+    ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
+    ITradeMarkCaseService caseService = ServiceFactory.create(ITradeMarkCaseService.class);
+
     /**
-     * @Description:TODO 生成二维码
-     * @param  request, mobile
+     * @param request, mobile
      * @return org.netsharp.wx.mp.api.qrcode.QrCodeResponse
+     * @Description:TODO 生成二维码
      * @author hbpeng <hbpeng@gongsibao.com>
      * @date 2018/4/20 9:37
      */
-    @RequestMapping(value = "/qrcode",method = RequestMethod.GET)
+    @RequestMapping(value = "/qrcode", method = RequestMethod.GET)
     @CrossOrigin
-    public ResponseData qrcode(HttpServletRequest request,
+    public String qrcode(HttpServletRequest request,
                          @RequestParam("mobile") String mobile,
                          @RequestParam("businessId") String businessId,
                          @RequestParam("source") String source
-    ){
-        IPublicAccountService publicAccountService= ServiceFactory.create(IPublicAccountService.class);
-        PublicAccount pa=publicAccountService.byOriginalId(oid);
-        AccessToken at = AccessTokenManage.getTokenByAppId( pa.getAppId() );
-        QrCodeRequest requestQ = new QrCodeRequest();
-        StringBuffer senceStr=new StringBuffer(mobile);
-        requestQ.setTokenInfo(at);
-        requestQ.setSenceStr(senceStr.append("|").append(businessId).append("|").append(source).toString());
-        // 过期时间，为0表示是持久的二维码，否则是临时二维码
-        requestQ.setExpireSeconds(60*60*24*30);
-        QrCodeResponse response = requestQ.getResponse();
-        String codeUrl=response.getQrCodeUrl();
-        JSONObject jsonObject=new JSONObject();{
-            jsonObject.put("mobile",mobile);
-            jsonObject.put("businessId",businessId);
-            jsonObject.put("source",source);
+    ) {
+        IPublicAccountService publicAccountService = ServiceFactory.create(IPublicAccountService.class);
+        PublicAccount pa = publicAccountService.byOriginalId(oid);
+        AccessToken at = AccessTokenManage.getTokenByAppId(pa.getAppId());
+        QrCodeRequest requestQ = new QrCodeRequest();{
+            StringBuffer senceStr = new StringBuffer(mobile);
+            requestQ.setTokenInfo(at);
+            requestQ.setSenceStr(senceStr.append("|").append(businessId).append("|").append(source).toString());
+            // 过期时间，为0表示是持久的二维码，否则是临时二维码
+            requestQ.setExpireSeconds(60 * 60 * 24 * 30);
         }
-        Scene scene=new Scene();{
+
+        QrCodeResponse response = requestQ.getResponse();
+        String codeUrl = response.getQrCodeUrl();
+        JSONObject jsonObject = new JSONObject();
+        {
+            jsonObject.put("mobile", mobile);
+            jsonObject.put("businessId", businessId);
+            jsonObject.put("source", source);
+        }
+        Scene scene = new Scene();
+        {
             scene.toNew();
             scene.setQrCodeUrl(codeUrl);
             scene.setCodeType(Constant.TEMPQRCODE);
@@ -74,23 +77,23 @@ public class QrCodeController extends BaseController {
             scene.setExpireSeconds(requestQ.getExpireSeconds());
             scene.setCode(requestQ.getSenceStr());
         }
-        if(source.equals(Constant.QRCODE_SB)){
+        if (source.equals(Constant.QRCODE_SB)) {
             scene.setName("商标临时二维码");
-            TradeMarkCase tmc=caseService.byId(businessId);
-            if(tmc != null && null != tmc.getCreator()){
+            TradeMarkCase tmc = caseService.byId(businessId);
+            if (tmc != null && null != tmc.getCreator()) {
                 scene.setCreatorId(tmc.getCreatorId());
                 scene.setCreator(tmc.getCreator());
             }
-        }else if (source.equals(Constant.QRCODE_ORDER)){
+        } else if (source.equals(Constant.QRCODE_ORDER)) {
             scene.setName("订单临时二维码");
-            SoOrder order=orderService.getByOrderId(Integer.valueOf(businessId));
-            if(order != null  && null != order.getCreator()){
+            SoOrder order = orderService.getByOrderId(Integer.valueOf(businessId));
+            if (order != null && null != order.getCreator()) {
                 scene.setCreatorId(order.getCreatorId());
                 scene.setCreator(order.getCreator());
             }
         }
         sceneService.save(scene);
-        return ResponseData.getSuccess(codeUrl,"获取成功!");
+        return codeUrl;
     }
 
 }
