@@ -64,7 +64,7 @@ public class ActionAuditPayVerify implements IAction {
         }
         if (auditLog.getLevel ().equals (auditLog.getMaxLevel ())){
             String payTime = (String)auditContext.getOtherInfo();
-            if (StringManager.isNullOrEmpty(payTime)){
+            if (StringManager.isNullOrEmpty(payTime)&&auditContext.getState().equals(AuditState.PASS)){
 
                 throw new BusinessException ("回款时间必须填写");
             }
