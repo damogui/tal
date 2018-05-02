@@ -1,6 +1,6 @@
 package com.netsharp.rest.utils;
 
-import com.netsharp.rest.common.exception.BaseException;
+import com.netsharp.rest.controller.exception.BaseException;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;

@@ -6,7 +6,7 @@ import com.gongsibao.entity.product.Price;
 import com.gongsibao.product.base.IPriceService;
 import com.netsharp.rest.base.product.IProductPriceService;
 import com.netsharp.rest.dto.product.ProductPriceDTO;
-import com.netsharp.rest.common.result.BdCity;
+import com.netsharp.rest.controller.result.BdCity;
 import com.gongsibao.uc.base.IOrganizationService;
 import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.collections.CollectionUtils;

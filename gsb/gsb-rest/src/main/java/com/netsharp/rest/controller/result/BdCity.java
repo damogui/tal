@@ -1,4 +1,4 @@
-package com.netsharp.rest.common.result;
+package com.netsharp.rest.controller.result;
 
 import com.gongsibao.entity.bd.Dict;
 import org.apache.commons.collections.CollectionUtils;

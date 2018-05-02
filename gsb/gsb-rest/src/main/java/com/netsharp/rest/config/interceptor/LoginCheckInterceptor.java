@@ -2,9 +2,9 @@ package com.netsharp.rest.config.interceptor;
 
 import com.gongsibao.entity.acount.Account;
 import com.netsharp.rest.base.user.IAccountService;
-import com.netsharp.rest.common.annotation.LoginCheck;
-import com.netsharp.rest.common.result.ResponseData;
-import com.netsharp.rest.common.result.UserHeaders;
+import com.netsharp.rest.controller.annotation.LoginCheck;
+import com.netsharp.rest.controller.result.ResponseData;
+import com.netsharp.rest.controller.result.UserHeaders;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

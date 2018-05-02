@@ -1,7 +1,6 @@
-package com.netsharp.rest.common.security;
+package com.netsharp.rest.controller.security;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang.StringUtils;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;

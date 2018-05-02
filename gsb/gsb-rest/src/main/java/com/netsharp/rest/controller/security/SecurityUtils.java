@@ -1,9 +1,8 @@
-package com.netsharp.rest.common.security;
+package com.netsharp.rest.controller.security;
 
 import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.RandomStringUtils;
 
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;

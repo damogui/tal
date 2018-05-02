@@ -8,7 +8,7 @@ import com.gongsibao.entity.acount.AccountCompany;
 import com.gongsibao.entity.acount.AccountWxMsg;
 import com.gongsibao.entity.trade.OrderPayMap;
 import com.netsharp.rest.base.user.IAccountService;
-import com.netsharp.rest.common.constant.Constant;
+import com.netsharp.rest.controller.constant.Constant;
 import com.netsharp.rest.dto.user.AccountValidateDTO;
 import com.gongsibao.u8.base.IOrderPayMapService;
 import com.gongsibao.utils.NumberUtils;

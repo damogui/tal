@@ -1,6 +1,6 @@
 package com.netsharp.rest.dto.order;
 
-import com.netsharp.rest.common.security.SecurityUtils;
+import com.netsharp.rest.controller.security.SecurityUtils;
 import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
 

@@ -1,4 +1,4 @@
-package com.netsharp.rest.common.security;
+package com.netsharp.rest.controller.security;
 
 
 @SuppressWarnings({"rawtypes", "unchecked", "serial","cast"})

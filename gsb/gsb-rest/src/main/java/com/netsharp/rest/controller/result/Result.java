@@ -1,6 +1,6 @@
-package com.netsharp.rest.common.result;
+package com.netsharp.rest.controller.result;
 
-import com.netsharp.rest.common.exception.BaseException;
+import com.netsharp.rest.controller.exception.BaseException;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.netsharp.rest.common.result;
+package com.netsharp.rest.controller.result;
 
 import java.util.ArrayList;
 import java.util.HashMap;

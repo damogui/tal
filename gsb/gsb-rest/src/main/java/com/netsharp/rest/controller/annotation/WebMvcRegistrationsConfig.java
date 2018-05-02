@@ -1,4 +1,4 @@
-package com.netsharp.rest.common.annotation;
+package com.netsharp.rest.controller.annotation;
 
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcRegistrations;
 import org.springframework.context.annotation.Configuration;

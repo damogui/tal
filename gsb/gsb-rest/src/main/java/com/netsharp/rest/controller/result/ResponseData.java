@@ -1,4 +1,4 @@
-package com.netsharp.rest.common.result;
+package com.netsharp.rest.controller.result;
 /**
  * ClassName: ResponseData
  * @Description: TODO 返回结果

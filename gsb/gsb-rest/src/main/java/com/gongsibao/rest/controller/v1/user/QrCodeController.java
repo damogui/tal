@@ -4,9 +4,10 @@ import com.gongsibao.entity.igirl.tm.TradeMarkCase;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.igirl.tm.base.ITradeMarkCaseService;
 import com.gongsibao.u8.base.ISoOrderService;
-import com.netsharp.rest.common.annotation.Api;
-import com.netsharp.rest.common.constant.Constant;
-import com.netsharp.rest.common.result.ResponseData;
+import com.netsharp.rest.controller.annotation.Api;
+import com.netsharp.rest.controller.constant.Constant;
+import com.netsharp.rest.controller.exception.BaseException;
+import com.netsharp.rest.controller.result.ResponseData;
 import com.gongsibao.rest.controller.BaseController;
 import net.sf.json.JSONObject;
 import org.netsharp.communication.ServiceFactory;
@@ -92,4 +93,20 @@ public class QrCodeController extends BaseController {
         return ResponseData.getSuccess(codeUrl,"获取成功!");
     }
 
+
+    @RequestMapping("/home")
+    public String home() throws Exception {
+
+//        throw new Exception("Sam 错误");
+        throw new BaseException(500, "Sam 错误");
+
+    }
+
+    @RequestMapping("/home2")
+    public String home2() throws Exception {
+
+//        throw new Exception("Sam 错误");
+        throw new Exception("Sam 2222错误");
+
+    }
 }

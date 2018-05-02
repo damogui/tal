@@ -1,8 +1,8 @@
 package com.gongsibao.rest.controller.v1.company;
 
-import com.netsharp.rest.common.annotation.Api;
+import com.netsharp.rest.controller.annotation.Api;
 import com.netsharp.rest.utils.StringUtils;
-import com.netsharp.rest.common.result.ResponseData;
+import com.netsharp.rest.controller.result.ResponseData;
 import com.netsharp.rest.base.product.IProductService;
 import com.gongsibao.rest.controller.BaseController;
 import com.netsharp.rest.dto.company.CompanyNameDTO;
