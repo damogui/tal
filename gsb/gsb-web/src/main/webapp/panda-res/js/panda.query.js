@@ -425,7 +425,7 @@ org.netsharp.controls.EnumBoxQueryItem=org.netsharp.controls.Control.Extends({
         var filter = "";
         $(propertyValue).each(function(i,item){
         	
-        	if(!System.isnull(item)){
+        	if(item != "-1"){
 
             	filter+="'"+item+"',";
         	}
@@ -452,7 +452,7 @@ org.netsharp.controls.EnumBoxQueryItem=org.netsharp.controls.Control.Extends({
         var filter = "";
         $(propertyValue).each(function(i,item){
         	
-        	if(!System.isnull(item)){
+        	if(item != "-1"){
 
             	filter+="'"+item+"',";
         	}
