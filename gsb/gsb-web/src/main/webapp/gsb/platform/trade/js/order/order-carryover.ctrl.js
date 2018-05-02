@@ -64,15 +64,17 @@ com.gongsibao.trade.web.OrderCarryoverCtrl = org.netsharp.panda.core.CustomCtrl.
     			
     			$('#toOrderNo').val("");
     			layer.msg('结转去向订单号还处于改价审核中，请审核通过后，再创建');
-    		}else if(data == 5){
-    			
-    			$('#toOrderNo').val("");
-    			IMessageBox.info('<span style="color:red;">去向订单号与来源订单号所属的客户不同！请检查您是否填写了正确的订单号！</span>');
-    		}else if(orderNo === formOrderNo){
+    		}else if(toOrderNo === formOrderNo){
     			
     			$('#toOrderNo').val("");
     			layer.msg('结转去向订单号不能等于结转来源订单号');
     		}else{
+    			
+    			if(data == 5){
+        			
+//        			$('#toOrderNo').val("");
+        			IMessageBox.info('<span style="color:red;">去向订单号与来源订单号所属的客户不同！请检查您是否填写了正确的订单号！</span>');
+        		}
     			
     			$("#toOrderId_hidden").val(data.id);				
 				var toPayablePrice = data.payablePrice;
