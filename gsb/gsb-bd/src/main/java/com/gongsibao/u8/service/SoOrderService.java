@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.gongsibao.supplier.base.IFunctionModuleRoleService;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
@@ -78,15 +79,15 @@ public class SoOrderService extends PersistableService<SoOrder> implements ISoOr
 
 
     /**
-     * @author: 郭佳
      * @param orderIdList
-     * @param toUserId
-     * @param type 默认为0转移 当1的时候为分配 平台过来的
+     * @param toUserId
+     * @param type        默认为0转移 当1的时候为分配 平台过来的
+     * @author: 郭佳
      * @Description:TODO//转移/分配（支持批量转移/分配）
-     * @date:   2018/4/28 16:16
+     * @date: 2018/4/28 16:16
      */
     @Override
-    public void orderTran(List<Integer> orderIdList, Integer toUserId,Integer...type) {
+    public void orderTran(List<Integer> orderIdList, Integer toUserId, Integer... type) {
 
 
         //订单id集合
@@ -105,41 +106,42 @@ public class SoOrderService extends PersistableService<SoOrder> implements ISoOr
         //根据订单id集合获取，对应的业务员信息
         Map<Integer, Salesman> salesmanMap = getSalesmanMapByOrderList(soOrderList);
         int i = 0;
-        Boolean flagEnd=false;//是否是最后来确定是否通知
-        int  orderLengh=0;
-        HashMap<Integer,Integer>hashFrom=new HashMap<Integer, Integer>();//被转走的业务员订单数量
+        Boolean flagEnd = false;//是否是最后来确定是否通知
+        int orderLengh = 0;
+        HashMap<Integer, Integer> hashFrom = new HashMap<Integer, Integer>();//被转走的业务员订单数量
 
         for (SoOrder order : soOrderList) {
             i++;
 
-            orderLengh=soOrderList.size();//
+            orderLengh = soOrderList.size();//
             Map<String, Object> setMap = new HashMap<String, Object>();
             setMap.put("toUser", toUser);//转移的目标业务员
-            Salesman  salesmanFor=salesmanMap.get(order.getId());
+            Salesman salesmanFor = salesmanMap.get(order.getId());
             setMap.put("formUser", salesmanFor);//转移的来自业务员
             setMap.put("orderLengh", orderLengh);//订单的长度来判断是单个还是批量
 
-            if(type.length>0){
+            if (type.length > 0) {
                 setMap.put("type", 1);//来确定是业务员（转移 0）还是平台（分配 1）
-            }else{
+            } else {
 
                 setMap.put("type", 0);
             }
 
-            if (hashFrom.containsKey(salesmanFor.getEmployeeId())){
-                Integer  num=hashFrom.get(salesmanFor.getEmployeeId());
-                num++;
-                hashFrom.put(salesmanFor.getEmployeeId(),num);
+            if (salesmanFor != null) {//线上订单有可能为空
+                if (hashFrom.containsKey(salesmanFor.getEmployeeId())) {
+                    Integer num = hashFrom.get(salesmanFor.getEmployeeId());
+                    num++;
+                    hashFrom.put(salesmanFor.getEmployeeId(), num);
 
 
-            }else{
-                hashFrom.put(salesmanFor.getEmployeeId(),1);
+                } else {
+                    hashFrom.put(salesmanFor.getEmployeeId(), 1);
 
+                }
             }
+            if (i == soOrderList.size()) {//批量的时候才需要
 
-            if (i==soOrderList.size()){//批量的时候才需要
-
-                flagEnd=true;
+                flagEnd = true;
                 setMap.put("hashFrom", hashFrom);//转移给的业务员
             }
             setMap.put("flagEnd", flagEnd);//是否是最后
