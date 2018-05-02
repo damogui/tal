@@ -1,7 +1,9 @@
 package com.gongsibao.trade.service.action.order.pay;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogType;
@@ -77,11 +79,23 @@ public class ActionApplyPayVerify implements IAction {
         }
 
         Integer allotTotalAmount = 0;
-        List<Integer> orderIdList = new ArrayList<Integer> ();
+//        List<Integer> orderIdList = new ArrayList<Integer> ();
+        HashMap<Integer,Integer> hashMap=new HashMap<>();
         for (OrderPayMap payMap : orderPayMaps) {
 
             allotTotalAmount += payMap.getOrderPrice ();
-            orderIdList.add (payMap.getOrderId ());
+//            orderIdList.add (payMap.getOrderId ());
+            if (hashMap.containsKey(payMap.getOrderId())){
+                Integer  d=hashMap.get(payMap.getOrderId());
+                hashMap.put(payMap.getOrderId(),d+payMap.getOrderPrice());
+
+            }else{
+
+                hashMap.put(payMap.getOrderId(),payMap.getOrderPrice());
+            }
+
+            checkIsOrderPayOver(hashMap);
+
         }
 
         if (allotTotalAmount.compareTo (payAmount) != 0) {
@@ -92,6 +106,31 @@ public class ActionApplyPayVerify implements IAction {
         /**
          * 校验订单是否已经处于审核状态是的话不能进行创建回款审核 1.结转、退款、分期 这里不用校验
          */
+    }
+    /**
+     * @author: 郭佳
+     * @param hashMap
+     * @Description:TODO  循环校验是不是超出订单支付的金额
+     * @date:   2018/5/2 17:34
+     */
+    private void checkIsOrderPayOver(HashMap<Integer, Integer> hashMap) {
+        for (Map.Entry<Integer, Integer> entry:hashMap.entrySet()
+             ) {
+
+           int countNum=AuditHelper.cheOrderIsOverPay(entry.getKey(),entry.getValue());
+           if (countNum>0){
+
+               throw new BusinessException (String.format("【超出订单已付金额】"));
+
+           }
+
+            
+        }
+        
+
+
+
+
     }
 
 //    @Override

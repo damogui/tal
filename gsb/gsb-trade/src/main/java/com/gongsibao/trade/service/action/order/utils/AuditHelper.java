@@ -181,4 +181,20 @@ public class AuditHelper {
 
 
     }
+
+    /**
+     * @param orderId
+     * @param money
+     * @author: 郭佳
+     * @Description:TODO是否已经超出订单金额
+     * @date: 2018/5/2 17:41
+     */
+    public static int cheOrderIsOverPay(Integer orderId, Integer money) {
+        String sql = "SELECT  COUNT(1) FROM  so_order   WHERE  payable_price-paid_price<? AND  pkid=?";
+        QueryParameters qps = new QueryParameters();
+        qps.add("@payable_price", money, Types.INTEGER);
+        qps.add("@pkid", orderId, Types.INTEGER);
+        int num = Integer.parseInt(auditLogService.executeScalar(sql, qps).toString());
+        return num;
+    }
 }
