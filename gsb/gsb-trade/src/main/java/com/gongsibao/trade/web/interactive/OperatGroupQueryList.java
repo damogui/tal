@@ -21,8 +21,6 @@ import java.util.Map;
 
 public class OperatGroupQueryList extends AdvancedListPart {
 
-    IOrderProdTraceService orderProdTraceService = ServiceFactory.create(IOrderProdTraceService.class);
-    IContractService contractService = ServiceFactory.create(IContractService.class);
     IOrderProdUserMapService orderProdUserMapService = ServiceFactory.create(IOrderProdUserMapService.class);
     IOrderProdOrganizationMapService organizationService = ServiceFactory.create(IOrderProdOrganizationMapService.class);
 

@@ -11,5 +11,8 @@ com.gongsibao.trade.web.interactive.OperatGroupQueryList = org.netsharp.panda.co
         } else {
             me.base();
         }
-    }
+    },
+    /*onload : function() {
+        //this.query();
+    }*/
 });

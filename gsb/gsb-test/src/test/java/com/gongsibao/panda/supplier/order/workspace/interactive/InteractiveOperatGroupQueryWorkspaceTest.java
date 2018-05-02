@@ -1,26 +1,16 @@
 package com.gongsibao.panda.supplier.order.workspace.interactive;
 
 import com.gongsibao.entity.trade.OrderProd;
-import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
-import com.gongsibao.entity.trade.dic.OrderProdUserMapType;
-import com.gongsibao.tools.PToolbarHelper;
-import com.gongsibao.trade.web.interactive.MyInChargeListPart;
 import com.gongsibao.trade.web.interactive.OperatGroupQueryList;
 import org.junit.Before;
-import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
-import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
-import org.netsharp.panda.dic.OrderbyMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
-import org.netsharp.panda.plugin.dic.ToolbarType;
-import org.netsharp.panda.plugin.entity.PToolbar;
-import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 public class InteractiveOperatGroupQueryWorkspaceTest extends WorkspaceCreationBase {
@@ -79,6 +69,7 @@ public class InteractiveOperatGroupQueryWorkspaceTest extends WorkspaceCreationB
             item.setTooltip("订单编号、公司名称、客户手机号");
             item.setWidth(350);
         }
+        addQueryItem(queryProject, "productName", "产品名称", ControlTypes.TEXT_BOX);
         return queryProject;
     }
 
