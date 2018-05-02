@@ -99,7 +99,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 			workspace.setResourceNode(node);
 			workspace.setOperationType(operationType);
 			workspace.setOperationTypeId(operationType.getId());
-			workspace.setName("服务商分类");
+			workspace.setName("服务商分组");
 			workspace.setUrl(urlList);
 		}
 
@@ -111,7 +111,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 			part.setDockStyle(DockType.LEFT);
 			part.setStyle("width:250px;");
 			part.setResourceNode(node);
-			part.setName("服务商分类");
+			part.setName("服务商分组");
 			part.setHeaderVisible(true);
 		}
 		workspace.getParts().add(part);

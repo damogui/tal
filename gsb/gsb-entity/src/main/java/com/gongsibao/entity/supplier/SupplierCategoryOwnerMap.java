@@ -7,7 +7,7 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 import org.netsharp.organization.entity.Employee;
 
-@Table(name="sp_supplier_category_owner_map",header="服务商分类运营人员配置")
+@Table(name="sp_supplier_category_owner_map",header="服务商分组运营人员配置")
 public class SupplierCategoryOwnerMap extends Entity{
 
 	/**   

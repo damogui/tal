@@ -15,7 +15,7 @@ public class SupplierCategoryRefeerenceTest extends ReferenceCreationBase{
 	public void setup() {
 		
 		resourceNodeCode =  "GSB_Operation_Supplier_Category";
-		datagridName = referenceName = "服务商分类参照";
+		datagridName = referenceName = "服务商分组参照";
 		referenceCode = SupplierCategory.class.getSimpleName();
 		intelligentMode = IntelligentMode.LIKE;
 		intelligentFields = "name";

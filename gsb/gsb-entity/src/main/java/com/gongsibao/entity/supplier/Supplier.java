@@ -164,7 +164,7 @@ public class Supplier extends Entity {
 	@Column(name = "category_id")
 	private Integer categoryId;
 
-	@Reference(foreignKey = "categoryId", header = "服务商分类")
+	@Reference(foreignKey = "categoryId", header = "服务商分组")
 	private SupplierCategory category;
 
 	@Column(name = "open_time", header = "开户时间")
