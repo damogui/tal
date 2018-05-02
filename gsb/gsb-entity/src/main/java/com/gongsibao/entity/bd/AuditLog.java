@@ -6,6 +6,7 @@ import com.gongsibao.entity.trade.*;
 import com.gongsibao.entity.trade.settle.OrderProdSettle;
 import com.gongsibao.entity.trade.settle.Settle;
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 
@@ -51,7 +52,7 @@ public class AuditLog extends BaseEntity {
     @Reference(foreignKey = "creatorId")
     private Employee employee;
 
-	// 订单（改价审核）
+	// 订单（改价审核） 订单  订单业绩和回款业绩共用
     @Reference(foreignKey = "formId", primaryKey = "pkid")
     private SoOrder soOrder;
 
@@ -77,6 +78,9 @@ public class AuditLog extends BaseEntity {
 
     @Reference(foreignKey = "formId")
     private Settle settle;
+    //付款账套名
+    @Exclusive
+    private  String booksName;
 
     // 结转记录
     @Reference(foreignKey = "formId")
@@ -216,5 +220,13 @@ public class AuditLog extends BaseEntity {
 
     public void setSettle(Settle settle) {
         this.settle = settle;
+    }
+
+    public String getBooksName() {
+        return booksName;
+    }
+
+    public void setBooksName(String booksName) {
+        this.booksName = booksName;
     }
 }
