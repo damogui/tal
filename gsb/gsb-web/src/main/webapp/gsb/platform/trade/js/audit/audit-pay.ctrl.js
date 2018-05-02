@@ -51,13 +51,12 @@ com.gongsibao.trade.web.AuditPayCtrl = com.gongsibao.trade.web.AuditBaseCtrl.Ext
 
                 ]]
             });
-
+            me.initGridOrder(id);//关联订单
             me.initAuditLog(id,1045);//关联订单
         });
     },
     initGridOrder: function (id) {//获取付款凭证和关联订单
         var me = this;
-
 
         me.invokeService("getOrderInfosById", [id], function (data) {
             $('#order_relevance_grid').datagrid({
