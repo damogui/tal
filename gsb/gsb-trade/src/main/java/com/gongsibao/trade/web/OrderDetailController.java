@@ -4,6 +4,8 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gongsibao.bd.base.IFileService;
+import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.bd.dic.AuditLogStatusType;
 import com.gongsibao.entity.trade.*;
 import com.gongsibao.entity.trade.dto.SoOrderDTO;
@@ -12,7 +14,6 @@ import com.gongsibao.trade.web.dto.AuditLogDTO;
 
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
-
 import org.netsharp.core.QueryParameters;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
@@ -350,4 +351,19 @@ public class OrderDetailController {
 		INOrderStageService stageService = ServiceFactory.create(INOrderStageService.class);
 		return stageService.getListByOrderId(orderId);
 	}
+	
+	/**   
+	 * @Title: queryOrderFileList   
+	 * @Description: TODO(查询订单附件)   
+	 * @param: @param orderId
+	 * @param: @return      
+	 * @return: List<File>      
+	 * @throws   
+	 */
+	public List<File> queryOrderFileList(Integer orderId) {
+
+		IFileService fileService = ServiceFactory.create(IFileService.class);
+		return fileService.getByTabNameFormId("so_order",orderId);
+	}
+	
 }

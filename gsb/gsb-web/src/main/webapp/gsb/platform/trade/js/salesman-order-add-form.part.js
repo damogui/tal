@@ -400,6 +400,64 @@ com.gongsibao.trade.web.OrderStageDetailPart = org.netsharp.panda.commerce.Detai
     }
 });
 
+com.gongsibao.trade.web.OrderFileDetailPart = org.netsharp.panda.commerce.DetailPart.Extends({
+
+    ctor: function () {
+        this.base();
+    },
+    initUpload: function () {
+
+        var upload = new org.netsharp.controls.OrderFileUpload();
+        upload.parent = this;
+        upload.init();
+    },
+    appendRow: function (path, file) {
+
+        var row = new Object();
+        row.name = file.name;
+        row.url = path;
+        row.tabName = 'so_order';//要放到后台处理
+        $('#' + this.context.id).datagrid('appendRow', row);
+    },
+    onload: function () {
+        var me = this;
+        this.resize();
+        this.initUpload();
+    },
+    urlFormatter: function (value, row, index) {
+
+        var me = this;
+
+        var strView = '<a class="grid-btn" href="javascript:window.open(\'' + row.url + '\');">查看</a>';
+        var strDelete = '<a class="grid-btn" href="javascript:controllerfiles.remove(' + index + ');">删除</a>';
+        return strView + strDelete;
+    },
+    remove: function (index) {
+
+        $('#' + this.context.id).datagrid('deleteRow', index);
+    }
+});
+
+
+org.netsharp.controls.OrderFileUpload = org.netsharp.controls.OSSUpload.Extends({
+    ctor: function () {
+        this.base();
+        this.multi_selection = true;
+        this.parent = null;
+    },
+    getButtonId: function () {
+
+        return "controllerfilesupload";
+    },
+    preview: function (path, file) {
+
+        if (System.isnull(path)) {
+            return;
+        }
+        this.parent.appendRow(path, file);
+    }
+});
+
 
 com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
     ctor: function () {
