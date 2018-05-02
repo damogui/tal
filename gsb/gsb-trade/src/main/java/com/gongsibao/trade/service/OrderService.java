@@ -133,6 +133,7 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
 
     @Override
     public SoOrder getByOrderNo(String orderNo) {
+    	
         if (StringManager.isNullOrEmpty(orderNo)) {
             return null;
         }

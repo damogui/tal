@@ -23,7 +23,7 @@
 	<script src='/panda-res/js/panda.js'></script>
 	<script src='/gsb/platform/trade/js/order/order-carryover.ctrl.js'></script>
 </head>
-    <body class="easyui-layout">
+    <body class="easyui-layout" style="background-color:#fff;">
     
     	<div class="easyui-panel" title="订单信息" data-options="height:200,bodyCls:'no-border'" > 
 		        <jsp:include page="/gsb/platform/trade/include/orderInfo.jsp"></jsp:include>

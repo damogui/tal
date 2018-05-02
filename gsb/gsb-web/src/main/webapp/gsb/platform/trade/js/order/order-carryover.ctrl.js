@@ -45,25 +45,35 @@ com.gongsibao.trade.web.OrderCarryoverCtrl = org.netsharp.panda.core.CustomCtrl.
     },
     toOrderNoBlur:function(){
     	var me = this;
-    	var orderNo = $('#toOrderNo').val();
+    	var toOrderNo = $('#toOrderNo').val();
     	var formOrderNo = $('#formOrderNo').val();
-    	me.invokeService("getSoOrderByNo", [orderNo], function(data){
+    	me.invokeService("getSoOrderByNo", [formOrderNo,toOrderNo], function(data){
     		if(data == 1){
+    			
     			$('#toOrderNo').val("");
     			layer.msg('去向订单号输入有误，请重新输入');
     		}else if(data == 2){
+    			
     			$('#toOrderNo').val("");
     			layer.msg('结转去向订单号还处于结转审核中，请审核通过后，再创建');
     		}else if(data == 3){
+    			
     			$('#toOrderNo').val("");
     			layer.msg('结转去向订单号已创建订单业绩，不允许结转转入，请知悉');
     		}else if(data == 4){
+    			
     			$('#toOrderNo').val("");
     			layer.msg('结转去向订单号还处于改价审核中，请审核通过后，再创建');
+    		}else if(data == 5){
+    			
+    			$('#toOrderNo').val("");
+    			IMessageBox.info('<span style="color:red;">去向订单号与来源订单号所属的客户不同！请检查您是否填写了正确的订单号！</span>');
     		}else if(orderNo === formOrderNo){
+    			
     			$('#toOrderNo').val("");
     			layer.msg('结转去向订单号不能等于结转来源订单号');
     		}else{
+    			
     			$("#toOrderId_hidden").val(data.id);				
 				var toPayablePrice = data.payablePrice;
 	      		var toPaidPrice = data.paidPrice;
