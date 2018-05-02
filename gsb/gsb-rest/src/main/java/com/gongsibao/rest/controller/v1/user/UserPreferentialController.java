@@ -2,10 +2,10 @@ package com.gongsibao.rest.controller.v1.user;
 
 import com.gongsibao.account.base.IAccountWeiXinService;
 import com.gongsibao.rest.controller.BaseController;
-import com.netsharp.rest.common.annotation.Api;
+import com.netsharp.rest.controller.annotation.Api;
 import static com.netsharp.rest.utils.Assert.*;
 
-import com.netsharp.rest.common.result.Result;
+import com.netsharp.rest.controller.result.Result;
 import com.netsharp.rest.dto.user.PreferentialCodeDTO;
 import com.netsharp.rest.dto.user.PreferentialUsageDTO;
 import com.netsharp.rest.base.user.IUserPreferentialService;

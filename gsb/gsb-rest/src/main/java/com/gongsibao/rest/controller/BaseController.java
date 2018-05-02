@@ -2,7 +2,7 @@ package com.gongsibao.rest.controller;
 
 import com.gongsibao.entity.acount.Account;
 import com.netsharp.rest.base.user.IAccountService;
-import com.netsharp.rest.common.result.UserHeaders;
+import com.netsharp.rest.controller.result.UserHeaders;
 import com.netsharp.rest.utils.Assert;
 import com.netsharp.rest.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

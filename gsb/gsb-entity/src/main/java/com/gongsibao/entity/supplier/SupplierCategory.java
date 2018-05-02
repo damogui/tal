@@ -6,7 +6,7 @@ import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.CatEntity;
 
-@Table(name="sp_supplier_category",header="服务商分类")
+@Table(name="sp_supplier_category",header="服务商分组")
 public class SupplierCategory extends CatEntity{
 
 	/**   
@@ -15,7 +15,7 @@ public class SupplierCategory extends CatEntity{
 	private static final long serialVersionUID = 5425316668163544708L;
 
 
-	@Subs(foreignKey = "categoryId", header = "服务商分类", subType = SupplierCategoryOwnerMap.class)
+	@Subs(foreignKey = "categoryId", header = "服务商分组", subType = SupplierCategoryOwnerMap.class)
 	private List<SupplierCategoryOwnerMap> ownerMaps;
 
 

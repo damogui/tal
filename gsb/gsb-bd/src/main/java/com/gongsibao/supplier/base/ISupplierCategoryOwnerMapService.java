@@ -9,7 +9,7 @@ import com.gongsibao.entity.supplier.SupplierCategoryOwnerMap;
 public interface ISupplierCategoryOwnerMapService extends IPersistableService<SupplierCategoryOwnerMap> {
 
 	/**
-	 * 根据服务商分类Id,获取服务商分类运营人员配置
+	 * 根据服务商分组Id,获取服务商分组运营人员配置
 	 * @param categoryId
 	 * @return
 	 */

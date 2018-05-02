@@ -1,4 +1,4 @@
-package com.netsharp.rest.common.result;
+package com.netsharp.rest.controller.result;
 
 /**
  * @author ffli <ffli@gongsibao.com>

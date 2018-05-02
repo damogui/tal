@@ -4,7 +4,7 @@ import com.gongsibao.entity.Result;
 import com.gongsibao.entity.trade.SoOrder;
 import com.netsharp.rest.dto.coupon.CouponUseDTO;
 import com.netsharp.rest.dto.order.OrderAddDTO;
-import com.netsharp.rest.common.result.Pager;
+import com.netsharp.rest.controller.result.Pager;
 import com.netsharp.rest.dto.order.OrderDTO;
 import com.netsharp.rest.dto.order.OrderMessageDTO;
 import com.gongsibao.trade.web.dto.OrderPayDTO;

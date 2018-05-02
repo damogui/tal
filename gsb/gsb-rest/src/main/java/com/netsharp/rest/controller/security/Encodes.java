@@ -1,4 +1,4 @@
-package com.netsharp.rest.common.security;
+package com.netsharp.rest.controller.security;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;

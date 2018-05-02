@@ -1,4 +1,4 @@
-package com.netsharp.rest.common.constant;
+package com.netsharp.rest.controller.constant;
 
 
 import com.gongsibao.utils.DateUtils;

@@ -655,7 +655,8 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 		
 		var me = this;
 		$(document).keyup(function (e) {
-		    if (e.keyCode == 13) {
+			
+		    if (e.keyCode == 13 && !$(e.target).hasClass('pagination-num')) {
 
 		    	me.query();
 		    }  

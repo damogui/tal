@@ -1,4 +1,4 @@
-package com.netsharp.rest.common.annotation;
+package com.netsharp.rest.controller.annotation;
 
 import org.springframework.web.bind.annotation.Mapping;
 

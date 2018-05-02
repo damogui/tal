@@ -5,7 +5,7 @@ import com.gongsibao.bd.base.IPreferentialService;
 import com.gongsibao.entity.bd.Preferential;
 import com.gongsibao.entity.bd.PreferentialCode;
 import com.netsharp.rest.utils.RedisClient;
-import com.netsharp.rest.common.constant.Constant;
+import com.netsharp.rest.controller.constant.Constant;
 import com.netsharp.rest.dto.user.PreferentialCodeDTO;
 import com.netsharp.rest.dto.user.PreferentialUsageDTO;
 import com.netsharp.rest.base.user.IUserPreferentialService;
