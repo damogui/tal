@@ -74,4 +74,8 @@ public class Constant {
 
     public static final String SUBSCRIBE ="1";
     public static final String UNSUBSCRIBE ="0";
+    public static final String TEMPQRCODE ="0";
+    public static final String LIVEQRCODE ="1";
+    public static final String QRCODE_SB ="SB";
+    public static final String QRCODE_ORDER ="ORDER";
 }
