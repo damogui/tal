@@ -93,20 +93,4 @@ public class QrCodeController extends BaseController {
         return ResponseData.getSuccess(codeUrl,"获取成功!");
     }
 
-
-    @RequestMapping("/home")
-    public String home() throws Exception {
-
-//        throw new Exception("Sam 错误");
-        throw new BaseException(500, "Sam 错误");
-
-    }
-
-    @RequestMapping("/home2")
-    public String home2() throws Exception {
-
-//        throw new Exception("Sam 错误");
-        throw new Exception("Sam 2222错误");
-
-    }
 }
