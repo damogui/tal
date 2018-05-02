@@ -1,6 +1,6 @@
 package com.gongsibao.rest.controller.v1.dict;
 
-import com.gongsibao.rest.base.dict.IDictService;
+import com.netsharp.rest.base.dict.IDictService;
 import com.netsharp.rest.common.annotation.Api;
 import com.netsharp.rest.common.result.Result;
 import com.netsharp.rest.dto.dict.CityDTO;

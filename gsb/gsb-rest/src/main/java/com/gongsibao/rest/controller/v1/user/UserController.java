@@ -6,7 +6,7 @@ import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.*;
-import com.gongsibao.rest.base.user.IAccountService;
+import com.netsharp.rest.base.user.IAccountService;
 import com.netsharp.rest.common.annotation.Api;
 import com.netsharp.rest.common.constant.ConstantKey;
 import com.netsharp.rest.common.security.SecurityUtils;
@@ -16,7 +16,7 @@ import com.netsharp.rest.dto.user.AccountValidateDTO;
 import com.netsharp.rest.dto.user.LoginDTO;
 import com.gongsibao.u8.base.IPayService;
 import com.gongsibao.u8.base.ISoOrderService;
-import com.netsharp.rest.util.*;
+import com.netsharp.rest.utils.*;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
@@ -54,7 +54,7 @@ public class UserController extends BaseController {
     IPayService payService=ServiceFactory.create(IPayService.class);
 
     // 客户服务，为了事务，按照netsharp service的注解重写一个
-    com.gongsibao.rest.netsharp.base.IAccountService netSharpAccountService = ServiceFactory.create(com.gongsibao.rest.netsharp.base.IAccountService.class);
+    com.netsharp.rest.base.account.IAccountService netSharpAccountService = ServiceFactory.create(com.netsharp.rest.base.account.IAccountService.class);
     /**
      * @Description:TODO 登录验证
      * @param  openId
