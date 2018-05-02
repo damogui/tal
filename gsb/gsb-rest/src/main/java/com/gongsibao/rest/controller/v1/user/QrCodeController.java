@@ -1,7 +1,7 @@
 package com.gongsibao.rest.controller.v1.user;
 
-import com.gongsibao.rest.web.common.apiversion.Api;
-import com.gongsibao.rest.web.common.web.ResponseData;
+import com.netsharp.rest.common.annotation.Api;
+import com.netsharp.rest.common.result.ResponseData;
 import com.gongsibao.rest.controller.BaseController;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.wx.mp.api.accesstoken.AccessToken;

@@ -1,6 +1,6 @@
 package com.gongsibao.rest.base.order;
 
-import com.gongsibao.rest.web.dto.order.OrderProdTraceDTO;
+import com.netsharp.rest.dto.order.OrderProdTraceDTO;
 
 import java.util.List;
 

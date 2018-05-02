@@ -1,13 +1,13 @@
 package com.gongsibao.rest.controller.v1.user;
 
 import com.gongsibao.account.base.IAccountWeiXinService;
-import com.gongsibao.rest.web.dto.user.AccountDeliverAddressDTO;
+import com.netsharp.rest.dto.user.AccountDeliverAddressDTO;
 import com.gongsibao.rest.base.user.IUserDeliverAddressService;
-import com.gongsibao.rest.web.common.apiversion.Api;
+import com.netsharp.rest.common.annotation.Api;
 import com.netsharp.rest.util.Assert;
-import com.gongsibao.rest.web.common.web.Result;
+import com.netsharp.rest.common.result.Result;
 import com.gongsibao.rest.controller.BaseController;
-import com.gongsibao.rest.web.request.DeliverAddressRequest;
+import com.netsharp.rest.dto.request.DeliverAddressRequest;
 import org.netsharp.communication.ServiceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -7,13 +7,13 @@ import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.*;
 import com.gongsibao.rest.base.user.IAccountService;
-import com.gongsibao.rest.web.common.apiversion.Api;
-import com.gongsibao.rest.web.common.constant.ConstantKey;
-import com.gongsibao.rest.web.common.security.SecurityUtils;
-import com.gongsibao.rest.web.common.web.ResponseData;
+import com.netsharp.rest.common.annotation.Api;
+import com.netsharp.rest.common.constant.ConstantKey;
+import com.netsharp.rest.common.security.SecurityUtils;
+import com.netsharp.rest.common.result.ResponseData;
 import com.gongsibao.rest.controller.BaseController;
-import com.gongsibao.rest.web.dto.user.AccountValidateDTO;
-import com.gongsibao.rest.web.dto.user.LoginDTO;
+import com.netsharp.rest.dto.user.AccountValidateDTO;
+import com.netsharp.rest.dto.user.LoginDTO;
 import com.gongsibao.u8.base.IPayService;
 import com.gongsibao.u8.base.ISoOrderService;
 import com.netsharp.rest.util.*;
@@ -58,7 +58,7 @@ public class UserController extends BaseController {
     /**
      * @Description:TODO 登录验证
      * @param  openId
-     * @return com.gongsibao.rest.web.common.web.ResponseData
+     * @return com.netsharp.rest.common.web.ResponseData
      * @author hbpeng <hbpeng@gongsibao.com>
      * @date 2018/4/12 19:17
      */
@@ -107,7 +107,7 @@ public class UserController extends BaseController {
     /**
      * @Description:TODO 发送验证码
      * @param  mobilePhone
-     * @return com.gongsibao.rest.web.common.web.ResponseData
+     * @return com.netsharp.rest.common.web.ResponseData
      * @author hbpeng <hbpeng@gongsibao.com>
      * @date 2018/4/12 19:17
      */
@@ -147,7 +147,7 @@ public class UserController extends BaseController {
     /**
      * @Description:TODO 账号绑定手机
      * @param  mobilePhone, openId, code
-     * @return com.gongsibao.rest.web.common.web.ResponseData
+     * @return com.netsharp.rest.common.web.ResponseData
      * @author hbpeng <hbpeng@gongsibao.com>
      * @date 2018/4/12 19:18
      */
@@ -209,7 +209,7 @@ public class UserController extends BaseController {
     /**
      * @Description:TODO 获取code
      * @param   code
-     * @return com.gongsibao.rest.web.common.web.ResponseData
+     * @return com.netsharp.rest.common.web.ResponseData
      * @author hbpeng <hbpeng@gongsibao.com>
      * @date 2018/4/12 19:18
      */
@@ -265,7 +265,7 @@ public class UserController extends BaseController {
     /**
      * @Description:TODO 获取签名 支付前
      * @param  url
-     * @return com.gongsibao.rest.web.common.web.ResponseData
+     * @return com.netsharp.rest.common.web.ResponseData
      * @author hbpeng <hbpeng@gongsibao.com>
      * @date 2018/4/18 10:43
      */
@@ -653,7 +653,7 @@ public class UserController extends BaseController {
 
     /**
      * @param request
-     * @return com.gongsibao.rest.web.common.web.ResponseData
+     * @return com.netsharp.rest.common.web.ResponseData
      * @Description: 用户验证, 通过openId, 验证用户是否存在，公司是否存在
      * @author wangkun <wangkun@gongsibao.com>
      * @date 2018/4/24
@@ -673,7 +673,7 @@ public class UserController extends BaseController {
 
     /**
      * @param request
-     * @return com.gongsibao.rest.web.common.web.ResponseData
+     * @return com.netsharp.rest.common.web.ResponseData
      * @Description: 用户验证, 通过openId, 验证用户是否存在，公司是否存在
      * @author wangkun <wangkun@gongsibao.com>
      * @date 2018/4/24

@@ -1,7 +1,7 @@
 package com.gongsibao.rest.base.user;
 
-import com.gongsibao.rest.web.dto.user.AccountDeliverAddressDTO;
-import com.gongsibao.rest.web.request.DeliverAddressRequest;
+import com.netsharp.rest.dto.user.AccountDeliverAddressDTO;
+import com.netsharp.rest.dto.request.DeliverAddressRequest;
 
 import java.util.List;
 

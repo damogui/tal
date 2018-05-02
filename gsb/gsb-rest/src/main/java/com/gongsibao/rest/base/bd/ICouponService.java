@@ -5,8 +5,8 @@ import com.gongsibao.entity.bd.Preferential;
 import com.gongsibao.entity.bd.PreferentialCode;
 import com.gongsibao.entity.bd.dic.CouponPlatformType;
 import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.rest.web.dto.coupon.CouponUseDTO;
-import com.gongsibao.rest.web.dto.coupon.CouponValidateDTO;
+import com.netsharp.rest.dto.coupon.CouponUseDTO;
+import com.netsharp.rest.dto.coupon.CouponValidateDTO;
 
 import java.util.Collection;
 import java.util.Map;

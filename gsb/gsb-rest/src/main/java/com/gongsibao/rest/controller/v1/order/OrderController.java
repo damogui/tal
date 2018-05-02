@@ -4,13 +4,13 @@ import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.rest.base.order.IOrderService;
 import com.gongsibao.rest.controller.BaseController;
 import com.gongsibao.rest.service.user.AccountService;
-import com.gongsibao.rest.web.common.apiversion.Api;
-import com.gongsibao.rest.web.common.apiversion.LoginCheck;
-import com.gongsibao.rest.web.common.security.SecurityUtils;
+import com.netsharp.rest.common.annotation.Api;
+import com.netsharp.rest.common.annotation.LoginCheck;
+import com.netsharp.rest.common.security.SecurityUtils;
 import com.netsharp.rest.util.NumberUtils;
-import com.gongsibao.rest.web.common.web.ResponseData;
-import com.gongsibao.rest.web.dto.order.OrderDTO;
-import com.gongsibao.rest.web.dto.order.OrderMessageDTO;
+import com.netsharp.rest.common.result.ResponseData;
+import com.netsharp.rest.dto.order.OrderDTO;
+import com.netsharp.rest.dto.order.OrderMessageDTO;
 import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,7 +57,7 @@ public class OrderController extends BaseController {
     /* *
      * @Description: 获取订单进度详情
      * @param  []
-     * @return com.gongsibao.rest.web.common.web.ResponseData
+     * @return com.netsharp.rest.common.web.ResponseData
      * @author wangkun <wangkun@gongsibao.com>
      * @date 2018/4/21
      */
@@ -80,7 +80,7 @@ public class OrderController extends BaseController {
     /**
      * @Description: 支付成功后查询订单信息
      * @param  request
-     * @return com.gongsibao.rest.web.common.web.ResponseData
+     * @return com.netsharp.rest.common.web.ResponseData
      * @author wangkun <wangkun@gongsibao.com>
      * @date 2018/4/24
      */

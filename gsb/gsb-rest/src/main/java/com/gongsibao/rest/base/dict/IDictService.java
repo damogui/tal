@@ -1,6 +1,6 @@
 package com.gongsibao.rest.base.dict;
 
-import com.gongsibao.rest.web.dto.dict.CityDTO;
+import com.netsharp.rest.dto.dict.CityDTO;
 
 import java.util.Collection;
 import java.util.List;

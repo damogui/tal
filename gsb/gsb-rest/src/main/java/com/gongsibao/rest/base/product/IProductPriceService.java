@@ -1,8 +1,8 @@
 package com.gongsibao.rest.base.product;
 
 import com.gongsibao.entity.bd.Dict;
-import com.gongsibao.rest.web.dto.product.ProductPriceDTO;
-import com.gongsibao.rest.web.common.web.BdCity;
+import com.netsharp.rest.dto.product.ProductPriceDTO;
+import com.netsharp.rest.common.result.BdCity;
 
 import java.util.Collection;
 import java.util.List;

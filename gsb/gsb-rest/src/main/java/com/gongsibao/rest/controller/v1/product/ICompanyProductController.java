@@ -11,15 +11,15 @@ import com.gongsibao.rest.base.order.IOrderService;
 import com.gongsibao.rest.base.product.IProductPriceService;
 import com.gongsibao.rest.base.product.IProductService;
 import com.gongsibao.rest.base.user.IAccountService;
-import com.gongsibao.rest.web.common.apiversion.Api;
-import com.gongsibao.rest.web.common.apiversion.LoginCheck;
-import com.gongsibao.rest.web.common.security.SecurityUtils;
+import com.netsharp.rest.common.annotation.Api;
+import com.netsharp.rest.common.annotation.LoginCheck;
+import com.netsharp.rest.common.security.SecurityUtils;
 import com.netsharp.rest.util.JsonUtils;
-import com.gongsibao.rest.web.common.web.ResponseData;
+import com.netsharp.rest.common.result.ResponseData;
 import com.gongsibao.rest.controller.BaseController;
-import com.gongsibao.rest.web.dto.coupon.CouponUseDTO;
-import com.gongsibao.rest.web.dto.order.OrderAddDTO;
-import com.gongsibao.rest.web.dto.product.ProductPriceDTO;
+import com.netsharp.rest.dto.coupon.CouponUseDTO;
+import com.netsharp.rest.dto.order.OrderAddDTO;
+import com.netsharp.rest.dto.product.ProductPriceDTO;
 import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +94,7 @@ public class ICompanyProductController extends BaseController {
 
     /**
      * @param request
-     * @return com.gongsibao.rest.web.common.web.ResponseData
+     * @return com.netsharp.rest.common.web.ResponseData
      * @Description:TODO 根据服务地区和产品服务, 获取行业特点
      * @author bhpeng <bhpeng@gongsibao.com>
      * @date 2018/4/12 20:32

@@ -2,7 +2,7 @@ package com.gongsibao.rest.base.user;
 
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.trade.OrderPayMap;
-import com.gongsibao.rest.web.dto.user.AccountValidateDTO;
+import com.netsharp.rest.dto.user.AccountValidateDTO;
 import org.jdom.JDOMException;
 import org.netsharp.wx.pa.entity.PublicAccount;
 

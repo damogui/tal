@@ -2,7 +2,7 @@ package com.gongsibao.rest.service.order;
 
 import com.gongsibao.entity.trade.OrderProdTrace;
 import com.gongsibao.rest.base.order.IOrderProdTraceService;
-import com.gongsibao.rest.web.dto.order.OrderProdTraceDTO;
+import com.netsharp.rest.dto.order.OrderProdTraceDTO;
 import org.apache.commons.lang3.BooleanUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.springframework.beans.BeanUtils;

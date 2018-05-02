@@ -3,7 +3,7 @@ package com.gongsibao.rest.service.dict;
 
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.rest.base.dict.IDictService;
-import com.gongsibao.rest.web.dto.dict.CityDTO;
+import com.netsharp.rest.dto.dict.CityDTO;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.springframework.stereotype.Service;

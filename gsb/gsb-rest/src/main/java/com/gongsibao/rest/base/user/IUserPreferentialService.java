@@ -1,7 +1,7 @@
 package com.gongsibao.rest.base.user;
 
-import com.gongsibao.rest.web.dto.user.PreferentialCodeDTO;
-import com.gongsibao.rest.web.dto.user.PreferentialUsageDTO;
+import com.netsharp.rest.dto.user.PreferentialCodeDTO;
+import com.netsharp.rest.dto.user.PreferentialUsageDTO;
 
 import java.util.List;
 

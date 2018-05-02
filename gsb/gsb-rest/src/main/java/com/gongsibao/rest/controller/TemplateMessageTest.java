@@ -1,9 +1,7 @@
 package com.gongsibao.rest.controller;
 
-import com.gongsibao.rest.web.common.web.Constant;
 import org.junit.Before;
 import org.junit.Test;
-import org.netsharp.weixin.pa.WeixinTestConfiguration;
 import org.netsharp.wx.mp.api.accesstoken.AccessToken;
 import org.netsharp.wx.mp.api.accesstoken.AccessTokenManage;
 import org.netsharp.wx.mp.api.messagetemplate.*;

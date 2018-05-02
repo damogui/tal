@@ -1,6 +1,6 @@
 package com.gongsibao.rest.web.demo.v2;
 
-import com.gongsibao.rest.web.common.apiversion.Api;
+import com.netsharp.rest.common.annotation.Api;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

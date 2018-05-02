@@ -2,8 +2,8 @@ package com.gongsibao.rest.netsharp.base;
 
 import com.gongsibao.entity.Result;
 import com.gongsibao.entity.acount.Account;
-import com.gongsibao.rest.web.dto.user.AccountValidateDTO;
-import com.gongsibao.rest.web.dto.user.LoginDTO;
+import com.netsharp.rest.dto.user.AccountValidateDTO;
+import com.netsharp.rest.dto.user.LoginDTO;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.core.annotations.Transaction;
 import org.netsharp.wx.pa.entity.Fans;
@@ -20,7 +20,7 @@ public interface IAccountService extends IPersistableService<Account> {
     /* *
      * @Description:TODO 验证openId关联会员、会员公司等项
      * @param  openId
-     * @return com.gongsibao.rest.web.dto.user.AccountValidateDTO
+     * @return com.netsharp.rest.dto.user.AccountValidateDTO
      * @author wangkun <wangkun@gongsibao.com>
      * @date 2018/4/24
      */
