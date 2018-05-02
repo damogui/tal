@@ -35,7 +35,7 @@ com.gongsibao.trade.web.OrderAllotCtrl = System.Object.Extends({
                     title:'分配金额',
                     type:'numberbox',
                     className:'',
-                    option:{width:300,precision:2,min:1,required:true}}
+                    option:{width:300,precision:2,min:0.01,required:true}}
             ],
             callback:function(index, layero){
                 var supplierId = $('#allot_supplier_name').combogrid('getValue');
