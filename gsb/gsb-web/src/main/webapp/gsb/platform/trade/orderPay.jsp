@@ -55,7 +55,7 @@
 				          <td class="label_td"><label>付款金额：</label></td>
 				          <td class="control_td">
 					          		<input id="amount"  class="easyui-numberbox nsInput"
-				          			data-options="precision:2,width:200,min:1,max:10000000"/>
+				          			data-options="precision:2,width:200,min:0.01,max:10000000"/>
 						  </td>
 					</tr>
 				      <tr>
