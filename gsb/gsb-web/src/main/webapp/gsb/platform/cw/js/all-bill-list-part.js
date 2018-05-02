@@ -43,8 +43,8 @@ com.gongsibao.cw.web.AllBillsListPart = org.netsharp.panda.commerce.ListPart.Ext
     },
     createVoucher : function (formId,formType){  
     	this.invokeService("createVoucher", [formId,formType], function(data){  
-    		if(data != null){
-    			IMessageBox.toast(data.msg,2);
+    		if(data != null && data.code ==200){
+    			IMessageBox.toast(data.msg);
     		}else{
     			IMessageBox.toast("凭证生成失败！",2);
     		}

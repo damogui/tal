@@ -17,7 +17,7 @@ import com.gongsibao.utils.NumberUtils;
 
 public class DepartmentOrderAllListPart extends BaseDepartmentListPart{
 
-	ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
+	//ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
     IOrderService noService = ServiceFactory.create(IOrderService.class);
 
     @Override
@@ -29,7 +29,7 @@ public class DepartmentOrderAllListPart extends BaseDepartmentListPart{
         sb.append("SoOrder.customer.realName,");
         sb.append("SoOrder.owner.{id,name}");
         oql.setSelects(sb.toString());
-        List<?> rows = orderService.queryList(oql);
+        List<?> rows = noService.queryList(oql);
         return rows;
     }
 
@@ -99,11 +99,11 @@ public class DepartmentOrderAllListPart extends BaseDepartmentListPart{
      */
     public void orderTran(List<Integer> orderList, Integer toUserId) {
 
-        orderService.orderTran(orderList, toUserId);
+        noService.orderTran(orderList, toUserId);
     }
 
     public SoOrder getOrderById(Integer orderId) {
-        SoOrder order = orderService.getByOrderId(orderId);
+        SoOrder order = noService.getByOrderId(orderId);
         return order;
     }
 }

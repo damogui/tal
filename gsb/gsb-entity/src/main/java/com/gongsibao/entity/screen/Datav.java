@@ -13,7 +13,7 @@ public class Datav extends BaseEntity {
     @Column(name="screen_id",header="类型")
     private Integer screenId;
 
-    @Column(name="desc",header="备注说明")
+    @Column(name="desc1",header="备注说明")
     private String desc;
 
     @Column(name="content",header="json内容")

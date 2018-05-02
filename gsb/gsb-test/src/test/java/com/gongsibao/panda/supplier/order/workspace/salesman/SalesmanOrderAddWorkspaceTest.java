@@ -46,6 +46,7 @@ public class SalesmanOrderAddWorkspaceTest extends WorkspaceCreationBase {
 		List<String> ss = new ArrayList<String>();
 		ss.add("/package/easyui/datagrid-cellediting.js");
 		ss.add("/gsb/platform/trade/js/salesman-order-add-form.part.js");
+		ss.add("/package/qiniu/plupload.full.min.js");
 		ss.add("/gsb/panda-extend/gsb.customer.controls.js");
 		formJsImport = StringManager.join("|", ss);
 		formJsController = SalesmanAddOrderFormPart.class.getName();
@@ -108,7 +109,42 @@ public class SalesmanOrderAddWorkspaceTest extends WorkspaceCreationBase {
 		createProductPart(workspace);
 
 		createStagePart(workspace);
+		
+		 createOrderFilePart(workspace);
 	}
+	
+    private void createOrderFilePart(PWorkspace workspace) {
+
+        ResourceNode node = this.resourceService.byCode("Operation_Order_File");
+        PDatagrid datagrid = new PDatagrid(node, "合同附件");
+        {
+            datagrid.setReadOnly(true);
+            datagrid.setResourceNode(node);
+            datagrid.setShowCheckbox(false);
+            PDatagridColumn column = null;
+            column = addColumn(datagrid, "url", "操作", ControlTypes.TEXT_BOX, 80);
+            {
+            	column.setAlign(DatagridAlign.CENTER);
+                column.setFormatter("return controllerfiles.urlFormatter(value,row,index);");
+            }
+            addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 200);
+        }
+        PPart part = new PPart();
+        {
+            part.toNew();
+            part.setName("上传附件");
+            part.setCode("files");
+            part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
+            part.setRelationRole("files");
+            part.setResourceNode(node);
+            part.setPartTypeId(PartType.DETAIL_PART.getId());
+            part.setDatagrid(datagrid);
+            part.setToolbar("contract/file/toolbar");
+            part.setDockStyle(DockType.DOCUMENTHOST);
+            part.setJsController("com.gongsibao.trade.web.OrderFileDetailPart");
+        }
+        workspace.getParts().add(part);
+    }
 
 	// 客户任务
 	public void createProductPart(PWorkspace workspace) {

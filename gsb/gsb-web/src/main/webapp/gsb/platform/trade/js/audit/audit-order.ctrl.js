@@ -30,6 +30,10 @@ com.gongsibao.trade.web.AuditOrderCtrl = com.gongsibao.trade.web.AuditBaseCtrl.E
 		    		
                     me.initStage(orderId);
 
+                }else if (title == '附件信息') {
+		    		
+                    me.initFile(orderId);
+
                 }
 		    }
     	});
@@ -124,6 +128,33 @@ com.gongsibao.trade.web.AuditOrderCtrl = com.gongsibao.trade.web.AuditBaseCtrl.E
                     },
                     {field: 'creator', title: '创建人', width: 100, align: 'center'},
                     {field: 'createTime', title: '创建时间', width: 130, align: 'center'}
+                ]]
+            });
+        });
+    },
+    initFile:function(orderId){
+
+        var me = this;
+        this.invokeService("queryOrderFileList", [orderId], function (data) {
+
+            $('#order_file_grid').datagrid({
+                idField: 'id',
+                emptyMsg: '暂无记录',
+                striped: true,
+                pagination: false,
+                showFooter: true,
+                singleSelect: true,
+                height: '100%',
+                data: data,
+                columns: [[
+
+                    {field: 'url', title: '操作', width: 80, align: 'center',formatter: function (value, row, index) {
+
+                        return  '<a class="grid-btn" href="javascript:window.open(\'' + row.url + '\');">查看</a>';
+                    }},
+                    {field: 'name', title: '名称', width: 200},
+                    {field: 'creator', title: '上传人', width: 80, align: 'center'},
+                    {field: 'createTime', title: '上传时间', width: 130, align: 'center'}
                 ]]
             });
         });

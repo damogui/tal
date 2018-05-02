@@ -3,6 +3,7 @@ package com.gongsibao.trade.web.platform;
 import java.sql.Types;
 import java.util.List;
 
+import com.gongsibao.trade.base.IOrderService;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
@@ -44,6 +45,8 @@ public class AllOrderListPart extends SalesmanAllOrderListPart {
 
 	ISoOrderService soOrderService = ServiceFactory.create(ISoOrderService.class);
 
+	IOrderService noService = ServiceFactory.create(IOrderService.class);
+
 	/**
 	 * ���ݶ�����ѯ��ͬ
 	 *
@@ -79,6 +82,6 @@ public class AllOrderListPart extends SalesmanAllOrderListPart {
 	//转移/分配（包括批量转移/分配）
 	public void orderTran(List<Integer> orderList, Integer toUserId) {
 		//ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
-		soOrderService.orderTran(orderList, toUserId,1);
+		noService.orderTran(orderList, toUserId,1);
 	}
 }
