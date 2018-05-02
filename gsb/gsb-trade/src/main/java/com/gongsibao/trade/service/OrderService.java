@@ -611,7 +611,7 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
     /*校验是不是可以删除*/
     private Integer checkOrderCanDel(Integer orderId) {
 
-        String sql = "SELECT  COUNT(1) FROM  bd_audit_log WHERE  form_id=?  AND  type_id IN (1045,1050,1051)";
+        String sql = "SELECT  COUNT(1) FROM  bd_audit_log WHERE  form_id=?  AND  type_id IN (1045,1050,1051) and  status_id in (1051,1054)";
         QueryParameters qps = new QueryParameters();
         qps.add("@form_id", orderId, Types.INTEGER);
         int numAudit = auditLogService.executeInt(sql, qps);
@@ -625,8 +625,8 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
             qps2.add("@to_order_id", orderId, Types.INTEGER);
             int num = auditLogService.executeInt(sql2, qps2);
             if (num == 0) {
-                //结转中的订单不能删除
-                String sql3 = "SELECT   COUNT(1)   FROM so_order_pay_map WHERE  order_id=?";
+                //有付款的订单不能删除
+                String sql3 = "SELECT   COUNT(1)   FROM so_order_pay_map m INNER JOIN so_pay  p ON  m.`pay_id`=p.pkid WHERE  order_id=? AND offline_audit_status_id IN (1051,1054)";
                 QueryParameters qps3 = new QueryParameters();
                 qps3.add("@order_id", orderId, Types.INTEGER);
                 num = auditLogService.executeInt(sql3, qps3);
