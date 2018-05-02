@@ -101,7 +101,7 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
 
     //转移/分配（包括批量转移/分配）
     public void orderTran(List<Integer> orderList, Integer toUserId) {
-        orderService.orderTran(orderList, toUserId);
+        noService.orderTran(orderList, toUserId);
     }
 
 

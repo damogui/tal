@@ -176,4 +176,9 @@ public interface IOrderService extends IPersistableService<SoOrder> {
      * @return
      */
     Integer orderRecover(Integer orderId);
+
+    //转移/分配（包括批量转移/分配）
+    @Transaction
+    void orderTran(List<Integer> orderIdList, Integer toUserId,Integer...type);
+
 }
