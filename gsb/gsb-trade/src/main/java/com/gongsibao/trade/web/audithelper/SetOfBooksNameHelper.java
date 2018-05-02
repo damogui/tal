@@ -40,19 +40,14 @@ public class SetOfBooksNameHelper {
             if (item.get("name") != null && item.get("name").toString().length() > 0) {
                 if (!list.contains(item.get("name"))) {
                     list.add(item.get("name").toString());
-
                 }
-
-
             }
-
         }
         for (String item:list
                 ) {
             sb.append("<p>");
             sb.append(item);
             sb.append("</p>");
-
         }
 
 
