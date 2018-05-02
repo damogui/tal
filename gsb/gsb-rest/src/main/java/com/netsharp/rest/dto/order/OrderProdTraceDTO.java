@@ -3,8 +3,8 @@ package com.netsharp.rest.dto.order;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.netsharp.rest.dto.PkId;
 import com.netsharp.rest.common.security.SecurityUtils;
-import com.netsharp.rest.util.NumberUtils;
-import com.netsharp.rest.util.StringUtils;
+import com.netsharp.rest.utils.NumberUtils;
+import com.netsharp.rest.utils.StringUtils;
 
 import java.util.Date;
 
