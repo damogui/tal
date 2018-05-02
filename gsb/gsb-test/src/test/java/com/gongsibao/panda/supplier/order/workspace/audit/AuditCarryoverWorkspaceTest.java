@@ -3,6 +3,7 @@ package com.gongsibao.panda.supplier.order.workspace.audit;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gongsibao.entity.u8.SetOfBooks;
 import org.junit.Before;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
@@ -72,6 +73,9 @@ public class AuditCarryoverWorkspaceTest extends WorkspaceCreationBase{
         	column.setAlign(DatagridAlign.RIGHT);
         }
         addColumn(datagrid, "status", "审核状态", ControlTypes.ENUM_BOX, 100);
+        //添加付款账套名称
+        addColumn (datagrid, "booksName", "付款账套", ControlTypes.TEXT_BOX, 150);
+        //
         column = addColumn(datagrid, "carryover.createTime", "创建结转时间", ControlTypes.DATETIME_BOX, 100);{
         	column.setOrderbyMode (OrderbyMode.DESC);
         }
@@ -93,6 +97,7 @@ public class AuditCarryoverWorkspaceTest extends WorkspaceCreationBase{
             item.setTooltip("结转来源/去向订单号");
         }
         addQueryItem(queryProject, "status", "审核状态", ControlTypes.ENUM_BOX);
+        addRefrenceQueryItem(queryProject, "pay.setOfBooks.name", "付款账套", SetOfBooks.class.getSimpleName());//新添加 pay.setOfBooks.name
         addQueryItem(queryProject, "carryover.creator", "结转创建人", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "carryover.createTime", "创建结转时间", ControlTypes.DATE_BOX);
 

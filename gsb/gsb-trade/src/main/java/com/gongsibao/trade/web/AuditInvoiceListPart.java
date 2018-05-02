@@ -7,6 +7,7 @@ import com.gongsibao.entity.trade.OrderInvoiceMap;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.IOrderInvoiceMapService;
 
+import com.gongsibao.trade.web.audithelper.SetOfBooksNameHelper;
 import com.gongsibao.utils.NumberUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
@@ -64,6 +65,12 @@ public class AuditInvoiceListPart extends AdvancedListPart {
             return filterPrefix + " (select invoice_id from so_order_invoice_map where order_id in (select pkid from so_order where " + StringManager.join(" and ", soOrderCreateTime) + " ))";
         }
 
+        if (parameter.getKey().equals("pay.setOfBooksId")) {//付款账套的筛选
+
+            return String.format("form_id   IN (SELECT    invoice_id FROM  so_order_invoice_map  WHERE    order_id IN (SELECT order_id FROM so_order_pay_map WHERE pay_id IN ( SELECT pkid FROM so_pay WHERE set_of_books_id='%s')))", keyword);
+
+        }
+
         return parameter.getFilter();
     }
 
@@ -94,6 +101,10 @@ public class AuditInvoiceListPart extends AdvancedListPart {
             ob2.get(i).put("invoice_accountTypeName", getOrderInfoByPropertyName(list, i, "invoice_accountTypeName"));
             ob2.get(i).put("invoice_orderPayablePrice", getOrderInfoByPropertyName(list, i, "invoice_orderPayablePrice"));
             ob2.get(i).put("invoice_orderPaidPrice", getOrderInfoByPropertyName(list, i, "invoice_orderPaidPrice"));
+            AuditLog auditLog = ((AuditLog) list.get(i));
+            Integer invoiceId = auditLog.getFormId();
+            String setOfBooksName = SetOfBooksNameHelper.getSetOfBooksNameByInvoiceId(invoiceId);
+            ob2.get(i).put("booksName", setOfBooksName);
         }
         return json;
     }

@@ -3,6 +3,7 @@ package com.gongsibao.panda.supplier.order.workspace.audit;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gongsibao.entity.u8.SetOfBooks;
 import org.junit.Before;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
@@ -85,6 +86,10 @@ public class AuditRefundWorkspaceTest extends WorkspaceCreationBase{
         addColumn(datagrid, "fefund.refundType", "退款类别", ControlTypes.ENUM_BOX, 100);
         //addColumn(datagrid, "fefund.amount", "==退款业绩分配金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn(datagrid, "status", "审核状态", ControlTypes.ENUM_BOX, 100);
+
+        //添加付款账套名称
+        addColumn (datagrid, "booksName", "付款账套", ControlTypes.TEXT_BOX, 150);
+        //
         column = addColumn(datagrid, "fefund.createTime", "退款创建时间", ControlTypes.DATETIME_BOX, 100);{
         	column.setOrderbyMode (OrderbyMode.DESC);
         }
@@ -109,6 +114,7 @@ public class AuditRefundWorkspaceTest extends WorkspaceCreationBase{
          }
          /*addQueryItem(queryProject, "fefund.soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX);*/
          addQueryItem(queryProject, "status", "审核状态", ControlTypes.ENUM_BOX);
+        addRefrenceQueryItem(queryProject, "pay.setOfBooks.name", "付款账套", SetOfBooks.class.getSimpleName());//新添加 pay.setOfBooks.name
          /*addQueryItem(queryProject, "fefund.soOrder.payStatus", "订单付款状态", ControlTypes.ENUM_BOX);*/
          addQueryItem(queryProject, "fefund.refundType", "退款类别", ControlTypes.ENUM_BOX);
          addQueryItem(queryProject, "fefund.soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX);

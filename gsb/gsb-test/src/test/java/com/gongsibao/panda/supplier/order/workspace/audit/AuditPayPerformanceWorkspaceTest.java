@@ -4,6 +4,7 @@ import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.NDepPay;
 import com.gongsibao.entity.trade.Pay;
+import com.gongsibao.entity.u8.SetOfBooks;
 import com.gongsibao.tools.PToolbarHelper;
 import com.gongsibao.trade.web.AuditPayListPart;
 import com.gongsibao.trade.web.AuditPayPerformanceListPart;
@@ -107,6 +108,9 @@ public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
         addColumn (datagrid, "soOrder.paidPrice", "已经付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
 //        addColumn (datagrid, "amount", "我的回款业绩额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn (datagrid, "status", "审核状态", ControlTypes.ENUM_BOX, 100);
+        //添加付款账套名称
+        addColumn (datagrid, "booksName", "付款账套", ControlTypes.TEXT_BOX, 150);
+        //
         addColumn (datagrid, "createTime", "回款业绩创建时间", ControlTypes.DATETIME_BOX, 100);
         addColumn (datagrid, "updateTime", "审核通过时间", ControlTypes.DATETIME_BOX, 100);
 
@@ -144,7 +148,7 @@ public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
         addQueryItem (queryProject, "status", "审核状态", ControlTypes.ENUM_BOX);
         // addQueryItem (queryProject, "payForOrderCount", "是否一笔多单", ControlTypes.ENUM_BOX);//已经去掉中间表
        // addQueryItem (queryProject, "soOrder.isOnlinePay", "是否在线支付", ControlTypes.BOOLCOMBO_BOX);
-
+        addRefrenceQueryItem(queryProject, "pay.setOfBooks.name", "付款账套", SetOfBooks.class.getSimpleName());//新添加 pay.setOfBooks.name
         addQueryItem (queryProject, "creator", "回款业绩创建人", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "createTime", "回款业绩创建时间", ControlTypes.DATE_BOX);
 

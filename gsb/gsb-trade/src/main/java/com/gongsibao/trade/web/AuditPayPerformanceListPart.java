@@ -2,6 +2,7 @@ package com.gongsibao.trade.web;
 
 import com.gongsibao.bd.base.IAuditLogService;
 import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.trade.web.audithelper.SetOfBooksNameHelper;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.AdvancedListPart;
@@ -9,6 +10,7 @@ import org.netsharp.panda.commerce.FilterParameter;
 import org.netsharp.util.StringManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -51,6 +53,12 @@ public class AuditPayPerformanceListPart extends AdvancedListPart {
 
 
         }
+        if (parameter.getKey().equals("pay.setOfBooksId")) {//付款账套的筛选
+
+            return String.format("soOrder.pkid  IN ( SELECT order_id FROM so_order_pay_map WHERE pay_id IN ( SELECT pkid FROM so_pay WHERE set_of_books_id='%s'))", keyword);
+
+        }
+
         return parameter.getFilter ();
     }
     @Override
@@ -68,5 +76,18 @@ public class AuditPayPerformanceListPart extends AdvancedListPart {
         oql.setOrderby("add_time DESC");
         List<AuditLog> auditLogs = auditLogService.queryList (oql);
         return auditLogs;
+    }
+
+    @Override
+    protected Object serialize(List<?> list, Oql oql) {
+        HashMap<String, Object> json = (HashMap<String, Object>) super.serialize(list, oql);
+        ArrayList<HashMap<String, Object>> ob2 = (ArrayList<HashMap<String, Object>>) json.get("rows");
+        for (int i = 0; i < ob2.size(); i++) {
+            AuditLog auditLog = ((AuditLog) list.get(i));
+            Integer orderId = auditLog.getFormId();
+            String setOfBooksName = SetOfBooksNameHelper.getSetOfBooksNameByOrderId(orderId);
+            ob2.get(i).put("booksName", setOfBooksName);
+        }
+        return json;
     }
 }
