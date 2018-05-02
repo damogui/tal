@@ -16,6 +16,7 @@ import com.gongsibao.cw.base.ICostDetailService;
 import com.gongsibao.cw.base.IFileService;
 import com.gongsibao.cw.base.ILoanService;
 import com.gongsibao.entity.cw.Loan;
+import com.gongsibao.entity.cw.dict.FinanceDict;
 import com.gongsibao.entity.cw.dict.FinanceDict.AuditStatus;
 
 public class ActionLoanApplyPersist implements IAction {
@@ -47,6 +48,7 @@ public class ActionLoanApplyPersist implements IAction {
     	 loan.setDepartmentId(up.getEmployee().getDepartmentId());
     	 loan.setDepartmentName(organization.getName());
     	 loan.setArrearsAmount(loan.getAmount());
+    	 loan.setBankId(FinanceDict.getBankId(loan.getSetOfBooksId()));
     	 Loan temp = loanService.save(loan);
     	 ctx.setItem(temp);
     }

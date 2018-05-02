@@ -24,11 +24,11 @@ com.gongsibao.cw.web.ExpenseAuditBillFormCtrl = org.netsharp.panda.core.CustomCt
     		}
     		me.bindFileTable(data);
     		me.bindU8BankSelect(data.setOfBooksId);
+    		
     		if(data.paymentMethod == 1){
-    			
-        		$("bankItem").combobox({ disabled: true });  
+        		$("#bankItem").combobox({ disabled: true });  
         	}else{
-        		$("bankItem").combobox({ disabled: false });  
+        		$("#bankItem").combobox({ disabled: false });  
         	}
     		$("#paymentMethodId").val(data.paymentMethod);
     		
@@ -93,7 +93,7 @@ com.gongsibao.cw.web.ExpenseAuditBillFormCtrl = org.netsharp.panda.core.CustomCt
     		    cost_html +="<th scope='row'>"+number+"</th>";
     		    cost_html +="<td>"+costItem.pathName+"</td>";
     		    cost_html +="<td>"+costItem.costTypeName+"</td>";
-    		    cost_html +="<td>"+costItem.detailMoney+"</td>";
+    		    cost_html +="<td>"+costItem.detailMoney/100+"</td>";
     		    cost_html +="<td>"+costItem.memoto+"</td>";
     		    cost_html +="</tr>";
     		 $("#cost_date_table").append(cost_html);
@@ -223,8 +223,8 @@ com.gongsibao.cw.web.ExpenseAuditBillFormCtrl = org.netsharp.panda.core.CustomCt
     			subsidy_html +="<th scope='row'>"+number+"</th>";
     			subsidy_html +="<td>"+me.subsidyType[subsidyItem.type]+"</td>";
     			subsidy_html +="<td>"+subsidyItem.countDay+"</td>";
-    			subsidy_html +="<td>"+subsidyItem.subsidyAmount+"</td>";
     			subsidy_html +="<td>"+subsidyItem.standard+"</td>";
+    			subsidy_html +="<td>"+subsidyItem.subsidyAmount/100+"</td>";
     			subsidy_html +="<td>"+subsidyItem.memoto+"</td>";
     			subsidy_html +="</tr>";
     			table.append(subsidy_html);

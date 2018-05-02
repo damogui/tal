@@ -176,10 +176,7 @@ public class FinanceDict {
 		 * 报销单据类型
 		 */
 		public static enum ExpenseBillType implements IEnum{
-			ExpenseType_1(1, "日常报销"),
-			ExpenseType_2(2, "招待费报销"),
-			ExpenseType_3(3, "差旅费报销"),
-			ExpenseType_4(4, "市场费报销");
+			ExpenseType_1(1, "日常报销");
 			private int value;
 			private String text;
 
@@ -366,6 +363,61 @@ public class FinanceDict {
 			}
 		}
 		
+		
+		public static enum PayeeType implements IEnum {
+			GR(1, "个人"),
+			QY(2, "企业");
+			
+			
+			private int value;
+			private String text;
+			
+			PayeeType(int value, String text) {
+				this.value = value;
+				this.text = text;
+			}
+			@JsonCreator
+			public static PayeeType getItem(int value) {
+				for (PayeeType item : values()) {
+					if (item.getValue() == value) {
+						return item;
+					}
+				}
+				return null;
+			}
+			
+			public String getText() {
+				return this.text;
+			}
+			public Integer getValue() {
+				return this.value;
+			}
+			//借款方对应科目编码
+			public String getAccountCode(){
+				String cashItem = "";
+			    if(this.value == 1){
+			    	cashItem = "12210201";
+			    }else {
+			    	cashItem = "12210202";
+			    }
+				return cashItem;
+			}
+		}
+		
+		//获取凭证对应库存现金id
+		public static Integer getBankId(Integer setOfBooksId) {
+			Integer bankId = 0;
+			if(setOfBooksId == 1){
+				bankId = 2;
+			}else if(setOfBooksId == 2){
+				bankId = 8;
+			}else if(setOfBooksId == 3){
+				bankId = 18;
+			}else if (setOfBooksId == 4){
+				bankId = 20;
+			}
+			return bankId;
+		}
 		
 		
 }

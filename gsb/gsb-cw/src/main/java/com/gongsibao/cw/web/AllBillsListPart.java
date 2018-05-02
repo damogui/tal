@@ -48,6 +48,12 @@ public class AllBillsListPart extends ListPart{
 			logger.info("凭证请求参数："+jsonObject.toString());
 			result = HttpClientUtil.doPost(FinanceDict.U8_VOUCHER_, jsonObject);
 			logger.info("凭证返回参数："+result.toString());
+		}else if(formType == FinanceDict.FormType.BXD.getValue()){
+			Expense expense = expenseService.getBillByFormId(formId,true);
+			JSONObject jsonObject = expenseVoucher(expense);
+			logger.info("凭证请求参数："+jsonObject.toString());
+			result = HttpClientUtil.doPost(FinanceDict.U8_VOUCHER_, jsonObject);
+			logger.info("凭证返回参数："+result.toString());
 		}
 		return result;
 	}
@@ -78,7 +84,7 @@ public class AllBillsListPart extends ListPart{
 		JSONArray inEntryList = new JSONArray();
 		
 		JSONObject inEntryJson = new JSONObject();
-		inEntryJson.put("accountCode", "1001");
+		inEntryJson.put("accountCode", loan.getU8Bank().getCode());
 		inEntryJson.put("naturalDebitCurrency", loan.getAmount()/100);
 		
 		if(loan.getU8Department() !=null){
@@ -88,27 +94,36 @@ public class AllBillsListPart extends ListPart{
 		}else{
 			 throw new BusinessException("U8系统部门信息为空！");
 		}
-		inEntryJson.put("cashItem", "12210201"); //写死
-		inEntryJson.put("remarkIId", "07");
+		inEntryJson.put("remarkIId", loan.getU8Bank().getCode()); 
+		String cashItem = "07" ;
+		//其他挂07
+		if(FinanceDict.LoanBillType.LoanType_4.getValue().intValue() == loan.getType().getValue().intValue()){
+			cashItem = "05";
+		}
+		inEntryJson.put("cashItem", cashItem);
 		inEntryJson.put("cashFlowNaturalDebitCurrency", "0");
 		inEntryList.add(inEntryJson);
-		
 		josnObject.put("inEntryList", inEntryList);
+		
 		//贷方分录
 		JSONArray outEntryList = new JSONArray();
 		JSONObject outEntryJson = new JSONObject();
 		outEntryJson.put("naturalCreditCurrency", loan.getAmount()/100);
-		outEntryJson.put("operator", "");
-		outEntryJson.put("personnelId", "");
-		outEntryJson.put("deptId", "");
-		if(loan.getU8Bank() != null){
-			outEntryJson.put("accountCode", loan.getU8Bank().getCode());
-			outEntryJson.put("cashItem", loan.getU8Bank().getCode());
-			outEntryJson.put("remarkIId", loan.getU8Bank().getCode());
+		if(loan.getU8Department() !=null){
+			outEntryJson.put("operator",loan.getU8Department().getSalesmanId());
+			outEntryJson.put("deptId", loan.getU8Department().getCode());
+			outEntryJson.put("personnelId",loan.getU8Department().getPersonnelCode());
 		}else{
-			throw new BusinessException("银行科目Code获取失败！");
+			 throw new BusinessException("U8系统部门信息为空！");
 		}
-		outEntryJson.put("cashFlowNaturalCreditCurrency", loan.getAmount()/100);
+		if(loan.getU8Bank() != null ){
+			outEntryJson.put("accountCode", loan.getPayeeType().getAccountCode());
+			outEntryJson.put("cashItem", "");
+			outEntryJson.put("remarkIId", "");
+		}else{
+			throw new BusinessException("帐套对应科目银行为空");
+		}
+		outEntryJson.put("cashFlowNaturalCreditCurrency", "");
 		outEntryList.add(outEntryJson);
 		josnObject.put("outEntryList", outEntryList);
 		abstractStr +=loan.getType().getText()+","; //摘要凭借科目名称
@@ -133,18 +148,16 @@ public class AllBillsListPart extends ListPart{
 		josnObject.put("setOfBooksId", expense.getSetOfBooksId());
 		josnObject.put("type", expense.getType().getValue().intValue());
 		josnObject.put("payId", expense.getId());
-		/**
-		 * 1、当报销金额大于借款金额  贷方为公司   借方为报销人  现金流挂公司
-		 * 2、当报销金额等于借款金额  贷方为公司   借方为报销人  没有现金流
-		 * 3、当报销金额小于借款金额  贷方为报销人  借方方为公司  现金流挂公司
-		 */
+
 		//借方分录
 		JSONArray inEntryList = new JSONArray();
 		List<CostDetail> costList=expense.getCostDetailItem();
 		String abstractStr = expense.getDepartmentName()+"部门，"+expense.getCreator()+"申请";
+		String cashItem = "07";
 		if(costList != null && costList.size()>0){
 			for(CostDetail costDetail : costList){
 				JSONObject inEntryJson = new JSONObject();
+				cashItem = costDetail.getCostType().getCashItem();
 				inEntryJson.put("accountCode", costDetail.getCostType().getCode());
 				inEntryJson.put("naturalDebitCurrency", costDetail.getDetailMoney()/100);
 				if(expense.getU8Department() != null){
@@ -154,14 +167,181 @@ public class AllBillsListPart extends ListPart{
 				}else{
 					throw new BusinessException("申请人未在U8部门表配置部门code");
 				}
-				inEntryJson.put("cashItem", costDetail.getCostType().getCashItem());
-				inEntryJson.put("remarkIId", costDetail.getCostType().getCode());
+				inEntryJson.put("cashItem", "");
+				inEntryJson.put("remarkIId", "");
 				inEntryJson.put("cashFlowNaturalDebitCurrency", "0");
 				inEntryList.add(inEntryJson);
 				abstractStr +=costDetail.getCostTypeName()+",";
 			}
 		}
+		//是否冲抵借款
+		if(expense.getIsOffset()){
+			//报销金额大于借款金额
+			if(expense.getAmount() > 0){
+				JSONArray outEntryList = getOutEntry(expense,cashItem);
+				josnObject.put("outEntryList", outEntryList);
+			}
+			//报销金额等于借款金额
+			if(expense.getAmount() == 0){
+				JSONArray outEntryList = getOutEntry(expense);
+				josnObject.put("outEntryList", outEntryList);
+			}
+			//报销金额小于借款金额
+			if(expense.getAmount() < 0){
+				JSONArray outEntryList = getOutEntry(expense,inEntryList,cashItem);
+				josnObject.put("outEntryList", outEntryList);
+			}
+		}else{//不冲抵贷款
+			//贷方分录
+			JSONArray outEntryList = new JSONArray();
+			JSONObject outEntryJson = new JSONObject();
+			outEntryJson.put("naturalCreditCurrency", expense.getTotalAmount()/100);
+			if(expense.getU8Department() != null){
+				outEntryJson.put("operator",expense.getU8Department().getSalesmanId());
+				outEntryJson.put("deptId", expense.getU8Department().getCode());
+				outEntryJson.put("personnelId",expense.getU8Department().getPersonnelCode());
+			}else{
+				throw new BusinessException("申请人未在U8部门表配置部门code");
+			}
+			if(expense.getU8Bank() != null ){
+				outEntryJson.put("accountCode", expense.getU8Bank().getCode());
+				outEntryJson.put("cashItem", cashItem); 
+				outEntryJson.put("remarkIId", expense.getU8Bank().getCode());
+			}else{
+				throw new BusinessException("帐套对应科目银行为空");
+			}
+			outEntryJson.put("cashFlowNaturalCreditCurrency", expense.getTotalAmount()/100);
+			outEntryList.add(outEntryJson);
+			josnObject.put("outEntryList", outEntryList);
+		}
 		josnObject.put("abstractStr", abstractStr+"报销"); //摘要
 		return josnObject;
+	}
+	/**
+	 * 贷方分录信息
+	* @Title: getOutEntry  
+	* @Description: TODO(这里用一句话描述这个方法的作用)  
+	* @param @param expense
+	* @param @return    参数  
+	* @return JSONArray    返回类型  
+	* @throws
+	 */
+	public JSONArray getOutEntry(Expense expense){
+		//贷方分录
+		JSONArray outEntryList = new JSONArray();
+		JSONObject outEntryJson = new JSONObject();
+		outEntryJson.put("naturalCreditCurrency", expense.getTotalAmount()/100);
+		if(expense.getU8Department() != null){
+			outEntryJson.put("operator",expense.getU8Department().getSalesmanId());
+			outEntryJson.put("deptId", expense.getU8Department().getCode());
+			outEntryJson.put("personnelId",expense.getU8Department().getPersonnelCode());
+		}else{
+			throw new BusinessException("申请人未在U8部门表配置部门code");
+		}
+		if(expense.getU8Bank() != null ){
+			outEntryJson.put("accountCode", expense.getU8Bank().getCode());
+			outEntryJson.put("cashItem", ""); 
+			outEntryJson.put("remarkIId", "");
+		}else{
+			throw new BusinessException("帐套对应科目银行为空");
+		}
+		outEntryJson.put("cashFlowNaturalCreditCurrency", "0");
+		outEntryList.add(outEntryJson);
+		return outEntryList;
+	}
+	//报销金额大于借款金额
+	public JSONArray getOutEntry(Expense expense,String cashItem){
+		//贷方分录
+		JSONArray outEntryList = new JSONArray();
+		JSONObject outEntryJson = new JSONObject();
+		//借款分录
+		{
+			outEntryJson.put("naturalCreditCurrency", expense.getLoanAmount()/100);
+			if(expense.getU8Department() != null){
+				outEntryJson.put("operator",expense.getU8Department().getSalesmanId());
+				outEntryJson.put("deptId", expense.getU8Department().getCode());
+				outEntryJson.put("personnelId",expense.getU8Department().getPersonnelCode());
+			}else{
+				throw new BusinessException("申请人未在U8部门表配置部门code");
+			}
+			if(expense.getU8Bank() != null ){
+				outEntryJson.put("accountCode", expense.getU8Bank().getCode());
+				outEntryJson.put("cashItem", ""); 
+				outEntryJson.put("remarkIId", "");
+			}else{
+				throw new BusinessException("帐套对应科目银行为空");
+			}
+			outEntryJson.put("cashFlowNaturalCreditCurrency", "0");
+			outEntryList.add(outEntryJson);
+		}
+		
+		//多余部分公司打给报销人
+		{
+			outEntryJson.put("naturalCreditCurrency", expense.getAmount()/100);
+			outEntryJson.put("cashItem", cashItem); 
+			outEntryJson.put("remarkIId", expense.getU8Bank().getCode());
+			outEntryJson.put("cashFlowNaturalCreditCurrency",  expense.getAmount()/100);
+			outEntryList.add(outEntryJson);
+		}
+		return outEntryList;
+	}
+	
+	/**
+	 * 报销金额小于借款金额
+	* @Title: getOutEntry  
+	* @Description: TODO(这里用一句话描述这个方法的作用)  
+	* @param @param expense
+	* @param @param cashItem
+	* @param @param dd
+	* @param @return    参数  
+	* @return JSONArray    返回类型  
+	* @throws
+	 */
+	public JSONArray getOutEntry(Expense expense,JSONArray inEntryList,String cashItem){
+		//当报销金额小于借款金额  报销人需要将多余部分还给公司
+		JSONObject inEntryJson = new JSONObject();
+		Integer amount = expense.getLoanAmount()-expense.getTotalAmount();
+		inEntryJson.put("naturalCreditCurrency", amount/100);
+		if(expense.getU8Department() != null){
+			inEntryJson.put("operator",expense.getU8Department().getSalesmanId());
+			inEntryJson.put("deptId", expense.getU8Department().getCode());
+			inEntryJson.put("personnelId",expense.getU8Department().getPersonnelCode());
+		}else{
+			throw new BusinessException("申请人未在U8部门表配置部门code");
+		}
+		if(expense.getU8Bank() != null ){
+			inEntryJson.put("accountCode", expense.getU8Bank().getCode());
+			inEntryJson.put("cashItem", cashItem); 
+			inEntryJson.put("remarkIId", expense.getU8Bank().getCode());
+		}else{
+			throw new BusinessException("帐套对应科目银行为空");
+		}
+		inEntryJson.put("cashFlowNaturalCreditCurrency",amount/100);
+		inEntryList.add(inEntryJson);
+		
+		//贷方分录
+		JSONArray outEntryList = new JSONArray();
+		JSONObject outEntryJson = new JSONObject();
+		{
+			outEntryJson.put("naturalCreditCurrency", expense.getLoanAmount()/100);
+			if(expense.getU8Department() != null){
+				outEntryJson.put("operator",expense.getU8Department().getSalesmanId());
+				outEntryJson.put("deptId", expense.getU8Department().getCode());
+				outEntryJson.put("personnelId",expense.getU8Department().getPersonnelCode());
+			}else{
+				throw new BusinessException("申请人未在U8部门表配置部门code");
+			}
+			if(expense.getU8Bank() != null ){
+				outEntryJson.put("accountCode", expense.getPayeeType().getAccountCode()); //个人或企业对应科目编码
+				outEntryJson.put("cashItem", ""); 
+				outEntryJson.put("remarkIId", "");
+			}else{
+				throw new BusinessException("帐套对应科目银行为空");
+			}
+			outEntryJson.put("cashFlowNaturalCreditCurrency", "0");
+			outEntryList.add(outEntryJson);
+		}
+		
+		return outEntryList;
 	}
 }
