@@ -211,7 +211,7 @@ public class LoansBillWorkspaceTest extends WorkspaceCreationBase {
           addFormField(form, "creator", "经办人",groupName, ControlTypes.TEXT_BOX, false, false);
           addFormFieldRefrence(form, "borrowerEmployee.name", "借款人",groupName, "CRM_Employee" , true, false);
           groupName = "收款信息";
-          addFormField(form, "payeeType", "收款类型",groupName, ControlTypes.ENUM_BOX, true, false);
+          addFormField(form, "payeeType", "收款类型",groupName, ControlTypes.ENUM_BOX, true, false); 
           addFormField(form, "payeeName", "收款人",groupName, ControlTypes.TEXT_BOX, true, false);
           addFormField(form, "companyBank", "开户行",groupName, ControlTypes.TEXT_BOX, true, true);
           addFormField(form, "companyAccount", "银行账号",groupName, ControlTypes.TEXT_BOX, true, true);
