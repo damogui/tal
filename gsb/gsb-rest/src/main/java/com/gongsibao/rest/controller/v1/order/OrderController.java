@@ -1,6 +1,7 @@
 package com.gongsibao.rest.controller.v1.order;
 
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
 import com.netsharp.rest.base.order.IOrderService;
 import com.gongsibao.rest.controller.BaseController;
 import com.netsharp.rest.controller.exception.WxException;
@@ -86,6 +87,8 @@ public class OrderController extends BaseController {
             throw new WxException(RestResult.FAIL, "订单不存在");
         }
 
+
+
         OrderDTO orderDTO = new OrderDTO();
         {
             orderDTO.setPkid(order.getId());
@@ -94,6 +97,9 @@ public class OrderController extends BaseController {
             orderDTO.setAdd_time(order.getCreateTime());
             orderDTO.setProdName(order.getProdName());
             orderDTO.setProcessStatusId(order.getProcessStatus().getValue());
+            if(order.getIsDelete()){
+                orderDTO.setProcessStatusId(OrderProcessStatusType.Yqx.getValue());
+            }
             orderDTO.setPayStatusId(order.getPayStatus().getValue());
             orderDTO.setPayablePrice(order.getPayablePrice());
             orderDTO.setPaidPrice(order.getPaidPrice());

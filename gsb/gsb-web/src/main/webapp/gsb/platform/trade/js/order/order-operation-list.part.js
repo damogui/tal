@@ -29,7 +29,7 @@ com.gongsibao.trade.web.OrderOperationController = org.netsharp.panda.commerce.L
             area: ['500px', '300px'],
             zIndex: 100000,
             content: builder.toString(),
-            btn: ['保存', '取消'],// 可以无限个按钮
+            btn: ['确定', '取消'],// 可以无限个按钮
             success: function (layero, index) {
 
                 // 业务员

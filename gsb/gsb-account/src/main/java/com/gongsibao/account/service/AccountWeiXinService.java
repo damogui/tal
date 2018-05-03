@@ -34,6 +34,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.text.DecimalFormat;
 
 @Service
 public class AccountWeiXinService extends PersistableService<AccountWeiXin> implements IAccountWeiXinService {
@@ -460,7 +461,7 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
     }
 
     private void saveOrderMsg(String originalId, String mobile, Integer pkid) {
-        String sql = "select * from so_order  where pkid=? ";
+        String sql = "select * from so_order  where pkid=? and is_delete=0 ";
         QueryParameters qps = new QueryParameters();
         qps.add("@pkid", pkid, Types.INTEGER);
         ResultSet rs = this.pm.executeReader(sql, qps);
@@ -478,7 +479,8 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
             if (null != proName && null != orderNo) {
                 //取用户信息
                 Account account = accountService.byMobile(mobile);
-                this.pushTextMsgByOriginalId(originalId, account.getId(), "您的订单已创建成功,产品[" + proName + "]", orderNo, String.valueOf(Double.valueOf(payablePrice)/100), addTime, "/index.html#/orderDetails/" + SecurityUtils.rc4Encrypt(pkid), "点击立即支付", AccountWxMsg.ORDER_SUCCESS);
+                DecimalFormat    df   = new DecimalFormat("######0.00");
+                this.pushTextMsgByOriginalId(originalId, account.getId(), "您的订单已创建成功,产品[" + proName + "]", orderNo, df.format(Double.valueOf(payablePrice)/100), addTime, "/index.html#/orderDetails/" + SecurityUtils.rc4Encrypt(pkid), "点击立即支付", AccountWxMsg.ORDER_SUCCESS);
             }
         } catch (SQLException e) {
             e.printStackTrace();
