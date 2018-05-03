@@ -4,7 +4,7 @@ import com.gongsibao.account.base.IAccountWeiXinService;
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.acount.AccountWxMsg;
 import com.gongsibao.rest.controller.BaseController;
-import com.netsharp.rest.controller.annotation.Api;
+import com.netsharp.rest.controller.annotation.ApiVersion;
 import com.netsharp.rest.controller.exception.WxException;
 import com.netsharp.rest.controller.result.RestResult;
 import com.netsharp.rest.base.user.IAccountService;
@@ -19,7 +19,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/wx/{v}/message")
-@Api(1)
+@ApiVersion(1)
 public class MessageController extends BaseController {
     private Logger logger = Logger.getLogger(MessageController.class);
 

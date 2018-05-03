@@ -6,7 +6,7 @@ import com.netsharp.rest.base.order.IOrderService;
 import com.gongsibao.rest.controller.BaseController;
 import com.netsharp.rest.controller.exception.WxException;
 import com.netsharp.rest.service.user.AccountService;
-import com.netsharp.rest.controller.annotation.Api;
+import com.netsharp.rest.controller.annotation.ApiVersion;
 import com.netsharp.rest.controller.annotation.LoginCheck;
 import com.netsharp.rest.controller.security.SecurityUtils;
 import com.netsharp.rest.utils.NumberUtils;
@@ -31,7 +31,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/wx/{v}/order")
-@Api(1)
+@ApiVersion(1)
 public class OrderController extends BaseController {
 
     @Autowired

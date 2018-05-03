@@ -11,7 +11,7 @@ import com.netsharp.rest.base.order.IOrderService;
 import com.netsharp.rest.base.product.IProductPriceService;
 import com.netsharp.rest.base.product.IProductService;
 import com.netsharp.rest.base.user.IAccountService;
-import com.netsharp.rest.controller.annotation.Api;
+import com.netsharp.rest.controller.annotation.ApiVersion;
 import com.netsharp.rest.controller.annotation.LoginCheck;
 import com.netsharp.rest.controller.exception.WxException;
 import com.netsharp.rest.controller.result.BdCity;
@@ -38,7 +38,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/wx/{v}/icompany/product")
-@Api(1)
+@ApiVersion(1)
 public class ICompanyProductController extends BaseController {
 
     @Autowired

@@ -7,7 +7,7 @@ import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.*;
 import com.netsharp.rest.base.user.IAccountService;
-import com.netsharp.rest.controller.annotation.Api;
+import com.netsharp.rest.controller.annotation.ApiVersion;
 import com.netsharp.rest.controller.constant.ConstantKey;
 import com.netsharp.rest.controller.exception.WxException;
 import com.netsharp.rest.controller.security.SecurityUtils;
@@ -41,7 +41,7 @@ import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping(value = "/wx/{v}")
-@Api(1)
+@ApiVersion(1)
 public class UserController extends BaseController {
     private Logger logger = Logger.getLogger(UserController.class);
 
