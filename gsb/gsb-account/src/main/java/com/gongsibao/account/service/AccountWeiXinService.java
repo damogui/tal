@@ -479,8 +479,8 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
             if (null != proName && null != orderNo) {
                 //取用户信息
                 Account account = accountService.byMobile(mobile);
-                DecimalFormat decimalFormat=new DecimalFormat(".##");
-                this.pushTextMsgByOriginalId(originalId, account.getId(), "您的订单已创建成功,产品[" + proName + "]", orderNo, decimalFormat.format(Double.valueOf(payablePrice)/100), addTime, "/index.html#/orderDetails/" + SecurityUtils.rc4Encrypt(pkid), "点击立即支付", AccountWxMsg.ORDER_SUCCESS);
+                DecimalFormat    df   = new DecimalFormat("######0.00");
+                this.pushTextMsgByOriginalId(originalId, account.getId(), "您的订单已创建成功,产品[" + proName + "]", orderNo, df.format(Double.valueOf(payablePrice)/100), addTime, "/index.html#/orderDetails/" + SecurityUtils.rc4Encrypt(pkid), "点击立即支付", AccountWxMsg.ORDER_SUCCESS);
             }
         } catch (SQLException e) {
             e.printStackTrace();
