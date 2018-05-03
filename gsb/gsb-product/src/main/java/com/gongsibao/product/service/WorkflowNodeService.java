@@ -4,6 +4,7 @@ import java.sql.Types;
 import java.util.*;
 
 import com.gongsibao.entity.trade.OrderProd;
+import com.gongsibao.entity.trade.dic.NodeType;
 import com.gongsibao.product.base.IOrderProdService;
 import com.gongsibao.product.base.IWorkflowService;
 import com.gongsibao.utils.NumberUtils;
@@ -194,6 +195,25 @@ public class WorkflowNodeService extends PersistableService<WorkflowNode> implem
         resMap.put("version", version);
         resMap.put("workflowIdList", workflowIdList);
         return resMap;
+    }
+
+    @Override
+    public List<WorkflowNode> getIdsAndTypeIds(List<Integer> idsList, List<Integer> typeIdList) {
+        if (CollectionUtils.isEmpty(idsList)) {
+            return null;
+        }
+        if (CollectionUtils.isEmpty(typeIdList)) {
+            return null;
+        }
+        String ids = StringManager.join(",", idsList);
+        String typeIds = StringManager.join(",", typeIdList);
+        Oql oql = new Oql();
+        {
+            oql.setType(this.type);
+            oql.setSelects("*");
+            oql.setFilter("pkid in(" + ids + ") and type_id IN (" + typeIds + ") ");
+        }
+        return this.pm.queryList(oql);
     }
 
     @Override
