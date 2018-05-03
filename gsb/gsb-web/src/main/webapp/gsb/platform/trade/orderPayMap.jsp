@@ -50,7 +50,7 @@
 					<tr>
 				       <td class="label_td"><label>订单分配金额：</label></td>
 				       <td class="control_td">
-					       <input id="amount" class="easyui-numberbox nsInput" data-options="precision:2,width:200,min:1,onChange:function(newValue,oldValue){payMapCtrl.amountChange(newValue,oldValue);}"/>
+					       <input id="amount" class="easyui-numberbox nsInput" data-options="precision:2,width:200,min:0.01,onChange:function(newValue,oldValue){payMapCtrl.amountChange(newValue,oldValue);}"/>
 				       </td>
 					</tr>
 				</table>

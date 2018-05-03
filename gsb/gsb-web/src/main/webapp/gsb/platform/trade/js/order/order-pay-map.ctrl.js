@@ -66,7 +66,7 @@ com.gongsibao.trade.web.OrderPayMapCtrl = org.netsharp.panda.core.CustomCtrl.Ext
         //应付金额-余额
 
         var unpaidAmount = this.soOrder.payablePrice - this.soOrder.balance;
-       
+
 
         //this.soOrder.payablePrice - this.soOrder.paidPrice - this.soOrder.refundPrice - this.soOrder.carryAmount;
         return unpaidAmount;
@@ -153,6 +153,14 @@ com.gongsibao.trade.web.OrderPayMapCtrl = org.netsharp.panda.core.CustomCtrl.Ext
         if (System.isnull(amount)) {
 
             layer.msg('请填写【分配金额】！');
+            return;
+        }
+        var unpaidAmount = this.getUnpaidAmount();
+
+        // //校验金额不能大于代付款
+        if (parseFloat(amount) > parseFloat(unpaidAmount)/100) {
+
+            layer.msg('【订单分配金额】不能超过【待支付金额】');
             return;
         }
 

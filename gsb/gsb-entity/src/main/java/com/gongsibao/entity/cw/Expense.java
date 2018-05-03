@@ -96,6 +96,9 @@ public class Expense extends BizEntity{
 	@Column(name = "payee_name", header = "收款人名称、公司名称")
 	private String payeeName;
 	
+	@Column(name = "payee_type", header = "收款类型（个人，企业）")
+	private FinanceDict.PayeeType payeeType = FinanceDict.PayeeType.GR;
+	
 	@Column(name = "expense_id", header = "报销人id")
 	private Integer expenseId;
 	
@@ -384,6 +387,14 @@ public class Expense extends BizEntity{
 
 	public void setIsVoucher(Boolean isVoucher) {
 		this.isVoucher = isVoucher;
+	}
+
+	public FinanceDict.PayeeType getPayeeType() {
+		return payeeType;
+	}
+
+	public void setPayeeType(FinanceDict.PayeeType payeeType) {
+		this.payeeType = payeeType;
 	}
 
 	

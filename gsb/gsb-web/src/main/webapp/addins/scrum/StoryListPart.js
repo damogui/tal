@@ -9,7 +9,7 @@ org.netsharp.scrum.web.StoryListPart = org.netsharp.panda.commerce.ListPart.Exte
 			return;
 		}
 		
-		var url = "/panda/scrum/my/trace/list?filter=storyId|"+item.id;
+		var url = "/panda/scrum/my/trace/list?storyId="+item.id;
 		window.open(url);
 	},
 	

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.gongsibao.trade.web.audithelper.SetOfBooksNameHelper;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
@@ -27,6 +28,11 @@ public class AuditRefundListPart extends AdvancedListPart {
             filters.add("channel_order_no = '" + keyword + "'");
             filters.add("company_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )");
             return " form_id in (select pkid from so_refund where order_id in ( select pkid from so_order where " + StringManager.join(" or ", filters) + "))";
+        }
+        if (parameter.getKey().equals("pay.setOfBooksId")) {//付款账套的筛选
+
+            return String.format("fefund.orderId  IN ( SELECT order_id FROM so_order_pay_map WHERE pay_id IN ( SELECT pkid FROM so_pay WHERE set_of_books_id='%s'))", keyword);
+
         }
         return parameter.getFilter();
     }
@@ -56,6 +62,9 @@ public class AuditRefundListPart extends AdvancedListPart {
             } else {
                 ob2.get(i).put("fefund_soOrder_companyIntention_companyName", "");
             }
+
+            String setOfBooksName = SetOfBooksNameHelper.getSetOfBooksNameByOrderId(soOrder.getId());
+            ob2.get(i).put("booksName", setOfBooksName);
 
         }
         return json;

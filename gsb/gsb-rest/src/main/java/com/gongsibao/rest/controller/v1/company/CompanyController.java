@@ -1,8 +1,9 @@
 package com.gongsibao.rest.controller.v1.company;
 
-import com.netsharp.rest.common.annotation.Api;
+import com.gongsibao.entity.bd.BdService;
+import com.netsharp.rest.controller.annotation.Api;
 import com.netsharp.rest.utils.StringUtils;
-import com.netsharp.rest.common.result.ResponseData;
+import com.netsharp.rest.controller.result.RestResult;
 import com.netsharp.rest.base.product.IProductService;
 import com.gongsibao.rest.controller.BaseController;
 import com.netsharp.rest.dto.company.CompanyNameDTO;
@@ -41,16 +42,8 @@ public class CompanyController extends BaseController {
      * @date 2018/4/11 13:30
      */
     @RequestMapping(value = "/lstService", method = RequestMethod.GET)
-    public ResponseData lstService() {
-        ResponseData data = new ResponseData();
-        try {
-            data.setCode(ResponseData.SUCCESS);
-            data.setData(productService.findServiceList());
-        } catch (Exception e) {
-            e.printStackTrace();
-            ResponseData.getException();
-        }
-        return data;
+    public List<BdService> lstService() {
+        return productService.findServiceList();
     }
 
     /**
@@ -60,30 +53,23 @@ public class CompanyController extends BaseController {
      * @return
      */
     @RequestMapping("/suggest")
-    public ResponseData suggest(HttpServletRequest request) {
-        try {
-            String companyName = StringUtils.trimToEmpty(request.getParameter("companyName"));
+    public List<CompanyNameDTO> suggest(HttpServletRequest request) {
+        String companyName = StringUtils.trimToEmpty(request.getParameter("companyName"));
 
-            // 查大数据接口
-            ResponseMessage<CompanyNameByKey> responseMessage = TaurusApiService.getCompanyNameByKey(companyName, 1, 10);
+        // 查大数据接口
+        ResponseMessage<CompanyNameByKey> responseMessage = TaurusApiService.getCompanyNameByKey(companyName, 1, 10);
 
-            // 封装DTO
-            List<CompanyNameDTO> nameList = new ArrayList<>();
-            if (null != responseMessage && CollectionUtils.isNotEmpty(responseMessage.getList())) {
-                for (CompanyNameByKey companyNameByKey : responseMessage.getList()) {
-                    CompanyNameDTO dto = CompanyNameDTO.getObj(companyNameByKey);
-
-                    String name = StringUtils.trimToEmpty(dto.getName());
-                    dto.setName(name);
-                    dto.setShowName(name.replace(companyName, "<span>" + companyName + "</span>"));
-
-                    nameList.add(dto);
-                }
+        // 封装DTO
+        List<CompanyNameDTO> nameList = new ArrayList<>();
+        if (null != responseMessage && CollectionUtils.isNotEmpty(responseMessage.getList())) {
+            for (CompanyNameByKey companyNameByKey : responseMessage.getList()) {
+                CompanyNameDTO dto = CompanyNameDTO.getObj(companyNameByKey);
+                String name = StringUtils.trimToEmpty(dto.getName());
+                dto.setName(name);
+                dto.setShowName(name.replace(companyName, "<span>" + companyName + "</span>"));
+                nameList.add(dto);
             }
-            return ResponseData.getSuccess(nameList, "");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseData.getException();
         }
+        return nameList;
     }
 }

@@ -1,8 +1,8 @@
 package com.gongsibao.rest.controller.v1.dict;
 
 import com.netsharp.rest.base.dict.IDictService;
-import com.netsharp.rest.common.annotation.Api;
-import com.netsharp.rest.common.result.Result;
+import com.netsharp.rest.controller.annotation.Api;
+import com.netsharp.rest.controller.result.Result;
 import com.netsharp.rest.dto.dict.CityDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,9 +32,7 @@ public class DictController {
      * @return
      */
     @RequestMapping(value = "/getCity", method = RequestMethod.GET)
-    public Result<List<CityDTO>> cityList(@RequestParam("listType") Integer listType) {
-        return Result.build(() -> {
-            return dictService.queryCityList(listType);
-        });
+    public List<CityDTO> cityList(@RequestParam("listType") Integer listType) {
+        return dictService.queryCityList(listType);
     }
 }

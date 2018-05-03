@@ -13,6 +13,7 @@ import org.netsharp.communication.ServiceFactory;
 import com.gongsibao.cw.base.IExpenseService;
 import com.gongsibao.entity.cw.Expense;
 import com.gongsibao.entity.cw.TripRecord;
+import com.gongsibao.entity.cw.dict.FinanceDict;
 import com.gongsibao.entity.cw.dict.FinanceDict.AuditStatus;
 
 public class ActionExpenseApplyPersist implements IAction {
@@ -36,6 +37,7 @@ public class ActionExpenseApplyPersist implements IAction {
     	 UserPermission up = UserPermissionManager.getUserPermission();
     	 expense.setDepartmentId(up.getEmployee().getDepartmentId());
     	 expense.setCode(getExpenseCode());
+    	 expense.setBankId(FinanceDict.getBankId(expense.getSetOfBooksId()));
     	 Expense temp = expenseService.save(expense);
     	 ctx.setItem(temp);
     }

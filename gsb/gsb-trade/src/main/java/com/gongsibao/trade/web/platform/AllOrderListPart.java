@@ -3,6 +3,7 @@ package com.gongsibao.trade.web.platform;
 import java.sql.Types;
 import java.util.List;
 
+import com.gongsibao.trade.base.IOrderService;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
@@ -42,15 +43,16 @@ public class AllOrderListPart extends SalesmanAllOrderListPart {
 		return defaultFilter;
 	}
 
-	ISoOrderService soOrderService = ServiceFactory.create(ISoOrderService.class);
+	IOrderService noService = ServiceFactory.create(IOrderService.class);
 
 	/**
-	 * ���ݶ�����ѯ��ͬ
-	 *
+	 * @author: 郭佳
 	 * @param orderId
-	 * @return
+	 * @Description:TODO 之前的注释乱码
+	 * @date:   2018/5/2 19:00
 	 */
 	public int checkContract(Integer orderId) {
+
 		Integer res = 0;
 		StringBuilder builder = new StringBuilder();
 		builder.append("Contract.*");
@@ -67,7 +69,7 @@ public class AllOrderListPart extends SalesmanAllOrderListPart {
 		if (CollectionUtils.isNotEmpty(contracts)) {
 			res = -1;// 该订单已经创建合同
 		} else {
-			SoOrder order = soOrderService.getByOrderId(orderId);
+			SoOrder order = noService.getByOrderId(orderId);
 			// 当该订单是改价订单时，并且改价状态不是【审核通过】
 			if (order.getIsChangePrice() && !order.getChangePriceAuditStatus().equals(AuditStatusType.Shtg)) {
 				res = -2;// 当该订单的改价状态不是审核通过
@@ -79,6 +81,6 @@ public class AllOrderListPart extends SalesmanAllOrderListPart {
 	//转移/分配（包括批量转移/分配）
 	public void orderTran(List<Integer> orderList, Integer toUserId) {
 		//ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
-		soOrderService.orderTran(orderList, toUserId,1);
+		noService.orderTran(orderList, toUserId,1);
 	}
 }

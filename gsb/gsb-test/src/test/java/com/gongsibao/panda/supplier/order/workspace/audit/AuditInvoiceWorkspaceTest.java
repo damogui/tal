@@ -2,6 +2,7 @@ package com.gongsibao.panda.supplier.order.workspace.audit;
 
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogType;
+import com.gongsibao.entity.u8.SetOfBooks;
 import com.gongsibao.tools.PToolbarHelper;
 import com.gongsibao.trade.web.AuditContractListPart;
 import com.gongsibao.trade.web.AuditInvoiceListPart;
@@ -99,6 +100,9 @@ public class AuditInvoiceWorkspaceTest extends WorkspaceCreationBase {
         addColumn(datagrid, "invoice.createTime", "发票申请时间", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "invoice.creator", "发票申请人", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "status", "审核状态", ControlTypes.TEXT_BOX, 100);
+        //添加付款账套名称
+        addColumn (datagrid, "booksName", "付款账套", ControlTypes.TEXT_BOX, 150);
+        //
         addColumn(datagrid, "invoice.orderCreateTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "invoice.salesman.name", "业务员", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "remark", "说明", ControlTypes.TEXT_BOX, 100);
@@ -121,6 +125,7 @@ public class AuditInvoiceWorkspaceTest extends WorkspaceCreationBase {
         addQueryItem(queryProject, "prodName", "产品名称", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "status", "审核状态", ControlTypes.ENUM_BOX);
         addQueryItem(queryProject, "invoice.typeId", "发票类型", ControlTypes.ENUM_BOX);
+        addRefrenceQueryItem(queryProject, "pay.setOfBooks.name", "付款账套", SetOfBooks.class.getSimpleName());//新添加 pay.setOfBooks.name
         addQueryItem(queryProject, "invoice.salesman.name", "业务员", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "invoice.creator", "发票申请人", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "invoice.createTime", "发票申请时间", ControlTypes.DATE_BOX);

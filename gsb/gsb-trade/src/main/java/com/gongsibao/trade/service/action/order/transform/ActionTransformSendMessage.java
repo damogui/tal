@@ -52,15 +52,22 @@ public class ActionTransformSendMessage implements IAction {
         Salesman toUser = (Salesman) statusMap.get("toUser");
         //转移的目标业务员
         Salesman formUser = (Salesman) statusMap.get("formUser");
+
         if (orderLengh > 1 && flagEnd) {//批量并且走到最后
 
             batchToUserSendMsg(toUser);//接受业务员消息
-            batchFormUserSendMsg(hashFrom, toUser.getName());//被转移分配业务员消息
+            if (formUser!=null){
+                batchFormUserSendMsg(hashFrom, toUser.getName());//被转移分配业务员消息
+            }
+
 
         } else {//单个
             //发送消息
             toUserSendMsg(toUser);//接受业务员消息
-            formUserSendMsg(formUser, toUser.getName());//被转移分配业务员消息
+            if (formUser!=null){
+                formUserSendMsg(formUser, toUser.getName());//被转移分配业务员消息
+            }
+
         }
 
 

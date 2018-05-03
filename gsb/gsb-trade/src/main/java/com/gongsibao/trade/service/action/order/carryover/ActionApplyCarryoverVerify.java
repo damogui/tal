@@ -68,10 +68,10 @@ public class ActionApplyCarryoverVerify implements IAction {
 		}
 
 		// 5.判断两个订单号是否同一客户
-		if(!formOrder.getAccountId().equals(toOrder.getAccountId())){
-			
-			throw new BusinessException("去向订单号与来源订单号所属的客户不同！请检查您是否填写了正确的订单号！");
-		}
+//		if(!formOrder.getAccountId().equals(toOrder.getAccountId())){
+//			
+//			throw new BusinessException("去向订单号与来源订单号所属的客户不同！请检查您是否填写了正确的订单号！");
+//		}
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.gongsibao.panda.supplier.order;
 
+import com.gongsibao.panda.supplier.order.workspace.interactive.InteractiveOperatGroupQueryWorkspaceTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -115,6 +116,7 @@ import com.gongsibao.panda.supplier.reference.SupplierU8BankReferenceTest;
         //交互管理
         InteractiveMyInChargeWorkspaceTest.class,
         InteractiveOperationPoolWorkspaceTest.class,
+        InteractiveOperatGroupQueryWorkspaceTest.class,
 
         OrderNavigationTest.class,
 })

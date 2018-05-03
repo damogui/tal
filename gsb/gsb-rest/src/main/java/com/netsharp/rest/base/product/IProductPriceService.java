@@ -2,7 +2,7 @@ package com.netsharp.rest.base.product;
 
 import com.gongsibao.entity.bd.Dict;
 import com.netsharp.rest.dto.product.ProductPriceDTO;
-import com.netsharp.rest.common.result.BdCity;
+import com.netsharp.rest.controller.result.BdCity;
 
 import java.util.Collection;
 import java.util.List;

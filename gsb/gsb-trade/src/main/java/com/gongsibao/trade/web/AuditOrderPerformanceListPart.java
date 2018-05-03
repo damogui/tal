@@ -98,7 +98,7 @@ public class AuditOrderPerformanceListPart extends AdvancedListPart {
         for (int i = 0; i < ob2.size(); i++) {
             AuditLog auditLog = ((AuditLog) list.get(i));
             Integer orderId = auditLog.getFormId();
-            String setOfBooksName = SetOfBooksNameHelper.getSetOfBooksName(orderId);
+            String setOfBooksName = SetOfBooksNameHelper.getSetOfBooksNameByOrderId(orderId);
             ob2.get(i).put("booksName", setOfBooksName);
         }
         return json;

@@ -75,8 +75,12 @@ public class Loan extends BizEntity {
 	@Column(name = "company_bank", header = "开户行")
 	private String companyBank;
 	
+	@Column(name = "payee_type", header = "收款类型（个人，企业）")
+	private FinanceDict.PayeeType payeeType = FinanceDict.PayeeType.GR;
+	
 	@Column(name = "payee_name", header = "收款人名称、公司名称")
 	private String payeeName;
+	
 	
 	@Column(name = "borrower_id", header = "借款人id")
 	private Integer borrowerId;
@@ -95,8 +99,6 @@ public class Loan extends BizEntity {
 
 	@Column(name = "is_voucher", header = "是否可生成凭证（0：否 1：是）")
 	private Boolean isVoucher ;
-	
-
 	
 	@Column(name = "status", header = "状态 1:待审核 ，2：审核中 ，3：已通过，4：财务办理，5：驳回")
 	private FinanceDict.AuditStatus status = FinanceDict.AuditStatus.Status_1;
@@ -342,7 +344,15 @@ public class Loan extends BizEntity {
 		this.departmentName = departmentName;
 	}
 
-	
+
+	public FinanceDict.PayeeType getPayeeType() {
+		return payeeType;
+	}
+
+
+	public void setPayeeType(FinanceDict.PayeeType payeeType) {
+		this.payeeType = payeeType;
+	}
 	
 }
 

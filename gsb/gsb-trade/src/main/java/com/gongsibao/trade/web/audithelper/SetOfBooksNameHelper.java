@@ -24,7 +24,7 @@ public class SetOfBooksNameHelper {
      * @Description:TODO 根据订单ID获取支付账套
      * @date:   2018/5/2 14:42
      */
-    public static String getSetOfBooksName(Integer orderId){
+    public static String getSetOfBooksNameByOrderId(Integer orderId){
 
         IPersister<AuditLog> auditService = PersisterFactory.create();
         String sql = "SELECT  order_id,set_of_books_id,u.name FROM  so_pay  s LEFT JOIN    so_order_pay_map m  ON s.pkid=m.pay_id   LEFT JOIN  u8_set_of_books u ON u.id=s.set_of_books_id WHERE   order_id=?  AND  set_of_books_id>0";
@@ -54,5 +54,40 @@ public class SetOfBooksNameHelper {
         return sb.toString();
     }
 
+    /**
+     * @author: 郭佳
+     * @param invoiceId
+     * @Description:TODO根据发票id回去相关账套
+     * @date:   2018/5/2 15:07
+     */
+    public static String getSetOfBooksNameByInvoiceId(Integer invoiceId) {
+        IPersister<AuditLog> auditService = PersisterFactory.create();
+        String sql = "SELECT order_id, set_of_books_id, u.name FROM so_pay s LEFT JOIN so_order_pay_map m  ON s.pkid = m.pay_id LEFT JOIN u8_set_of_books u  ON u.id = s.set_of_books_id WHERE order_id IN (SELECT order_id FROM so_order_invoice_map WHERE invoice_id =?) AND set_of_books_id > 0 ";
 
+
+        QueryParameters qps=new QueryParameters();
+        qps.add("@invoice_id",invoiceId, Types.INTEGER);
+        DataTable dt = auditService.executeTable(sql, qps);
+        StringBuilder sb = new StringBuilder();
+        List<String> list = new ArrayList<>();
+        for (Row item : dt
+                ) {
+            if (item.get("name") != null && item.get("name").toString().length() > 0) {
+                if (!list.contains(item.get("name"))) {
+                    list.add(item.get("name").toString());
+                }
+            }
+        }
+        for (String item:list
+                ) {
+            sb.append("<p>");
+            sb.append(item);
+            sb.append("</p>");
+        }
+
+
+        return sb.toString();
+
+
+    }
 }
