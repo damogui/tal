@@ -1,6 +1,7 @@
 package com.gongsibao.igirl.ic.base;
 
 import com.gongsibao.entity.igirl.ic.ex.IcExRegisterCase;
+import com.gongsibao.entity.igirl.ic.ex.baseinfo.IcExLog;
 import com.gongsibao.entity.igirl.ic.ex.dict.ApprovalType;
 import com.gongsibao.entity.igirl.ic.ex.dict.OperatorType;
 import org.netsharp.base.IPersistableService;
@@ -18,7 +19,9 @@ public interface IcExRegisterService extends IPersistableService<IcExRegisterCas
 
     IcExRegisterCase findCom(String approvalName);
 
-    String fetchQrCodeUrl(String url, String casecode);
+    String fetchQrCodeUrl(String url, String casecode,Integer id);
 
     String findMoblie(String customerMobile);
+
+    IcExRegisterCase fetchInfoByCode(String code);
 }

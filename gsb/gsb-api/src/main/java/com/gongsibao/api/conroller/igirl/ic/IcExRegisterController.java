@@ -140,6 +140,7 @@ public class IcExRegisterController {
             log.setTitle("自动日志");
             log.setContent("更新工商状态");
             log.setCreateTime(new Date());
+            log.setExcId(icCase.getId());
             log.toNew();
             logService.save(log);
             result.setCode("200");

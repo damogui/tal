@@ -12,6 +12,7 @@ import com.gongsibao.entity.igirl.ic.ex.IcExRegisterCase;
 import com.gongsibao.entity.igirl.ic.ex.baseinfo.IcExLog;
 import com.gongsibao.entity.igirl.ic.ex.dict.ApprovalType;
 import com.gongsibao.entity.igirl.ic.ex.dict.OperatorType;
+import com.gongsibao.entity.igirl.tm.TradeMarkCase;
 import com.gongsibao.entity.igirl.tm.baseinfo.IGirlConfig;
 import com.gongsibao.entity.igirl.tm.dict.ConfigType;
 import com.gongsibao.entity.supplier.dict.SupplierType;
@@ -25,7 +26,9 @@ import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
 import org.netsharp.organization.base.IEmployeeService;
 import org.netsharp.organization.entity.Employee;
+import org.netsharp.panda.annotation.Authorization;
 import org.netsharp.persistence.session.SessionManager;
+import org.netsharp.util.DateManage;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -37,6 +40,7 @@ import java.util.List;
 @Service
 public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> implements IcExRegisterService{
     IcExRegisterService service = ServiceFactory.create(IcExRegisterService.class);
+    IcExLogService serviceLog = ServiceFactory.create(IcExLogService.class);
     INCustomerService customerService = ServiceFactory.create(INCustomerService.class);
     public ExRegisterService() {
         super();
@@ -149,6 +153,7 @@ public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> i
                 sb.append(employee.getName()).append("-").append(employee.getMobile()).append("-").append("更新工商状态");
                 log.setContent(sb.toString());
                 log.setCreateTime(new Date());
+                log.setExcId(id);
                 log.toNew();
                 logService.save(log);
             }
@@ -237,7 +242,7 @@ public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> i
     }
 
     @Override
-    public String fetchQrCodeUrl(String url,String casecode) {
+    public String fetchQrCodeUrl(String url,String casecode,Integer id) {
         // TODO Auto-generated method stub
         IGirlConfigService girlConf=ServiceFactory.create(IGirlConfigService.class);
         Oql oql=new Oql();{
@@ -250,7 +255,7 @@ public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> i
         List<IGirlConfig> configs=girlConf.queryList(oql);
         String qcurl="";
         if(configs.size()==1) {
-            qcurl="{qrServiceUrl}/qc?detailLink=|{currentDomain}/gsb/igirl/ic/html/icExRegisterCase.html#/?spid="+SupplierSessionManager.getSupplierId()+"&casecode="+casecode+"&source=case";
+            qcurl="{qrServiceUrl}/qc?detailLink=|{currentDomain}/gsb/igirl/mobile/main.html#/?spid="+SupplierSessionManager.getSupplierId()+"&casecode="+casecode+"&source=iccase"+"&excid="+id;
             qcurl=qcurl.replace("{qrServiceUrl}", configs.get(0).getConfigValue()).replace("{currentDomain}", url);
             try {
                 qcurl=qcurl.split("\\|")[0]+ URLEncoder.encode(qcurl.split("\\|")[1],"UTF-8");
@@ -260,7 +265,7 @@ public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> i
             }
         }
         if(configs.size()==2) {
-            qcurl="{qrServiceUrl}/qc?detailLink=|{currentDomain}/gsb/igirl/ic/html/icExRegisterCase.html#/?spid="+SupplierSessionManager.getSupplierId()+"&casecode="+casecode+"&source=case";
+            qcurl="{qrServiceUrl}/qc?detailLink=|{currentDomain}/gsb/igirl/mobile/main.html#/?spid="+SupplierSessionManager.getSupplierId()+"&casecode="+casecode+"&source=iccase"+"&excid="+id;
             qcurl=qcurl.replace("{qrServiceUrl}", configs.get(0).getConfigValue()).replace("{currentDomain}", configs.get(1).getConfigValue());
             try {
                 qcurl=qcurl.split("\\|")[0]+URLEncoder.encode(qcurl.split("\\|")[1],"UTF-8");
@@ -280,5 +285,19 @@ public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> i
         }else{
             return null;
         }
+    }
+
+    /*工商状态通过手机号和公司名找到数据*/
+    @Override
+    public IcExRegisterCase fetchInfoByCode(String code) {
+        Oql oql = new Oql();
+        {
+            oql.setType(IcExRegisterCase.class);
+            oql.setSelects("IcExRegisterCase.*,IcExRegisterCase.customer.*");
+            oql.setFilter("code=?");
+            oql.getParameters().add("code", code, Types.VARCHAR);
+        }
+        IcExRegisterCase tcs = service.queryFirst(oql);
+        return tcs;
     }
 }

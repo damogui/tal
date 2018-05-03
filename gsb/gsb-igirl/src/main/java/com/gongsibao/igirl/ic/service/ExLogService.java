@@ -10,6 +10,7 @@ import org.netsharp.core.Oql;
 
 import java.sql.Types;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ExLogService extends GsbPersistableService<IcExLog> implements IcExLogService {
@@ -17,4 +18,16 @@ public class ExLogService extends GsbPersistableService<IcExLog> implements IcEx
         super();
         this.type = IcExLog.class;
     }
+    @Override
+    public List<IcExLog> byExcId(Integer id) {
+        Oql oql = new Oql();
+        oql.setType(IcExLog.class);
+        oql.setSelects("IcExLog.*");
+        oql.setFilter("excId=?");
+        oql.setOrderby("IcExLog.createTime desc");
+        oql.getParameters().add("excId",id,Types.INTEGER);
+        return this.pm.queryList(oql);
+    }
+
+
 }

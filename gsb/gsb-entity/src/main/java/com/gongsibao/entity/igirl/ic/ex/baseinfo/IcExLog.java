@@ -19,6 +19,27 @@ public class IcExLog extends Entity{
     @Column(name = "corp_reg_state",header = "状态")
     private CorpRegStatue corpRegStatue;
 
+    @Column(name = "state",header = "状态")
+    private String state = CorpRegStatue.ACCEPTED.getText();
+
+    @Column(name="ex_case_id",header = "工商案子id")
+    private Integer excId;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+    public Integer getExcId() {
+        return excId;
+    }
+
+    public void setExcId(Integer excId) {
+        this.excId = excId;
+    }
+
     public CorpRegStatue getCorpRegStatue() {
         return corpRegStatue;
     }

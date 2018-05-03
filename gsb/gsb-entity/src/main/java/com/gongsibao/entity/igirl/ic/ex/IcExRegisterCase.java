@@ -83,8 +83,19 @@ public class IcExRegisterCase extends Entity {
     @Column(name = "business_type",header = "业务类型")
     private BusinessType businessType = BusinessType.ESTABLISHMENT;
 
-    @Column(name = "token_img_url", size = 256, header = "二维码")
+    @Column(name = "token_img_url", size = 512, header = "二维码")
     private String tokenImgUrl;
+
+    @Column(name = "code", size = 256, header = "案件编码")
+    private String code;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public String getTokenImgUrl() {
         return tokenImgUrl;
