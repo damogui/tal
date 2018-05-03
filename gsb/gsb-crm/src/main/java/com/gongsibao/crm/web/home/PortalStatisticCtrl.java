@@ -33,7 +33,7 @@ public class PortalStatisticCtrl {
 	 */
 	public PortalStatisticDTO salesPresentation(Integer isPlatform,Integer dateType){
 		PortalStatisticDTO statisticDTO = new PortalStatisticDTO();
-		Integer newTasksCount = getNewTasksCount(isPlatform,dateType);
+		//Integer newTasksCount = getNewTasksCount(isPlatform,dateType);
 		Integer unStartTasksCount = getUnStartTasksCount(isPlatform,dateType);
 		Integer unfoolowTasksCount = getUnfoolowTasksCount();
 		Integer timeOutTasksCount = getTimeOutTasksCount();
@@ -48,7 +48,7 @@ public class PortalStatisticCtrl {
 			}
 		}
 		
-		statisticDTO.setNewTasksCount(newTasksCount);
+		//statisticDTO.setNewTasksCount(newTasksCount);
 		statisticDTO.setUnStartTasksCount(unStartTasksCount);
 		statisticDTO.setUnfoolowTasksCount(unfoolowTasksCount);
 		statisticDTO.setTimeOutTasksCount(timeOutTasksCount);
