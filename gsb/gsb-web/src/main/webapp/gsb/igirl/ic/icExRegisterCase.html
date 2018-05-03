@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>工商状态二维码</title>
+    <!-- Bootstrap -->
+    <link href='./bs4/css/bootstrap.min.css' rel='stylesheet'	type='text/css' />
+    <link href='./bs4/css/font-awesome.min.css' rel='stylesheet'	type='text/css'/>
+    <link href='./bs4/css/buttons.min.css' rel='stylesheet'	type='text/css' />
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="./vue/axios.min.js"></script>
+    <script src="./vue/vue.min.js"></script>
+    <script src="./vue/vue-router.min.js"></script>
+    <script src="./vue/axios.min.js"></script>
+    <style>
+        body {
+
+        }
+        #kpMain{
+            background-color:#fff;
+        }
+        .flex-box {
+            display:flex;
+            -webkit-flex-direction: column;  /* Safari */
+            flex-direction:  column;
+            justify-content:flex-start;
+            align-items:center;
+            padding:0px;
+        }
+        .container-fluid{
+            padding:0px;
+            margin:0px;
+        }
+        a,.btn-link{
+            color:#666;
+            font-size:1rem;
+        }
+        a:focus,.btn-link:focus{
+            text-decoration:none;
+            color:#666;
+        }
+        a:active,.btn-link:active{
+            text-decoration:none;
+            color:#666;
+        }
+    </style>
+</head>
+<body>
+
+<div id="kpMain" class="container-fluid" style="padding:0px;margin:0px">
+    <div id="content" class="flex-box">
+        <router-view class="container-fluid">
+        </router-view>
+    </div>
+</div>
+4454545
+</body>
+<script src="/package/easyui/jquery.min.js"></script>
+
+<script src="./bs4/css/bootstrap.min.js"></script>
+<script src="./bs4/buttons/buttons.js"></script>
+<script src='/package/layer/layer.js'></script>
+<script src="/panda-res/js/system.js"></script>
+<script src="/panda-res/js/panda.core.js"></script>
+<script src="./js/main.js"></script>
+</html>
+

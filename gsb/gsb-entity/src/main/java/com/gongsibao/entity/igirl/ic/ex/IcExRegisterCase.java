@@ -1,6 +1,5 @@
 package com.gongsibao.entity.igirl.ic.ex;
 
-import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.crm.dic.ConsultWay;
 import com.gongsibao.entity.crm.dic.CustomerSource;
@@ -18,6 +17,7 @@ import org.netsharp.entity.Entity;
 
 @Table(name = "ic_ex_register_case",header = "公司注册信息登记表")
 public class IcExRegisterCase extends Entity {
+
     @Column(name = "customer_id",header = "客户ID")
     private Integer customerId;
 
@@ -83,8 +83,19 @@ public class IcExRegisterCase extends Entity {
     @Column(name = "business_type",header = "业务类型")
     private BusinessType businessType = BusinessType.ESTABLISHMENT;
 
-    @Column(name = "token_img_url", size = 256, header = "二维码")
+    @Column(name = "token_img_url", size = 512, header = "二维码")
     private String tokenImgUrl;
+
+    @Column(name = "code", size = 256, header = "案件编码")
+    private String code;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public String getTokenImgUrl() {
         return tokenImgUrl;

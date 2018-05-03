@@ -22,6 +22,7 @@ import java.util.List;
 
 @Path("/igirl")
 public class IcExRegisterController {
+
     IcExRegisterService service = ServiceFactory.create(IcExRegisterService.class);
     IcExLogService logService = ServiceFactory.create(IcExLogService.class);
 
@@ -140,6 +141,7 @@ public class IcExRegisterController {
             log.setTitle("自动日志");
             log.setContent("更新工商状态");
             log.setCreateTime(new Date());
+            log.setExcId(icCase.getId());
             log.toNew();
             logService.save(log);
             result.setCode("200");

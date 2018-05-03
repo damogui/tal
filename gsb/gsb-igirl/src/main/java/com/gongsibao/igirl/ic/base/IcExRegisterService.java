@@ -18,7 +18,9 @@ public interface IcExRegisterService extends IPersistableService<IcExRegisterCas
 
     IcExRegisterCase findCom(String approvalName);
 
-    String fetchQrCodeUrl(String url, String casecode);
+    String fetchQrCodeUrl(String url, String casecode,Integer id);
 
     String findMoblie(String customerMobile);
+
+    IcExRegisterCase fetchInfoByCode(String code);
 }
