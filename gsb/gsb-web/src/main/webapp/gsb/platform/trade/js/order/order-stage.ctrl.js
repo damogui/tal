@@ -16,7 +16,7 @@ com.gongsibao.trade.web.OrderStageCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     		//var stageAmount = ((data.payablePrice - data.paidPrice)/100).toFixed(2);
     		var stageAmount = (data.payablePrice/100).toFixed(2);
     		$('#stageAmount').numberbox('setValue',stageAmount);
-    		$('#stageNum').combobox();//初始化的时候不赋值
+    		$('#stageNum').combobox('setValue',2);//初始化的时候不赋值
     	});
     },
     stageNumChange:function(newValue,oldValue){
