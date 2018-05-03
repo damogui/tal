@@ -18,18 +18,8 @@ public class Swagger2 extends WebMvcConfigurerAdapter {
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
                 .select()
                 .paths(path -> path.startsWith("/wx/"))
-                .build();
-    }
-
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("微信api文档")
-                .description("RESTful 风格api")
-                .termsOfServiceUrl("")
-                .version("1.0")
                 .build();
     }
 }
