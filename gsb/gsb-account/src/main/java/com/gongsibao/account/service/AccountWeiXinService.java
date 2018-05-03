@@ -331,6 +331,8 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
 
     @Override
     public void pushTextMsgByOriginalId(String originalId, Integer accountId, String first, String keyword1, String keyword2, String date, String url, String remark, AccountWxMsg tmpId) {
+        logger.error("keyword1:"+keyword1);
+        logger.error("keyword2:"+keyword2);
         IPublicAccountService publicAccountService = ServiceFactory.create(IPublicAccountService.class);
         //取公众号配置
         PublicAccount weixinConfig = publicAccountService.byOriginalId(originalId);
