@@ -339,7 +339,7 @@ com.gongsibao.trade.web.OrderRelevancePerformanceCtrl = org.netsharp.panda.core.
             zIndex: 100000,
             id: "orderPayMap",
             content: url,
-            btn: ['保存', '取消'],
+            btn: ['确定', '取消'],
             yes: function (index, layero) {
 
                 var iframeWindow = document.getElementById('orderPayMap').firstElementChild.contentWindow;
@@ -370,7 +370,7 @@ com.gongsibao.trade.web.OrderRelevancePerformanceCtrl = org.netsharp.panda.core.
             zIndex: 100000,
             id: "orderPayMap",
             content: url,
-            btn: ['保存', '取消'],
+            btn: ['确定', '取消'],
             yes: function (index, layero) {
 
                 var iframeWindow = document.getElementById('orderPayMap').firstElementChild.contentWindow;

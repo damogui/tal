@@ -8,6 +8,7 @@ import com.gongsibao.panda.platform.operation.reference.FunctionModuleReferenceT
 import com.gongsibao.panda.platform.operation.workspace.crm.CompanyIntentionWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.CustomerALLWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.CustomerAllocatedWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.CustomerInvalidWorksapceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.CustomerNotTaskWorksapceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.CustomerServiceConfigWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.CustomerUndistributedWorkspaceTest;
@@ -22,6 +23,8 @@ import com.gongsibao.panda.platform.operation.workspace.crm.TaskUndistributedWor
 import com.gongsibao.panda.platform.operation.workspace.crm.TaskUnstartWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.form.CustomerAddWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.form.CustomerEditWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.form.SwtCustomerAddWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.form.SwtCustomerEditWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.form.TaskAddWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.form.TaskEditWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.form.TaskFollowFormWorkspaceTest;
@@ -109,6 +112,8 @@ import com.gongsibao.panda.platform.report.workspace.customer.StatisticalCustome
 
         CustomerVerifyWorkspaceTest.class,
         CustomerAddWorkspaceTest.class,
+        SwtCustomerAddWorkspaceTest.class,
+        SwtCustomerEditWorkspaceTest.class,
         CustomerEditWorkspaceTest.class,
         TaskAddWorkspaceTest.class,
         TaskEditWorkspaceTest.class,
@@ -119,7 +124,8 @@ import com.gongsibao.panda.platform.report.workspace.customer.StatisticalCustome
         CustomerAllocatedWorkspaceTest.class,
         CustomerUndistributedWorkspaceTest.class,
         CustomerNotTaskWorksapceTest.class,
-
+        CustomerInvalidWorksapceTest.class,
+        
         TaskAllocatedWorkspaceTest.class,
         TaskALLWorkspaceTest.class,
         TaskUndistributedWorkspaceTest.class,

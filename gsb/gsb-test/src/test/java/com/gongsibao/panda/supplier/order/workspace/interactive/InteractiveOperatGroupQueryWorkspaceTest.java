@@ -48,7 +48,10 @@ public class InteractiveOperatGroupQueryWorkspaceTest extends WorkspaceCreationB
         addColumn(datagrid, "cityName", "地区", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "companyIntention.companyName", "明细订单公司", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "soOrder.companyIntention.companyName", "签单公司", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "soOrder.paidPrice", "订单应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn(datagrid, "price", "明细订单金额", ControlTypes.DECIMAL_FEN_BOX, 80);
+        addColumn(datagrid, "soOrder.payStatus", "订单付款状态", ControlTypes.ENUM_BOX, 100);
+        addColumn(datagrid, "soOrder.payablePrice", "订单应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn(datagrid, "soOrder.paidPrice", "订单已付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn(datagrid, "soOrder.balance", "订单余额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "department.name", "业务员归属部门", ControlTypes.TEXT_BOX, 100);

@@ -80,10 +80,10 @@
 	        	<div id="briefing" class="easyui-panel" title="销售简报" style="padding:0px 10px !important;" data-options="fit:true,border:false">
 	        	
 	        		<div class="row">
-	        			<div class="cell cell-2">
+	        			<!-- <div class="cell cell-2">
 	        				<div class="title"><span>新增商机</span></div>
 	        				<div class="num"><span id="crm_new_count">0</span></div>
-	        			</div>
+	        			</div> -->
 	        			<div class="cell cell-2">
 	        				<div class="title"><span>未启动</span></div>
 	        				<div class="num"><span id="crm_un_start_count">0</span></div>
@@ -201,7 +201,7 @@
 			
  			//这几个数据可以用一个DTO一次性返回，这样调用次数太多
  			brief.briefingCountPars2('salesPresentation',0,1,function(entity){
-				$("#crm_new_count").text(entity.newTasksCount);
+				//$("#crm_new_count").text(entity.newTasksCount);
 				$("#crm_un_start_count").text(entity.unStartTasksCount);
 				$("#crm_stay_foolow_count").text(entity.unfoolowTasksCount);
 				$("#crm_timeout_count").text(entity.timeOutTasksCount);

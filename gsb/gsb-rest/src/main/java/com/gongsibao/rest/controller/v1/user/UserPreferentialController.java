@@ -2,11 +2,10 @@ package com.gongsibao.rest.controller.v1.user;
 
 import com.gongsibao.account.base.IAccountWeiXinService;
 import com.gongsibao.rest.controller.BaseController;
-import com.netsharp.rest.controller.annotation.Api;
+import com.netsharp.rest.controller.annotation.ApiVersion;
 
 import static com.netsharp.rest.utils.Assert.*;
 
-import com.netsharp.rest.controller.result.Result;
 import com.netsharp.rest.dto.user.PreferentialCodeDTO;
 import com.netsharp.rest.dto.user.PreferentialUsageDTO;
 import com.netsharp.rest.base.user.IUserPreferentialService;
@@ -25,7 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/wx/{v}/account/preferential")
-@Api(1)
+@ApiVersion(1)
 public class UserPreferentialController extends BaseController {
 
     @Autowired

@@ -1,11 +1,12 @@
 package com.gongsibao.rest.controller.v1.order;
 
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
 import com.netsharp.rest.base.order.IOrderService;
 import com.gongsibao.rest.controller.BaseController;
 import com.netsharp.rest.controller.exception.WxException;
 import com.netsharp.rest.service.user.AccountService;
-import com.netsharp.rest.controller.annotation.Api;
+import com.netsharp.rest.controller.annotation.ApiVersion;
 import com.netsharp.rest.controller.annotation.LoginCheck;
 import com.netsharp.rest.controller.security.SecurityUtils;
 import com.netsharp.rest.utils.NumberUtils;
@@ -30,7 +31,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/wx/{v}/order")
-@Api(1)
+@ApiVersion(1)
 public class OrderController extends BaseController {
 
     @Autowired
@@ -86,14 +87,23 @@ public class OrderController extends BaseController {
             throw new WxException(RestResult.FAIL, "订单不存在");
         }
 
+
+
         OrderDTO orderDTO = new OrderDTO();
         {
             orderDTO.setPkid(order.getId());
             orderDTO.setNo(order.getNo());
             orderDTO.setAddTime(order.getCreateTime());
             orderDTO.setAdd_time(order.getCreateTime());
-            orderDTO.setProdName(order.getProdName());
+            String[] proNames=order.getProdName().split("，");
+            StringBuffer nameStr=new StringBuffer();{
+                for(String name:proNames){nameStr.append(name).append(" <br/> ");}
+            }
+            orderDTO.setProdName(nameStr.toString());
             orderDTO.setProcessStatusId(order.getProcessStatus().getValue());
+            if(order.getIsDelete()){
+                orderDTO.setProcessStatusId(OrderProcessStatusType.Yqx.getValue());
+            }
             orderDTO.setPayStatusId(order.getPayStatus().getValue());
             orderDTO.setPayablePrice(order.getPayablePrice());
             orderDTO.setPaidPrice(order.getPaidPrice());

@@ -131,7 +131,12 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 			formField.setTroikaValidation("['email','maxLength[50]']");
 		}
 		addFormField(form, "birdthday", "生日", groupName, ControlTypes.DATE_BOX, false, false);
-		addFormField(form, "important", "重要程度", groupName, ControlTypes.ENUM_BOX, false, false);
+		
+		formField = addFormField(form, "important", "重要程度", groupName, ControlTypes.ENUM_BOX, false, false);{
+			formField.setTroikaTrigger("controllernCustomer.importantChange(newValue, oldValue);");
+		}
+		
+		
 		formField = addFormField(form, "province.name", "省份",groupName, ControlTypes.CUSTOM, false, false);
 		{
 			formField.setCustomControlType(CityComboBox.class.getName());
@@ -265,8 +270,7 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 
 		workspace.getParts().add(part);
 		part = workspace.getParts().get(0);
-		{
-			part.setName("关联企业");
+		{		
 			part.setDockStyle(DockType.TOP);
 			part.setHeight(500);			
 		}

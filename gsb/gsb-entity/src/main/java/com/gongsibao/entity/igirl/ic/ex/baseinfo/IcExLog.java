@@ -7,6 +7,8 @@ import org.netsharp.entity.Entity;
 
 @Table(name = "ic_ex_log",header = "商标状态日志表")
 public class IcExLog extends Entity{
+
+
     @Column(name = "title",header = "标题")
     private String title;
 

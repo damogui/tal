@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.gongsibao.entity.trade.dic.NodeType;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.netsharp.communication.Service;
@@ -309,13 +310,26 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
     }
 
     @Override
-    public Boolean addRelevanceCompany(Integer orderProdId, Integer companyId) {
+    public Boolean addRelevanceCompany(List<Integer> orderProdIdList, Integer companyId) {
+        if (CollectionUtils.isEmpty(orderProdIdList)) {
+            return false;
+        }
+        String orderProdIds = StringManager.join(",", orderProdIdList);
 
-        String sql = "update `so_order_prod` set `company_id` =? where pkid = ?";
+        UpdateBuilder updateBuilder = new UpdateBuilder();
+        {
+            updateBuilder.update("so_order_prod");
+            updateBuilder.set("company_id", companyId);
+            updateBuilder.where("pkid IN (" + orderProdIds + ") ");
+        }
+
+        String sql = updateBuilder.toSQL();
+        return this.pm.executeNonQuery(sql, null) > 0;
+        /*String sql = "update `so_order_prod` set `company_id` =? where pkid IN(?)";
         QueryParameters qps = new QueryParameters();
         qps.add("companyId", companyId, Types.INTEGER);
-        qps.add("pkid", orderProdId, Types.INTEGER);
-        return this.pm.executeNonQuery(sql, qps) > 0;
+        qps.add("pkids", orderProdIds, Types.VARCHAR);
+        return this.pm.executeNonQuery(sql, qps) > 0;*/
     }
 
     @Override
@@ -338,7 +352,7 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
     public int removeCompanyQualifyByOrderProdIds(List<Integer> orderProdIds) {
         String sql = String.format("delete from uc_account_company_qualify WHERE order_prod_id IN (%s)", StringUtils
                 .join(orderProdIds, ","));
-        return this.pm.executeNonQuery(sql,null);
+        return this.pm.executeNonQuery(sql, null);
     }
 
     @Override
@@ -346,8 +360,54 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
         Oql oql = new Oql();
         oql.setType(this.type);
         oql.setSelects("*");
-        oql.setFilter(" orderId = ? ");
-        oql.getParameters().add("orderId",orderId,Types.INTEGER);
+        oql.setFilter("orderId = ? ");
+        oql.getParameters().add("orderId", orderId, Types.INTEGER);
         return this.pm.queryList(oql);
+    }
+
+    @Override
+    public Boolean isAllCompleteById(Integer id) {
+        List<OrderProd> orderProdList = getOrderOfListById(id);
+        if (CollectionUtils.isEmpty(orderProdList)) {
+            return false;
+        }
+        List<Integer> processStatusList = getprocessStatusList(orderProdList);
+        List<Integer> typeIds = new ArrayList<>();
+        typeIds.add(NodeType.Jiesu.getValue());
+        typeIds.add(NodeType.Jiesuan.getValue());
+        List<WorkflowNode> nodeList = workflowNodeService.getIdsAndTypeIds(processStatusList, typeIds);
+        if (CollectionUtils.isEmpty(nodeList)) {
+            return false;
+        }
+        return orderProdList.size() == nodeList.size();
+    }
+
+    private List<Integer> getprocessStatusList(List<OrderProd> orderProdList) {
+        List<Integer> processStatusList = new ArrayList<>();
+        for (OrderProd orderProd : orderProdList) {
+            processStatusList.add(orderProd.getProcessStatusId());
+        }
+        return processStatusList;
+    }
+
+    @Override
+    public List<OrderProd> getOrderOfListById(Integer id) {
+
+        OrderProd orderProd = getById(id);
+        if (orderProd == null) {
+            return null;
+        }
+
+        Oql oql = new Oql();
+        {
+            oql.setType(this.type);
+            oql.setSelects("*");
+            oql.setFilter("order_id = ?");
+            oql.getParameters().add("orderId", orderProd.getOrderId(), Types.INTEGER);
+        }
+
+        List<OrderProd> orderProdList = this.pm.queryList(oql);
+
+        return orderProdList;
     }
 }

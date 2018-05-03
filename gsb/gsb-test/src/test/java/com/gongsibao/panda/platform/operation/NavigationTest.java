@@ -5,10 +5,6 @@ import org.netsharp.meta.base.NavigationBase;
 import org.netsharp.panda.plugin.entity.PNavigation;
 
 import com.gongsibao.entity.cms.ProductView;
-import com.gongsibao.entity.crm.CompanyIntention;
-import com.gongsibao.entity.crm.Customer;
-import com.gongsibao.entity.crm.CustomerOrder;
-import com.gongsibao.entity.crm.CustomerServiceConfig;
 import com.gongsibao.entity.taurus.ActiveUserView;
 import com.gongsibao.entity.taurus.DayStatisticView;
 import com.gongsibao.entity.taurus.JnzUserBehaviorStatistics;
@@ -77,21 +73,22 @@ public class NavigationTest extends NavigationBase {
             createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_ALL", "全部客户", "/operation/customer/all/list", 2);
             createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_Allocated", "已分配客户", "/operation/customer/allocated/list", 3);
             createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_Undistributed", "未分配客户", "/operation/customer/undistributed/list", 4);
-            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_NotTask", "无商机客户", "/operation/customer/nottask/list", 4);
+            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_NotTask", "无商机客户", "/operation/customer/nottask/list", 5);
+            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_Invalid", "无效客户", "/operation/customer/invalid/list", 6);
 
-            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_ALL", "全部商机", "/operation/customer/task/all/list", 5);
-            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Allocated", "已分配商机", "/operation/customer/task/allocated/list", 6);
-            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Undistributed", "未分配商机", "/operation/customer/task/undistributed/list", 7);
-            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_UNstart", "未启动商机", "/operation/customer/task/unstart/list", 8);
+            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_ALL", "全部商机", "/operation/customer/task/all/list", 7);
+            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Allocated", "已分配商机", "/operation/customer/task/allocated/list", 8);
+            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Undistributed", "未分配商机", "/operation/customer/task/undistributed/list", 9);
+            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_UNstart", "未启动商机", "/operation/customer/task/unstart/list", 10);
 
-            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Defeated", "无法签单", "/operation/customer/task/defeated/list", 9);
-            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Anomaly_Detection", "抽查异常", "/operation/customer/task/anomalydetection/list", 10);
+            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Defeated", "无法签单", "/operation/customer/task/defeated/list", 11);
+            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Anomaly_Detection", "抽查异常", "/operation/customer/task/anomalydetection/list", 12);
 
-            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_OpenSea", "公海", "/operation/task/opensea/list", 11);
+            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_OpenSea", "公海", "/operation/task/opensea/list", 13);
 
-            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Follow", "跟进列表", "/operation/customer/task/follow/list", 12);
-            createPTreeNode(tree, "Operation_CRM", null, "CRM_CompanyIntention", "企业信息库", "/crm/company/list", 13);
-            createPTreeNode(tree, "Operation_CRM", null, "CRM_CustomerServiceConfig", "客服配置", "/crm/customer/service/config/list", 14);
+            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Follow", "跟进列表", "/operation/customer/task/follow/list", 14);
+            createPTreeNode(tree, "Operation_CRM", null, "CRM_CompanyIntention", "企业信息库", "/crm/company/list", 15);
+            createPTreeNode(tree, "Operation_CRM", null, "CRM_CustomerServiceConfig", "客服配置", "/crm/customer/service/config/list", 16);
         }
 
         createPTreeNode(tree, null, null, "Operation_IGIRL", "智能商标", "", 6);

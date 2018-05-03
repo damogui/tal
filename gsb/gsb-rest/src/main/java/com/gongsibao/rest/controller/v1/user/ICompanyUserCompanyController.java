@@ -3,7 +3,7 @@ package com.gongsibao.rest.controller.v1.user;
 import com.gongsibao.account.base.IAccountCompanyService;
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.acount.AccountCompany;
-import com.netsharp.rest.controller.annotation.Api;
+import com.netsharp.rest.controller.annotation.ApiVersion;
 import com.netsharp.rest.controller.exception.WxException;
 import com.netsharp.rest.controller.security.SecurityUtils;
 import com.netsharp.rest.controller.result.RestResult;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/wx/{v}/icompany/account/company")
-@Api(1)
+@ApiVersion(1)
 public class ICompanyUserCompanyController {
     IAccountCompanyService accountCompanyService = ServiceFactory.create(IAccountCompanyService.class);
 

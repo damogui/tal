@@ -7,15 +7,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.gongsibao.entity.trade.OrderCooperation;
+import com.gongsibao.entity.trade.OrderProd;
+import com.gongsibao.entity.trade.dic.*;
+import com.gongsibao.trade.base.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.BusinessException;
-import org.netsharp.core.DataTable;
-import org.netsharp.core.IRow;
-import org.netsharp.core.Oql;
-import org.netsharp.core.Row;
+import org.netsharp.core.*;
 import org.netsharp.organization.base.IEmployeeService;
 import org.netsharp.organization.entity.Employee;
 import org.netsharp.persistence.session.SessionManager;
@@ -28,17 +28,7 @@ import com.gongsibao.entity.product.WorkflowFile;
 import com.gongsibao.entity.product.WorkflowNode;
 import com.gongsibao.entity.trade.OrderProdTrace;
 import com.gongsibao.entity.trade.OrderProdUserMap;
-import com.gongsibao.entity.trade.dic.AuditStatusType;
-import com.gongsibao.entity.trade.dic.OrderProdTraceOperatorType;
-import com.gongsibao.entity.trade.dic.OrderProdTraceType;
-import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
-import com.gongsibao.entity.trade.dic.OrderProdUserMapType;
 import com.gongsibao.product.base.IWorkflowNodeService;
-import com.gongsibao.trade.base.IOrderProdService;
-import com.gongsibao.trade.base.IOrderProdTraceFileService;
-import com.gongsibao.trade.base.IOrderProdTraceService;
-import com.gongsibao.trade.base.IOrderProdUserMapService;
-import com.gongsibao.trade.base.IOrderService;
 import com.gongsibao.utils.NumberUtils;
 import com.gongsibao.utils.sms.SmsHelper;
 
@@ -52,6 +42,8 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
 
     IOrderProdService orderProdService = ServiceFactory.create(IOrderProdService.class);
     IOrderService orderService = ServiceFactory.create(IOrderService.class);
+    IOrderCooperationService orderCooperationService = ServiceFactory.create(IOrderCooperationService.class);
+
 
     private IAccountWeiXinService accountWeiXinService = ServiceFactory.create(IAccountWeiXinService.class);
 
@@ -239,6 +231,22 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
         return this.pm.executeNonQuery(updateSql.toSQL(), null) > 0;
     }
 
+    private Boolean updateOrderStatus(Integer orderId, OrderProcessStatusType orderProcessStatusType) {
+
+        // 这里好像是取的type，hw。
+        // 这里有个系统的帐号
+        UpdateBuilder updateSql = UpdateBuilder.getInstance();
+        {
+            updateSql.update("so_order");
+            updateSql.set("process_status_id", orderProcessStatusType.getValue());
+            updateSql.where("pkid = ? ");
+        }
+        String cmdText = updateSql.toSQL();
+        QueryParameters qps = new QueryParameters();
+        qps.add("id", orderId, Types.INTEGER);
+        return this.pm.executeNonQuery(cmdText, qps) > 0;
+    }
+
     @Override
     public Boolean markComplaint(OrderProdTrace trace, Boolean isFocus) {
 
@@ -382,6 +390,7 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
 
         // 这里有很多校验
         Integer orderProdId = trace.getOrderProdId();
+        OrderProd orderProd = orderProdService.getById(orderProdId);
         Integer oldProcessStatusId = orderProdService.getProcessStatusId(orderProdId);
         Integer newProcessStatusId = trace.getOrderProdStatusId();
 
@@ -470,11 +479,19 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
         // 更新订单和订单明细的状态
         updateOrderProdProcessStatus(trace);
 
-        // 更新订单状态
-        updateOrderProcessStatus(trace);
+        //更改订单处理状态，标记完成
+        Boolean allCompleteById = orderProdService.isAllCompleteById(orderProdId);
+        if (allCompleteById) {
+            OrderProcessStatusType orderStatus = OrderProcessStatusType.Ywc;
+            List<OrderCooperation> orderCooperationList = orderCooperationService.getByOrderId(orderProd.getOrderId());
+            if (CollectionUtils.isNotEmpty(orderCooperationList)) {
+                orderStatus = OrderProcessStatusType.Dyhqr;
+            }
+            updateOrderStatus(orderProd.getOrderId(), orderStatus);
+        }
 
         this.create(trace);
-        String mobile = orderService.getCustomerMobile(trace.getOrderId());
+        String mobile = orderService.getCustomerMobile(orderProd.getOrderId());
         //发送短息
         if (trace.getIsSendSms()) {
             Calendar now = Calendar.getInstance();

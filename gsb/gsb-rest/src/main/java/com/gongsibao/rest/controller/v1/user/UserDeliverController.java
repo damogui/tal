@@ -1,12 +1,10 @@
 package com.gongsibao.rest.controller.v1.user;
 
 import com.gongsibao.account.base.IAccountWeiXinService;
-import com.netsharp.rest.controller.exception.WxException;
 import com.netsharp.rest.dto.user.AccountDeliverAddressDTO;
 import com.netsharp.rest.base.user.IUserDeliverAddressService;
-import com.netsharp.rest.controller.annotation.Api;
+import com.netsharp.rest.controller.annotation.ApiVersion;
 import com.netsharp.rest.utils.Assert;
-import com.netsharp.rest.controller.result.Result;
 import com.gongsibao.rest.controller.BaseController;
 import com.netsharp.rest.dto.request.DeliverAddressRequest;
 import org.netsharp.communication.ServiceFactory;
@@ -23,7 +21,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/wx/{v}/account/deliver")
-@Api(1)
+@ApiVersion(1)
 public class UserDeliverController extends BaseController {
 
     @Autowired

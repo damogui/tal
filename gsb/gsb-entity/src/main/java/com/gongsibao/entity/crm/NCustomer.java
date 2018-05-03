@@ -3,11 +3,14 @@ package com.gongsibao.entity.crm;
 import java.util.Date;
 import java.util.List;
 
-import com.gongsibao.entity.BaseEntity;
-import org.netsharp.core.annotations.*;
-import org.netsharp.entity.Entity;
+import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Exclusive;
+import org.netsharp.core.annotations.Reference;
+import org.netsharp.core.annotations.Subs;
+import org.netsharp.core.annotations.Table;
 import org.netsharp.organization.entity.Employee;
 
+import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.dic.AllocationType;
@@ -101,6 +104,9 @@ public class NCustomer extends BaseEntity {
 	@Column(name = "important", header = "402 重要程度: 4021普通、 4022中级、 4023高级、 4024VIP")
 	private Important important = Important.COMMON;
 
+	@Column(name = "invalid_remark", header = "重要程度中选择无效时需要添加的备注")
+	private String invalidRemark = "";
+	
 	@Column(name = "is_invalid", header = "是否无效")
 	private Integer invalid = 0;
 
@@ -399,6 +405,14 @@ public class NCustomer extends BaseEntity {
 
 	public void setImportant(Important important) {
 		this.important = important;
+	}
+
+	public String getInvalidRemark() {
+		return invalidRemark;
+	}
+
+	public void setInvalidRemark(String invalidRemark) {
+		this.invalidRemark = invalidRemark;
 	}
 
 	public Integer getInvalid() {

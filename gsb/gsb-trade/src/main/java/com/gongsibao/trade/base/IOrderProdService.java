@@ -30,6 +30,8 @@ public interface IOrderProdService extends IPersistableService<OrderProd> {
 
     OrderProd getById(Integer Id);
 
+    List<OrderProd> getOrderOfListById(Integer id);
+
     /**
      * @throws
      * @Title: updateIsComplaint
@@ -126,7 +128,7 @@ public interface IOrderProdService extends IPersistableService<OrderProd> {
      * @param: @return
      * @return: Boolean
      */
-    Boolean addRelevanceCompany(Integer orderProdId, Integer companyId);
+    Boolean addRelevanceCompany(List<Integer> orderProdIdList, Integer companyId);
 
     /**
      * 订单明细操作-修改服务商、办理名称、操作公司
@@ -154,5 +156,8 @@ public interface IOrderProdService extends IPersistableService<OrderProd> {
      * @return
      */
     List<OrderProd> byOrderId(Integer orderId);
+
+
+    Boolean isAllCompleteById(Integer id);
 
 }

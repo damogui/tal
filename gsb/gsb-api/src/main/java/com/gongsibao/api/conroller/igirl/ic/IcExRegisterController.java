@@ -22,6 +22,7 @@ import java.util.List;
 
 @Path("/igirl")
 public class IcExRegisterController {
+
     IcExRegisterService service = ServiceFactory.create(IcExRegisterService.class);
     IcExLogService logService = ServiceFactory.create(IcExLogService.class);
 

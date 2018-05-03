@@ -3,12 +3,11 @@ package com.gongsibao.rest.controller.v1.user;
 import com.netsharp.rest.base.order.IOrderProdTraceService;
 import com.netsharp.rest.base.order.IOrderService;
 import com.gongsibao.rest.controller.BaseController;
-import com.netsharp.rest.controller.annotation.Api;
+import com.netsharp.rest.controller.annotation.ApiVersion;
 import com.netsharp.rest.controller.security.SecurityUtils;
 import com.netsharp.rest.utils.Assert;
 import com.netsharp.rest.utils.NumberUtils;
 import com.netsharp.rest.controller.result.Pager;
-import com.netsharp.rest.controller.result.Result;
 import com.netsharp.rest.dto.order.OrderDTO;
 import com.netsharp.rest.dto.order.OrderProdTraceDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/wx/{v}/user/order")
-@Api(1)
+@ApiVersion(1)
 public class UserOrderController extends BaseController {
 
     @Autowired

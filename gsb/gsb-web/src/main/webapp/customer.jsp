@@ -51,7 +51,7 @@
 			}
 			
 			//response.sendRedirect("/panda/crm/customer/all/form?swtCustomerId=" + (swtCustomerId==null?"":swtCustomerId)+"&swtServiceId="+employee.getId());
-			response.sendRedirect("/panda/crm/platform/customer/add?swtCustomerId=" + (swtCustomerId==null?"":swtCustomerId)+"&swtServiceId="+employee.getId());
+			response.sendRedirect("/panda/crm/platform/customer/swt/add?swtCustomerId=" + (swtCustomerId==null?"":swtCustomerId)+"&swtServiceId="+employee.getId());
 		}
 	%>
 </body>

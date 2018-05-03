@@ -496,7 +496,7 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
         Oql oql = new Oql();
         oql.setType(this.type);
         oql.setSelects("SoOrder.*,SoOrder.products.*");
-        sql.append(" SoOrder.accountId = ? and SoOrder.changePriceAuditStatus not in (1051,1052,1053) ");
+        sql.append(" SoOrder.accountId = ? and SoOrder.isDelete=0 and SoOrder.changePriceAuditStatus not in (1051,1052,1053) ");
         if (status == 1) {//未付款
             sql.append(" and SoOrder.payStatus in (3011, 3012) and SoOrder.processStatus <> 3023 ");
         } else if (status == 2) {//办理中3022

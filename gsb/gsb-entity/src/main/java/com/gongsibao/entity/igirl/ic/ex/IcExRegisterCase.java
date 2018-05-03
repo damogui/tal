@@ -1,6 +1,5 @@
 package com.gongsibao.entity.igirl.ic.ex;
 
-import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.crm.dic.ConsultWay;
 import com.gongsibao.entity.crm.dic.CustomerSource;
@@ -18,6 +17,7 @@ import org.netsharp.entity.Entity;
 
 @Table(name = "ic_ex_register_case",header = "公司注册信息登记表")
 public class IcExRegisterCase extends Entity {
+
     @Column(name = "customer_id",header = "客户ID")
     private Integer customerId;
 

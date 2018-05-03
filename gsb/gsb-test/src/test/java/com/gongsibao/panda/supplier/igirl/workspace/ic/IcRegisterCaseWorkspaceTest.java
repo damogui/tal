@@ -1,4 +1,5 @@
-package com.gongsibao.panda.supplier.igirl.workspace.ic.common;
+/*
+package com.gongsibao.panda.supplier.igirl.workspace.ic;
 
 import com.gongsibao.entity.igirl.ic.IcRegisterCase;
 import com.gongsibao.igirl.ic.web.*;
@@ -16,13 +17,15 @@ import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
+*/
 /**
- * @ClassName:  ProductWorkspaceTest
- * @Description:TODO 地市分类
- * @author: 曹玉玺
+ * @ClassName:  IcRegisterCaseWorkspaceTest
+ * @Description:
+ * @author: 周瑞帆
  * @date:   2018.4.3
  *
- */
+ *//*
+
 public class IcRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 
 	public static final String trademarkToolbarPath = "/igirl/tm/toolbar";
@@ -43,7 +46,9 @@ public class IcRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 
 	public static final String icFormToolbarPath = "/igirl/ic/toolbar";
 
-	/*按钮*/
+	*/
+/*按钮*//*
+
 	@Test
 	public void fromToolbar() {
 
@@ -132,7 +137,9 @@ public class IcRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 		toolbarService.save(toolbar);
 	}
 
-	/*首页显示表格*/
+	*/
+/*首页显示表格*//*
+
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
 
@@ -151,8 +158,12 @@ public class IcRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 		return datagrid;
 	}
 
-	/*新增页显示表格*/
-	/*新增页第一页效果*/
+	*/
+/*新增页显示表格*//*
+
+	*/
+/*新增页第一页效果*//*
+
 	@Override
 	protected PForm createForm(ResourceNode node) {
 
@@ -170,18 +181,26 @@ public class IcRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 		return form;
 	}
 
-	/*新增页产生分页效果*/
+	*/
+/*新增页产生分页效果*//*
+
 	protected void addDetailGridPart(PWorkspace workspace) {
 		createSecDetailPart(workspace);
 		createThiDetailPart(workspace);
 		//createFouDetailPart(workspace);
 	}
-	/*新增页第二页效果*/
+	*/
+/*新增页第二页效果*//*
+
 	private void createSecDetailPart(PWorkspace workspace) {
 
-		/*这个service名字不用改*/
+		*/
+/*这个service名字不用改*//*
+
 		ResourceNode node = this.resourceService.byCode("IGRIL_IC_REGIST_IcBaseInfo");
-		/*写成弹窗的形式，进行单独保存*/
+		*/
+/*写成弹窗的形式，进行单独保存*//*
+
 		PForm form = new PForm();
 		{
 			form.toNew();
@@ -228,7 +247,9 @@ public class IcRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 		workspace.getParts().add(part);
 	}
 
-	/*新增页第三页效果*/
+	*/
+/*新增页第三页效果*//*
+
 	private void createThiDetailPart(PWorkspace workspace) {
 		ResourceNode node = this.resourceService.byCode("IGRIL_IC_REGIST_IcUnPerson");
 		PDatagridColumn column = null;
@@ -237,7 +258,9 @@ public class IcRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 			addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 100);
 			addColumn(datagrid, "invType", "单位类型", ControlTypes.ENUM_BOX, 100);
 		}
-		/*表单形式，单独保存*/
+		*/
+/*表单形式，单独保存*//*
+
 		PForm form = new PForm();
 		{
 			form.toNew();
@@ -277,7 +300,10 @@ public class IcRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 		workspace.getParts().add(part);
 	}
 
-	/*新增页第四页效果*//*
+	*/
+/*新增页第四页效果*//*
+*/
+/*
 	private void createFouDetailPart(PWorkspace workspace) {
 		ResourceNode node = this.resourceService.byCode("IGRIL_IC_REGIST_IcDirector");
 		PDatagridColumn column = null;
@@ -303,7 +329,11 @@ public class IcRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 			addColumn(datagrid, "houseAddOther", "董事户籍登记地址详细信息二", ControlTypes.TEXT_BOX, 100);
 
 		}
-		*//*表单形式，单独保存*//*
+		*//*
+*/
+/*表单形式，单独保存*//*
+*/
+/*
 		PForm form = new PForm();
 		{
 			form.toNew();
@@ -353,9 +383,12 @@ public class IcRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 
 		}
 		workspace.getParts().add(part);
-	}*/
+	}*//*
 
-	/*显示查询框*/
+
+	*/
+/*显示查询框*//*
+
 	@Override
 	protected PQueryProject createQueryProject(ResourceNode node) {
 		PQueryProject queryProject = super.createQueryProject(node);
@@ -377,3 +410,4 @@ public class IcRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 }
 
 
+*/

@@ -35,16 +35,17 @@ public class ActionAuditOrderNewSaveSendMessage implements IAction {
         String remark = auditContext.getremark();
         try {
             auditSend(state, auditLog, soOrder, remark);
+            //推送icompnay公众号消息
+            sendWxMsg(state, auditLog, soOrder);
+            //钉钉播报
+            sendDingTalk(state, auditLog, soOrder.getId());
 
         }catch (Exception e){
             //暂时不处理
 
         }
 
-        //推送icompnay公众号消息
-        sendWxMsg(state, auditLog, soOrder);
-        //钉钉播报
-        sendDingTalk(state, auditLog, soOrder.getId());
+
     }
 
     /*进行发送消息*/

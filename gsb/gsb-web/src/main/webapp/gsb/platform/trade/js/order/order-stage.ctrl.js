@@ -16,11 +16,11 @@ com.gongsibao.trade.web.OrderStageCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     		//var stageAmount = ((data.payablePrice - data.paidPrice)/100).toFixed(2);
     		var stageAmount = (data.payablePrice/100).toFixed(2);
     		$('#stageAmount').numberbox('setValue',stageAmount);
-    		$('#stageNum').combobox('setValue','2');
+    		$('#stageNum').combobox('setValue',2);//初始化的时候不赋值
     	});
     },
     stageNumChange:function(newValue,oldValue){
-    	
+        $('#stageNum').combobox('setValue',newValue);//初始化的时候不赋值
     	var max = 4;
     	var num = parseInt(newValue);
     	for(var i=1;i<=num;i++){
@@ -90,6 +90,7 @@ com.gongsibao.trade.web.OrderStageCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     	var stageList = [];
     	var orderId = this.queryString('id');
     	var num = parseInt($('#stageNum').combobox('getValue'));
+    	
     	for(var i=1;i<=num;i++){
     		
     		var amount = parseFloat($('#stageAmount'+i).numberbox('getValue'))*100;
