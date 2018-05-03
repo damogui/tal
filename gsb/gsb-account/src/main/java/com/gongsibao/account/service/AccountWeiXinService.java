@@ -494,7 +494,11 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
                 //取用户信息
                 Account account = accountService.byMobile(mobile);
                 DecimalFormat df = new DecimalFormat("#######.00");
-                this.pushTextMsgByOriginalId(originalId, account.getId(), "您的订单已创建成功,产品[" + proName + "]", orderNo, df.format(Double.valueOf(payablePrice) / 100), addTime, "/index.html#/orderDetails/" + SecurityUtils.rc4Encrypt(pkid), "点击立即支付", AccountWxMsg.ORDER_SUCCESS);
+                String[] proNames=proName.split(",");
+                StringBuffer nameStr=new StringBuffer();{
+                    for(String name:proNames){nameStr.append(name).append("\n");}
+                }
+                this.pushTextMsgByOriginalId(originalId, account.getId(), "您的订单已创建成功,产品\n[\n" + nameStr + "\n]\n", orderNo, df.format(Double.valueOf(payablePrice) / 100), addTime, "/index.html#/orderDetails/" + SecurityUtils.rc4Encrypt(pkid), "点击立即支付", AccountWxMsg.ORDER_SUCCESS);
             }
         } catch (SQLException e) {
             e.printStackTrace();
