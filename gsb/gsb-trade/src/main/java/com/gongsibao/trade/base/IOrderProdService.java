@@ -30,6 +30,8 @@ public interface IOrderProdService extends IPersistableService<OrderProd> {
 
     OrderProd getById(Integer Id);
 
+    List<OrderProd> getOrderOfListById(Integer id);
+
     /**
      * @throws
      * @Title: updateIsComplaint
@@ -154,5 +156,8 @@ public interface IOrderProdService extends IPersistableService<OrderProd> {
      * @return
      */
     List<OrderProd> byOrderId(Integer orderId);
+
+
+    Boolean isAllCompleteById(Integer id);
 
 }

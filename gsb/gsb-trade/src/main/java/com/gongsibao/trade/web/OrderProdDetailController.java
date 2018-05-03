@@ -60,8 +60,12 @@ public class OrderProdDetailController {
      * @return: OrderProd
      */
     public OrderProd getOrderProdById(Integer id) {
-
-        return orderProdService.byId(id);
+        OrderProd orderProd = orderProdService.byId(id);
+        SoOrder order = orderService.getByOrderId(orderProd.getOrderId());
+        if (order != null) {
+            orderProd.setOrderNo(order.getNo());
+        }
+        return orderProd;
     }
 
     /**
@@ -75,6 +79,10 @@ public class OrderProdDetailController {
     public SoOrder getOrderById(Integer id) {
 
         return orderService.byId(id);
+    }
+
+    public SoOrder getSoOrder(Integer orderId) {
+        return orderService.getByOrderId(orderId);
     }
 
     /**
@@ -339,9 +347,9 @@ public class OrderProdDetailController {
         }
 
         List<String> ss = new ArrayList<String>();
-        ss.add("salesman.name like '%"+keyWord+"%'");
-        ss.add("supplier.name like '%"+keyWord+"%'");
-        ss.add("department.name like '%"+keyWord+"%'");
+        ss.add("salesman.name like '%" + keyWord + "%'");
+        ss.add("supplier.name like '%" + keyWord + "%'");
+        ss.add("department.name like '%" + keyWord + "%'");
         String filter = StringManager.join(" or ", ss);
 
         Oql oql = new Oql();

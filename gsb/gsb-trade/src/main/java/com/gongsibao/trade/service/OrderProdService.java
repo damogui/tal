@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.gongsibao.entity.trade.dic.NodeType;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.netsharp.communication.Service;
@@ -359,8 +360,54 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
         Oql oql = new Oql();
         oql.setType(this.type);
         oql.setSelects("*");
-        oql.setFilter(" orderId = ? ");
+        oql.setFilter("orderId = ? ");
         oql.getParameters().add("orderId", orderId, Types.INTEGER);
         return this.pm.queryList(oql);
+    }
+
+    @Override
+    public Boolean isAllCompleteById(Integer id) {
+        List<OrderProd> orderProdList = getOrderOfListById(id);
+        if (CollectionUtils.isEmpty(orderProdList)) {
+            return false;
+        }
+        List<Integer> processStatusList = getprocessStatusList(orderProdList);
+        List<Integer> typeIds = new ArrayList<>();
+        typeIds.add(NodeType.Jiesu.getValue());
+        typeIds.add(NodeType.Jiesuan.getValue());
+        List<WorkflowNode> nodeList = workflowNodeService.getIdsAndTypeIds(processStatusList, typeIds);
+        if (CollectionUtils.isEmpty(nodeList)) {
+            return false;
+        }
+        return orderProdList.size() == nodeList.size();
+    }
+
+    private List<Integer> getprocessStatusList(List<OrderProd> orderProdList) {
+        List<Integer> processStatusList = new ArrayList<>();
+        for (OrderProd orderProd : orderProdList) {
+            processStatusList.add(orderProd.getProcessStatusId());
+        }
+        return processStatusList;
+    }
+
+    @Override
+    public List<OrderProd> getOrderOfListById(Integer id) {
+
+        OrderProd orderProd = getById(id);
+        if (orderProd == null) {
+            return null;
+        }
+
+        Oql oql = new Oql();
+        {
+            oql.setType(this.type);
+            oql.setSelects("*");
+            oql.setFilter("order_id = ?");
+            oql.getParameters().add("orderId", orderProd.getOrderId(), Types.INTEGER);
+        }
+
+        List<OrderProd> orderProdList = this.pm.queryList(oql);
+
+        return orderProdList;
     }
 }
