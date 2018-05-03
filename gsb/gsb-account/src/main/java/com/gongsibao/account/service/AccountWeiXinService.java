@@ -461,7 +461,7 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
     }
 
     private void saveOrderMsg(String originalId, String mobile, Integer pkid) {
-        String sql = "select * from so_order  where pkid=? ";
+        String sql = "select * from so_order  where pkid=? and is_delete=0 ";
         QueryParameters qps = new QueryParameters();
         qps.add("@pkid", pkid, Types.INTEGER);
         ResultSet rs = this.pm.executeReader(sql, qps);
