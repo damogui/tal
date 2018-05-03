@@ -126,7 +126,7 @@ public interface IOrderProdService extends IPersistableService<OrderProd> {
      * @param: @return
      * @return: Boolean
      */
-    Boolean addRelevanceCompany(Integer orderProdId, Integer companyId);
+    Boolean addRelevanceCompany(List<Integer> orderProdIdList, Integer companyId);
 
     /**
      * 订单明细操作-修改服务商、办理名称、操作公司
