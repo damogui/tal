@@ -309,13 +309,26 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
     }
 
     @Override
-    public Boolean addRelevanceCompany(Integer orderProdId, Integer companyId) {
+    public Boolean addRelevanceCompany(List<Integer> orderProdIdList, Integer companyId) {
+        if (CollectionUtils.isEmpty(orderProdIdList)) {
+            return false;
+        }
+        String orderProdIds = StringManager.join(",", orderProdIdList);
 
-        String sql = "update `so_order_prod` set `company_id` =? where pkid = ?";
+        UpdateBuilder updateBuilder = new UpdateBuilder();
+        {
+            updateBuilder.update("so_order_prod");
+            updateBuilder.set("company_id", companyId);
+            updateBuilder.where("pkid IN (" + orderProdIds + ") ");
+        }
+
+        String sql = updateBuilder.toSQL();
+        return this.pm.executeNonQuery(sql, null) > 0;
+        /*String sql = "update `so_order_prod` set `company_id` =? where pkid IN(?)";
         QueryParameters qps = new QueryParameters();
         qps.add("companyId", companyId, Types.INTEGER);
-        qps.add("pkid", orderProdId, Types.INTEGER);
-        return this.pm.executeNonQuery(sql, qps) > 0;
+        qps.add("pkids", orderProdIds, Types.VARCHAR);
+        return this.pm.executeNonQuery(sql, qps) > 0;*/
     }
 
     @Override
@@ -338,7 +351,7 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
     public int removeCompanyQualifyByOrderProdIds(List<Integer> orderProdIds) {
         String sql = String.format("delete from uc_account_company_qualify WHERE order_prod_id IN (%s)", StringUtils
                 .join(orderProdIds, ","));
-        return this.pm.executeNonQuery(sql,null);
+        return this.pm.executeNonQuery(sql, null);
     }
 
     @Override
@@ -347,7 +360,7 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
         oql.setType(this.type);
         oql.setSelects("*");
         oql.setFilter(" orderId = ? ");
-        oql.getParameters().add("orderId",orderId,Types.INTEGER);
+        oql.getParameters().add("orderId", orderId, Types.INTEGER);
         return this.pm.queryList(oql);
     }
 }

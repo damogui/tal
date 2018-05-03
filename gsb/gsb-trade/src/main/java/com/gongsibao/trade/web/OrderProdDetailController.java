@@ -343,7 +343,7 @@ public class OrderProdDetailController {
         ss.add("supplier.name like '%"+keyWord+"%'");
         ss.add("department.name like '%"+keyWord+"%'");
         String filter = StringManager.join(" or ", ss);
-        
+
         Oql oql = new Oql();
         {
             oql.setType(Salesman.class);
@@ -480,9 +480,9 @@ public class OrderProdDetailController {
      * @param: @return
      * @return: Boolean
      */
-    public Boolean addRelevanceCompany(Integer orderProdId, Integer companyId) {
+    public Boolean addRelevanceCompany(List<Integer> orderProdIdList, Integer companyId) {
 
-        return orderProdService.addRelevanceCompany(orderProdId, companyId);
+        return orderProdService.addRelevanceCompany(orderProdIdList, companyId);
     }
 
     IOrderProdTraceFileService traceFileService = ServiceFactory.create(IOrderProdTraceFileService.class);
