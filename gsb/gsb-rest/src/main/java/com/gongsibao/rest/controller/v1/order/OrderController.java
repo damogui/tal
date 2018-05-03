@@ -97,7 +97,7 @@ public class OrderController extends BaseController {
             orderDTO.setAdd_time(order.getCreateTime());
             String[] proNames=order.getProdName().split("，");
             StringBuffer nameStr=new StringBuffer();{
-                for(String name:proNames){nameStr.append(name).append(" br ");}
+                for(String name:proNames){nameStr.append(name).append(" <br/> ");}
             }
             orderDTO.setProdName(nameStr.toString());
             orderDTO.setProcessStatusId(order.getProcessStatus().getValue());
