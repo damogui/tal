@@ -5,7 +5,7 @@ import org.netsharp.base.IEnum;
 
 public enum Important implements IEnum {
 
-	COMMON(4021, "普通"), INTERMEDIATE(4022, "中级"), HIGHGRADE(4023, "高级"), VIP(4024, "VIP");
+	COMMON(4021, "普通"), INTERMEDIATE(4022, "中级"), HIGHGRADE(4023, "高级"), VIP(4024, "VIP"), INVALID(4025, "无效");
 	private int value;
 	private String text;
 

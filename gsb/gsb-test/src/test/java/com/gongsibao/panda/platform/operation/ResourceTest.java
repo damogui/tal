@@ -9,11 +9,6 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.cms.base.IProductViewService;
 import com.gongsibao.crm.base.ICompanyIntentionService;
-import com.gongsibao.crm.base.ICustomerCompanyMapService;
-import com.gongsibao.crm.base.ICustomerFollowService;
-import com.gongsibao.crm.base.ICustomerOrderService;
-import com.gongsibao.crm.base.ICustomerProdMapService;
-import com.gongsibao.crm.base.ICustomerService;
 import com.gongsibao.crm.base.ICustomerServiceConfigService;
 import com.gongsibao.crm.base.INCustomerCompanyService;
 import com.gongsibao.crm.base.INCustomerOperationLogService;
@@ -24,14 +19,8 @@ import com.gongsibao.crm.base.INCustomerTaskInspectionService;
 import com.gongsibao.crm.base.INCustomerTaskNotifyService;
 import com.gongsibao.crm.base.INCustomerTaskQualityService;
 import com.gongsibao.crm.base.INCustomerTaskService;
-import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.cms.ProductView;
 import com.gongsibao.entity.crm.CompanyIntention;
-import com.gongsibao.entity.crm.Customer;
-import com.gongsibao.entity.crm.CustomerCompanyMap;
-import com.gongsibao.entity.crm.CustomerFollow;
-import com.gongsibao.entity.crm.CustomerOrder;
-import com.gongsibao.entity.crm.CustomerProdMap;
 import com.gongsibao.entity.crm.CustomerServiceConfig;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.crm.NCustomerCompany;
@@ -241,6 +230,7 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(NCustomer.class.getName(), "已分配客户", "Operation_CRM_Customer_Allocated", INCustomerService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomer.class.getName(), "未分配客户", "Operation_CRM_Customer_Undistributed", INCustomerService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomer.class.getName(), "无商机客户", "Operation_CRM_Customer_NotTask", INCustomerService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomer.class.getName(), "无效客户", "Operation_CRM_Customer_Invalid", INCustomerService.class.getName(), node1.getId());
 
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "全部商机", "Operation_CRM_Task_ALL", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "已分配商机", "Operation_CRM_Task_Allocated", INCustomerTaskService.class.getName(), node1.getId());
