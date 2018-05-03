@@ -67,7 +67,7 @@ public class ActionAuditStageSendMessage implements IAction{
 	private void sendNextAudit(List<Integer> userIds, String no) {
 		for (Integer item:userIds
 				) {
-			String content = String.format("【分期待审核提醒】您好，有N个分期申请待您审核，请及时审核");
+			String content = String.format("【分期待审核提醒】您好，有1个分期申请待您审核，请及时审核");
 			SmsHelper.send(UserHelper.getEmployeTelById(item), content);//电话和内容
 		}
 
