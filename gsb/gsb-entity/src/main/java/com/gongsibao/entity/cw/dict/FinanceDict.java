@@ -407,13 +407,13 @@ public class FinanceDict {
 		//获取凭证对应库存现金id
 		public static Integer getBankId(Integer setOfBooksId) {
 			Integer bankId = 0;
-			if(setOfBooksId == 1){
+			if(setOfBooksId.intValue() == 1){
 				bankId = 2;
-			}else if(setOfBooksId == 2){
+			}else if(setOfBooksId.intValue() == 2){
 				bankId = 8;
-			}else if(setOfBooksId == 3){
+			}else if(setOfBooksId.intValue() == 3){
 				bankId = 18;
-			}else if (setOfBooksId == 4){
+			}else if (setOfBooksId.intValue() == 4){
 				bankId = 20;
 			}
 			return bankId;

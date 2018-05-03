@@ -84,7 +84,12 @@ public class AllBillsListPart extends ListPart{
 		JSONArray inEntryList = new JSONArray();
 		
 		JSONObject inEntryJson = new JSONObject();
-		inEntryJson.put("accountCode", loan.getU8Bank().getCode());
+		if(loan.getU8Bank() != null ){
+			inEntryJson.put("accountCode", loan.getU8Bank().getCode());
+		}else{
+			 throw new BusinessException("帐套对应科目银行为空！");
+		}
+		
 		inEntryJson.put("naturalDebitCurrency", loan.getAmount()/100);
 		
 		if(loan.getU8Department() !=null){
@@ -116,13 +121,9 @@ public class AllBillsListPart extends ListPart{
 		}else{
 			 throw new BusinessException("U8系统部门信息为空！");
 		}
-		if(loan.getU8Bank() != null ){
-			outEntryJson.put("accountCode", loan.getPayeeType().getAccountCode());
-			outEntryJson.put("cashItem", "");
-			outEntryJson.put("remarkIId", "");
-		}else{
-			throw new BusinessException("帐套对应科目银行为空");
-		}
+		outEntryJson.put("accountCode", loan.getPayeeType().getAccountCode());
+		outEntryJson.put("cashItem", "");
+		outEntryJson.put("remarkIId", "");
 		outEntryJson.put("cashFlowNaturalCreditCurrency", "");
 		outEntryList.add(outEntryJson);
 		josnObject.put("outEntryList", outEntryList);
