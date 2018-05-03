@@ -520,7 +520,7 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
             SoOrder order=orderService.getByOrderId(orderId);
             String memo="您的订单"+order.getNo()+"支付成功,我们将立即为您办理。";
             String payStatus="1";
-            if(order.getPayablePrice()!=order.getPaidPrice()){
+            if(order.getPayablePrice()>(order.getPaidPrice()+Double.valueOf(payMoney))){
                 payStatus="0";
                 memo="您的订单"+order.getNo()+ " 已支付"+(Double.valueOf(payMoney)/100)+",还需支付"+Double.valueOf(order.getPayablePrice()-order.getPaidPrice())/100+"。";
             }
