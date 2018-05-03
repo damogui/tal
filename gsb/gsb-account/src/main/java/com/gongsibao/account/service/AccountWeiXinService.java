@@ -34,6 +34,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.text.DecimalFormat;
 
 @Service
 public class AccountWeiXinService extends PersistableService<AccountWeiXin> implements IAccountWeiXinService {
@@ -478,7 +479,8 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
             if (null != proName && null != orderNo) {
                 //取用户信息
                 Account account = accountService.byMobile(mobile);
-                this.pushTextMsgByOriginalId(originalId, account.getId(), "您的订单已创建成功,产品[" + proName + "]", orderNo, String.valueOf(Double.valueOf(payablePrice)/100), addTime, "/index.html#/orderDetails/" + SecurityUtils.rc4Encrypt(pkid), "点击立即支付", AccountWxMsg.ORDER_SUCCESS);
+                DecimalFormat decimalFormat=new DecimalFormat(".##");
+                this.pushTextMsgByOriginalId(originalId, account.getId(), "您的订单已创建成功,产品[" + proName + "]", orderNo, decimalFormat.format(Double.valueOf(payablePrice)/100), addTime, "/index.html#/orderDetails/" + SecurityUtils.rc4Encrypt(pkid), "点击立即支付", AccountWxMsg.ORDER_SUCCESS);
             }
         } catch (SQLException e) {
             e.printStackTrace();
