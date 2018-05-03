@@ -266,6 +266,8 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
 					}
 				}
 			});*/
+		}else{
+			entity.invalidRemark = "";
 		}
     },
 	validationContactWay:function(contactWay,type,callback){
