@@ -9,6 +9,9 @@ import org.netsharp.action.IAction;
 import org.netsharp.authorization.UserPermission;
 import org.netsharp.authorization.UserPermissionManager;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.organization.base.IOrganizationService;
+import org.netsharp.organization.entity.Organization;
+import org.netsharp.persistence.session.SessionManager;
 
 import com.gongsibao.cw.base.IExpenseService;
 import com.gongsibao.entity.cw.Expense;
@@ -20,6 +23,8 @@ public class ActionExpenseApplyPersist implements IAction {
 	//报销服务
 	IExpenseService expenseService = ServiceFactory.create(IExpenseService.class);
    
+	IOrganizationService organizationService = ServiceFactory.create(IOrganizationService.class); 
+	
 	@Override
     public void execute(ActionContext ctx) {
     
@@ -36,6 +41,8 @@ public class ActionExpenseApplyPersist implements IAction {
     	//创建人 所属部门
     	 UserPermission up = UserPermissionManager.getUserPermission();
     	 expense.setDepartmentId(up.getEmployee().getDepartmentId());
+    	 Organization organization = organizationService.getMainDepartment(SessionManager.getUserId());
+    	 expense.setDepartmentName(organization.getName());
     	 expense.setCode(getExpenseCode());
     	 expense.setBankId(FinanceDict.getBankId(expense.getSetOfBooksId()));
     	 Expense temp = expenseService.save(expense);

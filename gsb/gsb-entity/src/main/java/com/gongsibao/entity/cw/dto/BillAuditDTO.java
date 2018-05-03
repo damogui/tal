@@ -26,10 +26,6 @@ import com.gongsibao.entity.u8.SetOfBooks;
 @Table(name = "bill_audit_dto", isView = true)
 public class BillAuditDTO extends Persistable{
 
-	
-	/**  
-	* @Fields field:field:{todo}  
-	*/ 
 	private static final long serialVersionUID = 7812453255149595296L;
 
 	@Id

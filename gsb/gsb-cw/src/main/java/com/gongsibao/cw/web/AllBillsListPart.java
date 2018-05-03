@@ -18,7 +18,6 @@ import com.gongsibao.entity.cw.CostDetail;
 import com.gongsibao.entity.cw.Expense;
 import com.gongsibao.entity.cw.Loan;
 import com.gongsibao.entity.cw.dict.FinanceDict;
-import com.gongsibao.u8.base.IU8DepartmentService;
 
 public class AllBillsListPart extends ListPart{
 
@@ -45,13 +44,13 @@ public class AllBillsListPart extends ListPart{
 		if(formType == FinanceDict.FormType.JKD.getValue()){ //借款单
 			Loan loan = loanService.getBillByFormId(formId,true);
 			JSONObject jsonObject = loanVoucher(loan);
-			logger.info("凭证请求参数："+jsonObject.toString());
+			System.out.println("凭证请求参数："+jsonObject.toString());
 			result = HttpClientUtil.doPost(FinanceDict.U8_VOUCHER_, jsonObject);
-			logger.info("凭证返回参数："+result.toString());
+			
 		}else if(formType == FinanceDict.FormType.BXD.getValue()){
 			Expense expense = expenseService.getBillByFormId(formId,true);
 			JSONObject jsonObject = expenseVoucher(expense);
-			logger.info("凭证请求参数："+jsonObject.toString());
+			System.out.println("凭证请求参数："+jsonObject.toString());
 			result = HttpClientUtil.doPost(FinanceDict.U8_VOUCHER_, jsonObject);
 			logger.info("凭证返回参数："+result.toString());
 		}

@@ -21,6 +21,7 @@ import com.gongsibao.entity.cw.AuditRecord;
 import com.gongsibao.entity.cw.Expense;
 import com.gongsibao.entity.cw.Loan;
 import com.gongsibao.entity.cw.dict.FinanceDict;
+import com.gongsibao.u8.base.IU8DepartmentService;
 
 @Service
 public class ExpenseService extends PersistableService<Expense> implements IExpenseService {
@@ -36,6 +37,9 @@ public class ExpenseService extends PersistableService<Expense> implements IExpe
 	ISubsidyRecordService subsidyRecordService= ServiceFactory.create(ISubsidyRecordService.class);
 	//借款服务
 	ILoanService loanService = ServiceFactory.create(ILoanService.class);
+	
+	//U8部门信息
+	IU8DepartmentService u8DepartmentService = ServiceFactory.create(IU8DepartmentService.class);
 	
 	public ExpenseService() {
 		super();
@@ -59,7 +63,7 @@ public class ExpenseService extends PersistableService<Expense> implements IExpe
 	public Expense getBillByFormId(Integer formId ,Boolean isSubset) {
 		Oql oql = new Oql();
 		oql.setType(Expense.class);
-		oql.setSelects("expense.*,expense.setOfBooks.name,expense.expenseEmployee.name");
+		oql.setSelects("expense.*,expense.setOfBooks.name,expense.u8Bank.code,expense.expenseEmployee.name");
 		oql.setFilter("id=?");
 		oql.getParameters().add("id", formId, Types.INTEGER);
 		Expense entity = this.queryFirst(oql);
@@ -73,6 +77,8 @@ public class ExpenseService extends PersistableService<Expense> implements IExpe
 			entity.setTripItem(tripRecordService.getTripItem(formId));
 			//补助明细
 			entity.setSubsidyItem(subsidyRecordService.getSubsidyItem(formId));
+			//u8部门信息
+			entity.setU8Department(u8DepartmentService.getByEmployeeId(entity.getCreatorId()));
 		}
 		return entity;
 	}
