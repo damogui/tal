@@ -1,6 +1,6 @@
 package com.netsharp.rest.controller.result;
 
-import com.netsharp.rest.controller.exception.BaseException;
+import com.netsharp.rest.controller.exception.WxException;
 
 import java.io.Serializable;
 
@@ -70,7 +70,7 @@ public class Result<T extends Object> implements Serializable{
             result.setMsg("操作成功");
             result.setData(data);
             result.setCode(SUCCESS);
-        }catch (BaseException baseException) {
+        }catch (WxException baseException) {
             result.setMsg(baseException.getMessage());
             result.setData(data);
             result.setSuccess(false);

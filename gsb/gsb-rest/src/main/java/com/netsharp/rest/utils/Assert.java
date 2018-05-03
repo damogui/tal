@@ -1,6 +1,6 @@
 package com.netsharp.rest.utils;
 
-import com.netsharp.rest.controller.exception.BaseException;
+import com.netsharp.rest.controller.exception.WxException;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
@@ -19,11 +19,11 @@ public class Assert {
      * <pre class="code">Assert.isTrue(i &gt; 0, "The value must be greater than zero");</pre>
      * @param expression a boolean expression
      * @param message the exception message to use if the assertion fails
-     * @throws BaseException if expression is {@code false}
+     * @throws WxException if expression is {@code false}
      */
     public static void isTrue(boolean expression, String message) {
         if (!expression) {
-            throw new BaseException(message);
+            throw new WxException(message);
         }
     }
 
@@ -32,7 +32,7 @@ public class Assert {
      * if the test result is {@code false}.
      * <pre class="code">Assert.isTrue(i &gt; 0);</pre>
      * @param expression a boolean expression
-     * @throws BaseException if expression is {@code false}
+     * @throws WxException if expression is {@code false}
      */
     public static void isTrue(boolean expression) {
         isTrue(expression, "[Assertion failed] - this expression must be true");
@@ -43,11 +43,11 @@ public class Assert {
      * <pre class="code">Assert.isNull(value, "The value must be null");</pre>
      * @param object the object to check
      * @param message the exception message to use if the assertion fails
-     * @throws BaseException if the object is not {@code null}
+     * @throws WxException if the object is not {@code null}
      */
     public static void isNull(Object object, String message) {
         if (object != null) {
-            throw new BaseException(message);
+            throw new WxException(message);
         }
     }
 
@@ -55,7 +55,7 @@ public class Assert {
      * Assert that an object is {@code null} .
      * <pre class="code">Assert.isNull(value);</pre>
      * @param object the object to check
-     * @throws BaseException if the object is not {@code null}
+     * @throws WxException if the object is not {@code null}
      */
     public static void isNull(Object object) {
         isNull(object, "[Assertion failed] - the object argument must be null");
@@ -66,11 +66,11 @@ public class Assert {
      * <pre class="code">Assert.notNull(clazz, "The class must not be null");</pre>
      * @param object the object to check
      * @param message the exception message to use if the assertion fails
-     * @throws BaseException if the object is {@code null}
+     * @throws WxException if the object is {@code null}
      */
     public static void notNull(Object object, String message) {
         if (object == null) {
-            throw new BaseException(message);
+            throw new WxException(message);
         }
     }
 
@@ -78,7 +78,7 @@ public class Assert {
      * Assert that an object is not {@code null} .
      * <pre class="code">Assert.notNull(clazz);</pre>
      * @param object the object to check
-     * @throws BaseException if the object is {@code null}
+     * @throws WxException if the object is {@code null}
      */
     public static void notNull(Object object) {
         notNull(object, "[Assertion failed] - this argument is required; it must not be null");
@@ -91,11 +91,11 @@ public class Assert {
      * @param text the String to check
      * @param message the exception message to use if the assertion fails
      * @see StringUtils#hasLength
-     * @throws BaseException if the text is empty
+     * @throws WxException if the text is empty
      */
     public static void hasLength(String text, String message) {
         if (!StringUtils.hasLength(text)) {
-            throw new BaseException(message);
+            throw new WxException(message);
         }
     }
 
@@ -105,7 +105,7 @@ public class Assert {
      * <pre class="code">Assert.hasLength(name);</pre>
      * @param text the String to check
      * @see StringUtils#hasLength
-     * @throws BaseException if the text is empty
+     * @throws WxException if the text is empty
      */
     public static void hasLength(String text) {
         hasLength(text,
@@ -119,11 +119,11 @@ public class Assert {
      * @param text the String to check
      * @param message the exception message to use if the assertion fails
      * @see StringUtils#hasText
-     * @throws BaseException if the text does not contain valid text content
+     * @throws WxException if the text does not contain valid text content
      */
     public static void hasText(String text, String message) {
         if (!StringUtils.hasText(text)) {
-            throw new BaseException(message);
+            throw new WxException(message);
         }
     }
 
@@ -133,7 +133,7 @@ public class Assert {
      * <pre class="code">Assert.hasText(name, "'name' must not be empty");</pre>
      * @param text the String to check
      * @see StringUtils#hasText
-     * @throws BaseException if the text does not contain valid text content
+     * @throws WxException if the text does not contain valid text content
      */
     public static void hasText(String text) {
         hasText(text,
@@ -146,12 +146,12 @@ public class Assert {
      * @param textToSearch the text to search
      * @param substring the substring to find within the text
      * @param message the exception message to use if the assertion fails
-     * @throws BaseException if the text contains the substring
+     * @throws WxException if the text contains the substring
      */
     public static void doesNotContain(String textToSearch, String substring, String message) {
         if (StringUtils.hasLength(textToSearch) && StringUtils.hasLength(substring) &&
                 textToSearch.contains(substring)) {
-            throw new BaseException(message);
+            throw new WxException(message);
         }
     }
 
@@ -160,7 +160,7 @@ public class Assert {
      * <pre class="code">Assert.doesNotContain(name, "rod");</pre>
      * @param textToSearch the text to search
      * @param substring the substring to find within the text
-     * @throws BaseException if the text contains the substring
+     * @throws WxException if the text contains the substring
      */
     public static void doesNotContain(String textToSearch, String substring) {
         doesNotContain(textToSearch, substring,
@@ -173,11 +173,11 @@ public class Assert {
      * <pre class="code">Assert.notEmpty(array, "The array must have elements");</pre>
      * @param array the array to check
      * @param message the exception message to use if the assertion fails
-     * @throws BaseException if the object array is {@code null} or has no elements
+     * @throws WxException if the object array is {@code null} or has no elements
      */
     public static void notEmpty(Object[] array, String message) {
         if (ObjectUtils.isEmpty(array)) {
-            throw new BaseException(message);
+            throw new WxException(message);
         }
     }
 
@@ -186,7 +186,7 @@ public class Assert {
      * {@code null} and must have at least one element.
      * <pre class="code">Assert.notEmpty(array);</pre>
      * @param array the array to check
-     * @throws BaseException if the object array is {@code null} or has no elements
+     * @throws WxException if the object array is {@code null} or has no elements
      */
     public static void notEmpty(Object[] array) {
         notEmpty(array, "[Assertion failed] - this array must not be empty: it must contain at least 1 element");
@@ -198,13 +198,13 @@ public class Assert {
      * <pre class="code">Assert.noNullElements(array, "The array must have non-null elements");</pre>
      * @param array the array to check
      * @param message the exception message to use if the assertion fails
-     * @throws BaseException if the object array contains a {@code null} element
+     * @throws WxException if the object array contains a {@code null} element
      */
     public static void noNullElements(Object[] array, String message) {
         if (array != null) {
             for (Object element : array) {
                 if (element == null) {
-                    throw new BaseException(message);
+                    throw new WxException(message);
                 }
             }
         }
@@ -215,7 +215,7 @@ public class Assert {
      * Note: Does not complain if the array is empty!
      * <pre class="code">Assert.noNullElements(array);</pre>
      * @param array the array to check
-     * @throws BaseException if the object array contains a {@code null} element
+     * @throws WxException if the object array contains a {@code null} element
      */
     public static void noNullElements(Object[] array) {
         noNullElements(array, "[Assertion failed] - this array must not contain any null elements");
@@ -227,11 +227,11 @@ public class Assert {
      * <pre class="code">Assert.notEmpty(collection, "Collection must have elements");</pre>
      * @param collection the collection to check
      * @param message the exception message to use if the assertion fails
-     * @throws BaseException if the collection is {@code null} or has no elements
+     * @throws WxException if the collection is {@code null} or has no elements
      */
     public static void notEmpty(Collection<?> collection, String message) {
         if (CollectionUtils.isEmpty(collection)) {
-            throw new BaseException(message);
+            throw new WxException(message);
         }
     }
 
@@ -240,7 +240,7 @@ public class Assert {
      * {@code null} and must have at least one element.
      * <pre class="code">Assert.notEmpty(collection, "Collection must have elements");</pre>
      * @param collection the collection to check
-     * @throws BaseException if the collection is {@code null} or has no elements
+     * @throws WxException if the collection is {@code null} or has no elements
      */
     public static void notEmpty(Collection<?> collection) {
         notEmpty(collection,
@@ -253,11 +253,11 @@ public class Assert {
      * <pre class="code">Assert.notEmpty(map, "Map must have entries");</pre>
      * @param map the map to check
      * @param message the exception message to use if the assertion fails
-     * @throws BaseException if the map is {@code null} or has no entries
+     * @throws WxException if the map is {@code null} or has no entries
      */
     public static void notEmpty(Map<?, ?> map, String message) {
         if (CollectionUtils.isEmpty(map)) {
-            throw new BaseException(message);
+            throw new WxException(message);
         }
     }
 
@@ -266,7 +266,7 @@ public class Assert {
      * and must have at least one entry.
      * <pre class="code">Assert.notEmpty(map);</pre>
      * @param map the map to check
-     * @throws BaseException if the map is {@code null} or has no entries
+     * @throws WxException if the map is {@code null} or has no entries
      */
     public static void notEmpty(Map<?, ?> map) {
         notEmpty(map, "[Assertion failed] - this map must not be empty; it must contain at least one entry");
@@ -277,7 +277,7 @@ public class Assert {
      * <pre class="code">Assert.instanceOf(Foo.class, foo);</pre>
      * @param clazz the required class
      * @param obj the object to check
-     * @throws BaseException if the object is not an instance of clazz
+     * @throws WxException if the object is not an instance of clazz
      * @see Class#isInstance
      */
     public static void isInstanceOf(Class<?> clazz, Object obj) {
@@ -293,13 +293,13 @@ public class Assert {
      * the function itself, and which may be used to provide context. It should
      * normally end in ":" or "." so that the generated message looks OK when
      * appended to it.
-     * @throws BaseException if the object is not an instance of clazz
+     * @throws WxException if the object is not an instance of clazz
      * @see Class#isInstance
      */
     public static void isInstanceOf(Class<?> type, Object obj, String message) {
         notNull(type, "Type to check against must not be null");
         if (!type.isInstance(obj)) {
-            throw new BaseException(
+            throw new WxException(
                     (StringUtils.hasLength(message) ? message + " " : "") +
                             "Object of class [" + (obj != null ? obj.getClass().getName() : "null") +
                             "] must be an instance of " + type);
@@ -311,7 +311,7 @@ public class Assert {
      * <pre class="code">Assert.isAssignable(Number.class, myClass);</pre>
      * @param superType the super type to check
      * @param subType the sub type to check
-     * @throws BaseException if the classes are not assignable
+     * @throws WxException if the classes are not assignable
      */
     public static void isAssignable(Class<?> superType, Class<?> subType) {
         isAssignable(superType, subType, "");
@@ -326,12 +326,12 @@ public class Assert {
      * the function itself, and which may be used to provide context. It should
      * normally end in ":" or "." so that the generated message looks OK when
      * appended to it.
-     * @throws BaseException if the classes are not assignable
+     * @throws WxException if the classes are not assignable
      */
     public static void isAssignable(Class<?> superType, Class<?> subType, String message) {
         notNull(superType, "Type to check against must not be null");
         if (subType == null || !superType.isAssignableFrom(subType)) {
-            throw new BaseException((StringUtils.hasLength(message) ? message + " " : "")
+            throw new WxException((StringUtils.hasLength(message) ? message + " " : "")
                     + subType + " is not assignable to " + superType);
         }
     }
@@ -343,22 +343,22 @@ public class Assert {
      * <pre class="code">Assert.state(id == null, "The id property must not already be initialized");</pre>
      * @param expression a boolean expression
      * @param message the exception message to use if the assertion fails
-     * @throws BaseException if expression is {@code false}
+     * @throws WxException if expression is {@code false}
      */
     public static void state(boolean expression, String message) {
         if (!expression) {
-            throw new BaseException(message);
+            throw new WxException(message);
         }
     }
 
     /**
-     * Assert a boolean expression, throwing {@link BaseException}
+     * Assert a boolean expression, throwing {@link WxException}
      * if the test result is {@code false}.
      * <p>Call {@link #isTrue(boolean)} if you wish to
-     * throw {@link BaseException} on an assertion failure.
+     * throw {@link WxException} on an assertion failure.
      * <pre class="code">Assert.state(id == null);</pre>
      * @param expression a boolean expression
-     * @throws BaseException if the supplied expression is {@code false}
+     * @throws WxException if the supplied expression is {@code false}
      */
     public static void state(boolean expression) {
         state(expression, "[Assertion failed] - this state invariant must be true");

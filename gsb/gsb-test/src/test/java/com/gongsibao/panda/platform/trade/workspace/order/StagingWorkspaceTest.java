@@ -13,7 +13,7 @@ public class StagingWorkspaceTest extends SalesmanOrderStagingWorkspaceTest {
 		super.setup();
 		urlList = "/operation/order/staging/list";
 		resourceNodeCode = "Operation_Order_Staging";
-		listFilter = "";
+		listFilter = "is_installment = 1 ";
 		listPartServiceController = StagingListPart.class.getName();
 	}
 

@@ -13,9 +13,12 @@ import com.netsharp.rest.base.product.IProductService;
 import com.netsharp.rest.base.user.IAccountService;
 import com.netsharp.rest.controller.annotation.Api;
 import com.netsharp.rest.controller.annotation.LoginCheck;
+import com.netsharp.rest.controller.exception.WxException;
+import com.netsharp.rest.controller.result.BdCity;
 import com.netsharp.rest.controller.security.SecurityUtils;
+import com.netsharp.rest.dto.product.ProductCmsDTO;
 import com.netsharp.rest.utils.JsonUtils;
-import com.netsharp.rest.controller.result.ResponseData;
+import com.netsharp.rest.controller.result.RestResult;
 import com.gongsibao.rest.controller.BaseController;
 import com.netsharp.rest.dto.coupon.CouponUseDTO;
 import com.netsharp.rest.dto.order.OrderAddDTO;
@@ -56,18 +59,12 @@ public class ICompanyProductController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/cmsInfo", method = RequestMethod.GET)
-    private ResponseData cmsInfo(HttpServletRequest request) {
+    private ProductCmsDTO cmsInfo(HttpServletRequest request) {
         int productId = NumberUtils.toInt(request.getParameter("productId"));
         if (0 == productId) {
-            return ResponseData.getError(ResponseData.FAIL, "商品不存在");
+            throw new WxException(RestResult.FAIL, "商品不存在");
         }
-        try {
-            // 获取cms基础信息
-            return ResponseData.getSuccess(productService.cmsInfo(productId), "");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseData.getException();
-        }
+        return productService.cmsInfo(productId);
     }
 
 
@@ -78,18 +75,13 @@ public class ICompanyProductController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/cities", method = RequestMethod.GET)
-    public ResponseData cities(HttpServletRequest request) {
-        try {
-            int productId = NumberUtils.toInt(request.getParameter("productId"));
-            if (productId == 0) {
-                return ResponseData.getError(ResponseData.FAIL, "商品不能为空");
-            }
-
-            return ResponseData.getSuccess(productPriceService.findProductCities(productId, null), "");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseData.getException();
+    public List<BdCity> cities(HttpServletRequest request) {
+        int productId = NumberUtils.toInt(request.getParameter("productId"));
+        if (productId == 0) {
+            throw new WxException(RestResult.FAIL, "商品不能为空");
         }
+
+        return productPriceService.findProductCities(productId, null);
     }
 
     /**
@@ -100,29 +92,25 @@ public class ICompanyProductController extends BaseController {
      * @date 2018/4/12 20:32
      */
     @RequestMapping(value = "/cmsTemplate", method = RequestMethod.GET)
-    public ResponseData cmsTemplate(HttpServletRequest request) {
-        try {
-            int productId = NumberUtils.toInt(request.getParameter("productId"));
-            int cityId = NumberUtils.toInt(request.getParameter("cityId"));
+    public ProductTemplate cmsTemplate(HttpServletRequest request) {
 
-            if (productId == 0) {
-                return ResponseData.getError(ResponseData.FAIL, "商品不能为空");
-            }
-            if (cityId == 0) {
-                return ResponseData.getError(ResponseData.FAIL, "城市不能为空");
-            }
-            Product cmsProduct = productService.getLastCmsByProdId(productId);
-            if (null == cmsProduct) {
-                return ResponseData.getError(ResponseData.FAIL, "商品不存在");
-            }
+        int productId = NumberUtils.toInt(request.getParameter("productId"));
 
+        int cityId = NumberUtils.toInt(request.getParameter("cityId"));
 
-            ProductTemplate template = productService.getProductTemplateByCmsIdAndCityId(cmsProduct.getId(), cityId);
-            return ResponseData.getSuccess(template, "");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseData.getException();
+        if (productId == 0) {
+            throw new WxException(RestResult.FAIL, "商品不能为空");
         }
+        if (cityId == 0) {
+            throw new WxException(RestResult.FAIL, "城市不能为空");
+        }
+        Product cmsProduct = productService.getLastCmsByProdId(productId);
+        if (null == cmsProduct) {
+            throw new WxException(RestResult.FAIL, "商品不存在");
+        }
+
+        ProductTemplate template = productService.getProductTemplateByCmsIdAndCityId(cmsProduct.getId(), cityId);
+        return template;
     }
 
 
@@ -134,24 +122,18 @@ public class ICompanyProductController extends BaseController {
      * @date 2018/4/13 10:24
      */
     @RequestMapping(value = "/properties", method = RequestMethod.GET)
-    public ResponseData properties(HttpServletRequest request) {
-        try {
-            int productId = NumberUtils.toInt(request.getParameter("productId"));
-            int cityId = NumberUtils.toInt(request.getParameter("cityId"));
+    public List<Dict> properties(HttpServletRequest request) {
+        int productId = NumberUtils.toInt(request.getParameter("productId"));
+        int cityId = NumberUtils.toInt(request.getParameter("cityId"));
 
-            if (productId == 0) {
-                return ResponseData.getError(ResponseData.FAIL, "商品不能为空");
-            }
-            if (cityId == 0) {
-                return ResponseData.getError(ResponseData.FAIL, "城市不能为空");
-            }
-
-            List<Dict> propertyList = productPriceService.findProductPropertyIds(productId, cityId);
-            return ResponseData.getSuccess(propertyList, "");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseData.getException();
+        if (productId == 0) {
+            throw new WxException(RestResult.FAIL, "商品不能为空");
         }
+        if (cityId == 0) {
+            throw new WxException(RestResult.FAIL, "城市不能为空");
+        }
+
+        return productPriceService.findProductPropertyIds(productId, cityId);
     }
 
     /**
@@ -161,100 +143,82 @@ public class ICompanyProductController extends BaseController {
      * @return
      */
     @RequestMapping("/priceList")
-    public ResponseData priceList(HttpServletRequest request) {
-        try {
-            int productId = NumberUtils.toInt(request.getParameter("productId"));
-            int cityId = NumberUtils.toInt(request.getParameter("cityId"));
-            int propertyId = NumberUtils.toInt(request.getParameter("propertyId"));
-            if (productId == 0) {
-                return ResponseData.getError(ResponseData.FAIL, "商品不能为空");
-            }
-
-            if (cityId == 0) {
-                return ResponseData.getError(ResponseData.FAIL, "城市不能为空");
-            }
-
-            if (propertyId == 0) {
-                List<Dict> propertyList = productPriceService.findProductPropertyIds(productId, cityId);
-                if (CollectionUtils.isNotEmpty(propertyList)) {
-                    return ResponseData.getError(ResponseData.FAIL, "请选择产品特性");
-                }
-            }
-
-            List<ProductPriceDTO> priceList = productPriceService.productPriceList(productId, cityId, propertyId);
-            return ResponseData.getSuccess(priceList, "");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseData.getException();
+    public List<ProductPriceDTO> priceList(HttpServletRequest request) {
+        int productId = NumberUtils.toInt(request.getParameter("productId"));
+        int cityId = NumberUtils.toInt(request.getParameter("cityId"));
+        int propertyId = NumberUtils.toInt(request.getParameter("propertyId"));
+        if (productId == 0) {
+            throw new WxException(RestResult.FAIL, "商品不能为空");
         }
+
+        if (cityId == 0) {
+            throw new WxException(RestResult.FAIL, "城市不能为空");
+        }
+
+        if (propertyId == 0) {
+            List<Dict> propertyList = productPriceService.findProductPropertyIds(productId, cityId);
+            if (CollectionUtils.isNotEmpty(propertyList)) {
+                throw new WxException(RestResult.FAIL, "请选择产品特性");
+            }
+        }
+
+        return productPriceService.productPriceList(productId, cityId, propertyId);
     }
 
     /**
-     * @Description: 针对当前下单信息，获取用户可用优惠券
      * @param
      * @return
+     * @Description: 针对当前下单信息，获取用户可用优惠券
      * @author wangkun <wangkun@gongsibao.com>
      * @date 2018/4/19
      */
     @RequestMapping(value = "/preferential", method = RequestMethod.POST)
     @LoginCheck
-    public ResponseData preferential(HttpServletRequest request, @RequestBody String req) {
-        try {
-            OrderAddDTO orderAddDTO = JsonUtils.jsonToObject(req, OrderAddDTO.class);
-            if (null == orderAddDTO) {
-                return ResponseData.getError(ResponseData.FAIL, "操作失败，参数错误");
-            }
-
-            // 获取当前登录用户
-            Account account = accountService.queryByOpenId(openId(request));
-            if (null == account) {
-                return ResponseData.getError(ResponseData.FAIL, "请先绑定用户");
-            }
-            orderAddDTO.setAccount(account);
-            orderAddDTO.setCompanyId(0);
-            orderAddDTO.setCouponPlatformType(CouponPlatformType.WEIXIN);
-
-            Result<CouponUseDTO> result = orderService.findOrderCoupon(orderAddDTO);
-            if (Result.isSuccess(result)) {
-                return ResponseData.getSuccess(result.getObj(), "");
-            } else {
-                return ResponseData.getError(ResponseData.FAIL, result.getMsg());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseData.getException();
+    public CouponUseDTO preferential(HttpServletRequest request, @RequestBody String req) {
+        OrderAddDTO orderAddDTO = JsonUtils.jsonToObject(req, OrderAddDTO.class);
+        if (null == orderAddDTO) {
+            throw new WxException(RestResult.FAIL, "操作失败，参数错误");
+        }
+        // 获取当前登录用户
+        Account account = accountService.queryByOpenId(openId(request));
+        if (null == account) {
+            throw new WxException(RestResult.FAIL, "请先绑定用户");
+        }
+        orderAddDTO.setAccount(account);
+        orderAddDTO.setCompanyId(0);
+        orderAddDTO.setCouponPlatformType(CouponPlatformType.WEIXIN);
+        Result<CouponUseDTO> result = orderService.findOrderCoupon(orderAddDTO);
+        if (Result.isSuccess(result)) {
+            return result.getObj();
+        } else {
+            throw new WxException(RestResult.FAIL, result.getMsg());
         }
     }
 
     @RequestMapping(value = "/addOrder", method = RequestMethod.POST)
     @LoginCheck
-    public ResponseData addOrder(HttpServletRequest request, @RequestBody String req) {
+    public Map<String, Object> addOrder(HttpServletRequest request, @RequestBody String req) {
         OrderAddDTO orderAddDTO = JsonUtils.jsonToObject(req, OrderAddDTO.class);
         if (null == orderAddDTO) {
-            return ResponseData.getError(ResponseData.FAIL, "操作失败，参数错误");
+            throw new WxException(RestResult.FAIL, "操作失败，参数错误");
         }
+        // 获取当前登录用户
+        Account account = accountService.queryByOpenId(openId(request));
+        if (null == account) {
+            throw new WxException(RestResult.FAIL, "请先绑定用户");
+        }
+        orderAddDTO.setAccount(account);
+        orderAddDTO.setCompanyId(0);
+        orderAddDTO.setCouponPlatformType(CouponPlatformType.WEIXIN);
 
-        try {
-            // 获取当前登录用户
-            Account account = accountService.queryByOpenId(openId(request));
-            if (null == account) {
-                return ResponseData.getError(ResponseData.FAIL, "请先绑定用户");
-            }
-            orderAddDTO.setAccount(account);
-            orderAddDTO.setCompanyId(0);
-            orderAddDTO.setCouponPlatformType(CouponPlatformType.WEIXIN);
-
-            Result<SoOrder> result = orderService.saveOrder(orderAddDTO);
-            if (Result.isSuccess(result)) {
-                Map<String, Object> orderInfo = new HashMap<>();
-                orderInfo.put("orderId", result.getObj().getId());
-                orderInfo.put("orderIdStr", SecurityUtils.rc4Encrypt(result.getObj().getId()));
-                return ResponseData.getSuccess(orderInfo, "");
-            } else {
-                return ResponseData.getError(ResponseData.FAIL, result.getMsg());
-            }
-        } catch (Exception e) {
-            return ResponseData.getException();
+        Result<SoOrder> result = orderService.saveOrder(orderAddDTO);
+        if (Result.isSuccess(result)) {
+            Map<String, Object> orderInfo = new HashMap<>();
+            orderInfo.put("orderId", result.getObj().getId());
+            orderInfo.put("orderIdStr", SecurityUtils.rc4Encrypt(result.getObj().getId()));
+            return orderInfo;
+        } else {
+            throw new WxException(RestResult.FAIL, result.getMsg());
         }
     }
 }

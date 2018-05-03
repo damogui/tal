@@ -60,6 +60,9 @@
 						    <div title="流转日志">   
 						         <table id="order_follow_grid"></table>
 						    </div>
+						    <div title="附件信息">   
+						         <table id="order_file_grid"></table>
+						    </div>
 						</div>
 					</div>
 			    </div>

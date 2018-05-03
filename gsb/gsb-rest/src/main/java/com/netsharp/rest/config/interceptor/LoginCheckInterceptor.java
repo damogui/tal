@@ -3,7 +3,7 @@ package com.netsharp.rest.config.interceptor;
 import com.gongsibao.entity.acount.Account;
 import com.netsharp.rest.base.user.IAccountService;
 import com.netsharp.rest.controller.annotation.LoginCheck;
-import com.netsharp.rest.controller.result.ResponseData;
+import com.netsharp.rest.controller.result.RestResult;
 import com.netsharp.rest.controller.result.UserHeaders;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
@@ -49,14 +49,14 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
                 String openId = request.getHeader(UserHeaders.openId);
                 if(null==openId){
                     log.info("微信验证登录，openid为null");
-                    ResponseData webResult = ResponseData.getError(-1, "openId为空！");
+                    RestResult webResult = RestResult.getError(-1, "openId为空！");
                     response.setHeader("Content-type", "application/json;charset=UTF-8");
                     response.getOutputStream().write(JSONObject.fromObject(webResult).toString().getBytes("utf-8"));
                     return false;
                 }else{
                     Account account=accountService.login(openId);
                     if(null==account){
-                        ResponseData webResult = ResponseData.getError(403, "用户未登录");
+                        RestResult webResult = RestResult.getError(403, "用户未登录");
                         response.setHeader("Content-type", "application/json;charset=UTF-8");
                         response.getOutputStream().write(JSONObject.fromObject(webResult).toString().getBytes("utf-8"));
                         log.info("微信验证登录，未登录openid={}", openId);

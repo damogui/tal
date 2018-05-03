@@ -25,6 +25,9 @@
 			    <div title="审批进度">   
 			         <table id="audit_progress_grid"></table>
 			    </div>
+			    <div title="附件信息">   
+					<table id="order_file_grid"></table>
+				</div>
 			</div>
 		</div>
 </body>
