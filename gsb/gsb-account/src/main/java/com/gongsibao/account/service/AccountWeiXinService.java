@@ -494,11 +494,11 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
                 //取用户信息
                 Account account = accountService.byMobile(mobile);
                 DecimalFormat df = new DecimalFormat("#######.00");
-                String[] proNames=proName.split(",");
+                String[] proNames=proName.split("、");
                 StringBuffer nameStr=new StringBuffer();{
                     for(String name:proNames){nameStr.append(name).append("\n");}
                 }
-                this.pushTextMsgByOriginalId(originalId, account.getId(), "您的订单已创建成功,产品\n[\n" + nameStr + "\n]\n", orderNo, df.format(Double.valueOf(payablePrice) / 100), addTime, "/index.html#/orderDetails/" + SecurityUtils.rc4Encrypt(pkid), "点击立即支付", AccountWxMsg.ORDER_SUCCESS);
+                this.pushTextMsgByOriginalId(originalId, account.getId(), "您的订单已创建成功,产品\n[\n" + nameStr.toString() + "]", orderNo, df.format(Double.valueOf(payablePrice) / 100), addTime, "/index.html#/orderDetails/" + SecurityUtils.rc4Encrypt(pkid), "点击立即支付", AccountWxMsg.ORDER_SUCCESS);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -543,7 +543,11 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
             Account account = accountService.byId(order.getAccountId());
             Fans fans = fansService.getFansByUserId(account.getId());
             PublicAccount publicAccount = this.queryByFansId(fans);
-            this.pushTextMsgByOriginalId(publicAccount.getOriginalId(), account.getId(), memo, String.valueOf(Double.valueOf(payMoney) / 100), order.getProdName(), null, payStatus.equals("1") ? "/index.html#/mine/order/2" : "/index.html#/mine/order/1", null, AccountWxMsg.BUY_SUCCESS);
+            String[] proNames=order.getProdName().split("、");
+            StringBuffer nameStr=new StringBuffer();{
+                for(String name:proNames){nameStr.append(name).append("\n");}
+            }
+            this.pushTextMsgByOriginalId(publicAccount.getOriginalId(), account.getId(), memo, String.valueOf(Double.valueOf(payMoney) / 100), nameStr.toString(), null, payStatus.equals("1") ? "/index.html#/mine/order/2" : "/index.html#/mine/order/1", null, AccountWxMsg.BUY_SUCCESS);
         } catch (Exception e) {
             logger.error("推送微信支付成功消息失败：" + e.getMessage());
         }
