@@ -8,6 +8,7 @@ import com.gongsibao.panda.platform.operation.reference.FunctionModuleReferenceT
 import com.gongsibao.panda.platform.operation.workspace.crm.CompanyIntentionWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.CustomerALLWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.CustomerAllocatedWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.CustomerInvalidWorksapceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.CustomerNotTaskWorksapceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.CustomerServiceConfigWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.CustomerUndistributedWorkspaceTest;
@@ -123,7 +124,8 @@ import com.gongsibao.panda.platform.report.workspace.customer.StatisticalCustome
         CustomerAllocatedWorkspaceTest.class,
         CustomerUndistributedWorkspaceTest.class,
         CustomerNotTaskWorksapceTest.class,
-
+        CustomerInvalidWorksapceTest.class,
+        
         TaskAllocatedWorkspaceTest.class,
         TaskALLWorkspaceTest.class,
         TaskUndistributedWorkspaceTest.class,

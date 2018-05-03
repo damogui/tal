@@ -7,7 +7,7 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
         this.verifyUrl = null;
         this.addUrl=null;
         this.editUrl=null;
-    },
+    },    
     getsaveState:function(){
     	
     	var id = this.queryString("id");
@@ -97,15 +97,30 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
         });
     },
     validate: function () {
-
+    	var me = this;
         var isValidate = $("#" + this.context.formName).form('validate');
        
         if(isValidate){
-        	
+        	debugger;
         	var mobile = $("#mobile").val();
         	var telephone = $("#telephone").val();
         	var weixin = $("#weixin").val();
         	var qq = $("#qq").val();
+        	var important = $("#important").combobox("getValue");
+        	
+        	if(important === "4025"){
+        		//获取form的实体
+				var entity = me.viewModel.getEntity();
+				if(System.isnull(entity.invalidRemark)){
+					IMessageBox.error('当重要程度选择为无效，需要输入无效原因!');
+	        		return false;
+	        	}
+				if(entity.tasks.length > 0){
+					IMessageBox.info('已存在商机，不能选择无效');
+					return false;
+				}
+        	}
+        	
         	if(System.isnull(mobile) && System.isnull(telephone) && System.isnull(weixin) && System.isnull(qq)){
         		
         		IMessageBox.error("【手机】、【座机】、【微信】、【QQ】 最少填写一项");
@@ -177,6 +192,82 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
 	        });
 		}
 	},
+	importantChange:function (newValue, oldValue) {
+		var me = this;
+		//获取form的实体
+		var entity = me.viewModel.getEntity();		
+		if(newValue === "4025"){
+			if(entity.tasks.length > 0){
+				$("#important").combobox("setValue",oldValue);
+				IMessageBox.info('已存在商机，不能选择无效');
+				return false;
+			}
+			
+			var builder = new System.StringBuilder();			
+			builder.append('<form id="dynamicForm">');
+			builder.append('<div style="margin:10px;">');
+			builder.append('<table cellpadding="5" cellspacing="10" class="form-panel">');			
+			builder.append('<tr><td class="title">无效原因</td><td><textarea id="txtNote" style="width:300px;height:130px;" class="" ></textarea></td></tr>');
+			builder.append('	</table>');
+			builder.append('</div>');
+			builder.append('</form>');
+			layer.open({
+				type : 1,
+				title : '重要程度',
+				fixed : false,
+				maxmin : false,
+				closeBtn :0,
+				zIndex : 100000,
+				area : [ '500px','300px' ],
+				content : builder.toString(),
+				btn : [ '提交'],
+				success : function(layero, index) {					
+					var expression = $("#txtNote").validatebox({required:true});
+					eval(expression);	
+				},
+				btn1 : function(index, layero) {
+					var getNote = $("#txtNote").val();
+					if (System.isnull(getNote)) {
+						layer.msg("无效原因不能为空");
+						return false;
+					}else if(getNote.length>50){
+						layer.msg("无效原因字符长度为50");
+						return false;
+					}else{
+						entity.invalidRemark = getNote;
+						layer.closeAll();
+						return;
+					}
+				}
+			});
+			
+			/*PandaHelper.openDynamicForm({
+				title:'重要程度',
+				width:500,
+				height:300,
+				items:[{id:'txtNote',
+					title:'无效原因',
+					type:'textarea',
+					height:130,
+					width:300,
+		            className:'',
+		            option:{required:true,validType:['maxLength[100]']}
+				}],				
+				notice:'',
+				callback:function(index, layero){
+					var getNote = $("#txtNote").val();
+					if (System.isnull(getNote)) {
+						IMessageBox.info('请输入无效原因');
+						return false;
+					}else{
+						entity.invalidRemark = getNote;
+						layer.closeAll();
+						return;
+					}
+				}
+			});*/
+		}
+    },
 	validationContactWay:function(contactWay,type,callback){
 		
 		var id = null;
@@ -208,7 +299,6 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
     	}
     },
     onSaving: function (entity) {
-
     	//提高效率，将明细全部置空
     	if(entity.entityState != EntityState.New){
 
@@ -308,6 +398,12 @@ com.gongsibao.crm.web.NCustomerTaskDetailPart = org.netsharp.panda.commerce.Deta
 //    		
 //        	url=this.addUrl+'?isPlatform=0&ctrl='+this.context.instanceName;
 //    	}
+    	var important = $("#important").combobox("getValue");
+    	if(important === "4025"){
+    		IMessageBox.error('当重要程度选择为无效，不能添加商机');
+    		return false;
+    	}
+    	
     	this.isHaveTask(function(ownerName){
     		if(ownerName == ''){
     			var url = me.addUrl+'?isPlatform=0&type=add&ctrl='+me.context.instanceName;
