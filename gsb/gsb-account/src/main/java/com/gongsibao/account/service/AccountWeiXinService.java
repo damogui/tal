@@ -157,7 +157,17 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
         ResultSet rs = this.pm.executeReader(sql, qps);
 
 
-        String sqlTrace = "select * from so_order_prod_trace where order_prod_id=? order by add_time desc limit 1";
+        String sqlTrace = "" +
+                "SELECT " +
+                " b.`name` AS info " +
+                "FROM" +
+                " so_order_prod_trace a " +
+                "LEFT JOIN prod_workflow_node b ON a.order_prod_status_id = b.pkid " +
+                "WHERE" +
+                " order_prod_id = ? " +
+                " ORDER BY " +
+                " a.add_time DESC " +
+                " LIMIT 1";
         QueryParameters qpsTrace = new QueryParameters();
         qpsTrace.add("@order_prod_id", orderPorudctId, Types.INTEGER);
         ResultSet rsTrace = this.pm.executeReader(sqlTrace, qpsTrace);
@@ -208,13 +218,13 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
      */
     @Override
     public void pushTextMsgOauth(Integer accountId,
-                            String first,
-                            String keyword1,
-                            String keyword2,
-                            String date,
-                            String url,
-                            String remark,
-                            AccountWxMsg tmpId) {
+                                 String first,
+                                 String keyword1,
+                                 String keyword2,
+                                 String date,
+                                 String url,
+                                 String remark,
+                                 AccountWxMsg tmpId) {
         //取微信用户openid
         Fans fans = this.queryFansByUserId(accountId);
         //取公众号配置
@@ -256,7 +266,7 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
             }
         }
         //拼接消息内容
-        String redirectUrl = UrlHelper.encode("http://" + weixinConfig.getHost() + UrlHelper.join(url, "originalId=" +weixinConfig.getOriginalId() ));
+        String redirectUrl = UrlHelper.encode("http://" + weixinConfig.getHost() + UrlHelper.join(url, "originalId=" + weixinConfig.getOriginalId()));
         SendTemplateMessageRequest request = new SendTemplateMessageRequest();
         {
             request.setTokenInfo(token);
@@ -331,8 +341,8 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
 
     @Override
     public void pushTextMsgByOriginalId(String originalId, Integer accountId, String first, String keyword1, String keyword2, String date, String url, String remark, AccountWxMsg tmpId) {
-        logger.error("keyword1:"+keyword1);
-        logger.error("keyword2:"+keyword2);
+        logger.error("keyword1:" + keyword1);
+        logger.error("keyword2:" + keyword2);
         IPublicAccountService publicAccountService = ServiceFactory.create(IPublicAccountService.class);
         //取公众号配置
         PublicAccount weixinConfig = publicAccountService.byOriginalId(originalId);
@@ -427,12 +437,12 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
     @Override
     public void pushOrderStateMsg(String mobile, Integer orderPorudctId) {
         //取用户信息
-        Account account=accountService.byMobile(mobile);
+        Account account = accountService.byMobile(mobile);
         //取微信用户openid
         Fans accountWeiXin = this.queryFansByUserId(account.getId());
-        if(null!=accountWeiXin){
-            PublicAccount publicAccount=queryByFansId(accountWeiXin);
-            this.pushOrderStateMsg(publicAccount.getOriginalId(),mobile,orderPorudctId);
+        if (null != accountWeiXin) {
+            PublicAccount publicAccount = queryByFansId(accountWeiXin);
+            this.pushOrderStateMsg(publicAccount.getOriginalId(), mobile, orderPorudctId);
         }
     }
 
@@ -440,23 +450,23 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
     @Override
     public void saveOrderMsg(String mobile, Integer orderPorudctId) {
         //取用户信息
-        Account account=accountService.byMobile(mobile);
+        Account account = accountService.byMobile(mobile);
         //取微信用户openid
         Fans accountWeiXin = this.queryFansByUserId(account.getId());
-        if(null!=accountWeiXin){
-            PublicAccount publicAccount=queryByFansId(accountWeiXin);
-            this.saveOrderMsg(publicAccount.getOriginalId(),mobile,orderPorudctId);
+        if (null != accountWeiXin) {
+            PublicAccount publicAccount = queryByFansId(accountWeiXin);
+            this.saveOrderMsg(publicAccount.getOriginalId(), mobile, orderPorudctId);
         }
     }
 
     /**
-     * @Description:TODO 根据粉丝id 获取公众号id
-     * @param  accountWeiXin
+     * @param accountWeiXin
      * @return org.netsharp.wx.pa.entity.PublicAccount
+     * @Description:TODO 根据粉丝id 获取公众号id
      * @author hbpeng <hbpeng@gongsibao.com>
      * @date 2018/4/26 16:01
      */
-    private PublicAccount queryByFansId(Fans accountWeiXin){
+    private PublicAccount queryByFansId(Fans accountWeiXin) {
 
         IPublicAccountService publicAccountService = ServiceFactory.create(IPublicAccountService.class);
         //取公众号配置
@@ -471,20 +481,20 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
         ResultSet rs = this.pm.executeReader(sql, qps);
         String proName = null;
         String orderNo = null;
-        Integer payablePrice=null;
-        String addTime=null;
+        Integer payablePrice = null;
+        String addTime = null;
         try {
             if (rs.next()) {
                 proName = rs.getString("prod_name");
                 orderNo = rs.getString("no");
                 payablePrice = rs.getInt("payable_price");
-                addTime= DateUtils.getDateStr(rs.getTimestamp("add_time")) ;
+                addTime = DateUtils.getDateStr(rs.getTimestamp("add_time"));
             }
             if (null != proName && null != orderNo) {
                 //取用户信息
                 Account account = accountService.byMobile(mobile);
-                DecimalFormat    df   = new DecimalFormat("#######.00");
-                this.pushTextMsgByOriginalId(originalId, account.getId(), "您的订单已创建成功,产品[" + proName + "]", orderNo, df.format(Double.valueOf(payablePrice)/100), addTime, "/index.html#/orderDetails/" + SecurityUtils.rc4Encrypt(pkid), "点击立即支付", AccountWxMsg.ORDER_SUCCESS);
+                DecimalFormat df = new DecimalFormat("#######.00");
+                this.pushTextMsgByOriginalId(originalId, account.getId(), "您的订单已创建成功,产品[" + proName + "]", orderNo, df.format(Double.valueOf(payablePrice) / 100), addTime, "/index.html#/orderDetails/" + SecurityUtils.rc4Encrypt(pkid), "点击立即支付", AccountWxMsg.ORDER_SUCCESS);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -492,10 +502,10 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
     }
 
     @Override
-    public void sendLinkMsg(String title,String content, String url, int accountId) {
-        Fans fans=this.queryFansByUserId(accountId);
-        if(null!=fans){
-            PublicAccount publicAccount=this.queryByFansId(fans);
+    public void sendLinkMsg(String title, String content, String url, int accountId) {
+        Fans fans = this.queryFansByUserId(accountId);
+        if (null != fans) {
+            PublicAccount publicAccount = this.queryByFansId(fans);
             NewsResponse news = new NewsResponse();
             {
                 news.setToUserName(fans.getOpenId());
@@ -505,9 +515,9 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
             {
                 article.setTitle(title);
                 article.setDescription(content);
-                article.setPicUrl( null);
-                if(StringUtils.isNotBlank(url)){
-                    article.setUrl( url);
+                article.setPicUrl(null);
+                if (StringUtils.isNotBlank(url)) {
+                    article.setUrl(url);
                 }
             }
             news.getArticles().add(article);
@@ -517,21 +527,21 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
 
     @Override
     public void buySuccessSendMsg(int orderId, String payMoney) {
-        try{
-            ISoOrderService orderService=ServiceFactory.create(ISoOrderService.class);
-            SoOrder order=orderService.getByOrderId(orderId);
-            String memo="您的订单"+order.getNo()+"支付成功,我们将立即为您办理。";
-            String payStatus="1";
-            if(order.getPayablePrice()>(order.getPaidPrice()+Double.valueOf(payMoney))){
-                payStatus="0";
-                memo="您的订单"+order.getNo()+ " 已支付"+(Double.valueOf(payMoney)/100)+",还需支付"+Double.valueOf(order.getPayablePrice()-order.getPaidPrice())/100+"。";
+        try {
+            ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
+            SoOrder order = orderService.getByOrderId(orderId);
+            String memo = "您的订单" + order.getNo() + "支付成功,我们将立即为您办理。";
+            String payStatus = "1";
+            if (order.getPayablePrice() > (order.getPaidPrice() + Double.valueOf(payMoney))) {
+                payStatus = "0";
+                memo = "您的订单" + order.getNo() + " 已支付" + (Double.valueOf(payMoney) / 100) + ",还需支付" + Double.valueOf(order.getPayablePrice() - order.getPaidPrice()) / 100 + "。";
             }
-            Account account=accountService.byId(order.getAccountId());
-            Fans fans=fansService.getFansByUserId(account.getId());
-            PublicAccount publicAccount=this.queryByFansId(fans);
-            this.pushTextMsgByOriginalId(publicAccount.getOriginalId(),account.getId(),memo,String.valueOf(Double.valueOf(payMoney)/100),order.getProdName(),null,payStatus.equals("1")?"/index.html#/mine/order/2":"/index.html#/mine/order/1",null, AccountWxMsg.BUY_SUCCESS);
-        }catch (Exception e){
-            logger.error("推送微信支付成功消息失败："+e.getMessage());
+            Account account = accountService.byId(order.getAccountId());
+            Fans fans = fansService.getFansByUserId(account.getId());
+            PublicAccount publicAccount = this.queryByFansId(fans);
+            this.pushTextMsgByOriginalId(publicAccount.getOriginalId(), account.getId(), memo, String.valueOf(Double.valueOf(payMoney) / 100), order.getProdName(), null, payStatus.equals("1") ? "/index.html#/mine/order/2" : "/index.html#/mine/order/1", null, AccountWxMsg.BUY_SUCCESS);
+        } catch (Exception e) {
+            logger.error("推送微信支付成功消息失败：" + e.getMessage());
         }
     }
 
