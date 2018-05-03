@@ -248,7 +248,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         }
         addColumn(datagrid, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "prodName", "产品名称", ControlTypes.TEXT_BOX, 250);
-        addColumn(datagrid, "payStatus", "付款状态", ControlTypes.ENUM_BOX, 60);
+        addColumn(datagrid, "payStatus", "付款状态", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "companyIntention.companyName", "签单公司", ControlTypes.TEXT_BOX, 250);
         column = addColumn(datagrid, "totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 80);
         {
