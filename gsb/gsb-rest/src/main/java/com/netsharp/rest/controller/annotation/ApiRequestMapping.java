@@ -17,7 +17,7 @@ public class ApiRequestMapping extends RequestMappingHandlerMapping {
      * @return
      */
     protected RequestCondition<ApiCondition> getCustomTypeCondition(Class<?>handlerType) {
-        Api apiVersion = AnnotationUtils.findAnnotation(handlerType, Api.class);
+        ApiVersion apiVersion = AnnotationUtils.findAnnotation(handlerType, ApiVersion.class);
         return createCondition(apiVersion);
     }
 
@@ -27,7 +27,7 @@ public class ApiRequestMapping extends RequestMappingHandlerMapping {
      * @return
      */
     protected RequestCondition<ApiCondition>  getCustomMethodCondition(Method method){
-        Api apiVersion = AnnotationUtils.findAnnotation(method, Api.class);
+        ApiVersion apiVersion = AnnotationUtils.findAnnotation(method, ApiVersion.class);
         return createCondition(apiVersion);
     }
 
@@ -36,7 +36,7 @@ public class ApiRequestMapping extends RequestMappingHandlerMapping {
      * @param apiVersion
      * @return
      */
-    private RequestCondition<ApiCondition> createCondition(Api apiVersion) {
+    private RequestCondition<ApiCondition> createCondition(ApiVersion apiVersion) {
         return apiVersion ==null ?null :new ApiCondition(apiVersion.value());
     }
 }

@@ -1,12 +1,8 @@
 package com.gongsibao.panda.supplier.igirl;
-import com.gongsibao.entity.igirl.ic.baseinfo.AreaTwo;
-import com.gongsibao.entity.igirl.ic.baseinfo.Nationality;
 import com.gongsibao.panda.supplier.igirl.reference.*;
-
-import com.gongsibao.panda.supplier.igirl.workspace.ic.common.AreaOneWorkspaceTest;
-import com.gongsibao.panda.supplier.igirl.workspace.ic.common.AreaTwoWorkspaceTest;
-import com.gongsibao.panda.supplier.igirl.workspace.ic.common.IcRegisterCaseWorkspaceTest;
+import com.gongsibao.panda.supplier.igirl.workspace.ic.*;
 import com.gongsibao.panda.supplier.igirl.workspace.ic.common.*;
+import com.gongsibao.panda.supplier.igirl.workspace.ic.reference.*;
 import com.gongsibao.panda.supplier.igirl.workspace.tm.apply.*;
 import com.gongsibao.panda.supplier.igirl.workspace.tm.apply.notice.AllFollowNoticeWorkspaceTest;
 import com.gongsibao.panda.supplier.igirl.workspace.tm.apply.notice.DpFollowNoticeWorkspaceTest;
@@ -60,12 +56,14 @@ import org.junit.runners.Suite.SuiteClasses;
 		ChapterTwoWorkspaceTest.class,
 		EntLicTypeWorkspaceTest.class,
 		NationalityWorkspaceTest.class,
-		IcRegisterCaseWorkspaceTest.class,
+		//IcRegisterCaseWorkspaceTest.class,
 		MyFollowNoticeWorkspaceTest.class,
 		DpFollowNoticeWorkspaceTest.class,
 		AllFollowNoticeWorkspaceTest.class,
+		MemberReferenceTest.class,
 		IcExRegisterCaseWorkspaceTest.class,
 		IcExLogWorkspaceTest.class,
+		IcExBaseInfoWorkspaceTest.class,
 		NavigationTest.class,
 		})
 		

@@ -4,7 +4,7 @@ import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
-@Table(name = "ic_company_address",header = "企业地址")
+@Table(name = "ic_ex_company_address",header = "企业地址")
 public class CompanyAddress extends Entity {
     @Column(name = "city",header = "市")
     private String city = "北京市";

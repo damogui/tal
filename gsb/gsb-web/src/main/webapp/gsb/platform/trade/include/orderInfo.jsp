@@ -34,7 +34,7 @@
           <td class="label_td"><label>付款状态：</label></td>
           <td class="control_td" id="payStatus"></td>
           <td class="label_td"><label>分期次数：</label></td>
-          <td class="control_td" id="stageNum"></td>
+          <td class="control_td" id="orderStageNum"></td>
 	</tr>
       <tr>
           <td class="label_td"><label>渠道订单号：</label></td>

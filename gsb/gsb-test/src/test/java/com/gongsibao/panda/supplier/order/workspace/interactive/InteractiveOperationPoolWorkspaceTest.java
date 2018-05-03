@@ -35,6 +35,7 @@ public class InteractiveOperationPoolWorkspaceTest extends InteractiveMyInCharge
         ss.add("/gsb/platform/trade/js/prod/interactive-myincharge-list.part.js");
         ss.add("/gsb/platform/trade/js/prod/select-salesman.ctrl.js");
         ss.add("/gsb/platform/trade/js/prod/query-interaction-group.ctrl.js");
+        ss.add("/gsb/platform/trade/js/prod/select-company.ctrl.js");
         ss.add("/gsb/platform/trade/js/prod/interactive-operation-pool-list.part.js");
         ss.add("/gsb/panda-extend/gsb.custom.query.controls.js");
         listPartImportJs = StringManager.join("|", ss);
@@ -84,6 +85,18 @@ public class InteractiveOperationPoolWorkspaceTest extends InteractiveMyInCharge
         item = new PToolbarItem();
         {
             item.toNew();
+            item.setCode("addBatchCompany");
+            item.setIcon(PToolbarHelper.iconAdd);
+            item.setName("批量添加关联公司");
+            item.setSeq(4);
+            item.setOperationType(ot1);
+            item.setCommand("{controller}.addBatchCompany();");
+            toolbar.getItems().add(item);
+        }
+
+        /*item = new PToolbarItem();
+        {
+            item.toNew();
             item.setCode("queryOperation");
             item.setIcon(PToolbarHelper.iconPermission);
             item.setName("操作组查询");
@@ -91,7 +104,7 @@ public class InteractiveOperationPoolWorkspaceTest extends InteractiveMyInCharge
             item.setOperationType(ot1);
             item.setCommand("{controller}.queryOperation();");
             toolbar.getItems().add(item);
-        }
+        }*/
 
         toolbarService.save(toolbar);
     }

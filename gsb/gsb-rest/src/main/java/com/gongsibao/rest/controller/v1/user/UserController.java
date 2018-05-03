@@ -7,7 +7,7 @@ import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.*;
 import com.netsharp.rest.base.user.IAccountService;
-import com.netsharp.rest.controller.annotation.Api;
+import com.netsharp.rest.controller.annotation.ApiVersion;
 import com.netsharp.rest.controller.constant.ConstantKey;
 import com.netsharp.rest.controller.exception.WxException;
 import com.netsharp.rest.controller.security.SecurityUtils;
@@ -41,7 +41,7 @@ import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping(value = "/wx/{v}")
-@Api(1)
+@ApiVersion(1)
 public class UserController extends BaseController {
     private Logger logger = Logger.getLogger(UserController.class);
 
@@ -311,12 +311,12 @@ public class UserController extends BaseController {
         // 支付方式 1：快捷支付 2：网银支付 3：企业网银支付 4：线下支付
         String payMethod = StringUtils.trimToEmpty((String) map.get("payMethod"));
         if (NumberUtils.toInt(payMethod, -1) <= 0 || NumberUtils.toInt(payMethod, -1) > 4) {
-            throw new WxException(-1, "支付方式错误");
+            throw new WxException(-1, "支付方式错误!");
         }
         // 支付金额
         Integer totalFee = NumberUtils.toInt(StringUtils.trimToEmpty(map.get("totalFee").toString()));
         if (NumberUtils.toInt(totalFee, -1) <= 0) {
-            throw new WxException(-1, "支付金额错误");
+            throw new WxException(-1, "支付金额错误!");
         }
         // 支付途径（1:微信；2:支付宝；3：个人网银;4：企业网银）
         Integer paymentChannels = NumberUtils.toInt(StringUtils.trimToEmpty(map.get("paymentChannels").toString()));
@@ -345,24 +345,27 @@ public class UserController extends BaseController {
         Account account = accountService.queryByOpenId(openId);
         // endregion
         if (openId == null) {
-            throw new WxException(-1, "openid 不存在");
+            throw new WxException(-1, "openid 不存在!");
         }
         //region 订单信息的验证
         // 查询订单并验证
         SoOrder order = soOrderService.getByOrderId(orderId);
         if (order == null) {
-            throw new WxException(-1, "订单不存在");
+            throw new WxException(-1, "订单不存在!");
+        }
+        if (order.getIsDelete()) {
+            throw new WxException(-1, "订单已取消!");
         }
         /** 301 订单付款状态：3011 待付款、3012 已付部分款（根据“是否分期”判断处理流程）、3013 已付款 */
         if (order.getPayStatus().getValue() == 3013) {
-            throw new WxException(-1, "订单已付款");
+            throw new WxException(-1, "订单已付款!");
         }
         if (NumberUtils.toInt(totalFee) > NumberUtils.toInt(order.getPayablePrice()) || NumberUtils.toInt(order.getPaidPrice()) + NumberUtils.toInt(totalFee) > NumberUtils.toInt(order.getPayablePrice())) {
-            throw new WxException(-1, "订单价格有变动，请刷新重试");
+            throw new WxException(-1, "订单价格有变动，请刷新重试!");
         }
         /** 当该订单是改价订单时，但是改价审核未通过时，禁止付款 */
         if (order.getIsChangePrice().equals(1) && order.getChangePriceAuditStatus().getValue() == 1054) {
-            throw new WxException(-1, "改价审核未通过，禁止付款");
+            throw new WxException(-1, "改价审核未通过，禁止付款!");
         }
         //合同订单不让付款
         if (order.getType().equals(2)) {

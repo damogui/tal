@@ -1,9 +1,8 @@
 package com.gongsibao.rest.controller.v1.company;
 
 import com.gongsibao.entity.bd.BdService;
-import com.netsharp.rest.controller.annotation.Api;
+import com.netsharp.rest.controller.annotation.ApiVersion;
 import com.netsharp.rest.utils.StringUtils;
-import com.netsharp.rest.controller.result.RestResult;
 import com.netsharp.rest.base.product.IProductService;
 import com.gongsibao.rest.controller.BaseController;
 import com.netsharp.rest.dto.company.CompanyNameDTO;
@@ -29,7 +28,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/wx/{v}/icompany/company")
-@Api(1)
+@ApiVersion(1)
 public class CompanyController extends BaseController {
 
     @Autowired

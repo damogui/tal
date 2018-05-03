@@ -44,7 +44,7 @@ com.gongsibao.trade.web.OrderInfoCtrl = org.netsharp.panda.core.CustomCtrl.Exten
         $('#payStatus').text(this.payStatusTypeEnum[soOrder.payStatus]);
 
         var stageNumText = soOrder.stageNum == 1?'不分期':soOrder.stageNum + '期';
-        $('#stageNum').text(stageNumText);
+        $('#orderStageNum').text(stageNumText);
 
         $('#channelOrderNo').text(soOrder.channelOrderNo || '-');
 

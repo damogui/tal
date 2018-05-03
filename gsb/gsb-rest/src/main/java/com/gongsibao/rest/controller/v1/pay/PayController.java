@@ -3,7 +3,7 @@ package com.gongsibao.rest.controller.v1.pay;
 import com.gongsibao.account.base.IAccountWeiXinService;
 import com.netsharp.rest.base.order.IOrderService;
 import com.gongsibao.rest.controller.BaseController;
-import com.netsharp.rest.controller.annotation.Api;
+import com.netsharp.rest.controller.annotation.ApiVersion;
 import com.netsharp.rest.controller.security.SecurityUtils;
 import com.netsharp.rest.utils.NumberUtils;
 import com.netsharp.rest.utils.PayCommonUtil;
@@ -39,7 +39,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/wx/{v}/pay/")
-@Api(1)
+@ApiVersion(1)
 @SuppressWarnings({"rawtypes", "unchecked", "serial"})
 public class PayController extends BaseController {
 

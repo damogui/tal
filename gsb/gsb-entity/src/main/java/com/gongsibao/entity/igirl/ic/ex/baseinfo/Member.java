@@ -3,16 +3,14 @@ package com.gongsibao.entity.igirl.ic.ex.baseinfo;
 import com.gongsibao.entity.igirl.ic.dict.CorpEducationalLevel;
 import com.gongsibao.entity.igirl.ic.ex.IcExRegisterCase;
 import com.gongsibao.entity.igirl.ic.ex.dict.MemberType;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
-@Table(name = "ic_member",header = "内部成员")
+@Table(name = "ic_ex_member",header = "内部成员")
 public class Member extends Entity {
-    @Column(name = "type",header = "成员类型")
-    private MemberType type;
-
     @Column(name = "name",header = "姓名")
     private String name;
 
@@ -25,26 +23,24 @@ public class Member extends Entity {
     @Column(name = "address",header = "住宅地址")
     private String address;
 
+    @Column(name = "identify",header = "身份证号")
+    private String identify;
+
+    @Column(name = "id_address",header = "身份证住址")
+    private String idAddress;
+
     @Column(name = "education",header = "学历")
     private CorpEducationalLevel education;
 
     @Column(name = "email",header = "邮箱地址")
     private String email;
 
-    @Column(name = "ic_ex_register_case_id",header = "信息登记表ID")
-    private Integer icExRegisterCaseId;
+    @Column(name = "ic_ex_base_info_id",header = "基础内容ID")
+    private Integer excelBaseInfoId;
 
-    @Reference(foreignKey = "icExRegisterCaseId",header = "信息登记表")
-    private IcExRegisterCase icExRegisterCase;
-
-
-    public MemberType getType() {
-        return type;
-    }
-
-    public void setType(MemberType type) {
-        this.type = type;
-    }
+    @JsonIgnore
+    @Reference(foreignKey = "excelBaseInfoId",header = "基础内容")
+    private ExcelBaseInfo excelBaseInfo;
 
     public String getName() {
         return name;
@@ -94,19 +90,35 @@ public class Member extends Entity {
         this.email = email;
     }
 
-    public Integer getIcExRegisterCaseId() {
-        return icExRegisterCaseId;
+    public String getIdAddress() {
+        return idAddress;
     }
 
-    public void setIcExRegisterCaseId(Integer icExRegisterCaseId) {
-        this.icExRegisterCaseId = icExRegisterCaseId;
+    public void setIdAddress(String idAddress) {
+        this.idAddress = idAddress;
     }
 
-    public IcExRegisterCase getIcExRegisterCase() {
-        return icExRegisterCase;
+    public String getIdentify() {
+        return identify;
     }
 
-    public void setIcExRegisterCase(IcExRegisterCase icExRegisterCase) {
-        this.icExRegisterCase = icExRegisterCase;
+    public void setIdentify(String identify) {
+        this.identify = identify;
+    }
+
+    public Integer getExcelBaseInfoId() {
+        return excelBaseInfoId;
+    }
+
+    public void setExcelBaseInfoId(Integer excelBaseInfoId) {
+        this.excelBaseInfoId = excelBaseInfoId;
+    }
+
+    public ExcelBaseInfo getExcelBaseInfo() {
+        return excelBaseInfo;
+    }
+
+    public void setExcelBaseInfo(ExcelBaseInfo excelBaseInfo) {
+        this.excelBaseInfo = excelBaseInfo;
     }
 }

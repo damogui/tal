@@ -4,7 +4,7 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
 /**
- * 工商注册核准开关
+ * 工商注册核准状态
  */
 public enum ApprovalType implements IEnum{
     WAIT(0,"待审核"),

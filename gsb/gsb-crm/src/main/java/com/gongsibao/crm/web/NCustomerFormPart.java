@@ -49,6 +49,16 @@ public class NCustomerFormPart extends FormPart{
 		return navigation;
 	}
 	
+	public FormNavigation byContactWay(String contactWay,String type) {
+
+		//type:mobile,telephone,qq,weixin
+		FormNavigation navigation = this.createFormNavigation(id);
+		IPersistable obj = customerService.byContactWay(contactWay,type);
+		navigation.Entity = obj;
+
+		return navigation;
+	}
+	
 	public NCustomer save(NCustomer entity) {
 
 		entity = customerService.create(entity);

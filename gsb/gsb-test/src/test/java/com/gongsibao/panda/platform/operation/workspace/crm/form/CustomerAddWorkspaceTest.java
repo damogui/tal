@@ -266,7 +266,6 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 		workspace.getParts().add(part);
 		part = workspace.getParts().get(0);
 		{
-			part.setName("关联企业");
 			part.setDockStyle(DockType.TOP);
 			part.setHeight(500);			
 		}

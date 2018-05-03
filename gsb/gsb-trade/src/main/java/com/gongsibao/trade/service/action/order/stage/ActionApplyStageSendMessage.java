@@ -3,11 +3,13 @@ package com.gongsibao.trade.service.action.order.stage;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.NOrderCarryover;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.trade.base.IOrderService;
 import com.gongsibao.trade.service.action.order.utils.AuditHelper;
 import com.gongsibao.trade.service.action.order.utils.UserHelper;
 import com.gongsibao.utils.sms.SmsHelper;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
+import org.netsharp.communication.ServiceFactory;
 import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.util.StringManager;
 
@@ -29,6 +31,9 @@ public class ActionApplyStageSendMessage implements IAction{
 	public void execute(ActionContext ctx) {
 		// TODO Auto-generated method stub
 		SoOrder order = (SoOrder) ctx.getItem();
+		IOrderService orderService = ServiceFactory.create(IOrderService.class);
+		SoOrder orderO=orderService.getByOrderId(order.getId());//重新取下订单编号，前台没传值
+		order.setNo(orderO==null?"":orderO.getNo());
 		//发送消息待审核
 		Map<String, Object> objectMap = ctx.getStatus();
 		List<AuditLog> audits = (List<AuditLog>) objectMap.get("audits");
