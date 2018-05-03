@@ -1,11 +1,7 @@
-package com.gongsibao.panda.supplier.igirl.workspace.ic.common;
+package com.gongsibao.panda.supplier.igirl.workspace.ic;
 
-import com.gongsibao.entity.igirl.ic.ex.IcExRegisterCase;
 import com.gongsibao.entity.igirl.ic.ex.baseinfo.IcExLog;
 import com.gongsibao.igirl.ic.web.IcExLogListPart;
-import com.gongsibao.igirl.ic.web.IcExLogPart;
-import com.gongsibao.igirl.ic.web.IcExRegisterCaseListPart;
-import com.gongsibao.igirl.ic.web.IcExRegisterCasePart;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
@@ -21,9 +17,9 @@ import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 /**
- * @ClassName:  ProductWorkspaceTest
- * @Description:TODO 地市分类
- * @author: 曹玉玺
+ * @ClassName:  IcExLogWorkspaceTest
+ * @Description: 工商日志
+ * @author: 周瑞帆
  * @date:   2018.4.3
  *
  */

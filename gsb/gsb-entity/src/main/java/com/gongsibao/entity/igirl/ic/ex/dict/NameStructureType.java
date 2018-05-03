@@ -4,25 +4,26 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
 /**
- * 工商注册核准状态
+ * 名称结构
  */
-public enum ApprovalType implements IEnum{
-    WAIT(0,"待审核"),
-    WAITED(1,"已审核");
+public enum NameStructureType implements IEnum {
+    ONE(0,"地域+字号+行业特点"),
+    TWO(1,"字号+地域+行业特点"),
+    THREE(2,"字号+行业特点+地域");
 
 
     private Integer value;
     private String text;
 
-    ApprovalType(int value, String text) {
+    NameStructureType(int value, String text) {
         this.value = value;
         this.text = text;
     }
 
     @JsonCreator
-    public static ApprovalType getItem(int value) {
+    public static NameStructureType getItem(int value) {
 
-        for (ApprovalType item : values()) {
+        for (NameStructureType item : values()) {
 
             if (item.getValue() == value) {
                 return item;

@@ -1,7 +1,5 @@
-package com.gongsibao.panda.supplier.igirl.workspace.ic.common;
+package com.gongsibao.panda.supplier.igirl.workspace.ic;
 
-import com.gongsibao.controls.DictComboBox;
-import com.gongsibao.controls.PropertyQueryDictComboBox;
 import com.gongsibao.entity.igirl.ic.ex.IcExRegisterCase;
 import com.gongsibao.igirl.ic.web.*;
 import org.junit.Before;
@@ -18,9 +16,9 @@ import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 /**
- * @ClassName:  ProductWorkspaceTest
- * @Description:TODO 地市分类
- * @author: 曹玉玺
+ * @ClassName:  IcExRegisterCaseWorkspaceTest
+ * @Description: 工商状态
+ * @author: 周瑞帆
  * @date:   2018.4.3
  *
  */
