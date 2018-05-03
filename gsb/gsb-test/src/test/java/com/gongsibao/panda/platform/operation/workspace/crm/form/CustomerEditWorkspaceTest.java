@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
+import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.PDatagrid;
@@ -237,19 +238,23 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 			datagrid.setSingleSelect(true);
 			datagrid.setReadOnly(true);
 			
-			addColumn(datagrid, "id", "商机Id", ControlTypes.DATETIME_BOX, 130);
+			PDatagridColumn column = null;
+			addColumn(datagrid, "id", "商机Id", ControlTypes.DATETIME_BOX, 60);
 			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
-			addColumn(datagrid, "creator", "创建人", ControlTypes.DATETIME_BOX, 100);
-			PDatagridColumn column = addColumn(datagrid, "taskType", "类型", ControlTypes.ENUM_BOX, 100, false);{
+			column = addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 80);{
+				
+				column.setAlign(DatagridAlign.CENTER);
+			}
+			column = addColumn(datagrid, "taskType", "类型", ControlTypes.ENUM_BOX, 80, false);{
 				
 				String formatter = EnumUtil.getColumnFormatter(TaskCustomerType.class);
 				column.setFormatter(formatter);
 			}
 			addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 200, false);
-			addColumn(datagrid, "supplier.name", "分配服务商", ControlTypes.TEXT_BOX, 100, false);
-			addColumn(datagrid, "department.name", "分配部门", ControlTypes.TEXT_BOX, 100, false);
-			addColumn(datagrid, "owner.name", "分配业务员", ControlTypes.TEXT_BOX, 100, false);
-			column = addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 100, false);{
+			addColumn(datagrid, "supplier.name", "分配服务商", ControlTypes.TEXT_BOX, 150, false);
+			addColumn(datagrid, "department.name", "分配部门", ControlTypes.TEXT_BOX, 80, false);
+			addColumn(datagrid, "owner.name", "分配业务员", ControlTypes.TEXT_BOX, 80, false);
+			column = addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 80, false);{
 				
 				String formatter = EnumUtil.getColumnFormatter(CustomerFollowStatus.class);
 				column.setFormatter(formatter);
@@ -323,16 +328,21 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 		{
 			datagrid.setNowrap(false);
 			datagrid.setShowCheckbox(false);
+			PDatagridColumn column = null;
 			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
-			addColumn(datagrid, "creator", "创建人", ControlTypes.DATETIME_BOX, 100);
-			PDatagridColumn column = addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 100);
+			column = addColumn(datagrid, "creator", "创建人", ControlTypes.DATETIME_BOX, 80);{
+				
+				column.setAlign(DatagridAlign.CENTER);
+			}
+			
+			column = addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 100);
 			{
 				String formatter = EnumUtil.getColumnFormatter(CustomerFollowStatus.class);
 				column.setFormatter(formatter);
 			}
-			addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 150);
-			addColumn(datagrid, "signingAmount", "估计签单金额", ControlTypes.DECIMAL_FEN_BOX, 150);
-			addColumn(datagrid, "returnedAmount", "估计回款金额", ControlTypes.DECIMAL_FEN_BOX, 150);
+			addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 120);
+			addColumn(datagrid, "signingAmount", "估计签单金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+			addColumn(datagrid, "returnedAmount", "估计回款金额", ControlTypes.DECIMAL_FEN_BOX, 100);
 
 			addColumn(datagrid, "content", "跟进内容", ControlTypes.TEXT_BOX, 400);
 		}
@@ -357,9 +367,14 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 		PDatagrid datagrid = new PDatagrid(node, "通知日志");
 		{
 			datagrid.setShowCheckbox(false);
+			datagrid.setNowrap(false);
+			PDatagridColumn column = null;
 			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
-			addColumn(datagrid, "creator", "创建人", ControlTypes.DATETIME_BOX, 100);
-			PDatagridColumn column = addColumn(datagrid, "type", "通知类型", ControlTypes.ENUM_BOX, 100);
+			column = addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 80);{
+				
+				column.setAlign(DatagridAlign.CENTER);
+			}
+			 column = addColumn(datagrid, "type", "通知方式", ControlTypes.ENUM_BOX, 80);
 			{
 				String formatter = EnumUtil.getColumnFormatter(NotifyType.class);
 				column.setFormatter(formatter);
@@ -389,15 +404,26 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 			datagrid.setShowCheckbox(false);
 			datagrid.setNowrap(false);
 			// 子页面枚举显示需要格式化一下
+			
+			PDatagridColumn column = null;
 			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
-			addColumn(datagrid, "creator", "创建人", ControlTypes.DATETIME_BOX, 100);
-			PDatagridColumn column = addColumn(datagrid, "changeType", "操作类型", ControlTypes.ENUM_BOX, 100);
+			column = addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 80);{
+				
+				column.setAlign(DatagridAlign.CENTER);
+			}
+			column = addColumn(datagrid, "changeType", "操作类型", ControlTypes.ENUM_BOX, 80);
 			{
 				String formatter = EnumUtil.getColumnFormatter(ChangeType.class);
 				column.setFormatter(formatter);
 			}
-			addColumn(datagrid, "formUser.name", "来自", ControlTypes.ENUM_BOX, 100);
-			addColumn(datagrid, "toUser.name", "去向", ControlTypes.NUMBER_BOX, 100);
+			column = addColumn(datagrid, "formUser.name", "来自", ControlTypes.TEXT_BOX, 80);{
+				
+				column.setAlign(DatagridAlign.CENTER);
+			}
+			column = addColumn(datagrid, "toUser.name", "去向", ControlTypes.TEXT_BOX, 80);{
+				
+				column.setAlign(DatagridAlign.CENTER);
+			}
 			addColumn(datagrid, "content", "内容", ControlTypes.TEXT_BOX, 400);
 		}
 		PPart part = new PPart();

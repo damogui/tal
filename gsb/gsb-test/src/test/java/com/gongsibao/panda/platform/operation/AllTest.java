@@ -22,6 +22,8 @@ import com.gongsibao.panda.platform.operation.workspace.crm.TaskUndistributedWor
 import com.gongsibao.panda.platform.operation.workspace.crm.TaskUnstartWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.form.CustomerAddWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.form.CustomerEditWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.form.SwtCustomerAddWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.form.SwtCustomerEditWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.form.TaskAddWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.form.TaskEditWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.form.TaskFollowFormWorkspaceTest;
@@ -109,6 +111,8 @@ import com.gongsibao.panda.platform.report.workspace.customer.StatisticalCustome
 
         CustomerVerifyWorkspaceTest.class,
         CustomerAddWorkspaceTest.class,
+        SwtCustomerAddWorkspaceTest.class,
+        SwtCustomerEditWorkspaceTest.class,
         CustomerEditWorkspaceTest.class,
         TaskAddWorkspaceTest.class,
         TaskEditWorkspaceTest.class,

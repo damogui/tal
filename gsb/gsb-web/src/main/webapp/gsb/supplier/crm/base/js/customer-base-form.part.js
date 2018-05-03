@@ -89,7 +89,7 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
              if(entity.entityState != EntityState.New){
 
         		 var swtServiceId = me.queryString("swtServiceId");
-        		 window.location.href = me.editUrl+'?id=' + jmessage.Entity.id+'&swtCustomerId='+swtCustomerId+'&swtServiceId='+swtServiceId;
+        		 window.location.href = '/panda/crm/platform/customer/swt/edit?id=' + jmessage.Entity.id+'&swtCustomerId='+swtCustomerId+'&swtServiceId='+swtServiceId;
              }
              vm.currentItem = entity;
              me.paging = nav.Paging;
