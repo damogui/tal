@@ -606,7 +606,7 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
         var options = null;
         //省份
         options = {
-            width: 114, valueField: 'id', textField: 'name', onSelect: function (record) {
+            width: 114, valueField: 'id', textField: 'name', limitToList:true, onSelect: function (record) {
 
                 me.clearPcc('city');
                 me.bindPcc('city', record.items);
@@ -616,7 +616,7 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
 
         //城市
         options = {
-            width: 114, valueField: 'id', textField: 'name', onSelect: function (record) {
+            width: 114, valueField: 'id', textField: 'name', limitToList:true, onSelect: function (record) {
 
                 me.clearPcc('county');
                 me.bindPcc('county', record.items);
@@ -626,7 +626,7 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
 
         //地区
         options = {
-            width: 114, valueField: 'id', textField: 'name', onSelect: function (record) {
+            width: 114, valueField: 'id', textField: 'name',limitToList:true, onSelect: function (record) {
 
                 //绑定服务项目
                 var productId = $('#product').combogrid('getValue');
@@ -635,6 +635,13 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
                     var cityId = record.id;
                     me.bindService(productId, cityId);
                 }
+            },onChange:function(newValue,oldValue){
+            	
+            	if(System.isnull(newValue)){
+            	
+            		//清空服务项目
+            		$('#serviceItems').datagrid('loadData', []);
+            	}
             }
         };
         $("#county").combobox(options);
