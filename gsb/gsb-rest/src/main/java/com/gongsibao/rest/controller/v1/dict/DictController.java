@@ -1,8 +1,7 @@
 package com.gongsibao.rest.controller.v1.dict;
 
 import com.netsharp.rest.base.dict.IDictService;
-import com.netsharp.rest.controller.annotation.Api;
-import com.netsharp.rest.controller.result.Result;
+import com.netsharp.rest.controller.annotation.ApiVersion;
 import com.netsharp.rest.dto.dict.CityDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +18,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/wx/{v}/dict")
-@Api(1)
+@ApiVersion(1)
 public class DictController {
 
     @Autowired

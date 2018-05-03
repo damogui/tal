@@ -7,6 +7,7 @@ import com.gongsibao.entity.acount.AccountWeiXin;
 import com.gongsibao.entity.acount.AccountWxMsg;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.u8.base.ISoOrderService;
+import com.gongsibao.utils.AmountUtils;
 import com.gongsibao.utils.DateUtils;
 import com.gongsibao.utils.SecurityUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -30,6 +31,7 @@ import org.netsharp.wx.pa.entity.Fans;
 import org.netsharp.wx.pa.entity.PublicAccount;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -479,7 +481,7 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
             if (null != proName && null != orderNo) {
                 //取用户信息
                 Account account = accountService.byMobile(mobile);
-                DecimalFormat    df   = new DecimalFormat("######0.00");
+                DecimalFormat    df   = new DecimalFormat("#######.00");
                 this.pushTextMsgByOriginalId(originalId, account.getId(), "您的订单已创建成功,产品[" + proName + "]", orderNo, df.format(Double.valueOf(payablePrice)/100), addTime, "/index.html#/orderDetails/" + SecurityUtils.rc4Encrypt(pkid), "点击立即支付", AccountWxMsg.ORDER_SUCCESS);
             }
         } catch (SQLException e) {

@@ -4,9 +4,10 @@ import com.gongsibao.entity.igirl.tm.TradeMarkCase;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.igirl.tm.base.ITradeMarkCaseService;
 import com.gongsibao.u8.base.ISoOrderService;
-import com.netsharp.rest.controller.annotation.Api;
+import com.netsharp.rest.controller.annotation.ApiVersion;
 import com.netsharp.rest.controller.constant.Constant;
 import com.gongsibao.rest.controller.BaseController;
+//import io.swagger.annotations.*;
 import net.sf.json.JSONObject;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.wx.mp.api.accesstoken.AccessToken;
@@ -18,6 +19,7 @@ import org.netsharp.wx.pa.base.ISceneService;
 import org.netsharp.wx.pa.entity.PublicAccount;
 import org.netsharp.wx.pa.entity.Scene;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,8 +27,9 @@ import java.util.Date;
 
 @RestController
 @RequestMapping(value = "/wx/{v}/user")
-@Api(1)
+@ApiVersion(1)
 @CrossOrigin
+//@Api(value = "QrCodeController", description = "二维码api")
 public class QrCodeController extends BaseController {
     @Value("${oid}")
     private String oid;
@@ -43,10 +46,11 @@ public class QrCodeController extends BaseController {
      */
     @RequestMapping(value = "/qrcode", method = RequestMethod.GET)
     @CrossOrigin
+//    @ApiOperation(value = "生成二维码", notes = "生成二维码")
     public String qrcode(HttpServletRequest request,
-                         @RequestParam("mobile") String mobile,
-                         @RequestParam("businessId") String businessId,
-                         @RequestParam("source") String source
+                           @RequestParam("mobile") String mobile,
+                           @RequestParam("businessId") String businessId,
+                           @RequestParam("source") String source
     ) {
         IPublicAccountService publicAccountService = ServiceFactory.create(IPublicAccountService.class);
         PublicAccount pa = publicAccountService.byOriginalId(oid);
