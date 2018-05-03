@@ -86,6 +86,10 @@ public class OrderController extends BaseController {
             throw new WxException(RestResult.FAIL, "订单不存在");
         }
 
+        if(order.getIsDelete()){
+            throw new WxException(RestResult.FAIL, "订单已取消");
+        }
+
         OrderDTO orderDTO = new OrderDTO();
         {
             orderDTO.setPkid(order.getId());
