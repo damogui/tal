@@ -7,6 +7,7 @@ import com.gongsibao.entity.bd.dic.CouponPlatformType;
 import com.gongsibao.entity.cms.Product;
 import com.gongsibao.entity.cms.ProductTemplate;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
 import com.netsharp.rest.base.order.IOrderService;
 import com.netsharp.rest.base.product.IProductPriceService;
 import com.netsharp.rest.base.product.IProductService;
@@ -210,6 +211,7 @@ public class ICompanyProductController extends BaseController {
         orderAddDTO.setAccount(account);
         orderAddDTO.setCompanyId(0);
         orderAddDTO.setCouponPlatformType(CouponPlatformType.WEIXIN);
+        orderAddDTO.setOrderPlatformSourceType(OrderPlatformSourceType.Gsb_Wx);
 
         Result<SoOrder> result = orderService.saveOrder(orderAddDTO);
         if (Result.isSuccess(result)) {
