@@ -43,6 +43,11 @@ public class SysSalesmanListPart extends ListPart {
 		return salesmanService.setReceiving(salesmanId, state);
 	}
 
+	public boolean setIsNotify(Integer salesmanId, boolean state) {
+
+		return salesmanService.setIsNotify(salesmanId, state);
+	}
+
 	@Override
 	protected String getExtraFilter() {
 

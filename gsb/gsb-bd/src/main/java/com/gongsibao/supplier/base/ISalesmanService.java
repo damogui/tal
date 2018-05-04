@@ -85,6 +85,18 @@ public interface ISalesmanService extends IPersistableService<Salesman> {
     boolean setReceiving(Integer salesmanId, boolean state);
 
     /**
+     * @throws
+     * @Title: setReceiving
+     * @Description: TODO(设置接收消息状态)
+     * @param: @param salesmanId
+     * @param: @param state
+     * @param: @return
+     * @return: boolean
+     */
+    @Transaction
+    boolean setIsNotify(Integer salesmanId, boolean state);
+    
+    /**
      * 根据服务商id获取员工集合
      *
      * @param supplierId

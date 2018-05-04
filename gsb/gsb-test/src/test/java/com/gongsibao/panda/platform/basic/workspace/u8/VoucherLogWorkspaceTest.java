@@ -30,8 +30,8 @@ public class VoucherLogWorkspaceTest extends WorkspaceCreationBase {
 		resourceNodeCode = "GSB_Basic_U8_" + VoucherLog.class.getSimpleName();// 菜单节点码（名称）
 
 		formOpenMode = OpenMode.WINDOW;// 编辑框打开的形式
-		openWindowWidth = 800;
-		openWindowHeight = 650;
+		openWindowWidth = 1000;
+		openWindowHeight = 400;
 	}
 
 	// 默认的grid信息的配置
@@ -127,21 +127,15 @@ public class VoucherLogWorkspaceTest extends WorkspaceCreationBase {
 	protected PForm createForm(ResourceNode node) {
 
 		PForm form = super.createForm(node);
-		form.setColumnCount(1);
-
 		PFormField field = null;
 
 		field = addFormField(form, "xmlParam", "传入的参数", ControlTypes.TEXTAREA, true, false);
 		{
-
 			field.setHeight(100);
-			field.setFullColumn(true);
 		}
 		field = addFormField(form, "xmlReturn", "返回值", ControlTypes.TEXTAREA, false, false);
 		{
-
-			field.setHeight(50);
-			field.setFullColumn(true);
+			field.setHeight(100);
 		}
 
 		return form;
