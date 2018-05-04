@@ -414,7 +414,7 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 					uf.setPreventDuplicates(false);//是否可选择重复文件
 					MimeType mt = new MimeType();
 					mt.setTitle("pdf files");//标题
-					mt.setExtensions("jsp,pdf");//文件类型
+					mt.setExtensions("jpg,pdf");//文件类型
 					
 					List<MimeType> mimeTypes = new ArrayList<MimeType>();
 					mimeTypes.add(mt);
