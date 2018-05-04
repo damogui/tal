@@ -64,6 +64,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		IcExRegisterCaseWorkspaceTest.class,
 		IcExLogWorkspaceTest.class,
 		IcExBaseInfoWorkspaceTest.class,
+		IcExExtraInfoWorkspaceTest.class,
 		NavigationTest.class,
 		})
 		

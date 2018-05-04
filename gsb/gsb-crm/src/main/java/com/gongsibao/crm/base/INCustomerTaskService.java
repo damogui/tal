@@ -203,5 +203,9 @@ public interface INCustomerTaskService extends IPersistableService<NCustomerTask
      * @return
      */
     public String getTaskNamesByCustomerId(Integer customerId);
-
+    /**
+     * 商机提醒(售前主动操作)
+     */
+    @Transaction
+    public Boolean remind(Integer taskId, String content);
 }

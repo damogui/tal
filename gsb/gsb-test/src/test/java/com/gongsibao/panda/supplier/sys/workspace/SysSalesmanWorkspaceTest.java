@@ -112,12 +112,12 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
         column = addColumn(datagrid, "disabled", "状态", ControlTypes.TEXT_BOX, 80);
         {
             column.setAlign(DatagridAlign.CENTER);
-            column.setFormatter("return controllerdepartments.disabledFormatter(value,row,index);");
+            column.setFormatter("return controllersalesman.disabledFormatter(value,row,index);");
         }
         column = addColumn(datagrid, "receiving", "接单", ControlTypes.TEXT_BOX, 80);
         {
             column.setAlign(DatagridAlign.CENTER);
-            column.setFormatter("return controllerdepartments.receivingFormatter(value,row,index);");
+            column.setFormatter("return controllersalesman.receivingFormatter(value,row,index);");
         }
 
         addColumn(datagrid, "department.name", "部门", ControlTypes.TEXT_BOX, 120);
@@ -130,7 +130,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
         column = addColumn(datagrid, "isNotify", "接收消息", ControlTypes.TEXT_BOX, 80);
         {
             column.setAlign(DatagridAlign.CENTER);
-            column.setFormatter("return controllerdepartments.isNotifyFormatter(value,row,index);");
+            column.setFormatter("return controllersalesman.isNotifyFormatter(value,row,index);");
         }
         addColumn(datagrid, "dayMax", "日分配上限", ControlTypes.TEXT_BOX, 80);
         addColumn(datagrid, "weekMax", "周分配上限", ControlTypes.TEXT_BOX, 80);
@@ -264,7 +264,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
         part = new PPart();
         {
             part.toNew();
-            part.setCode("departments");
+            part.setCode("salesman");
             part.setParentCode("GsbCrmSysDepartmentTree");// 点击父之后，刷新自己
             part.setPartTypeId(org.netsharp.panda.dic.PartType.DATAGRID_PART.getId());
             part.setDatagrid(datagrid);
@@ -458,6 +458,5 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
         operationService.addOperation(node, OperationTypes.view);
         operationService.addOperation(node, OperationTypes.add);
         operationService.addOperation(node, OperationTypes.update);
-        operationService.addOperation(node, OperationTypes.delete);
     }
 }

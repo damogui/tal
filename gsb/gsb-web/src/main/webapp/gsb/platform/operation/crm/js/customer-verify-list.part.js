@@ -12,8 +12,6 @@ com.gongsibao.crm.web.NCustomerVerifyListPart = org.netsharp.panda.commerce.List
 	},
 	binding : function(id) {
 
-		//这里应该跳转到客户修改页面
-		//window.parent.location.href = '/panda/operation/customer/edit';
 		window.parent.controllernCustomer.bindCustomer(id);
 		
 		var index = parent.layer.getFrameIndex(window.name); 

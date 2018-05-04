@@ -718,4 +718,23 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		}
         return ownerName;
 	}
+
+	@Override
+	public Boolean remind(Integer taskId, String content) {
+		// 商机提醒
+        NCustomerTask entity = this.byId(taskId);
+        Map<String, Object> setMap = new HashMap<String, Object>();
+        setMap.put("content", content);
+        ActionContext ctx = new ActionContext();
+        {
+            ctx.setPath("gsb/crm/task/remind");
+            ctx.setItem(entity);
+            ctx.setState(entity.getEntityState());
+            ctx.setStatus(setMap);
+        }
+
+        ActionManager action = new ActionManager();
+        action.execute(ctx);
+        return true;
+	}
 }

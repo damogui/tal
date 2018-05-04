@@ -108,6 +108,16 @@ public class TaskAllocatedWorkspaceTest extends TaskALLWorkspaceTest{
 			item.setCommand("{controller}.transfer();");
 			toolbar.getItems().add(item);
 		}
+		//售前-提醒操作
+        item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("remind");
+			item.setName("提醒");
+			item.setSeq(2000);
+			item.setCommand("{controller}.remind();");
+			toolbar.getItems().add(item);
+		}
 		return toolbar;
 	}
 	

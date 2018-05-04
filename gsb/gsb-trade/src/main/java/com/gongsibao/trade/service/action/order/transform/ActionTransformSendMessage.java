@@ -61,20 +61,19 @@ public class ActionTransformSendMessage implements IAction {
             if (formUser != null) {
                 batchFormUserSendMsg(hashFrom, toUser.getName());//被转移分配业务员消息
             }
-
-
         } else {//单个
             //发送消息
             toUserSendMsg(toUser);//接受业务员消息
             if (formUser != null) {
                 formUserSendMsg(formUser, toUser.getName());//被转移分配业务员消息
+            } else {
+                try {
+                    //新单通知
+                    sendDingTalk(entity.getId());
+                } catch (Exception e) {
+                    //e.printStackTrace();
+                }
             }
-
-            /*try {
-                sendDingTalk(entity.getId());
-            } catch (Exception e) {
-                //e.printStackTrace();
-            }*/
         }
     }
 

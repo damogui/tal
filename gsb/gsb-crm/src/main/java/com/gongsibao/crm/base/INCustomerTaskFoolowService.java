@@ -6,4 +6,5 @@ import com.gongsibao.entity.crm.NCustomerTaskFoolow;
 
 public interface INCustomerTaskFoolowService  extends IPersistableService<NCustomerTaskFoolow> {
 
+	NCustomerTaskFoolow remindFoolowSave(NCustomerTaskFoolow foolow);
 }

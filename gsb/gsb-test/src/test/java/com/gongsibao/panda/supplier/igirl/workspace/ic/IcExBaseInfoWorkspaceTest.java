@@ -35,8 +35,8 @@ public class IcExBaseInfoWorkspaceTest extends WorkspaceCreationBase{
 	@Before
 	public void setup() {
 		super.setup();
-		urlList = "/igirl/ic/ExcelBaseInfo/all/list";
-		urlForm = "/igirl/ic/ExcelBaseInfo/form";
+		urlList = "/igirl/ic/ExcelBaseInfo/base/list";
+		urlForm = "/igirl/ic/ExcelBaseInfo/base/form";
 		entity = ExcelBaseInfo.class;
 		meta = MtableManager.getMtable(entity);
 		resourceNodeCode = "IGRIL_IC_REGIST_ExcelBaseInfo";
@@ -52,7 +52,7 @@ public class IcExBaseInfoWorkspaceTest extends WorkspaceCreationBase{
 	}
 
 	private String icCnListToolbarPath = "/igirl/ic/CompanyName/list";
-	private String icMermberListToolbarPath = "/igirl/ic/Mermber/list";
+	private String icMemberListToolbarPath = "/igirl/ic/Mermber/list";
 	private String icShareholderCnListToolbarPath = "/igirl/ic/Shareholder/list";
 
 	/*按钮*/
@@ -108,9 +108,21 @@ public class IcExBaseInfoWorkspaceTest extends WorkspaceCreationBase{
 		item = new PToolbarItem();
 		{
 			item.toNew();
+			item.setCode("createName");
+			item.setIcon("fa fa-trash-o");
+			item.setName("生成名称");
+			item.setCommand(null);
+			item.setOperationType(ot1);
+			item.setSeq(4000);
+			item.setCommand("{controller}.createName();");
+			toolbar.getItems().add(item);
+		}
+		item = new PToolbarItem();
+		{
+			item.toNew();
 			item.setCode("updateState");
 			item.setIcon("fa fa-trash-o");
-			item.setName("选定抓取");
+			item.setName("公司登记");
 			item.setCommand(null);
 			item.setOperationType(ot1);
 			item.setSeq(4000);
@@ -152,18 +164,6 @@ public class IcExBaseInfoWorkspaceTest extends WorkspaceCreationBase{
 			item.setCommand("{controller}.remove();");
 			toolbar.getItems().add(item);
 		}
-		item = new PToolbarItem();
-		{
-			item.toNew();
-			item.setCode("updateState");
-			item.setIcon("fa fa-trash-o");
-			item.setName("选定名称");
-			item.setCommand(null);
-			item.setOperationType(ot1);
-			item.setSeq(4000);
-			item.setCommand("{controller}.updateState();");
-			toolbar.getItems().add(item);
-		}
 		toolbarService.save(toolbar);
 
 
@@ -172,7 +172,7 @@ public class IcExBaseInfoWorkspaceTest extends WorkspaceCreationBase{
 		toolbar = new PToolbar();
 		{
 			toolbar.toNew();
-			toolbar.setPath(icMermberListToolbarPath);
+			toolbar.setPath(icMemberListToolbarPath);
 			toolbar.setName("工具栏");
 			toolbar.setResourceNode(node);
 		}
@@ -250,7 +250,7 @@ public class IcExBaseInfoWorkspaceTest extends WorkspaceCreationBase{
 		column.setAlign(DatagridAlign.CENTER);
 		column = addColumn(datagrid, "capital", "注册资金(万元)", ControlTypes.TEXT_BOX, 200);
 		column.setAlign(DatagridAlign.CENTER);
-		column = addColumn(datagrid, "state", "状态", ControlTypes.ENUM_BOX, 200);
+		column = addColumn(datagrid, "state", "是否进行公司登记", ControlTypes.ENUM_BOX, 200);
 		{
 			column.setAlign(DatagridAlign.CENTER);
 			column.setFormatter("if( row.state==true){ return '是' } else{ return '否' }");
@@ -281,7 +281,7 @@ public class IcExBaseInfoWorkspaceTest extends WorkspaceCreationBase{
 		addFormField(form, "consultWay", "咨询途径", null, ControlTypes.ENUM_BOX, true, false);
 		addFormField(form, "capital", "注册资金(万元)", "", ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "period", "经营期限", "", ControlTypes.TEXT_BOX, false, false);
-		addFormField(form, "payDate", "注册资本实缴日期", "", ControlTypes.TEXT_BOX, false, false);
+		addFormField(form, "payDate", "实缴日期", "", ControlTypes.TEXT_BOX, false, false);
 		return form;
 	}
 
@@ -300,7 +300,7 @@ public class IcExBaseInfoWorkspaceTest extends WorkspaceCreationBase{
 		{
 			addColumn(datagrid, "memberMobile", "股东电话", ControlTypes.TEXT_BOX, 180).setAlign(DatagridAlign.CENTER);
 			addColumn(datagrid, "memberName", "股东姓名", ControlTypes.TEXT_BOX, 180).setAlign(DatagridAlign.CENTER);
-			addColumn(datagrid, "amount", "出资金额", ControlTypes.TEXT_BOX, 180).setAlign(DatagridAlign.CENTER);
+			addColumn(datagrid, "amount", "出资金额(万元)", ControlTypes.TEXT_BOX, 180).setAlign(DatagridAlign.CENTER);
 			addColumn(datagrid, "ratio", "出资比例", ControlTypes.TEXT_BOX, 180).setAlign(DatagridAlign.CENTER);
 		}
 		PForm form = new PForm();
@@ -316,7 +316,7 @@ public class IcExBaseInfoWorkspaceTest extends WorkspaceCreationBase{
 				formField.setTroikaTrigger("controllershareholders.isTel(this);");
 			}
 			addFormField(form, "memberName", "股东姓名", groupName, ControlTypes.TEXT_BOX, true, false);
-			addFormField(form, "amount", "出资金额", groupName, ControlTypes.TEXT_BOX, true, false);
+			addFormField(form, "amount", "出资金额(万元)", groupName, ControlTypes.TEXT_BOX, true, false);
 			addFormField(form, "ratio", "出资比例", groupName, ControlTypes.TEXT_BOX, true, false);
 		}
 
@@ -386,7 +386,7 @@ public class IcExBaseInfoWorkspaceTest extends WorkspaceCreationBase{
 			part.setPartTypeId(PartType.DETAIL_PART.getId());
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
-			part.setToolbar(icMermberListToolbarPath);
+			part.setToolbar(icMemberListToolbarPath);
 			part.setJsController("com.gongsibao.igirl.ic.web.MemberDetailPart");
 			part.setServiceController(MemberDetailPart.class.getName());
 			part.setWindowWidth(420);
@@ -401,7 +401,7 @@ public class IcExBaseInfoWorkspaceTest extends WorkspaceCreationBase{
 		PDatagridColumn column = null;
 		PDatagrid datagrid = new PDatagrid(node, "备选公司名称");
 		{
-			addColumn(datagrid, "name", "公司名称", ControlTypes.TEXT_BOX, 300).setAlign(DatagridAlign.CENTER);
+			addColumn(datagrid, "entTra", "公司字号", ControlTypes.TEXT_BOX, 300).setAlign(DatagridAlign.CENTER);
 			column = addColumn(datagrid, "state", "是否为选定名称", ControlTypes.TEXT_BOX, 180);
 			{
 				column.setAlign(DatagridAlign.CENTER);
@@ -423,6 +423,7 @@ public class IcExBaseInfoWorkspaceTest extends WorkspaceCreationBase{
 			addFormField(form, "industryType", "行业特点", groupName, ControlTypes.ENUM_BOX, true, false);
 			addFormField(form, "organizationalType", "组织形式", groupName, ControlTypes.ENUM_BOX, true, false);
 			addFormField(form, "type", "名称结构", groupName, ControlTypes.ENUM_BOX, true, false);
+			addFormField(form, "state", "是否为选定名称", groupName, ControlTypes.SWITCH_BUTTON, true, false);
 		}
 
 		PPart part = new PPart();

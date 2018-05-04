@@ -435,6 +435,15 @@ org.netsharp.controls.OSSUpload = org.netsharp.controls.QiNiuUpload.Extends({
 					},
 					Error: function(up, err) {
 
+//						INIT_ERROR	值为-500，初始化时发生错误的错误代码
+//						FILE_SIZE_ERROR	值为-600，当选择的文件太大时的错误代码
+//						FILE_EXTENSION_ERROR	值为-601，当选择的文件类型不符合要求时的错误代码
+//						FILE_DUPLICATE_ERROR	值为-602，当选取了重复的文件而配置中又不允许有重复文件时的错误代码
+						if(err.code == -600){
+							
+							IMessageBox.error("文件大小不能超过"+up.getOption().filters.max_file_size);
+							return;
+						}
 						IMessageBox.error(err.response);
 					}
 				}

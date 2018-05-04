@@ -60,7 +60,7 @@ public class MessageController extends BaseController {
         if (!StringUtils.isBlank(remainMoney)) {
             memo = "您的订单" + orderNo + " 已支付" + money + ",还需支付" + remainMoney + "。";
         }
-        accountService.buySuccessSendMsg(originalId(request), account.getId(), money, productName, memo, payStatus.equals("1") ? "/index.html#/mine/order/2" : "/index.html#/mine/order/1");
+        accountService.buySuccessSendMsg(originalId(request), account.getId(), money, productName, memo, "1".equals(payStatus) ? "/index.html#/mine/order/2" : "/index.html#/mine/order/1");
 
         return "发送成功！";
     }

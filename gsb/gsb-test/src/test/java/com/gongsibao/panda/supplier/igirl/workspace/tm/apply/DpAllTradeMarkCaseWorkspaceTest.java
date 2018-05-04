@@ -262,8 +262,8 @@ public class DpAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 			addFormField(form, "whetherThirdSpace", "三维商标", groupName, ControlTypes.SWITCH_BUTTON, true, true);
 			addFormField(form, "whetherColorGroup", "颜色组合", groupName, ControlTypes.SWITCH_BUTTON, true, true);
 			addFormField(form, "hasColor", "彩色商标", groupName, ControlTypes.SWITCH_BUTTON, true, false);
-			addFormField(form, "whetherSound", "声音商标", groupName, ControlTypes.SWITCH_BUTTON, true, true);
-			addFormField(form, "whetherPersonPhoto", "以肖像注册", groupName, ControlTypes.SWITCH_BUTTON, true, true);
+			addFormField(form, "whetherSound", "声音商标", groupName, ControlTypes.SWITCH_BUTTON, true, false);
+			addFormField(form, "whetherPersonPhoto", "以肖像注册", groupName, ControlTypes.SWITCH_BUTTON, true, false);
 			formField = addFormField(form, "memo", "商标说明", groupName, ControlTypes.TEXT_BOX, true, false);
 	        {
 	            formField.setTroikaTrigger("controllertradeMarks.checkMemo(this);");

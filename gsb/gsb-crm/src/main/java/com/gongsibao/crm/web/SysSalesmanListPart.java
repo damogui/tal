@@ -42,11 +42,21 @@ public class SysSalesmanListPart extends ListPart {
 
 		return salesmanService.setReceiving(salesmanId, state);
 	}
-
+	
+	/**   
+	 * @Title: setIsNotify   
+	 * @Description: TODO(设置接收消息状态)   
+	 * @param: @param salesmanId
+	 * @param: @param state
+	 * @param: @return      
+	 * @return: boolean      
+	 * @throws   
+	 */
 	public boolean setIsNotify(Integer salesmanId, boolean state) {
 
 		return salesmanService.setIsNotify(salesmanId, state);
 	}
+	
 
 	@Override
 	protected String getExtraFilter() {

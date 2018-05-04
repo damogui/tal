@@ -233,4 +233,16 @@ public class TaskBaseListPart extends AdvancedListPart {
 		String ownerNameString = taskService.getTaskNamesByCustomerId(customerId);
 		return ownerNameString;
 	}
+	
+	/**
+	 * 售前商机提醒
+	 *
+	 * @param taskId
+	 * @param getNote
+	 * @return
+	 */
+	public boolean remind(Integer taskId, String getNote) {
+
+		return taskService.remind(taskId, getNote);
+	}
 }

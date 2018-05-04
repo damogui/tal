@@ -78,4 +78,5 @@ public class Constant {
     public static final String LIVEQRCODE ="1";
     public static final String QRCODE_SB ="SB";
     public static final String QRCODE_ORDER ="ORDER";
+    public static final String MESSAGE_BR =" <br/> ";
 }
