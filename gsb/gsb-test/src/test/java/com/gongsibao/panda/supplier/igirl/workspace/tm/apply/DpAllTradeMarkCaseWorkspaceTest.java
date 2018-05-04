@@ -1,5 +1,8 @@
 package com.gongsibao.panda.supplier.igirl.workspace.tm.apply;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
@@ -19,7 +22,10 @@ import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.panda.utils.enums.EnumUtil;
+import org.netsharp.panda.utils.plupload.MimeType;
+import org.netsharp.panda.utils.plupload.UploaderFilters;
 import org.netsharp.resourcenode.entity.ResourceNode;
+import org.netsharp.util.JsonManage;
 import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.entity.igirl.tm.TradeMarkCase;
@@ -382,7 +388,23 @@ public class DpAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 			addFormField(form, "toFileType", "目标文件类型", groupName, ControlTypes.ENUM_BOX, true, false);
 			addFormField(form, "name", "附件名称", groupName, ControlTypes.TEXT_BOX, true, false);
 			addFormField(form, "needed", "是否需上传", groupName, ControlTypes.SWITCH_BUTTON, true, false);
-			addFormField(form, "fileUrl", "上传", groupName, ControlTypes.OSS_UPLOAD, false, false);
+			formField=addFormField(form, "fileUrl", "上传", groupName, ControlTypes.OSS_UPLOAD, false, false);
+			{
+				UploaderFilters uf = new UploaderFilters();{
+
+					uf.setMaxFileSize("2048kb");//文件大小
+					uf.setPreventDuplicates(false);//是否可选择重复文件
+					MimeType mt = new MimeType();
+					mt.setTitle("Image files");//标题
+					mt.setExtensions("pdf");//文件类型
+					
+					List<MimeType> mimeTypes = new ArrayList<MimeType>();
+					mimeTypes.add(mt);
+					uf.setMimeTypes(mimeTypes);
+				}
+				String filters = JsonManage.serialize2(uf).replaceAll("\"", "'");
+				formField.setDataOptions(filters);
+			}
 
 		}
 
