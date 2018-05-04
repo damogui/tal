@@ -1,9 +1,9 @@
 System.Declare("com.gongsibao.igirl.ic.web");
-com.gongsibao.igirl.ic.web.IcExcelBaseInfoListPart = org.netsharp.panda.commerce.ListPart.Extends({
+com.gongsibao.igirl.ic.web.IcExcelExtraInfoListPart = org.netsharp.panda.commerce.ListPart.Extends({
     ctor : function() {
         this.base();
     },
-    createName:function () {
+    choiceAddress:function () {
         var me = this;
         var rows=me.getSelections();
         if (rows.length == 0) {
@@ -14,7 +14,7 @@ com.gongsibao.igirl.ic.web.IcExcelBaseInfoListPart = org.netsharp.panda.commerce
             return;
         }
         var id = rows[0].id;
-        me.invokeService("createName",[id],function (result) {
+        me.invokeService("choiceAddress",[id],function (result) {
             if(result.length>0){
                 IMessageBox.error(result);
             }else{
@@ -36,10 +36,13 @@ com.gongsibao.igirl.ic.web.IcExcelBaseInfoListPart = org.netsharp.panda.commerce
         }
         var id = rows[0].id;
         me.invokeService("updateState",[id],function (result) {
-            me.reload();
-            IMessageBox.toast(result);
-            layer.closeAll();
-            return;
+            if(result.length>0){
+                IMessageBox.error(result);
+            }else{
+                me.reload();
+                layer.closeAll();
+                return;
+            }
         })
     }
 });
