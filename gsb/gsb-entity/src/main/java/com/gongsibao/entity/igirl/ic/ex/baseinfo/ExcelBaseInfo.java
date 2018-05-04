@@ -50,6 +50,7 @@ public class ExcelBaseInfo extends Entity{
     @Reference(foreignKey = "departmentId",header = "部门")
     private SupplierDepartment department;
 
+    @Column(name = "company_name",header = "选定公司名称")
     private String companyName;
 
     @Column(name = "capital",header = "注册资金(万元)")
@@ -70,6 +71,12 @@ public class ExcelBaseInfo extends Entity{
     @Subs(foreignKey = "excelBaseInfoId",header = "成员信息",subType = Member.class)
     private List<Member> members;
 
+    @Subs(foreignKey = "excelBaseInfoId",header = "企业住址",subType = CorporateAddress.class)
+    private List<CorporateAddress> corporateAddresses;
+
+    @Subs(foreignKey = "excelBaseInfoId",header = "职员信息",subType = Worker.class)
+    private List<Worker> workers;
+
     @Column(name = "ex_register_case_id",header = "工商注册申请单Id")
     private Integer exRegisterCaseId;
 
@@ -77,8 +84,17 @@ public class ExcelBaseInfo extends Entity{
     @Reference(foreignKey = "exRegisterCaseId",header = "工商注册申请单")
     private IcExRegisterCase exRegisterCase;
 
-    @Column(name = "state",header = "是否进行状态抓取")
+    @Column(name = "state",header = "是否进行公司登记")
     private Boolean state = false;
+
+    @Column(name = "isDataReady",header = "是否进行材料准备")
+    private Boolean isDataReady = false;
+
+    @Column(name = "operation_scope",size = 1080,header = "经营范围")
+    private String operationScope;
+
+    @Column(name = "remark",size = 1080,header = "备注")
+    private String remark;
 
     public List<CompanyName> getCompanyNames() {
         return companyNames;
@@ -238,5 +254,45 @@ public class ExcelBaseInfo extends Entity{
 
     public void setMembers(List<Member> members) {
         this.members = members;
+    }
+
+    public List<CorporateAddress> getCorporateAddresses() {
+        return corporateAddresses;
+    }
+
+    public void setCorporateAddresses(List<CorporateAddress> corporateAddresses) {
+        this.corporateAddresses = corporateAddresses;
+    }
+
+    public List<Worker> getWorkers() {
+        return workers;
+    }
+
+    public void setWorkers(List<Worker> workers) {
+        this.workers = workers;
+    }
+
+    public Boolean getDataReady() {
+        return isDataReady;
+    }
+
+    public void setDataReady(Boolean dataReady) {
+        isDataReady = dataReady;
+    }
+
+    public String getOperationScope() {
+        return operationScope;
+    }
+
+    public void setOperationScope(String operationScope) {
+        this.operationScope = operationScope;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

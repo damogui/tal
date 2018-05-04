@@ -36,9 +36,6 @@ public class CompanyName extends Entity{
     @Column(name = "state",header = "状态")
     private boolean state = false;
 
-    @Column(name = "name",header = "得到公司名")
-    private String name;
-
     public String getRegion() {
         return region;
     }
@@ -101,13 +98,5 @@ public class CompanyName extends Entity{
 
     public void setType(NameStructureType type) {
         this.type = type;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

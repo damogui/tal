@@ -9,6 +9,8 @@ import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.dic.*;
 import com.gongsibao.entity.igirl.ic.ex.baseinfo.CompanyName;
 import com.gongsibao.entity.igirl.ic.ex.baseinfo.ExcelBaseInfo;
+import com.gongsibao.entity.igirl.ic.ex.baseinfo.Worker;
+import com.gongsibao.entity.igirl.ic.ex.dict.MemberType;
 import com.gongsibao.entity.supplier.dict.SupplierType;
 import com.gongsibao.igirl.ic.base.IcCompanyNameService;
 import com.gongsibao.igirl.ic.base.IcExcelBaseInfoService;
@@ -110,19 +112,36 @@ public class ExcelBaseInfoService extends GsbPersistableService<ExcelBaseInfo> i
             }
             entity.setCustomer(customer);
             entity.setCustomerId(customer.getId());
-        }
-        entity.setSupplier(SupplierSessionManager.getSupplier());
-        entity.setSupplierId(SupplierSessionManager.getSupplierId());
-        entity.setDepartment(SupplierSessionManager.getDepartment());
-        entity.setDepartmentId(SupplierSessionManager.getDepartmentId());
-        List<CompanyName> companyNames = entity.getCompanyNames();
-        if (companyNames!=null&&!companyNames.isEmpty()){
-            IcCompanyNameService companyNameService = ServiceFactory.create(IcCompanyNameService.class);
-            for (CompanyName cn:companyNames){
-                String name = companyNameService.getName(cn);
-                cn.setName(name);
-            }
+            entity.setSupplier(SupplierSessionManager.getSupplier());
+            entity.setSupplierId(SupplierSessionManager.getSupplierId());
+            entity.setDepartment(SupplierSessionManager.getDepartment());
+            entity.setDepartmentId(SupplierSessionManager.getDepartmentId());
+            entity.setWorkers(worker());
         }
         return super.save(entity);
     }
+
+    public List<Worker> worker(){
+        List<Worker> workers = new ArrayList<>();
+        Worker worker = new Worker();
+        worker.setPosition(MemberType.LEGAL_PERSON);
+        workers.add(worker);
+        worker = new Worker();
+        worker.setPosition(MemberType.EXECUTIVE_DIRECTOR);
+        workers.add(worker);
+        worker = new Worker();
+        worker.setPosition(MemberType.SUPERVISOR);
+        workers.add(worker);
+        worker = new Worker();
+        worker.setPosition(MemberType.MANAGER);
+        workers.add(worker);
+        worker = new Worker();
+        worker.setPosition(MemberType.SECRETARY);
+        workers.add(worker);
+        worker = new Worker();
+        worker.setPosition(MemberType.FINANCIAL_OFFICER);
+        workers.add(worker);
+        return workers;
+    }
+
 }
