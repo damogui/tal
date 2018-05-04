@@ -413,8 +413,8 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 					uf.setMaxFileSize("2048kb");//文件大小
 					uf.setPreventDuplicates(false);//是否可选择重复文件
 					MimeType mt = new MimeType();
-					mt.setTitle("Image files");//标题
-					mt.setExtensions("pdf");//文件类型
+					mt.setTitle("pdf files");//标题
+					mt.setExtensions("jsp,pdf");//文件类型
 					
 					List<MimeType> mimeTypes = new ArrayList<MimeType>();
 					mimeTypes.add(mt);
