@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
@@ -28,7 +29,7 @@ import com.gongsibao.trade.base.IPayService;
 public class PayService extends PersistableService<Pay> implements IPayService {
 
     public PayService() {
-        super ();
+        super();
         this.type = Pay.class;
     }
 
@@ -49,31 +50,31 @@ public class PayService extends PersistableService<Pay> implements IPayService {
     @Override
     public Boolean applyPay(Pay pay) {
 
-        ActionContext ctx = new ActionContext ();
+        ActionContext ctx = new ActionContext();
         {
-            ctx.setPath ("gsb/crm/order/pay");
-            ctx.setItem (pay);
-            ctx.setState (pay.getEntityState ());
+            ctx.setPath("gsb/crm/order/pay");
+            ctx.setItem(pay);
+            ctx.setState(pay.getEntityState());
         }
-        ActionManager action = new ActionManager ();
-        action.execute (ctx);
+        ActionManager action = new ActionManager();
+        action.execute(ctx);
         return true;
     }
 
     @Override
     public void updateStatus(Integer id, AuditStatusType auditStatusType) {
 
-        UpdateBuilder updateBuilder = new UpdateBuilder ();
+        UpdateBuilder updateBuilder = new UpdateBuilder();
         {
-            updateBuilder.update ("so_pay");
-            updateBuilder.set ("offline_audit_status_id", auditStatusType.getValue ());
-            updateBuilder.where ("pkid=?");
+            updateBuilder.update("so_pay");
+            updateBuilder.set("offline_audit_status_id", auditStatusType.getValue());
+            updateBuilder.where("pkid=?");
         }
-        String sql = updateBuilder.toSQL ();
-        QueryParameters qps = new QueryParameters ();
-        qps.add ("id", id, Types.INTEGER);
+        String sql = updateBuilder.toSQL();
+        QueryParameters qps = new QueryParameters();
+        qps.add("id", id, Types.INTEGER);
         // throw  new BusinessException ("测试");
-        this.pm.executeNonQuery (sql, qps);
+        this.pm.executeNonQuery(sql, qps);
     }
 
 
@@ -83,37 +84,37 @@ public class PayService extends PersistableService<Pay> implements IPayService {
         String sql = "  UPDATE  so_pay  SET  offline_audit_status_id=1054,receipt_status=1,success_status_id=3123,confirm_time=?,pay_audit_pass_time=now() WHERE" +
                 "  pkid=?  ";
 
-        QueryParameters qps = new QueryParameters ();
-        qps.add ("@confirm_time", payTime, Types.DATE);
-        qps.add ("@pkid", payId, Types.INTEGER);
-        Integer num = this.pm.executeNonQuery (sql, qps);
-        IOrderPayMapService orderPayMapService = ServiceFactory.create (IOrderPayMapService.class);
-        Oql oql = new Oql ();
-        oql.setType (OrderPayMap.class);
-        oql.setFilter ("pay_id=?");
-        oql.setSelects ("OrderPayMap.*,OrderPayMap.soOrder.*");
-        oql.getParameters ().add ("@pay_id", payId, Types.INTEGER);
-        List<OrderPayMap> orderPayMapList = new ArrayList<> ();
-        orderPayMapList = orderPayMapService.queryList (oql);
-        List<Integer> orderIds = new ArrayList<> ();//回款累加
-        List<Integer> orderIdFirstAmount = new ArrayList<> ();//首次付款时间
-        List<Integer> orderIdAllAmount = new ArrayList<> ();//全付款时间
+        QueryParameters qps = new QueryParameters();
+        qps.add("@confirm_time", payTime, Types.DATE);
+        qps.add("@pkid", payId, Types.INTEGER);
+        Integer num = this.pm.executeNonQuery(sql, qps);
+        IOrderPayMapService orderPayMapService = ServiceFactory.create(IOrderPayMapService.class);
+        Oql oql = new Oql();
+        oql.setType(OrderPayMap.class);
+        oql.setFilter("pay_id=?");
+        oql.setSelects("OrderPayMap.*,OrderPayMap.soOrder.*");
+        oql.getParameters().add("@pay_id", payId, Types.INTEGER);
+        List<OrderPayMap> orderPayMapList = new ArrayList<>();
+        orderPayMapList = orderPayMapService.queryList(oql);
+        List<Integer> orderIds = new ArrayList<>();//回款累加
+        List<Integer> orderIdFirstAmount = new ArrayList<>();//首次付款时间
+        List<Integer> orderIdAllAmount = new ArrayList<>();//全付款时间
 
 
         for (OrderPayMap item : orderPayMapList
                 ) {
-            SoOrder order = item.getSoOrder ();
-            Integer payAmount = order.getPaidPrice ();
-            Integer afterAmount = payAmount + item.getOrderPrice ();//审核通过之后加上原来的支付金额
+            SoOrder order = item.getSoOrder();
+            Integer payAmount = order.getPaidPrice();
+            Integer afterAmount = payAmount + item.getOrderPrice();//审核通过之后加上原来的支付金额
 
-            orderIds.add (item.getOrderId ());//所有的订单id，回款累加
-            if (order.getFistPayTime () == null) {//首次付款（都需要判断是不是回款完成）
-                orderIdFirstAmount.add (item.getOrderId ());
+            orderIds.add(item.getOrderId());//所有的订单id，回款累加
+            if (order.getFistPayTime() == null) {//首次付款（都需要判断是不是回款完成）
+                orderIdFirstAmount.add(item.getOrderId());
 
             }
 
-            if (afterAmount.equals (order.getPayablePrice ())) {//支付完成
-                orderIdAllAmount.add (item.getOrderId ());
+            if (afterAmount.equals(order.getPayablePrice())) {//支付完成
+                orderIdAllAmount.add(item.getOrderId());
 
             }
 
@@ -122,13 +123,13 @@ public class PayService extends PersistableService<Pay> implements IPayService {
         Integer execNum2 = 0;
         Integer execNum3 = 0;
 
-        execNum1 = updateSorderPayInfo (orderPayMapList);
-        if (orderIdFirstAmount.size () > 0) {
-            execNum2 = updateFistPayInfo (orderIdFirstAmount, payTime);
+        execNum1 = updateSorderPayInfo(orderPayMapList);
+        if (orderIdFirstAmount.size() > 0) {
+            execNum2 = updateFistPayInfo(orderIdFirstAmount, payTime);
 
         }
-        if (orderIdAllAmount.size () > 0) {
-            execNum3 = updateAllPayInfo (orderIdFirstAmount, payTime);
+        if (orderIdAllAmount.size() > 0) {
+            execNum3 = updateAllPayInfo(orderIdFirstAmount, payTime);
 
         }
 
@@ -174,14 +175,14 @@ public class PayService extends PersistableService<Pay> implements IPayService {
     /*支付完成所有的订单金额*/
     private Integer updateAllPayInfo(List<Integer> orderIdFirstAmount, String payTime) {
         String whereStr = "";
-        if (orderIdFirstAmount.size () > 0) {
-            whereStr = StringManager.join (",", orderIdFirstAmount);
+        if (orderIdFirstAmount.size() > 0) {
+            whereStr = StringManager.join(",", orderIdFirstAmount);
         }
-        String sql = String.format ("UPDATE   `so_order`  SET  pay_status_id=3013,pay_time=?   WHERE pkid IN (%s)", whereStr);
+        String sql = String.format("UPDATE `so_order` SET pay_status_id=3013,process_status_id = " + OrderProcessStatusType.Zzbl.getValue() + ",pay_time=? WHERE pkid IN (%s)", whereStr);
 
-        QueryParameters qps = new QueryParameters ();
-        qps.add ("@pay_time", payTime, Types.DATE);
-        Integer num = this.pm.executeNonQuery (sql, qps);//进行更新  //如果回款和订单金额相等的话还要修改支付时间
+        QueryParameters qps = new QueryParameters();
+        qps.add("@pay_time", payTime, Types.DATE);
+        Integer num = this.pm.executeNonQuery(sql, qps);//进行更新  //如果回款和订单金额相等的话还要修改支付时间
 
         return num;
 
@@ -190,14 +191,14 @@ public class PayService extends PersistableService<Pay> implements IPayService {
     /*首次支付*/
     private Integer updateFistPayInfo(List<Integer> orderIdFirstAmount, String payTime) {
         String whereStr = "";
-        if (orderIdFirstAmount.size () > 0) {
-            whereStr = StringManager.join (",", orderIdFirstAmount);
+        if (orderIdFirstAmount.size() > 0) {
+            whereStr = StringManager.join(",", orderIdFirstAmount);
         }
-        String sql = String.format ("UPDATE   `so_order`  SET  pay_status_id=3012,fist_pay_time=now()   WHERE pkid IN (%s)", whereStr);
+        String sql = String.format("UPDATE   `so_order`  SET  pay_status_id=3012,fist_pay_time=now()   WHERE pkid IN (%s)", whereStr);
 
-        QueryParameters qps = new QueryParameters ();
+        QueryParameters qps = new QueryParameters();
 //        qps.add ("@fist_pay_time", payTime, Types.DATE);
-        Integer num = this.pm.executeNonQuery (sql, qps);//进行更新  //如果回款和订单金额相等的话还要修改支付时间
+        Integer num = this.pm.executeNonQuery(sql, qps);//进行更新  //如果回款和订单金额相等的话还要修改支付时间
 
         return num;
     }
@@ -208,12 +209,12 @@ public class PayService extends PersistableService<Pay> implements IPayService {
         for (OrderPayMap item : orderPayMapList
                 ) {
 
-            String sql = String.format ("UPDATE so_order SET  paid_price=paid_price+%s  WHERE  pkid=?", item.getOrderPrice ());//应该以分进行相加
+            String sql = String.format("UPDATE so_order SET  paid_price=paid_price+%s  WHERE  pkid=?", item.getOrderPrice());//应该以分进行相加
 
-            QueryParameters qps = new QueryParameters ();
-            qps.add ("@pkid", item.getOrderId (), Types.INTEGER);
+            QueryParameters qps = new QueryParameters();
+            qps.add("@pkid", item.getOrderId(), Types.INTEGER);
 
-            num += this.pm.executeNonQuery (sql, qps);//进行更新回款
+            num += this.pm.executeNonQuery(sql, qps);//进行更新回款
 
 
         }
