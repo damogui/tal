@@ -435,4 +435,19 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
         return ISupplierService.getNotifyType(supplierId);
     }
 
+	@Override
+	public boolean setIsNotify(Integer salesmanId, boolean state) {
+
+        UpdateBuilder updateBuilder = new UpdateBuilder();
+        {
+            updateBuilder.update(MtableManager.getMtable(this.type).getTableName());
+            updateBuilder.set("is_notify", state);
+            updateBuilder.where("id=?");
+        }
+
+        QueryParameters qps = new QueryParameters();
+        qps.add("salesmanId", salesmanId, Types.INTEGER);
+        return this.pm.executeNonQuery(updateBuilder.toSQL(), qps) > 0;
+	}
+
 }

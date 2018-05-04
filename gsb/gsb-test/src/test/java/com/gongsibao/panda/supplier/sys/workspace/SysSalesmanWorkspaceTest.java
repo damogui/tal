@@ -119,6 +119,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
             column.setAlign(DatagridAlign.CENTER);
             column.setFormatter("return controllerdepartments.receivingFormatter(value,row,index);");
         }
+
         addColumn(datagrid, "department.name", "部门", ControlTypes.TEXT_BOX, 120);
         column = addColumn(datagrid, "employee.loginNum", "登录次数", ControlTypes.TEXT_BOX, 100);
         {
@@ -126,8 +127,11 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
         }
 
         addColumn(datagrid, "isLeader", "主管", ControlTypes.BOOLCOMBO_BOX, 80);
-        addColumn(datagrid, "isNotify", "接收消息", ControlTypes.BOOLCOMBO_BOX, 80);
-        
+        column = addColumn(datagrid, "isNotify", "接收消息", ControlTypes.TEXT_BOX, 80);
+        {
+            column.setAlign(DatagridAlign.CENTER);
+            column.setFormatter("return controllerdepartments.isNotifyFormatter(value,row,index);");
+        }
         addColumn(datagrid, "dayMax", "日分配上限", ControlTypes.TEXT_BOX, 80);
         addColumn(datagrid, "weekMax", "周分配上限", ControlTypes.TEXT_BOX, 80);
         addColumn(datagrid, "xabMax", "XAB类上限", ControlTypes.TEXT_BOX, 80);
