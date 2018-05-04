@@ -51,6 +51,10 @@ com.gongsibao.crm.web.SysSalesmanListPart = org.netsharp.panda.commerce.ListPart
                 return items[0];
             }
         }
+
+
+
+
     },
     add: function() {
 
@@ -108,11 +112,7 @@ com.gongsibao.crm.web.SysSalesmanListPart = org.netsharp.panda.commerce.ListPart
 		var me = this;
 		this.invokeService("setDisabled", [salesmanId,state], function(data) {
 
-<<<<<<< HEAD
 			me.reload();
-=======
-			//me.reload();
->>>>>>> netsharp-gongsibao-dev
 			IMessageBox.toast("操作成功！");
 		});
     },
@@ -123,36 +123,12 @@ com.gongsibao.crm.web.SysSalesmanListPart = org.netsharp.panda.commerce.ListPart
 		+',onText:\'是\',offText:\'否\','
 		+'onChange:function(checked){controllerdepartments.setReceiving(\''+row.id+'\',checked);}">';
     },    
-<<<<<<< HEAD
-=======
-    isNotifyFormatter:function(value,row,index){
-
-		return '<input class="easyui-switchbutton" data-options="'
-		+'checked:'+value
-		+',onText:\'是\',offText:\'否\','
-		+'onChange:function(checked){controllerdepartments.setIsNotify(\''+row.id+'\',checked);}">';
-    },        
-    
->>>>>>> netsharp-gongsibao-dev
     setReceiving:function(salesmanId,state){
     	
 		var me = this;
 		this.invokeService("setReceiving", [salesmanId,state], function(data) {
 
-<<<<<<< HEAD
 			me.reload();
-=======
-			//me.reload();
-			IMessageBox.toast("操作成功！");
-		});
-    },  
-    setIsNotify:function(salesmanId,state){
-    	
-		var me = this;
-		this.invokeService("setIsNotify", [salesmanId,state], function(data) {
-
-			//me.reload();
->>>>>>> netsharp-gongsibao-dev
 			IMessageBox.toast("操作成功！");
 		});
     },  
