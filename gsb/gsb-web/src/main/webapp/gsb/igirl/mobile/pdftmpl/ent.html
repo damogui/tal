@@ -8,12 +8,16 @@
 <style>
 body {
   padding:0px;
+  font-family:"SimSun";
+  font-size: 12pt;
+  vertical-align:bottom;
 }
 #kpMain{
 	  background-color:#fff;
 }
 td{
   width:50%;
+  font-family:"SimSun";
   font-size:0.6rem;
   padding:2px;
   line-height:0.8rem;
@@ -27,18 +31,18 @@ input{
 <body>
 	<div id="kpMain" style="padding:18px;margin:0px">   
 	      <div style="margin:1px auto;width:100%;text-align:center;"><h2>商&nbsp;标&nbsp;代&nbsp;理&nbsp;委&nbsp;托&nbsp;书</h2></div>   
-	            <br/>         
+	                  
 	      <table style="width:100%;display:block" cellpadding="2px">
 			       <tbody>
 				         <tr>
 				           <td style="font-size:0.8rem" colspan="2">
 				               &nbsp; &nbsp;&nbsp;&nbsp;委托人
 				               <span style="text-decoration:underline">
-				                    <span id="client" style="font-size:0.6rem"></span>
+				                    <span id="client" style="font-size:0.8rem"></span>
 				               </span>
 				               <span>是</span>
 				               <span style="text-decoration:underline">
-				                    &nbsp;&nbsp;&nbsp;中&nbsp;&nbsp;&nbsp;
+				                   &nbsp; &nbsp;&nbsp;&nbsp;中&nbsp;&nbsp;&nbsp;&nbsp;
 				               </span>
 				               <span>国国籍、</span>
 				               <p>依：
@@ -49,10 +53,10 @@ input{
 				               <span style="text-decoration:underline">
 				                 <span id="delecomp">汉唐信通（北京）咨询股份有限公司</span>
 				               </span>
-				               <br/><br/><br/>
+				               <br/><br/><br/><br/><br/>
 				               <p style="float:left;">代理</p>
 				               <img id="img" style="width:80px;height:80;float:left;margin-left:80px;margin-top:-50px;" src="http://gsb-public.oss-cn-beijing.aliyuncs.com/netsharp_frmjmPrCthfEp4CSErDS4XQPwHSAiA8t.jpg"/>
-				               <span style="float:left;text-decoration:underline;z-index:1000;margin-left:-140px;margin-top:15px">
+				               <span id="index_line" style="float:left;text-decoration:underline;z-index:1000;margin-left:-140px;margin-top:15px">
 				                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				                &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -155,7 +159,7 @@ input{
 				            <td></td>
 				         </tr>
 				         <tr>
-				            <td style="font-size:0.8rem">联&nbsp;&nbsp;&nbsp;&nbsp;系&nbsp;&nbsp;&nbsp;&nbsp;人:
+				            <td style="font-size:0.8rem">联&nbsp;&nbsp;&nbsp;系&nbsp;&nbsp;&nbsp;人:
 				            <span style="text-decoration:underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="proxycontactname"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 				            </td>
 				            <td ></td>
@@ -166,7 +170,7 @@ input{
 				            <td></td>
 				         </tr>
 				         <tr>
-				            <td style="font-size:0.8rem">邮政&nbsp;&nbsp;&nbsp;&nbsp;编码:<span style="text-decoration:underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="mailCode"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				            <td style="font-size:0.8rem">邮政&nbsp;&nbsp;&nbsp;&nbsp;编码:<span style="text-decoration:underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="mailCode"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 				            </td>
 				            <td align="right" style="font-size:0.8rem;padding-right:30px"><span id="deledate"></span></td>
 				         </tr>
@@ -179,7 +183,7 @@ input{
 <script src="/panda-res/js/system.js"></script>
 <script src="/panda-res/js/panda.core.js"></script>
 <script type="text/javascript">
- $(function(){
+ $(function(){debugger
 	 var siteCtl=new org.netsharp.core.JServiceLocator();
 	 var ctlServiceStr2="com.gongsibao.igirl.tm.web.TradeMarkCasePart";
 		function getHashParameter(key) {
@@ -202,12 +206,23 @@ input{
 		}
 		var casecode=getHashParameter("casecode");
 		var imgurl=getHashParameter("imgurl");
+		var isWord=getHashParameter("isword");
+		console.log("isWord");
+		console.log(isWord);
+		console.log($("#img").attr("style"));
+		if(isWord==1){
+			//style="width:80px;height:80;float:left;margin-left:80px;margin-top:-50px;"
+			//style="z-index:999;position:absolute; clip:rect(50px,200px,90px,0px);width:200px;height:200px;top:100px;left:60px;"
+			$("#img").attr("style","z-index:999;position:absolute; clip:rect(50px,200px,90px,0px);width:200px;height:200px;top:130px;left:60px;");
+			$("#index_line").attr("style","float:left;text-decoration:underline;z-index:1000;margin-left:0px;margin-top:15px");
+		}
+		console.log($("#img").attr("style"));
 		 siteCtl.invoke(ctlServiceStr2,"fetchUnconfirmedCaseInfoByCode",[casecode],function(d){
 			  if(d.identityCode!=null && d.identityCode!=""){
 				  d.applier=d.applier+d.identityCode;
 			    }
 			  var len= d.applier.length;
-			  var lenhalf=Math.round((32-len)/2);
+			  var lenhalf=Math.round((52-len)/2);
 			  $("#client").html(repeat("&nbsp;",lenhalf)+d.applier+repeat("&nbsp;",lenhalf));
 			  var tmpp="汉唐信通(北京)咨询股份有限公司" ;
 			  len= tmpp.length;
