@@ -35,6 +35,7 @@ import com.gongsibao.panda.platform.operation.workspace.reference.SupplierCatego
 import com.gongsibao.panda.platform.operation.workspace.reference.SupplierDepartmentReferenceTest;
 import com.gongsibao.panda.platform.operation.workspace.reference.SupplierReferenceTest;
 import com.gongsibao.panda.platform.operation.workspace.reference.SupplierSalesmanReferenceTest;
+import com.gongsibao.panda.platform.operation.workspace.supplier.AllSupplierSalesmanWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.supplier.FunctionModuleWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.supplier.QualityWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.supplier.SupplierCategoryWorkspaceTest;
@@ -101,7 +102,7 @@ import com.gongsibao.panda.platform.report.workspace.customer.StatisticalCustome
         SupplierCategoryWorkspaceTest.class,
         SupplierSalesmanWorkspaceTest.class,
         SupplierDepartmentWorkspaceTest.class,
-        
+        AllSupplierSalesmanWorkspaceTest.class,
 
 //		CustomerAllWorkspaceTest.class,
 //		CustomerMyOrderWorkspaceTest.class,
