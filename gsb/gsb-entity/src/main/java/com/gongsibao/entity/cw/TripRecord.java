@@ -20,9 +20,6 @@ import org.netsharp.entity.BizEntity;
 @Table(name="cw_trip_record",header="报销行程记录")
 public class TripRecord extends BizEntity{
 
-	/**  
-	* @Fields field:field:{todo}  
-	*/ 
 	private static final long serialVersionUID = 2341409435968446219L;
 
 	@Column(name="expense_id",header="报销单id")

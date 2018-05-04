@@ -4,10 +4,9 @@ import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
-import org.netsharp.entity.Entity;
 
 @Table(name = "so_order_cooperation", header = "万达订单关联表")
-public class OrderCooperation extends Entity {
+public class OrderCooperation extends BaseEntity {
 
     private static final long serialVersionUID = -1407501547018300129L;
 

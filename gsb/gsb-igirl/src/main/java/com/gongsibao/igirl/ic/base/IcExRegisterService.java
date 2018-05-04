@@ -1,6 +1,7 @@
 package com.gongsibao.igirl.ic.base;
 
 import com.gongsibao.entity.igirl.ic.ex.IcExRegisterCase;
+import com.gongsibao.entity.igirl.ic.ex.baseinfo.IcExLog;
 import com.gongsibao.entity.igirl.ic.ex.dict.ApprovalType;
 import com.gongsibao.entity.igirl.ic.ex.dict.OperatorType;
 import org.netsharp.base.IPersistableService;

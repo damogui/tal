@@ -12,6 +12,7 @@ import com.gongsibao.entity.igirl.ic.ex.IcExRegisterCase;
 import com.gongsibao.entity.igirl.ic.ex.baseinfo.IcExLog;
 import com.gongsibao.entity.igirl.ic.ex.dict.ApprovalType;
 import com.gongsibao.entity.igirl.ic.ex.dict.OperatorType;
+import com.gongsibao.entity.igirl.tm.TradeMarkCase;
 import com.gongsibao.entity.igirl.tm.baseinfo.IGirlConfig;
 import com.gongsibao.entity.igirl.tm.dict.ConfigType;
 import com.gongsibao.entity.supplier.dict.SupplierType;
@@ -25,7 +26,9 @@ import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
 import org.netsharp.organization.base.IEmployeeService;
 import org.netsharp.organization.entity.Employee;
+import org.netsharp.panda.annotation.Authorization;
 import org.netsharp.persistence.session.SessionManager;
+import org.netsharp.util.DateManage;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

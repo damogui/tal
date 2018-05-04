@@ -65,13 +65,24 @@ public class NCustomerTaskNotifyService extends SupplierPersistableService<NCust
 			return;
 		}
 
+		Employee received = this.getEmployee(entity.getReceivedId());
+		if (received == null || received.getDisabled()) {
+			
+			//接收者不存在或已停用不发送
+			return;
+		}
+		
+		
 		if (notifyType == NotifyType.WEIXIN) {
 
-			this.sendWxMessage(entity);
+			this.sendWxMessage(entity,received);
 
 		} else if (notifyType == NotifyType.SMS) {
 
-			this.sendSMSMessage(entity);
+			if(!StringManager.isNullOrEmpty(received.getMobile()) && received.getMobile().length() == 11){
+
+				SmsHelper.send(received.getMobile(), entity.getContent());
+			}
 
 		} else if (notifyType == NotifyType.SYSTEM) {
 
@@ -81,27 +92,29 @@ public class NCustomerTaskNotifyService extends SupplierPersistableService<NCust
 
 		} else if (notifyType == NotifyType.ALL) {
 
-			this.sendWxMessage(entity);
+			this.sendWxMessage(entity,received);
 
-			this.sendSMSMessage(entity);
+			if(!StringManager.isNullOrEmpty(received.getMobile()) && received.getMobile().length() == 11){
+
+				SmsHelper.send(received.getMobile(), entity.getContent());
+			}
 		}
 	}
 
+	/**   
+	 * @Title: getNotifyType   
+	 * @Description: TODO(获取通知类型)   
+	 * @param: @param employeeId
+	 * @param: @return      
+	 * @return: NotifyType      
+	 * @throws   
+	 */
 	private NotifyType getNotifyType(Integer employeeId) {
 
 		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
 		return salesmanService.getNotifyType(employeeId);
 	}
 
-	private void sendSMSMessage(NCustomerTaskNotify entity) {
-
-		Employee received = this.getEmployee(entity.getReceivedId());
-		
-		if (!received.getDisabled() && received != null && !StringManager.isNullOrEmpty(received.getMobile()) && received.getMobile().length() == 11) {
-
-			SmsHelper.send(received.getMobile(), entity.getContent());
-		}
-	}
 
 	/**
 	 * @Title: sendWxMessage
@@ -110,9 +123,8 @@ public class NCustomerTaskNotifyService extends SupplierPersistableService<NCust
 	 * @return: void
 	 * @throws
 	 */
-	private void sendWxMessage(NCustomerTaskNotify entity) {
+	private void sendWxMessage(NCustomerTaskNotify entity,Employee received) {
 
-		Employee received = this.getEmployee(entity.getReceivedId());
 		IEaMessageService eMessageService = ServiceFactory.create(IEaMessageService.class);
 		if (received == null) {
 			eMessageService.send("CRM", entity.getContent(), "");
@@ -121,14 +133,23 @@ public class NCustomerTaskNotifyService extends SupplierPersistableService<NCust
 		}
 	}
 
+	/**   
+	 * @Title: getEmployee   
+	 * @Description: TODO(获取可发送员工的帐号,条件：在sp_salesman中存在，并且打开接收通知开关)   
+	 * @param: @param id
+	 * @param: @return      
+	 * @return: Employee      
+	 * @throws
+	 */
 	private Employee getEmployee(Integer id) {
 
 		Oql oql = new Oql();
 		{
 			oql.setType(Employee.class);
 			oql.setSelects("id,loginName,mobile,email,disabled");
-			oql.setFilter("id=?");
-			oql.getParameters().add("id", id, Types.INTEGER);
+			oql.setFilter("id=? and (disabled = 0 or disabled is null) and id in (select employee_id from sp_salesman where is_notify=1 and employee_id = ?)");
+			oql.getParameters().add("@id", id, Types.INTEGER);
+			oql.getParameters().add("@employeeId", id, Types.INTEGER);
 		}
 		IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
 		return employeeService.queryFirst(oql);

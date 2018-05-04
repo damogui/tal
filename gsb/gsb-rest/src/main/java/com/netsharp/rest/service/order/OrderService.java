@@ -611,14 +611,13 @@ public class OrderService implements IOrderService {
             order.setIsInstallment(false);
             order.setInstallmentAuditStatusId(AuditStatusType.wu);
             order.setCompanyId(orderAddDTO.getCompanyId());
-            order.setPlatformSource(OrderPlatformSourceType.Gsb);
             order.setCustomerId(customerId);
             order.setCustomerName(customerName);
             order.setDeliverId(orderAddDTO.getDeliverId());
             order.setCompanyId(orderAddDTO.getCompanyId());
             order.setCreatorId(0);
             order.setProdName(prodName.toString());
-
+            order.setPlatformSource(orderAddDTO.getOrderPlatformSourceType());
         }
         Result<SoOrder> result = new Result<>();
         result.setObj(order);

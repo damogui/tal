@@ -46,7 +46,7 @@ com.gongsibao.cw.web.AllBillsListPart = org.netsharp.panda.commerce.ListPart.Ext
     		if(data != null && data.code ==200){
     			IMessageBox.toast(data.msg);
     		}else{
-    			IMessageBox.toast("凭证生成失败！",2);
+    			IMessageBox.toast(data.msg,2);
     		}
     	});
     }
