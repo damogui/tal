@@ -562,7 +562,7 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
             btn1: function (index, layero) {
 
 
-                var isSendMessage = $('#isSendMessage').prop('checked');
+                /*var isSendMessage = $('#isSendMessage').prop('checked');
                 var trace = new Object();
                 trace.orderId = me.mainCtrl.orderProd.orderId;
                 trace.orderNo = 100000000 + me.mainCtrl.orderProd.orderId;
@@ -580,7 +580,7 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
 
                     layer.close(index);
                     me.query();
-                });
+                });*/
             }
         });
 
