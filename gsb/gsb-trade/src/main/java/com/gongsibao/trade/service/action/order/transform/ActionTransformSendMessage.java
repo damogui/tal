@@ -1,5 +1,6 @@
 package com.gongsibao.trade.service.action.order.transform;
 
+import com.gongsibao.bd.service.auditLog.AuditState;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.trade.Refund;
@@ -9,6 +10,7 @@ import com.gongsibao.trade.service.action.order.utils.AuditHelper;
 import com.gongsibao.trade.service.action.order.utils.UserHelper;
 import com.gongsibao.utils.sms.SmsHelper;
 import org.netsharp.action.ActionContext;
+import org.netsharp.action.ActionManager;
 import org.netsharp.action.IAction;
 import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.util.StringManager;
@@ -56,7 +58,7 @@ public class ActionTransformSendMessage implements IAction {
         if (orderLengh > 1 && flagEnd) {//批量并且走到最后
 
             batchToUserSendMsg(toUser);//接受业务员消息
-            if (formUser!=null){
+            if (formUser != null) {
                 batchFormUserSendMsg(hashFrom, toUser.getName());//被转移分配业务员消息
             }
 
@@ -64,12 +66,29 @@ public class ActionTransformSendMessage implements IAction {
         } else {//单个
             //发送消息
             toUserSendMsg(toUser);//接受业务员消息
-            if (formUser!=null){
+            if (formUser != null) {
                 formUserSendMsg(formUser, toUser.getName());//被转移分配业务员消息
             }
 
+            /*try {
+                sendDingTalk(entity.getId());
+            } catch (Exception e) {
+                //e.printStackTrace();
+            }*/
+        }
+    }
+
+
+    //钉钉播报
+    private void sendDingTalk(Integer orderId) {
+        ActionContext dingtackctx = new ActionContext();
+        {
+            dingtackctx.setPath("gsb/bd/dingtalk/broadcast");
+            dingtackctx.setItem(orderId);
         }
 
+        ActionManager action = new ActionManager();
+        action.execute(dingtackctx);
 
     }
 
