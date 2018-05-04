@@ -732,7 +732,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         });
     },
     getQqCodeUrl: function (order) {
-        var url = 'http://icompany.gongsibao.net/wx/v1/user/qrcode?mobile=' + order.accountMobile + '&businessId=' + order.id + '&source=ORDER';
+        var url = 'http://wx.gongsibao.com/wx/v1/user/qrcode?mobile=' + order.accountMobile + '&businessId=' + order.id + '&source=ORDER';
         $.get(url, function (result, status) {
             if ('success' == status) {
                 if (!result.data) {
