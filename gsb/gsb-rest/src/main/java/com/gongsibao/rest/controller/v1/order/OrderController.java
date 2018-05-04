@@ -4,6 +4,7 @@ import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
 import com.netsharp.rest.base.order.IOrderService;
 import com.gongsibao.rest.controller.BaseController;
+import com.netsharp.rest.controller.constant.Constant;
 import com.netsharp.rest.controller.exception.WxException;
 import com.netsharp.rest.service.user.AccountService;
 import com.netsharp.rest.controller.annotation.ApiVersion;
@@ -97,7 +98,7 @@ public class OrderController extends BaseController {
             orderDTO.setAdd_time(order.getCreateTime());
             String[] proNames=order.getProdName().split("，");
             StringBuffer nameStr=new StringBuffer();{
-                for(String name:proNames){nameStr.append(name).append(" <br/> ");}
+                for(String name:proNames){nameStr.append(name).append(Constant.MESSAGE_BR);}
             }
             orderDTO.setProdName(nameStr.toString());
             orderDTO.setProcessStatusId(order.getProcessStatus().getValue());
