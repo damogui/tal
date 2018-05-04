@@ -520,7 +520,70 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     },
     setAccount: function () {
 
-        //帐号密码
+        var me = this;
+
+        var tableCotent = new System.StringBuilder();
+        tableCotent.append('	<table cellpadding="5" style="border: 1px solid;border: solid thin grey;margin-top:10px;" cellspacing="10" class="form-panel">');
+        tableCotent.append('		<tr><td>账号：</td><td><input type="text" id="accountNo" style="width:155px;" class="easyui-validatebox nsInput"/></td>');
+        tableCotent.append('		<td>密码：</td><td><input type="text" id="password" style="width:155px;" class="easyui-validatebox nsInput"/></td></tr>');
+        tableCotent.append('		<tr><td>备注：</td><td><input type="text" id="remark" style="width:155px;" class="easyui-validatebox nsInput"/></td>');
+        tableCotent.append('		<td><input id="isCrawl" type="checkbox" style="vertical-align: middle;"/><label for="isCrawl" style="vertical-align: middle;">是否抓取</label></td></tr>');
+        tableCotent.append('		<td colspan="4"><input type="button" value="删除" style="width:50px; height:25px; font-size:14px;float: right;"/>\n</td></tr>');
+        tableCotent.append('	</table>');
+
+        var builder = new System.StringBuilder();
+        builder.append('<form id="dynamicForm">');
+        builder.append('<div id="divContent" style="margin:10px;">');
+        builder.append('</div>');
+        builder.append('<a href="javascript:;" id="btnAdd" class="l-btn l-btn-small l-btn-plain"><span class="l-btn-left l-btn-icon-left"><span class="l-btn-text">新增</span><span class="l-btn-icon fa fa-plus">&nbsp;</span></span></a>');
+        builder.append('</form>');
+
+        layer.open({
+            type: 1,
+            title: '账号密码',
+            fixed: false,
+            maxmin: false,
+            shadeClose: true,
+            zIndex: 100000,
+            area: ['550px', '400px'],
+            content: builder.toString(),
+            btn: ['确定', '取消'],
+            success: function (layero, index) {
+                //添加账号密码
+                $("#btnAdd").click(function () {
+                    $("#divContent").append(tableCotent.innerValue);
+                });
+
+                $("table input[value='删除']", $("#divContent")).click(function () {
+                    $(this).parents("table").remove();
+                });
+
+            },
+            btn1: function (index, layero) {
+
+
+                var isSendMessage = $('#isSendMessage').prop('checked');
+                var trace = new Object();
+                trace.orderId = me.mainCtrl.orderProd.orderId;
+                trace.orderNo = 100000000 + me.mainCtrl.orderProd.orderId;
+                trace.orderProdId = me.orderProdId;
+                trace.orderProdStatusId = me.mainCtrl.orderProd.processStatusId;
+                trace.expressContent = expressContent;
+                trace.expressTo = expressTo;
+                trace.expressCompanyName = expressCompanyName;
+                trace.expressNo = expressNo;
+                trace.info = "快递:" + expressContent + "，" + expressCompanyName + "：" + expressNo + "。补充说明：" + remark;
+                trace.isSendMessage = isSendMessage;
+
+                //更新状态:网提
+                me.invokeService("sendExpress", [trace], function (data) {
+
+                    layer.close(index);
+                    me.query();
+                });
+            }
+        });
+
     },
     setQualification: function () {
 
