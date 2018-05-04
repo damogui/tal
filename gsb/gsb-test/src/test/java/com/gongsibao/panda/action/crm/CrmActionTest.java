@@ -12,6 +12,7 @@ import com.gongsibao.panda.action.crm.task.AllocationManualActionTest;
 import com.gongsibao.panda.action.crm.task.FollowActionTest;
 import com.gongsibao.panda.action.crm.task.RegainActionTest;
 import com.gongsibao.panda.action.crm.task.ReleaseActionTest;
+import com.gongsibao.panda.action.crm.task.RemindActionTest;
 import com.gongsibao.panda.action.crm.task.RollbackActionTest;
 import com.gongsibao.panda.action.crm.task.SaveActionTest;
 import com.gongsibao.panda.action.crm.task.TransferActionTest;
@@ -24,7 +25,8 @@ import com.gongsibao.panda.action.crm.task.TransferActionTest;
 	AbnormalActionTest.class, 
 	FollowActionTest.class, 
 	RegainActionTest.class, 
-	ReleaseActionTest.class, 
+	ReleaseActionTest.class,
+	RemindActionTest.class,
 	RollbackActionTest.class, 
 	TransferActionTest.class,
 	

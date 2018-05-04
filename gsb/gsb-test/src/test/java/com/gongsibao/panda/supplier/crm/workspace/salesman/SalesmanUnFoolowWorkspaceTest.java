@@ -18,8 +18,8 @@ public class SalesmanUnFoolowWorkspaceTest extends SalesmanAllTaskWorkspaceTest{
 		resourceNodeCode = "CRM_SALESMAN_TASK_UNFOOLOW";
 		
 		//如：有下次跟进时间，并且是当天的
+		//listFilter = "nextFoolowTime is not null and DATE_FORMAT(nextFoolowTime,'%Y-%m-%d') = CURDATE() and ownerId = '{userId}'";
 		listFilter = "nextFoolowTime is not null and nextFoolowTime = CURDATE() and ownerId = '{userId}'";
-
         listPartServiceController = TaskAllListPart.class.getName();
 	}
 	

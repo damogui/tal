@@ -27,7 +27,7 @@ public class ActionFollowVerify implements IAction {
 		
 		NCustomerTaskFoolow taskFoolow = (NCustomerTaskFoolow) ctx.getItem();
 		NCustomerTaskQuality quality = getNCustomerTaskQuality(taskFoolow.getQualityId());
-		QualityCategory category = quality.getIntentionCategory();
+		QualityCategory category = quality != null ? quality.getIntentionCategory() : null;
 		if (quality.getProductRequired()) {
 			Boolean isHas = hasProduct(taskFoolow.getTaskId());
 			if(!isHas){

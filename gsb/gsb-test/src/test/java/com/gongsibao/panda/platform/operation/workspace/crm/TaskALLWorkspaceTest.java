@@ -6,6 +6,7 @@ import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
+import org.netsharp.panda.plugin.dic.ToolbarType;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
@@ -27,6 +28,7 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 		listPartServiceController = PlatformTaskAllListPart.class.getName();
 		listPartImportJs = "/gsb/supplier/crm/base/js/task-base-list.part.js|/gsb/platform/operation/crm/js/task-all-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
 		listToolbarPath = "task/all/list";
+		rowToolbaPath = "/operation/task/all/row/toolbar";
 		listFilter = null;
 	}
 
@@ -47,11 +49,41 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 		return toolbar;
 	}
 
+	
+	@Override
 	public PToolbar createRowToolbar() {
-
-		return null;
+		ResourceNode node = this.resourceService.byCode(resourceNodeCode);
+        PToolbar toolbar = new PToolbar();
+        {
+            toolbar.toNew();
+            toolbar.setBasePath("panda/datagrid/row/edit");
+            toolbar.setPath(rowToolbaPath);
+            toolbar.setName("分配");
+            toolbar.setResourceNode(node);
+            toolbar.setToolbarType(ToolbarType.BASE);
+        }
+        PToolbarItem item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("allocation");
+            item.setName("分配");
+            item.setSeq(1000);
+            item.setCommand("{controller}.allocation();");
+            toolbar.getItems().add(item);
+        }
+        //售前-提醒操作
+        item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("remind");
+			item.setName("提醒");
+			item.setSeq(2000);
+			item.setCommand("{controller}.remind();");
+			toolbar.getItems().add(item);
+		}
+        return toolbar;
 	}
-
+	
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
 
