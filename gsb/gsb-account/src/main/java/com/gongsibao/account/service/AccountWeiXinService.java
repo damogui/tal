@@ -549,6 +549,7 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
             }
             this.pushTextMsgByOriginalId(publicAccount.getOriginalId(), account.getId(), memo, String.valueOf(Double.valueOf(payMoney) / 100), nameStr.toString(), null, payStatus.equals("1") ? "/index.html#/mine/order/2" : "/index.html#/mine/order/1", null, AccountWxMsg.BUY_SUCCESS);
         } catch (Exception e) {
+            e.printStackTrace();
             logger.error("推送微信支付成功消息失败：" + e.getMessage());
         }
     }
