@@ -189,7 +189,8 @@ $(function(){
 				  					      }
 				  					 if(d.tmcState==2){//如果已经确认，但没有付款
 				  						     //跳转到付款页面,付款成功，修改为3状态
-				  						 me.$router.push({path:"/payment",query:{spid:sourceInfo.supplierId,source:sourceInfo.source,casecode:sourceInfo.casecode}});
+				  						me.$router.push({path:"/zzty",query:{spid:sourceInfo.supplierId,source:sourceInfo.source,casecode:sourceInfo.casecode}});
+				  						// me.$router.push({path:"/payment",query:{spid:sourceInfo.supplierId,source:sourceInfo.source,casecode:sourceInfo.casecode}});
 				  						 return;
 				  					      }
 				  					 if(d.tmcState==3){
