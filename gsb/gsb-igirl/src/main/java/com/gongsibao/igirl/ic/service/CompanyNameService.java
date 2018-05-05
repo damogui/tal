@@ -19,13 +19,6 @@ public class CompanyNameService extends GsbPersistableService<CompanyName> imple
     }
 
     @Override
-    public CompanyName save(CompanyName entity) {
-        String name = getName(entity);
-        entity.setName(name);
-        return super.save(entity);
-    }
-
-    @Override
     public String getName(CompanyName companyName) {
         NameStructureType type = companyName.getType();
         StringBuffer sb = new StringBuffer();

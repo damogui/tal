@@ -39,4 +39,15 @@ public class NCustomerTaskFoolowService extends
 		}
 		return entity;
 	}
+	/**
+	 * 售前提醒操作需添加跟进记录（只是添加一条记录，其他不变不执行action操作）
+	 * @param entity
+	 * @return
+	 */
+	@Override
+	public NCustomerTaskFoolow remindFoolowSave(NCustomerTaskFoolow entity) {
+		
+		entity = super.save(entity);
+		return entity;
+	}
 }

@@ -38,7 +38,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * ClassName: UserController
+ * @Description: TODO 微信用户相关接口
+ * @author hbpeng <hbpeng@gongsibao.com>
+ * @date 2018/5/4 14:49
+ */
 @RestController
 @RequestMapping(value = "/wx/{v}")
 @ApiVersion(1)
@@ -54,7 +59,9 @@ public class UserController extends BaseController {
     ISoOrderService soOrderService = ServiceFactory.create(ISoOrderService.class);
     IPayService payService = ServiceFactory.create(IPayService.class);
 
-    // 客户服务，为了事务，按照netsharp service的注解重写一个
+    /**
+     * 客户服务，为了事务，按照netsharp service的注解重写一个
+     */
     com.netsharp.rest.base.account.IAccountService netSharpAccountService = ServiceFactory.create(com.netsharp.rest.base.account.IAccountService.class);
 
     /**
@@ -153,7 +160,11 @@ public class UserController extends BaseController {
         throw new WxException(200, "绑定成功!");
     }
 
-    //手机号校验
+    /**
+     * 手机号校验
+     * @param mobilePhone
+     * @return
+     */
     private boolean checkMobilePhone(String mobilePhone) {
         if (StringUtils.isBlank(mobilePhone)) {
             return false;
@@ -219,7 +230,13 @@ public class UserController extends BaseController {
         }
     }
 
-    /*获取微信公众号支付（H5）的参数*/
+    /**
+     * 获取微信公众号支付（H5）的参数
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/getWxPayMP", method = RequestMethod.GET)
     public SortedMap<String, String> getWxPayMP(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String ipAddress = null;
@@ -458,8 +475,6 @@ public class UserController extends BaseController {
         } else {
             Pay pay = payService.byId(payId);
             if (pay == null || NumberUtils.toInt(pay.getSuccessStatus().getValue()) != 3123) {
-//                log.info("==========checkOrder getPayStatusId==========" + order.getPayStatusId());
-//                log.info("==========checkOrder getSuccessStatusId==========" + pay.getSuccessStatusId());
                 data.setCode(-1);
                 data.setMsg("未付款");
             } else {
@@ -470,7 +485,25 @@ public class UserController extends BaseController {
         return data.getMsg();
     }
 
-    /*调用支付第三方接口*/
+    /**
+     * 调用支付第三方接口
+     * @param oid
+     * @param payChannels
+     * @param clientType
+     * @param order
+     * @param orderIdStr
+     * @param payId
+     * @param totalFee
+     * @param body
+     * @param subject
+     * @param bankCode
+     * @param paymentChannels
+     * @param isZgcBank
+     * @param callType
+     * @param openId
+     * @return
+     * @throws Exception
+     */
     private Map<String, Object> getPayData(String oid, String payChannels, Integer clientType, SoOrder order, String orderIdStr, Integer payId, Integer totalFee, String body, String subject, String bankCode, Integer paymentChannels, Integer isZgcBank, Integer callType, String openId) throws Exception {
         String result = "";
         Map<String, Object> resultMap = new HashMap<>();
@@ -479,13 +512,9 @@ public class UserController extends BaseController {
         switch (payChannels) {
             case "wx":
                 // 单位是分
-                if (clientType.equals(1)) {//当是微信公众号（H5）支付时，返回微信授权的url链接（获取code值）
-                    /*String returnUrl = URLEncoder.encode(PayConfigUtil.Call_MP_URL + "?orderNoStr=" + order.getNo() + "_" + orderIdStr + "_" + payId + "&orderIdStr=" + orderIdStr + "&payIdStr=" + SecurityUtils.rc4Encrypt(payId) + "", "UTF-8");
-                    result = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + PayConfigUtil.getAppid() + "&redirect_uri=" + returnUrl + "&response_type=code&scope=snsapi_base&state=WeiXin";*/
+                if (clientType.equals(1)) {
+                    //当是微信公众号（H5）支付时，返回微信授权的url链接（获取code值）
                     result = getAuthorizeUrl(oid, order.getNo(), orderIdStr, payId, callType, openId);
-                } else {
-                    //result = wxpay(StringUtils.trimToEmpty(order.getNo()) + "_" + orderIdStr + "_" + payId, NumberUtils.toInt(totalFee), body, clientType, "", 0);
-//                    result = weiXinPayService.wxpay(StringUtils.trimToEmpty(order.getNo()) + "_" + orderIdStr + "_" + payId, NumberUtils.toInt(totalFee), body, clientType, "", 0);
                 }
                 break;
         }

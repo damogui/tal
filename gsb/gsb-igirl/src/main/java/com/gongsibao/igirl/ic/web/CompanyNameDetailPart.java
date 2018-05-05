@@ -18,19 +18,4 @@ public class CompanyNameDetailPart extends DetailPart {
         }
         return name;
     }
-    public String updateState(Integer id){
-        CompanyName companyName = service.updateState(id);
-        if (companyName!=null){
-            IcExcelBaseInfoService exbService = ServiceFactory.create(IcExcelBaseInfoService.class);
-            Integer exbid = companyName.getExcelBaseInfoId();
-            String name = companyName.getName();
-            ExcelBaseInfo info = exbService.byId(exbid);
-            info.setCompanyName(name);
-            info.setEntityState(EntityState.Persist);
-            exbService.save(info);
-            return "";
-        }else{
-            return "数据异常";
-        }
-    }
 }

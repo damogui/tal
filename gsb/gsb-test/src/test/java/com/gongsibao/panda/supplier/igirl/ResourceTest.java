@@ -128,6 +128,8 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(CompanyName.class.getName(), "公司名称", "IGRIL_IC_REGIST_" + CompanyName.class.getSimpleName(), IcCompanyNameService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(Member.class.getName(), "成员信息", "IGRIL_IC_REGIST_" + Member.class.getSimpleName(), IcMemberService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(Shareholder.class.getName(), "股东信息", "IGRIL_IC_REGIST_" + Shareholder.class.getSimpleName(), IcShareholderService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(CorporateAddress.class.getName(), "企业住址", "IGRIL_IC_REGIST_" + CorporateAddress.class.getSimpleName(), IcCorporateAddressService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(Worker.class.getName(), "职员信息", "IGRIL_IC_REGIST_" + Worker.class.getSimpleName(), IcWorkerService.class.getName(), node1.getId());
 		}
 		node1 = this.createResourceNodeCategory("工商状态", "GSB_IGIRL_IC_STATE", node.getId());
 		{

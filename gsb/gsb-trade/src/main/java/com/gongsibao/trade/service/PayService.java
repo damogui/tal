@@ -129,7 +129,7 @@ public class PayService extends PersistableService<Pay> implements IPayService {
 
         }
         if (orderIdAllAmount.size() > 0) {
-            execNum3 = updateAllPayInfo(orderIdFirstAmount, payTime);
+            execNum3 = updateAllPayInfo(orderIdAllAmount, payTime);
 
         }
 

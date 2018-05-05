@@ -1,10 +1,10 @@
 package com.gongsibao.entity.acount;
 
 public enum AccountWxMsg {
-    WORK_PROCESS_CHANGE("办理进度提醒OPENTM415261101", "fhZzqK3IvscRH8UWKBsfOtj_pCpTBg78PVed_S8KXiE"),
-    BUY_SUCCESS("订单支付成功TM00015", "vPLuZxpnOtDicrzQI8fj2v2Y-2t-caV3b-BIz7A-CmI"),
-    ORDER_SUCCESS("中台下单成功OPENTM407170106", "PO465wpUOS-PJpglWPzagdVAu0x85Txicgx4RMfG7aU"),
-    ORDER_STATE_CHANGE("订单状态更新TM00017", "GDr6CbXaPxy-oDpXaJGZgvxeOk6v09uvoe6qJ1Up6pM");
+    WORK_PROCESS_CHANGE("办理进度提醒OPENTM415261101", "4YVwtOH6hE4p9JmmpWVJadPY0Ld_2igrsd02mTqpPGU"),
+    BUY_SUCCESS("订单支付成功TM00015", "jWkVQgQOaHRs9aLFKnAbThc7WzBZAdGmWud1q9B7a3w"),
+    ORDER_SUCCESS("中台下单成功OPENTM407170106", "DV5lEKthAF3vpZwC56SYz-az-ZwK3Rzrr8kLtCaOgyc"),
+    ORDER_STATE_CHANGE("订单状态更新TM00017", "g2XaRQi0xzJ0dMD6WAPppUVvYEjAAZzxUPRXw9rqqus");
     // 成员变量
     private String name;
     private String empId;

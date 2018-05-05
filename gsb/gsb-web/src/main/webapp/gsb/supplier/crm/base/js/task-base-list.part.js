@@ -430,6 +430,45 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 			return;
 		});
 	},
+	remind : function(id) {
+		//售前-提醒
+		var me = this;
+		PandaHelper.openDynamicForm({
+			title:'提醒',
+			width:450,
+			height:300,
+			items:[{id:'txtNote',
+				title:'内容',
+				type:'textarea',
+				height:130,
+				width:300,
+	            className:'',
+	            option:{required:true,validType:['maxLength[20]']}
+			}],
+			callback:function(index, layero){
+				
+				var validate = $('#dynamicForm').form('validate');
+				if(!validate){
+					return;
+				}
+				var getNote = $("#txtNote").val();
+				if (System.isnull(getNote)) {
+					IMessageBox.info('请输入提醒内容');
+					return false;
+				}
+				me.doRemind(id,getNote);
+			}
+		});
+	},
+	doRemind : function(id,getNote) {
+		var me = this;
+		this.invokeService("remind", [id,getNote],function(data) {
+			me.reload();
+			IMessageBox.toast('操作成功');
+			layer.closeAll();
+			return;
+		});
+	},
 	contactFormatter:function(value,row,index,typeName){
 		
 		if(value){

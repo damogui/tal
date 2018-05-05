@@ -51,24 +51,6 @@ com.gongsibao.igirl.ic.web.CompanyNameDetailPart = org.netsharp.panda.commerce.D
             }
         });
         return true;
-    },
-    updateState:function () {
-        var me = this;
-        var rows=me.getSelections();
-        if (rows.length == 0) {
-            IMessageBox.info("您没有选择记录!");
-            return;
-        } else if (rows.length > 1) {
-            IMessageBox.info("只能选择一条记录!");
-            return;
-        }
-        var id = rows[0].id;
-        me.invokeService("updateState",[id],function (result) {
-            me.reload();
-            IMessageBox.toast(result);
-            layer.closeAll();
-            return;
-        })
     }
 });
 
@@ -200,5 +182,49 @@ com.gongsibao.igirl.ic.web.ShareholderDetailPart = org.netsharp.panda.commerce.D
             }
         });
         return true;
+    }
+});
+
+
+com.gongsibao.igirl.ic.web.WorkerDetailPart = org.netsharp.panda.commerce.DetailPart.Extends({
+    ctor: function () {
+        this.base();
+    },
+    isTel:function (el) {
+        var me = this;
+        var mobile = $(el).val();
+        var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+        if (!myreg.test(mobile)) {
+            IMessageBox.error("【手机】格式错误");
+            $(el).val("");
+            return false;
+        }
+        me.invokeService("byMobile",[mobile],function (member) {
+            if(member!=null){
+                $("#memberName").val(member.name);
+            }else{
+                IMessageBox.error("当前成员不存在")
+                $(el).val("");
+                $("#memberName").val("");
+                return false;
+            }
+        });
+        return true;
+    }
+});
+
+com.gongsibao.igirl.ic.web.CorporateAddressDetailPart = org.netsharp.panda.commerce.DetailPart.Extends({
+    ctor: function () {
+        this.base();
+        $("fieldset:contains('供地')").hide();
+    },
+    ownLandTypeChange:function (newValue,oldValue) {
+        if(newValue==0){
+            $("fieldset:contains('供地')").hide();
+            $("fieldset:contains('自有地')").show();
+        }else{
+            $("fieldset:contains('供地')").show();
+            $("fieldset:contains('自有地')").hide()
+        }
     }
 });

@@ -101,7 +101,7 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
         var isValidate = $("#" + this.context.formName).form('validate');
        
         if(isValidate){
-        	debugger;
+
         	var mobile = $("#mobile").val();
         	var telephone = $("#telephone").val();
         	var weixin = $("#weixin").val();
@@ -336,7 +336,7 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
     	
     },
     verify:function(){
-    	
+
     	layer.open({
     		  type: 2,
     		  title: '客户校验',
@@ -352,10 +352,11 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
     bindCustomer:function(customerId){
 
     	var swtCustomerId = this.queryString("swtCustomerId");
+    	var swtServiceId = this.queryString("swtServiceId");
     	if(swtCustomerId){
     		
     		// 商务通过来的
-    		window.location.href=this.editUrl+'?id='+customerId;
+    		window.location.href='/panda/crm/platform/customer/swt/edit?id='+customerId+'&swtCustomerId='+swtCustomerId+'&swtServiceId='+swtServiceId;
     	}else{
     		
         	var url = this.addUrl +'?id='+customerId;

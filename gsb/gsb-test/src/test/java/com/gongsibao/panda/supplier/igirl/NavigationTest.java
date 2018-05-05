@@ -135,7 +135,8 @@ public class NavigationTest extends NavigationBase {
 
 			createPTreeNode(tree, "GSB_IC_AI", null, "GSB_IGIRL_IC_REGIST", "工商注册", "",1);
 			{
-				createPTreeNode(tree, "GSB_IGIRL_IC_REGIST", null, "IGRIL_IC_REGIST_" + ExcelBaseInfo.class.getSimpleName(), "核名信息", "/igirl/ic/ExcelBaseInfo/all/list", 1);
+				createPTreeNode(tree, "GSB_IGIRL_IC_REGIST", null, "IGRIL_IC_REGIST_" + ExcelBaseInfo.class.getSimpleName(), "核名准备", "/igirl/ic/ExcelBaseInfo/base/list", 1);
+				createPTreeNode(tree, "GSB_IGIRL_IC_REGIST", null, "IGRIL_IC_REGIST_" + ExcelBaseInfo.class.getSimpleName(), "登记准备", "/igirl/ic/ExcelBaseInfo/ex/list", 1);
 			}
 
 			createPTreeNode(tree, "GSB_IC_AI", null, "GSB_IGIRL_IC_STATE", "工商状态", "",2);
