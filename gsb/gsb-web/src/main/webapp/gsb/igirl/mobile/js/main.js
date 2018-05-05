@@ -205,7 +205,8 @@ $(function(){
 				  					      }
 				  					 if(d.tmcState==5){
 				  						    //已经上传状态，进入微门户
-				  						me.$router.push({path:"/progresslist",query:{spid:sourceInfo.supplierId,source:sourceInfo.source,casecode:sourceInfo.casecode}});
+				  						me.$router.push({path:"/noticeqr",query:{spid:sourceInfo.supplierId,source:sourceInfo.source,casecode:sourceInfo.casecode}});
+				  						//me.$router.push({path:"/progresslist",query:{spid:sourceInfo.supplierId,source:sourceInfo.source,casecode:sourceInfo.casecode}});
 				  					      }
 				  			    	  });
 				  			      }			 
