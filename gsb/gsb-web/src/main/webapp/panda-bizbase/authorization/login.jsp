@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>公司宝Beehive2.0</title>
+<title>好未来内部OA</title>
 <link  rel='stylesheet' type='text/css' href='/package/font-awesome/css/font-awesome.min.css'/>
 <link rel="stylesheet" type="text/css" href="/package/animsition/animsition.css">
 <link rel="stylesheet" type="text/css" href="/panda-bizbase/authorization/css/login.css">

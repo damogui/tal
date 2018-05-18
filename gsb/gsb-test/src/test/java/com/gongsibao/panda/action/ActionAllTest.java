@@ -1,6 +1,6 @@
 package com.gongsibao.panda.action;
 
-import com.gongsibao.panda.action.bd.BdActionTest;
+
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -14,7 +14,7 @@ import com.gongsibao.panda.action.trade.TradeActionAllTest;
         SupplierActionTest.class,
         TradeActionAllTest.class,
         CrmActionTest.class,
-        BdActionTest.class
+
 })
 public class ActionAllTest {
 

@@ -17,7 +17,7 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
         org.netsharp.meta.basebiz.AllTests.class,
 
 
-	org.netsharp.wx.meta.AllTests.class,
+	//org.netsharp.wx.meta.AllTests.class,
 //  org.netsharp.cache.plugin.AllTests.class,
 //    org.netsharp.scrum.meta.AllTests.class,
 
@@ -40,7 +40,7 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
         SupplierAllTest.class,
 
         //6.商品管理
-        com.gongsibao.panda.platform.product.AllTest.class,
+        //com.gongsibao.panda.platform.product.AllTest.class,
 
 
         //8.交易中心
@@ -57,10 +57,10 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
 // 	com.gongsibao.panda.gardian.AllTest.class,
 
         //12.财务报销
-        com.gongsibao.panda.platform.cw.AllTest.class,
+        //com.gongsibao.panda.platform.cw.AllTest.class,
 
 		// 13Rest接口
-		com.gongsibao.panda.rest.RestAllTest.class,
+		//com.gongsibao.panda.rest.RestAllTest.class,
 
         //处理资源Id
         org.netsharp.meta.end.AllTests.class,
