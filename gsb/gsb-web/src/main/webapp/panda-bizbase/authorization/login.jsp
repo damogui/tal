@@ -15,20 +15,6 @@
     <div class="page-content height-full">
         <div class="page-brand-info vertical-align animation-slide-left hidden-xs">
             <div class="page-brand vertical-align-middle">
-            <!--
-                <h2 class="hidden-sm">NetSharp 通用管理系统快速开发平台</h2>
-                <ul class="list-icons hidden-sm">
-                    <li>
-                        <i class="wb-check" aria-hidden="true"></i> NetSharp 是一个基于最新 Web技术的企业级通用管理系统快速开发框架，可以帮助企业极大的提高工作效率，节省开发成本，提升品牌形象。
-                    </li>
-                    <li><i class="wb-check" aria-hidden="true"></i> 您可以 NetSharp 为基础，快速开发各种MIS系统，如CMS、OA、CRM、ERP、POS等。</li>
-                    <li><i class="wb-check" aria-hidden="true"></i> NetSharp 紧贴业务特性，涵盖了大量的常用组件和基础功能，最大程度上帮助企业节省时间成本和费用开支。
-                    </li>
-                </ul>
-                 <div class="hidden-sm">
-                    <a href="http://netsharp.org" class="btn btn-primary margin-right-5" target="_blank"><i class="icon wb-home"></i> 返回官网</a>
-                    <a href="javascript:;" class="btn btn-info open-kf"><i class="icon wb-user"></i> 联系客服</a>
-                </div> -->
             </div>
         </div>
         <div class="page-login-main animation-fade">
@@ -36,7 +22,7 @@
             <div class="vertical-align" style="height:90%;">
                 <div class="vertical-align-middle">
                     <div class="brand visible-xs text-center">
-                        <img class="brand-img" src="/panda-bizbase/authorization/images/logo.png">
+                        <img class="brand-img" src="/panda-bizbase/authorization/images/tal.png">
                     </div>
                     <h3 class="hidden-xs">登录</h3>
                     <p class="hidden-xs">建议使用Chrome浏览器，<a target="_blank" href="http://pan.baidu.com/s/1o7EstQy">点击下载</a></p>
@@ -64,7 +50,7 @@
                 </div>
             </div>
             <footer class="page-copyright">
-                <p>公司宝 &copy; <a href="http://www.gongsibao.com" target="_blank">gongsibao.com</a></p>
+                <p>好未来 &copy; <a href="http://www.100tal.com/" target="_blank">100tal.com</a></p>
             </footer>
         </div>
     </div>
